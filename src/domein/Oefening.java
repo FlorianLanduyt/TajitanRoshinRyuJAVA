@@ -22,8 +22,6 @@ public class Oefening {
         setThema(thema);
     }
 
-    
-    
     public String getUrlVideo() {
         return urlVideo;
     }
@@ -55,7 +53,5 @@ public class Oefening {
     private void setThema(Thema thema) {
         this.thema = thema;
     }
-    
-    
-    
+ 
 }
