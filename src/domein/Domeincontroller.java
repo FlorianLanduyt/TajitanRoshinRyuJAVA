@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domain;
+package domein;
 
 /**
  *
  * @author robdeputter
  */
-public class Domaincontroller {
+public class Domeincontroller {
     
 }
