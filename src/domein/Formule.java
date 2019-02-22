@@ -5,34 +5,18 @@
  */
 package domein;
 
+import com.sun.corba.se.spi.orbutil.threadpool.Work;
+
 /**
  *
  * @author Tim
  */
-public class Formule{
-    private String tijdstip;
-    private String beschrijving;
-
-    public Formule(String tijdstip, String beschrijving) {
-        setTijdstip(tijdstip);
-        setBeschrijving(beschrijving);
-    }
-    
-    public String getTijdstip() {
-        return tijdstip;
-    }
-
-    private void setTijdstip(String tijdstip) {
-        this.tijdstip = tijdstip;
-    }
-
-    public String getBeschrijving() {
-        return beschrijving;
-    }
-
-    private void setBeschrijving(String beschrijving) {
-        this.beschrijving = beschrijving;
-    }
-    
-    
+public enum Formule {
+    DI_DO,
+    DI_ZA,
+    WO_ZA,
+    WO,
+    ZA,
+    ACTIVITEIT,
+    STAGE
 }
