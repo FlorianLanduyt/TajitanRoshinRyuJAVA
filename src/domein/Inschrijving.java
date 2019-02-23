@@ -5,6 +5,8 @@
  */
 package domein;
 
+import java.util.Date;
+
 /**
  *
  * @author Tim
@@ -13,9 +15,9 @@ public class Inschrijving {
 
     private Formule formule;
     private Lid lid;
-    private String tijdstip;
+    private Date tijdstip;
 
-    public Inschrijving(Formule formule, Lid lid, String tijdstip) {
+    public Inschrijving(Formule formule, Lid lid, Date tijdstip) {
         setFormule(formule);
         setLid(lid);
         setTijdstip(tijdstip);
@@ -37,11 +39,11 @@ public class Inschrijving {
         this.lid = lid;
     }
 
-    public String getTijdstip() {
+    public Date getTijdstip() {
         return tijdstip;
     }
 
-    private void setTijdstip(String tijdstip) {
+    private void setTijdstip(Date tijdstip) {
         this.tijdstip = tijdstip;
     }
     

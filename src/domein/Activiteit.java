@@ -13,20 +13,24 @@ import java.util.Date;
  */
 public class Activiteit {
     private String naam;
+    private Formule formule;
     private Date datum;
     private String straat;
     private String stad;
     private String postcode;
     private String huisnummer;
     private String bus;
+    
 
     // enkel naam en datum zijn verplicht in de DB, 
     // vandaar krijgen deze private setters 
     // en worden deze altijd in de constructor geïnitialiseerd
-    public Activiteit(String naam, Date datum) {
+    public Activiteit(String naam,Formule formule, Date datum) {
         setNaam(naam);
+        setFormule(formule);
         setDatum(datum);
     }
+    
 
     public String getNaam() {
         return naam;
@@ -35,6 +39,15 @@ public class Activiteit {
     private void setNaam(String naam) {
         this.naam = naam;
     }
+
+    public Formule getFormule() {
+        return formule;
+    }
+
+    private void setFormule(Formule formule) {
+        this.formule = formule;
+    }
+    
 
     public Date getDatum() {
         return datum;
