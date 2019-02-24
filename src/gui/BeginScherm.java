@@ -6,6 +6,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.StartUpGUI;
@@ -26,8 +28,10 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
     @FXML
     private Label lblAdminName;
 
+    @FXML
+    private ImageView ivSignIn;
+
     private AdminController adminController;
-    private Admin admin;
 
     private LoginForm loginForm;
 
@@ -42,14 +46,13 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         }
 
         adminController = new AdminController();
-        admin = null;
 
-        loginForm = new LoginForm(adminController);
-        loginForm.addObserver(this);
     }
 
     @FXML
     private void meldAan(ActionEvent event) {
+        loginForm = new LoginForm(adminController);
+        loginForm.addObserver(this);
         Scene scene = new Scene(loginForm);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -60,8 +63,9 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        Admin admin = (Admin) pce.getNewValue();
-        lblAdminName.setText(admin.getGebruikersnaam());
+        adminController.setAangemeldeAdmin((Admin) pce.getNewValue());
+        lblAdminName.setText("Welkom, " + adminController.getAangemeldeAdmin().getGebruikersnaam());
+        this.getChildren().removeAll(Arrays.asList(new Object[]{btnSignIn, ivSignIn}));
     }
 
 }

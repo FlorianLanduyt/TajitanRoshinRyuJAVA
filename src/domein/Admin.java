@@ -8,7 +8,6 @@ public class Admin {
       Op deze manier kunnen we dan bepaalde functionaliteiten enablen/disablen op basis of er een
       Admin is ingelogd of niet
      */
-
     private int id;
     private String gebruikersnaam;
     private String wachtwoord;
@@ -55,12 +54,12 @@ public class Admin {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.gebruikersnaam, other.gebruikersnaam)) {
+        if (!Objects.equals(this.gebruikersnaam.toLowerCase(), other.gebruikersnaam.toLowerCase())) {
+            return false;
+        }
+        if (!Objects.equals(this.wachtwoord, other.wachtwoord)) {
             return false;
         }
         return true;
     }
-    
-    
-
 }

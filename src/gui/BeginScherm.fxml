@@ -19,7 +19,7 @@
             <Image url="@../images/BeginSchermImage.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="1201.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+      <ImageView fx:id="ivSignIn" fitHeight="40.0" fitWidth="40.0" layoutX="1201.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
          <image>
             <Image url="@../images/Login.png" />
          </image>

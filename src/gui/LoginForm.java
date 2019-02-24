@@ -15,13 +15,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.beans.PropertyChangeListener;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 
 public class LoginForm extends AnchorPane {
 
     @FXML
     private TextField txfUsername;
     @FXML
-    private TextField txfPassword;
+    private PasswordField txfPassword;
     @FXML
     private Button btnCancel;
     @FXML
@@ -53,11 +55,21 @@ public class LoginForm extends AnchorPane {
     @FXML
     private void meldAan(ActionEvent event) {
         Admin admin = new Admin(txfUsername.getText(), txfPassword.getText());
-        subject.firePropertyChange("aangemeldeAdmin",
-                adminController.getAangemeldeAdmin(),
-                admin);
-        Stage stage = (Stage) (getScene().getWindow());
-        stage.close();
+        if (adminController.adminBestaat(admin)) {
+            subject.firePropertyChange("aangemeldeAdmin",
+                    adminController.getAangemeldeAdmin(),
+                    admin);
+            Stage stage = (Stage) (getScene().getWindow());
+            stage.close();
+        } else {
+            txfUsername.clear();
+            txfPassword.clear();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Aanmeldfout");
+            alert.setHeaderText("Aanmelden niet geslaagd");
+            alert.setContentText("De inloggegevens waren incorrect.");
+            alert.showAndWait();
+        }
     }
 
     public void addObserver(PropertyChangeListener pcl) {

@@ -6,6 +6,7 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,17 +21,26 @@ public class AdminController {
     public AdminController() {
         admins = new ArrayList<>();
         aangemeldeAdmin = null;
-        //Hardcoded admin 
-        Admin admin = new Admin("admin", "admin");
-        voegAdminToe(admin);
+
+        //Hardcoded admins
+        Admin tybo = new Admin("Tybo", "admin");
+        Admin rob = new Admin("Rob", "admin");
+        Admin florian = new Admin("Florian", "admin");
+        Admin tim = new Admin("Tim", "admin");
+        Arrays.stream(new Admin[]{tybo, rob, florian, tim}).forEach(a -> voegAdminToe(a));
     }
 
     public Admin getAangemeldeAdmin() {
         return aangemeldeAdmin;
     }
 
-    private void setAangemeldeAdmin(Admin admin) {
-        aangemeldeAdmin = admin;
+    public void setAangemeldeAdmin(Admin admin) {
+        Admin a = admins
+                .stream()
+                .filter(adm -> adm.equals(admin))
+                .findAny()
+                .orElse(null);
+        aangemeldeAdmin = a;
     }
 
     public List<Admin> getAdmins() {
@@ -47,6 +57,15 @@ public class AdminController {
 
     public boolean isAangemeld(Admin admin) {
         return aangemeldeAdmin.equals(admin);
+    }
+
+    public boolean adminBestaat(Admin admin) {
+        Admin a = admins
+                .stream()
+                .filter(adm -> adm.equals(admin))
+                .findAny()
+                .orElse(null);
+        return a != null;
     }
 
     public boolean aanmelden(Admin admin) {
