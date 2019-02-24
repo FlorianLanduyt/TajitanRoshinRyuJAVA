@@ -20,6 +20,9 @@ public class AdminController {
     public AdminController() {
         admins = new ArrayList<>();
         aangemeldeAdmin = null;
+        //Hardcoded admin 
+        Admin admin = new Admin("admin", "admin");
+        voegAdminToe(admin);
     }
 
     public Admin getAangemeldeAdmin() {

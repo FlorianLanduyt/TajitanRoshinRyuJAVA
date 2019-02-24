@@ -15,20 +15,21 @@ import javafx.stage.Stage;
  * @author Tybo Vanderstraeten
  */
 public class StartUpGUI extends Application {
-
+    
     public static void main(String[] args) {
         launch(args);
     }
-
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Declaring guiController instance
         BeginScherm beginScherm = new BeginScherm();
         //Settings for GUI
-        Scene scene = new Scene(beginScherm, 1280, 720);
+        Scene scene = new Scene(beginScherm);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Taijitan Yoshin Ryu - Adminmodule");
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
-
+    
 }

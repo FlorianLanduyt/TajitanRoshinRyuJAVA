@@ -29,7 +29,6 @@ public class StartUp_CUI {
      */
     public static void main(String[] args) {
         OverzichtController oc = new OverzichtController();
-        AdminController ac = new AdminController();
 
         //DataInitializer aanroepen
         DataInitializer.initializeData(oc.geefOverzichtInschrijvingen(), oc.geefOverzichtActiviteiten(),
@@ -45,23 +44,6 @@ public class StartUp_CUI {
         System.out.println(geefOverzichtInschrijvingen(oc.geefOverzichtInschrijvingen()));
 
         System.out.println(geefOverzichtInschrijvingen(oc.geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule.WO_ZA)));
-
-        //Testen aanmelden en afmelden admin
-        System.out.printf("Expected = geen admin aangemeld.%nResult = %s%n%n", geefAangemeldeAdmin(ac));
-        System.out.printf("Expected = 0.%nResult = %d%n%n", ac.getAdmins().size());
-
-        Admin admin = new Admin("admin", "admin");
-        ac.voegAdminToe(admin);
-
-        System.out.printf("Expected = 1.%nResult = %d%n%n", ac.getAdmins().size());
-
-        ac.aanmelden(admin);
-        System.out.printf("Expected = admin.%nResult = %s%n%n", geefAangemeldeAdmin(ac));
-
-        ac.afmelden(admin);
-        ac.verwijderAdmin(admin);
-        System.out.printf("Expected = geen admin aangemeld.%nResult = %s%n%n", geefAangemeldeAdmin(ac));
-        System.out.printf("Expected = 0.%nResult = %d%n%n", ac.getAdmins().size());
     }
 
     public static String geefOverzichtAanwezighedenInString(List<Aanwezigheid> lijst) {
@@ -96,10 +78,4 @@ public class StartUp_CUI {
         return uitvoer;
     }
 
-    public static String geefAangemeldeAdmin(AdminController ac) {
-        if (ac.getAangemeldeAdmin() == null) {
-            return String.format("Geen admin aangemeld!");
-        }
-        return String.format("%s", ac.getAangemeldeAdmin().getGebruikersnaam());
-    }
 }

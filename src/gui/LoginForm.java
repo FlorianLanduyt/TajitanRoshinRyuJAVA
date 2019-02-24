@@ -1,0 +1,71 @@
+package gui;
+
+import domein.Admin;
+import domein.AdminController;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import java.beans.PropertyChangeListener;
+
+public class LoginForm extends AnchorPane {
+
+    @FXML
+    private TextField txfUsername;
+    @FXML
+    private TextField txfPassword;
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private Button btnLogin;
+
+    private PropertyChangeSupport subject;
+    private AdminController adminController;
+
+    public LoginForm(AdminController adminController) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginForm.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        subject = new PropertyChangeSupport(this);
+        this.adminController = adminController;
+    }
+
+    @FXML
+    private void annuleer(ActionEvent event) {
+        Stage stage = (Stage) (getScene().getWindow());
+        stage.close();
+    }
+
+    @FXML
+    private void meldAan(ActionEvent event) {
+        Admin admin = new Admin(txfUsername.getText(), txfPassword.getText());
+        subject.firePropertyChange("aangemeldeAdmin",
+                adminController.getAangemeldeAdmin(),
+                admin);
+        Stage stage = (Stage) (getScene().getWindow());
+        stage.close();
+    }
+
+    public void addObserver(PropertyChangeListener pcl) {
+        subject.addPropertyChangeListener(pcl);
+    }
+
+    public void removeObserver(PropertyChangeListener pcl) {
+        subject.removePropertyChangeListener(pcl);
+    }
+
+}
