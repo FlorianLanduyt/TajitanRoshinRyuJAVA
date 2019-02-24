@@ -7,6 +7,7 @@ package persistentie;
 
 import domein.Aanwezigheid;
 import domein.Activiteit;
+import domein.Admin;
 import domein.Formule;
 import domein.Inschrijving;
 import domein.Les;
@@ -102,15 +103,15 @@ public class DataInitializer {
         Aanwezigheid a3 = new Aanwezigheid(lid1, l2, 5);
         Aanwezigheid a4 = new Aanwezigheid(lid2, l2, 5);
         Aanwezigheid a5 = new Aanwezigheid(lid5, l3, 5);
-        
+
         aanwezigheden.add(a1);
         aanwezigheden.add(a2);
         aanwezigheden.add(a3);
         aanwezigheden.add(a4);
         aanwezigheden.add(a5);
-        
-        Oefening oef1 = new Oefening("www.youtube.com/schop","schop.jpg","maak een snelle voorwaartse beweging met je voet", new Thema("Techniek"));
-        Oefening oef2 = new Oefening("www.youtube.com/sla","sla.jpg","maak een snelle voorwaartse beweging met je arm", new Thema("Techniek"));
+
+        Oefening oef1 = new Oefening("www.youtube.com/schop", "schop.jpg", "maak een snelle voorwaartse beweging met je voet", new Thema("Techniek"));
+        Oefening oef2 = new Oefening("www.youtube.com/sla", "sla.jpg", "maak een snelle voorwaartse beweging met je arm", new Thema("Techniek"));
 
         Raadpleging r1 = new Raadpleging(lid1, oef1, 1);
         Raadpleging r2 = new Raadpleging(lid1, oef2, 3);
@@ -128,9 +129,6 @@ public class DataInitializer {
         raadplegingen.add(r6);
         raadplegingen.add(r7);
 
-        
         //     public Raadpleging(Lid lid, Oefening oefening, int teller) {
-
-
     }
 }

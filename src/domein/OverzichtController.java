@@ -32,9 +32,8 @@ public class OverzichtController {
         this.aanwezigheden = new ArrayList<>();
         this.leden = new ArrayList<>();
         this.raadplegingen = new ArrayList<>();
-        DataInitializer.initializeData(inschrijvingen, activiteiten, aanwezigheden, leden, raadplegingen);
     }
-    
+
     public List<Aanwezigheid> geefOverzichtAanwezigheden() {
         return aanwezigheden;
     }
@@ -68,7 +67,6 @@ public class OverzichtController {
     }
 
     // Is het wel nodig om de naam van je methode zo expliciet uit te schrijven? Volstaat method overloading niet?
-    
     public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
         return inschrijvingen.stream()
                 .filter(inschrijving
@@ -109,5 +107,9 @@ public class OverzichtController {
         return raadplegingen.stream()
                 .filter(r -> r.getOefening().equals(oefening))
                 .collect(Collectors.toList());
+    }
+    
+    public List<Lid> geefOverzichtLeden(){
+        return leden;
     }
 }
