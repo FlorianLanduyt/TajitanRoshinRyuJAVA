@@ -89,7 +89,7 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         btnSignOff.setVisible(true);
         ivSignOff.setVisible(true);
 
-        hoofdMenu = new HoofdMenu();
+        hoofdMenu = new HoofdMenu(this);
         this.getChildren().add(hoofdMenu);
     }
 
