@@ -26,10 +26,16 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
     private Button btnSignIn;
 
     @FXML
+    private Button btnSignOff;
+
+    @FXML
     private Label lblAdminName;
 
     @FXML
     private ImageView ivSignIn;
+
+    @FXML
+    private ImageView ivSignOff;
 
     private AdminController adminController;
 
@@ -46,7 +52,8 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         }
 
         adminController = new AdminController();
-
+        btnSignOff.setVisible(false);
+        ivSignOff.setVisible(false);
     }
 
     @FXML
@@ -61,11 +68,24 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         stage.showAndWait();
     }
 
+    @FXML
+    private void meldAf(ActionEvent event) {
+        adminController.setAangemeldeAdmin(null);
+        lblAdminName.setText("Aanmelden");
+        btnSignOff.setVisible(false);
+        ivSignOff.setVisible(false);
+        btnSignIn.setVisible(true);
+        ivSignIn.setVisible(true);
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         adminController.setAangemeldeAdmin((Admin) pce.getNewValue());
         lblAdminName.setText("Welkom, " + adminController.getAangemeldeAdmin().getGebruikersnaam());
-        this.getChildren().removeAll(Arrays.asList(new Object[]{btnSignIn, ivSignIn}));
+        btnSignIn.setVisible(false);
+        ivSignIn.setVisible(false);
+        btnSignOff.setVisible(true);
+        ivSignOff.setVisible(true);
     }
 
 }

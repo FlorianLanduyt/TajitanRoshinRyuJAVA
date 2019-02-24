@@ -67,23 +67,4 @@ public class AdminController {
                 .orElse(null);
         return a != null;
     }
-
-    public boolean aanmelden(Admin admin) {
-        try {
-            setAangemeldeAdmin(admin);
-            return true;
-        } catch (Exception ex) {
-            return true;
-        }
-    }
-
-    public boolean afmelden(Admin admin) {
-        try {
-            setAangemeldeAdmin(null);
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
-    }
-
 }

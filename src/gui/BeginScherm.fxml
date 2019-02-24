@@ -25,5 +25,11 @@
          </image>
       </ImageView>
       <Button fx:id="btnSignIn" layoutX="1201.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAan" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+      <ImageView fx:id="ivSignOff" fitHeight="40.0" fitWidth="40.0" layoutX="1233.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Logoff.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnSignOff" layoutX="1231.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAf" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
    </children>
 </fx:root>
