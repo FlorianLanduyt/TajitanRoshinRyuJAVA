@@ -5,7 +5,7 @@
  */
 package domein;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
 public class Activiteit {
     private String naam;
     private Formule formule;
-    private Date datum;
+    private LocalDate datum;
     private String straat;
     private String stad;
     private String postcode;
@@ -26,7 +26,7 @@ public class Activiteit {
     // enkel naam en datum zijn verplicht in de DB, 
     // vandaar krijgen deze private setters 
     // en worden deze altijd in de constructor geïnitialiseerd
-    public Activiteit(String naam,Formule formule, Date datum) {
+    public Activiteit(String naam,Formule formule, LocalDate datum) {
         setNaam(naam);
         setFormule(formule);
         setDatum(datum);
@@ -50,11 +50,11 @@ public class Activiteit {
     }
     
 
-    public Date getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
 
-    private void setDatum(Date datum) {
+    private void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 
@@ -96,6 +96,20 @@ public class Activiteit {
 
     public void setBus(String bus) {
         this.bus = bus;
+    }
+
+    public List<Lid> getDeelnemers() {
+        return deelnemers;
+    }
+
+    public void setDeelnemers(List<Lid> deelnemers) {
+        this.deelnemers = deelnemers;
+    }
+    public void voegDeelnemerToe(Lid lid){
+        this.deelnemers.add(lid);
+    }
+    public void verwijderDeelnemer(Lid lid){
+        this.deelnemers.remove(lid);
     }
     
 }

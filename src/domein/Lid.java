@@ -1,14 +1,15 @@
 package domein;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Lid {
 
     private String voornaam;
     private String achternaam;
-    private Date geboortedatum;
+    private LocalDate geboortedatum;
     private String rijksregisterNr;
-    private Date datumEersteTraining;
+    private LocalDate datumEersteTraining;
     private String gsmNr;
     private String vasteTelefoonNr;
     private String straat;
@@ -25,8 +26,8 @@ public class Lid {
     private String beroep;
     private String graad;
 
-    public Lid(String voornaam, String achternaam, Date geboortedatum,
-            String rijksregisterNr, Date datumEersteTraining,
+    public Lid(String voornaam, String achternaam, LocalDate geboortedatum,
+            String rijksregisterNr, LocalDate datumEersteTraining,
             String gsmNr, String vasteTelefoonNr, String straat,
             String huisNr, String postcode, String email,
             String wachtwoord, String geboorteplaats, String geslacht,
@@ -65,11 +66,11 @@ public class Lid {
         this.achternaam = achternaam;
     }
 
-    public Date getGeboortedatum() {
+    public LocalDate getGeboortedatum() {
         return geboortedatum;
     }
 
-    private void setGeboortedatum(Date geboortedatum) {
+    private void setGeboortedatum(LocalDate geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
 
@@ -81,11 +82,11 @@ public class Lid {
         this.rijksregisterNr = rijksregisterNr;
     }
 
-    public Date getDatumEersteTraining() {
+    public LocalDate getDatumEersteTraining() {
         return datumEersteTraining;
     }
 
-    private void setDatumEersteTraining(Date datumEersteTraining) {
+    private void setDatumEersteTraining(LocalDate datumEersteTraining) {
         this.datumEersteTraining = datumEersteTraining;
     }
 

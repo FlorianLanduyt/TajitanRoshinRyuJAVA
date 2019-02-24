@@ -5,11 +5,14 @@
  */
 package domein;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import persistentie.DataInitializer;
 
 /**
  *
@@ -29,13 +32,14 @@ public class OverzichtController {
         this.aanwezigheden = new ArrayList<>();
         this.leden = new ArrayList<>();
         this.raadplegingen = new ArrayList<>();
+        DataInitializer.initializeData(inschrijvingen, activiteiten, aanwezigheden, leden, raadplegingen);
     }
-
+    
     public List<Aanwezigheid> geefOverzichtAanwezigheden() {
         return aanwezigheden;
     }
 
-    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeDatum(Date datum) {
+    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeDatum(LocalDate datum) {
         return aanwezigheden.stream()
                 .filter(aanwezigheid -> aanwezigheid.getActiviteit().getDatum().equals(datum))
                 .collect(Collectors.toList());
@@ -64,40 +68,46 @@ public class OverzichtController {
     }
 
     // Is het wel nodig om de naam van je methode zo expliciet uit te schrijven? Volstaat method overloading niet?
-
-
-        public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(Date van, Date tot) {
+    
+    public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
         return inschrijvingen.stream()
-                .filter(inschrijving -> 
-                            inschrijving.getTijdstip().compareTo(tot) <= 0 
-                         && inschrijving.getTijdstip().compareTo(van) >= 0 )
+                .filter(inschrijving
+                        -> inschrijving.getTijdstip().compareTo(tot) <= 0
+                && inschrijving.getTijdstip().compareTo(van) >= 0)
                 .collect(Collectors.toList());
     }
-        
+
     public List<Activiteit> geefOverzichtActiviteiten() {
         return activiteiten;
     }
 
     public List<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
-      //  return activiteiten.stream()
-        //        .filter(activiteit -> activiteit)
-        return null;
+        return activiteiten.stream()
+                .filter(activiteit -> activiteit.getDeelnemers().contains(lid))
+                .collect(Collectors.toList());
     }
 
     public Map<Lid, Integer> geefOverzichtClubkampioenschap() {
-        return null;
+        Map<Lid, Integer> deelnemersMetPunten = aanwezigheden.stream()
+                .collect(Collectors.groupingBy(Aanwezigheid::getLid,
+                        Collectors.summingInt(
+                                aanwezigheid -> aanwezigheid.getPuntenAantal())));
+        return deelnemersMetPunten;
     }
 
     public List<Raadpleging> geefOverzichtRaadplegingen() {
-        return null;
+        return raadplegingen;
     }
 
     public List<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldLid(Lid lid) {
-        return null;
+        return raadplegingen.stream()
+                .filter(r -> r.getLid().equals(lid))
+                .collect(Collectors.toList());
     }
 
     public List<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldeOefening(Oefening oefening) {
-        return null;
+        return raadplegingen.stream()
+                .filter(r -> r.getOefening().equals(oefening))
+                .collect(Collectors.toList());
     }
-
 }
