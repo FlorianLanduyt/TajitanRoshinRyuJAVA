@@ -6,6 +6,7 @@
 package domein;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Activiteit {
     private String postcode;
     private String huisnummer;
     private String bus;
-    
+    private List<Lid> deelnemers;
 
     // enkel naam en datum zijn verplicht in de DB, 
     // vandaar krijgen deze private setters 

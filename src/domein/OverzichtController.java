@@ -8,6 +8,7 @@ package domein;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * @author robdeputter
  */
 public class OverzichtController {
+
     private List<Inschrijving> inschrijvingen;
     private List<Activiteit> activiteiten;
     private List<Aanwezigheid> aanwezigheden;
@@ -28,41 +30,74 @@ public class OverzichtController {
         this.leden = new ArrayList<>();
         this.raadplegingen = new ArrayList<>();
     }
-    
-    public List<Aanwezigheid> geefOverzichtAanwezigheden(){
+
+    public List<Aanwezigheid> geefOverzichtAanwezigheden() {
         return aanwezigheden;
     }
-    
-    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeDatum(Date datum){
+
+    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeDatum(Date datum) {
         return aanwezigheden.stream()
                 .filter(aanwezigheid -> aanwezigheid.getActiviteit().getDatum().equals(datum))
                 .collect(Collectors.toList());
     }
-    
-    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldLid(Lid lid){
+
+    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldLid(Lid lid) {
         return aanwezigheden.stream()
                 .filter(aanwezigheid -> aanwezigheid.getLid().equals(lid))
                 .collect(Collectors.toList());
     }
-    
-    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeFormule(Formule formule){
+
+    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeFormule(Formule formule) {
         return aanwezigheden.stream()
                 .filter(aanwezigheid -> aanwezigheid.getActiviteit().getFormule().equals(formule))
                 .collect(Collectors.toList());
     }
-    
-    public List<Inschrijving> geefOverzichtInschrijvingen(){
+
+    public List<Inschrijving> geefOverzichtInschrijvingen() {
         return inschrijvingen;
     }
-    
-    public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule formule){
+
+    public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule formule) {
         return inschrijvingen.stream()
                 .filter(inschrijving -> inschrijving.getFormule().equals(formule))
                 .collect(Collectors.toList());
     }
-    
-    //@Tim => andere formules
-    
-    
-            
+
+    // Is het wel nodig om de naam van je methode zo expliciet uit te schrijven? Volstaat method overloading niet?
+
+
+        public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(Date van, Date tot) {
+        return inschrijvingen.stream()
+                .filter(inschrijving -> 
+                            inschrijving.getTijdstip().compareTo(tot) <= 0 
+                         && inschrijving.getTijdstip().compareTo(van) >= 0 )
+                .collect(Collectors.toList());
+    }
+        
+    public List<Activiteit> geefOverzichtActiviteiten() {
+        return activiteiten;
+    }
+
+    public List<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
+      //  return activiteiten.stream()
+        //        .filter(activiteit -> activiteit)
+        return null;
+    }
+
+    public Map<Lid, Integer> geefOverzichtClubkampioenschap() {
+        return null;
+    }
+
+    public List<Raadpleging> geefOverzichtRaadplegingen() {
+        return null;
+    }
+
+    public List<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldLid(Lid lid) {
+        return null;
+    }
+
+    public List<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldeOefening(Oefening oefening) {
+        return null;
+    }
+
 }
