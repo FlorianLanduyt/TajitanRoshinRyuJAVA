@@ -9,6 +9,8 @@ import domein.Aanwezigheid;
 import domein.Formule;
 import domein.Inschrijving;
 import domein.OverzichtController;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,25 +21,18 @@ import java.util.stream.Collectors;
 public class StartUp_CUI {
     public static void main(String[] args) {
         OverzichtController oc = new OverzichtController();
-        //@Tim methode initialiseerData moet hier worden aangeroepen
+        
         
         //Testen van formules Aanwezigheden
         System.out.println(geefOverzichtAanwezighedenInString(oc.geefOverzichtAanwezigheden()));
+                
+        System.out.println(geefOverzichtAanwezighedenInString(oc.geefOverzichtAanwezighedenVoorBepaaldeDatum(LocalDate.of(2019, Month.MARCH, 12))));
         
-        //lid moet je nog invullen!
-        //System.out.println(geefOverzichtAanwezighedenInString(oc.geefOverzichtAanwezighedenVoorBepaaldLid(lid)));
+        System.out.println(geefOverzichtAanwezighedenInString(oc.geefOverzichtAanwezighedenVoorBepaaldeFormule(Formule.WO_ZA)));
         
-        //datum moet je nog invullen!
-        //System.out.println(geefOverzichtAanwezighedenInString(oc.geefOverzichtAanwezighedenVoorBepaaldeDatum(datum)));
-        
-        //formule moet je nog invullen!
-        //System.out.println(geefOverzichtAanwezighedenInString(oc.geefOverzichtAanwezighedenVoorBepaaldeFormule(Formule.WO_ZA)));
-        
-        //Testen van formules Inschrijvingen
         System.out.println(geefOverzichtInschrijvingen(oc.geefOverzichtInschrijvingen()));
         
-        //formule moet je nog invullen!
-        //System.out.println(geefOverzichtInschrijvingen(oc.geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule.WO_ZA)));
+        System.out.println(geefOverzichtInschrijvingen(oc.geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule.WO_ZA)));
         
         
         

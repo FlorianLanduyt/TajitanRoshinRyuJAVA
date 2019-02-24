@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package domein;
+import java.time.LocalDate;
 
-import java.util.Date;
 
 /**
  *
@@ -15,9 +15,9 @@ public class Inschrijving {
 
     private Formule formule;
     private Lid lid;
-    private Date tijdstip;
+    private LocalDate tijdstip;
 
-    public Inschrijving(Formule formule, Lid lid, Date tijdstip) {
+    public Inschrijving(Formule formule, Lid lid, LocalDate tijdstip) {
         setFormule(formule);
         setLid(lid);
         setTijdstip(tijdstip);
@@ -39,11 +39,11 @@ public class Inschrijving {
         this.lid = lid;
     }
 
-    public Date getTijdstip() {
+    public LocalDate getTijdstip() {
         return tijdstip;
     }
 
-    private void setTijdstip(Date tijdstip) {
+    private void setTijdstip(LocalDate tijdstip) {
         this.tijdstip = tijdstip;
     }
     
