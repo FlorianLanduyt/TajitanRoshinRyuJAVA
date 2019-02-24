@@ -1,6 +1,5 @@
 # Projecten2: Taijitan Yoshin Ryu vzw: Java-application
-The desktopapplication for Taijitan Yoshin Ryu vzw Jiu Jitsu club, written in Java.
-
+The desktop application for Taijitan Yoshin Ryu vzw Jiu Jitsu club, written in Java.
 ## Authors
 - Tybo Vanderstraeten
 - Rob De Putter
