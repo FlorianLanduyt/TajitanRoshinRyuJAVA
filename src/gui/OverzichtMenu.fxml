@@ -7,7 +7,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="200.0" type="VBox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnActiviteiten" defaultButton="true" mnemonicParsing="false" prefHeight="96.0" prefWidth="200.0" text="Activiteiten">
+      <Button fx:id="btnActiviteiten" defaultButton="true" mnemonicParsing="false" onAction="#toonOverzichtActiviteiten" prefHeight="96.0" prefWidth="200.0" text="Activiteiten">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -15,7 +15,7 @@
             <Insets left="5.0" right="5.0" top="40.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="btnInschrijvingen" defaultButton="true" mnemonicParsing="false" prefHeight="96.0" prefWidth="200.0" text="Inschrijvingen">
+      <Button fx:id="btnInschrijvingen" defaultButton="true" mnemonicParsing="false" onAction="#toonOverzichtInschrijvingen" prefHeight="96.0" prefWidth="200.0" text="Inschrijvingen">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -23,7 +23,7 @@
             <Insets left="5.0" right="5.0" top="15.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="btnAanwezigheden" defaultButton="true" mnemonicParsing="false" prefHeight="96.0" prefWidth="200.0" text="Aanwezigheden">
+      <Button fx:id="btnAanwezigheden" defaultButton="true" mnemonicParsing="false" onAction="#toonOverzichtAanwezigheden" prefHeight="96.0" prefWidth="200.0" text="Aanwezigheden">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -31,7 +31,7 @@
             <Insets left="5.0" right="5.0" top="15.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="btnClubkampioenschap" defaultButton="true" mnemonicParsing="false" prefHeight="96.0" prefWidth="200.0" text="Clubkampioenschap">
+      <Button fx:id="btnClubkampioenschap" defaultButton="true" mnemonicParsing="false" onAction="#toonOverzichtClubkampioenschap" prefHeight="96.0" prefWidth="200.0" text="Clubkampioenschap">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -39,7 +39,7 @@
             <Insets left="5.0" right="5.0" top="15.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="btnLesmateriaal" defaultButton="true" mnemonicParsing="false" prefHeight="96.0" prefWidth="200.0" text="Overzicht raadplegingen lesmateriaal" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="btnLesmateriaal" defaultButton="true" mnemonicParsing="false" onAction="#toonOverzichtLesmateriaal" prefHeight="96.0" prefWidth="200.0" text="Overzicht raadplegingen lesmateriaal" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
