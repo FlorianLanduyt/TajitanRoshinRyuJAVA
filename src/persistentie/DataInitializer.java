@@ -40,7 +40,7 @@ public class DataInitializer {
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
                 "Belg", "Dan-1");
-        Lid lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 10),
+        Lid lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
                 "99.12.10-007.41", LocalDate.now(),
                 "0479365887", "098556880", "Prinses Clementinalaan",
                 "11", "9980", "tybo.vanderstraeten@outlook.com",
