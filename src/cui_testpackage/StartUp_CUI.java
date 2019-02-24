@@ -23,6 +23,10 @@ import persistentie.DataInitializer;
  */
 public class StartUp_CUI {
 
+    /*
+    DISCLAIMER
+    This class will be used to quickly test some code on-the-fly
+     */
     public static void main(String[] args) {
         OverzichtController oc = new OverzichtController();
         AdminController ac = new AdminController();
