@@ -38,8 +38,8 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
     private ImageView ivSignOff;
 
     private AdminController adminController;
-
     private LoginForm loginForm;
+    private HoofdMenu hoofdMenu;
 
     public BeginScherm() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeginScherm.fxml"));
@@ -76,6 +76,8 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         ivSignOff.setVisible(false);
         btnSignIn.setVisible(true);
         ivSignIn.setVisible(true);
+
+        this.getChildren().remove(hoofdMenu);
     }
 
     @Override
@@ -86,6 +88,9 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         ivSignIn.setVisible(false);
         btnSignOff.setVisible(true);
         ivSignOff.setVisible(true);
+
+        hoofdMenu = new HoofdMenu();
+        this.getChildren().add(hoofdMenu);
     }
 
 }
