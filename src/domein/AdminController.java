@@ -5,6 +5,9 @@
  */
 package domein;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,9 +21,12 @@ public class AdminController {
     private List<Admin> admins;
     private Admin aangemeldeAdmin;
 
+    private PropertyChangeSupport subject;
+
     public AdminController() {
         admins = new ArrayList<>();
         aangemeldeAdmin = null;
+        subject = new PropertyChangeSupport(this);
 
         //Hardcoded admins
         Admin tybo = new Admin("Tybo", "admin");
@@ -40,7 +46,10 @@ public class AdminController {
                 .filter(adm -> adm.equals(admin))
                 .findAny()
                 .orElse(null);
-        aangemeldeAdmin = a;
+        if (a != null) {
+            subject.firePropertyChange("aangemeldeAdmin", aangemeldeAdmin, admin);
+            aangemeldeAdmin = a;
+        }
     }
 
     public List<Admin> getAdmins() {
@@ -66,5 +75,13 @@ public class AdminController {
                 .findAny()
                 .orElse(null);
         return a != null;
+    }
+
+    public void addObserver(PropertyChangeListener pcl) {
+        subject.addPropertyChangeListener(pcl);
+    }
+
+    public void removeObserver(PropertyChangeListener pcl) {
+        subject.removePropertyChangeListener(pcl);
     }
 }

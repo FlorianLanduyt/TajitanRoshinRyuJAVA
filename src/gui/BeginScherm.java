@@ -59,7 +59,8 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
     @FXML
     private void meldAan(ActionEvent event) {
         loginForm = new LoginForm(adminController);
-        loginForm.addObserver(this);
+        //loginForm.addObserver(this);
+        adminController.addObserver(this);
         Scene scene = new Scene(loginForm);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -82,7 +83,7 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        adminController.setAangemeldeAdmin((Admin) pce.getNewValue());
+        //adminController.setAangemeldeAdmin((Admin) pce.getNewValue());
         lblAdminName.setText("Welkom, " + adminController.getAangemeldeAdmin().getGebruikersnaam());
         btnSignIn.setVisible(false);
         ivSignIn.setVisible(false);

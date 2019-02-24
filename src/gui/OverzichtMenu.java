@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 public class OverzichtMenu extends VBox {
-    
+
     @FXML
     private Button btnActiviteiten;
     @FXML
@@ -27,9 +27,9 @@ public class OverzichtMenu extends VBox {
     private Button btnLesmateriaal;
     @FXML
     private Button btnTerug;
-    
+
     private HoofdMenu parent;
-    
+
     public OverzichtMenu(HoofdMenu parent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtMenu.fxml"));
         loader.setRoot(this);
@@ -41,7 +41,7 @@ public class OverzichtMenu extends VBox {
         }
         this.parent = parent;
     }
-    
+
     @FXML
     private void toonOverzichtActiviteiten(ActionEvent event) {
         OverzichtActiviteitenScherm overzichtActiviteitenScherm
@@ -50,36 +50,37 @@ public class OverzichtMenu extends VBox {
         Stage stage = (Stage) (getScene().getWindow());
         stage.setScene(scene);
         stage.setTitle("Taijitan Yoshin Ryu - Adminmodule - Activiteitenoverzicht");
+        stage.setResizable(false);
     }
-    
+
     @FXML
     private void toonOverzichtInschrijvingen(ActionEvent event) {
-        
+
     }
-    
+
     @FXML
     private void toonOverzichtAanwezigheden(ActionEvent event) {
-        
+
     }
-    
+
     @FXML
     private void toonOverzichtClubkampioenschap(ActionEvent event) {
-        
+
     }
-    
+
     @FXML
     private void toonOverzichtLesmateriaal(ActionEvent event) {
-        
+
     }
-    
+
     @FXML
     private void terugNaarHoofdmenu(ActionEvent event) {
         parent.getParentClass().getChildren().remove(this);
         parent.getParentClass().getChildren().add(parent);
     }
-    
+
     public HoofdMenu getParentClass() {
         return parent;
     }
-    
+
 }
