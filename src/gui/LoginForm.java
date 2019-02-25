@@ -29,10 +29,11 @@ public class LoginForm extends AnchorPane {
     @FXML
     private Button btnLogin;
 
-    //private PropertyChangeSupport subject;
+    private PropertyChangeSupport subject;
     private AdminController adminController;
 
     public LoginForm(AdminController adminController) {
+        this.adminController = adminController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginForm.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -42,8 +43,7 @@ public class LoginForm extends AnchorPane {
             throw new RuntimeException(ex);
         }
 
-        //subject = new PropertyChangeSupport(this);
-        this.adminController = adminController;
+        subject = new PropertyChangeSupport(this);
     }
 
     @FXML
@@ -56,10 +56,9 @@ public class LoginForm extends AnchorPane {
     private void meldAan(ActionEvent event) {
         Admin admin = new Admin(txfUsername.getText(), txfPassword.getText());
         if (adminController.adminBestaat(admin)) {
-//            subject.firePropertyChange("aangemeldeAdmin",
-//                    adminController.getAangemeldeAdmin(),
-//                    admin);
-            adminController.setAangemeldeAdmin(admin);
+            subject.firePropertyChange("aangemeldeAdmin",
+                    adminController.getAangemeldeAdmin(),
+                    admin);
             Stage stage = (Stage) (getScene().getWindow());
             stage.close();
         } else {
@@ -73,11 +72,11 @@ public class LoginForm extends AnchorPane {
         }
     }
 
-//    public void addObserver(PropertyChangeListener pcl) {
-//        subject.addPropertyChangeListener(pcl);
-//    }
-//
-//    public void removeObserver(PropertyChangeListener pcl) {
-//        subject.removePropertyChangeListener(pcl);
-//    }
+    public void addObserver(PropertyChangeListener pcl) {
+        subject.addPropertyChangeListener(pcl);
+    }
+
+    public void removeObserver(PropertyChangeListener pcl) {
+        subject.removePropertyChangeListener(pcl);
+    }
 }

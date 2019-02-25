@@ -21,12 +21,9 @@ public class AdminController {
     private List<Admin> admins;
     private Admin aangemeldeAdmin;
 
-    private PropertyChangeSupport subject;
-
     public AdminController() {
         admins = new ArrayList<>();
         aangemeldeAdmin = null;
-        subject = new PropertyChangeSupport(this);
 
         //Hardcoded admins
         Admin tybo = new Admin("Tybo", "admin");
@@ -46,10 +43,8 @@ public class AdminController {
                 .filter(adm -> adm.equals(admin))
                 .findAny()
                 .orElse(null);
-        if (a != null) {
-            subject.firePropertyChange("aangemeldeAdmin", aangemeldeAdmin, admin);
-            aangemeldeAdmin = a;
-        }
+        aangemeldeAdmin = a;
+
     }
 
     public List<Admin> getAdmins() {
@@ -75,13 +70,5 @@ public class AdminController {
                 .findAny()
                 .orElse(null);
         return a != null;
-    }
-
-    public void addObserver(PropertyChangeListener pcl) {
-        subject.addPropertyChangeListener(pcl);
-    }
-
-    public void removeObserver(PropertyChangeListener pcl) {
-        subject.removePropertyChangeListener(pcl);
     }
 }
