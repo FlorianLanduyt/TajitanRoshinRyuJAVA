@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblAdminName" alignment="CENTER" layoutX="1107.0" layoutY="15.0" text="Aanmelden">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="ivSignOff" fitHeight="40.0" fitWidth="40.0" layoutX="1233.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Logoff.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnSignOff" layoutX="1231.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAf" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+      <TableView fx:id="tvActiviteiten" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
+         <columns>
+            <TableColumn fx:id="colNaam" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Naam" />
+            <TableColumn fx:id="colDatum" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Datum" />
+            <TableColumn fx:id="colFormule" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Formule" />
+            <TableColumn fx:id="colStad" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Stad" />
+            <TableColumn fx:id="colPostcode" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Postcode" />
+            <TableColumn fx:id="colStraat" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Straat" />
+            <TableColumn fx:id="colHuisnummer" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Huisnummer" />
+            <TableColumn fx:id="colBus" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Bus" />
+         </columns>
+      </TableView>
+      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="67.0" prefHeight="25.0" prefWidth="262.0" />
+      <Label fx:id="lblPerDeelnemer" layoutX="210.0" layoutY="48.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk activiteiten per deelnemer:" />
+      <Button fx:id="btnAlleActiviteiten" layoutX="611.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonAlleActiviteiten" prefHeight="25.0" prefWidth="110.0" text="Alle activiteiten" />
+      <Button fx:id="btnActiviteitenPerDeelnemer" layoutX="484.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonActiviteitenPerDeelnemer" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+   </children>
+</fx:root>

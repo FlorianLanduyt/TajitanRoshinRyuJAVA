@@ -23,7 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class OverzichtActiviteitenScherm extends AnchorPane {
+public class OverzichtClubkampioenschapScherm extends AnchorPane {
 
     @FXML
     private AnchorPane AnchorPane;
@@ -33,24 +33,7 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
     private ImageView ivSignOff;
     @FXML
     private Button btnSignOff;
-    @FXML
-    private TableView<Activiteit> tvActiviteiten;
-    @FXML
-    private TableColumn<Activiteit, String> colNaam;
-    @FXML
-    private TableColumn<Activiteit, String> colDatum;
-    @FXML
-    private TableColumn<Activiteit, String> colFormule;
-    @FXML
-    private TableColumn<Activiteit, String> colStad;
-    @FXML
-    private TableColumn<Activiteit, String> colPostcode;
-    @FXML
-    private TableColumn<Activiteit, String> colStraat;
-    @FXML
-    private TableColumn<Activiteit, String> colHuisnummer;
-    @FXML
-    private TableColumn<Activiteit, String> colBus;
+
     @FXML
     private ComboBox<Lid> cbLeden;
     @FXML
@@ -64,8 +47,8 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
     private AdminController adminController;
     private OverzichtController overzichtController;
 
-    public OverzichtActiviteitenScherm(BeginScherm beginScherm, AdminController adminController) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtActiviteitenScherm.fxml"));
+    public OverzichtClubkampioenschapScherm(BeginScherm beginScherm, AdminController adminController) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtClubkampioenschapScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -82,16 +65,6 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
                 .getAangemeldeAdmin().getGebruikersnaam());
 
         //Tableview setup
-        colNaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
-        colDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
-        colFormule.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
-        colStad.setCellValueFactory(cellData -> cellData.getValue().stadProperty());
-        colPostcode.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty());
-        colStraat.setCellValueFactory(cellData -> cellData.getValue().straatProperty());
-        colHuisnummer.setCellValueFactory(cellData -> cellData.getValue().huisnummerProperty());
-        colBus.setCellValueFactory(cellData -> cellData.getValue().busProperty());
-        tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteiten());
-
         //Combobox vullen
         cbLeden.setItems(overzichtController.geefOverzichtLeden());
 
@@ -99,14 +72,12 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
 
     @FXML
     private void toonAlleActiviteiten(ActionEvent event) {
-        tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteiten());
-        cbLeden.getSelectionModel().clearSelection();
+
     }
 
     @FXML
     private void toonActiviteitenPerDeelnemer(ActionEvent event) {
-        Lid lid = overzichtController.geefLidDoorRijksregisternr(cbLeden.getSelectionModel().selectedItemProperty().getValue().getRijksregisterNr());
-        tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteitenVoorBepaaldeDeelnemer(lid));
+
     }
 
     @FXML

@@ -38,9 +38,8 @@ public class OverzichtController {
         this.leden = FXCollections.observableArrayList();
         this.raadplegingen = new ArrayList<>();
 
-        //Calling testdata methods
-        fillActiviteitenWithTestData(activiteiten);
-        fillComboboxLedenWithTestData(leden);
+        //Calling testdata method
+        fillTestData();
     }
 
     public List<Aanwezigheid> geefOverzichtAanwezigheden() {
@@ -88,10 +87,10 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(activiteiten);
     }
 
-    public List<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
-        return activiteiten.stream()
+    public ObservableList<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(activiteiten.stream()
                 .filter(activiteit -> activiteit.getDeelnemers().contains(lid))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())));
     }
 
     public Map<Lid, Integer> geefOverzichtClubkampioenschap() {
@@ -126,27 +125,17 @@ public class OverzichtController {
                         .collect(Collectors.toList())));
     }
 
-    //TESTMETHODS FILLING DATA
-    //TestMethod fill data to check tableview
-    private void fillActiviteitenWithTestData(ObservableList<Activiteit> activiteiten) {
-        Activiteit s1 = new Stage("Hoogtestage Ardennen", Formule.STAGE, LocalDate.of(2019, Month.MARCH, 12));
-        Activiteit s2 = new Stage("Hoogtestage Vogezen", Formule.STAGE, LocalDate.of(2019, Month.AUGUST, 28));
-        Activiteit s3 = new Stage("Uitstap Nederland", Formule.STAGE, LocalDate.of(2020, Month.JANUARY, 10));
-
-        Activiteit l1 = new Les("Les 1", Formule.ZA, LocalDate.of(2019, Month.FEBRUARY, 23));
-        Activiteit l2 = new Les("Les 1", Formule.WO_ZA, LocalDate.of(2019, Month.FEBRUARY, 20));
-        Activiteit l3 = new Les("Les 1", Formule.DI_ZA, LocalDate.of(2020, Month.FEBRUARY, 19));
-
-        activiteiten.add(s1);
-        activiteiten.add(s2);
-        activiteiten.add(s3);
-        activiteiten.add(l1);
-        activiteiten.add(l2);
-        activiteiten.add(l3);
+    public Lid geefLidDoorRijksregisternr(String rijksregisternr) {
+        return leden
+                .stream()
+                .filter(l -> l.getRijksregisterNr().equals(rijksregisternr))
+                .findAny()
+                .orElse(null);
     }
 
-    //TestMethod fill date activities combobox members
-    private void fillComboboxLedenWithTestData(ObservableList<Lid> leden) {
+    //TESTMETHODS FILLING DATA
+    //TestMethod fill data
+    private void fillTestData() {
         Lid lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
                 "97.07.17-003.21", LocalDate.now(),
                 "0479330959", "051303050", "Winkelhoekstraat",
@@ -177,10 +166,39 @@ public class OverzichtController {
                 "110", "9600", "rob.deputter@hotmail.com",
                 "TurnenIsLeuk8", "Gent", "Vrouw",
                 "Belg", "Kyu-2");
+
         leden.add(lid1);
         leden.add(lid2);
         leden.add(lid3);
         leden.add(lid4);
         leden.add(lid5);
+
+        Activiteit s1 = new Stage("Hoogtestage Ardennen", Formule.STAGE, LocalDate.of(2019, Month.MARCH, 12));
+        Activiteit s2 = new Stage("Hoogtestage Vogezen", Formule.STAGE, LocalDate.of(2019, Month.AUGUST, 28));
+        Activiteit s3 = new Stage("Uitstap Nederland", Formule.STAGE, LocalDate.of(2020, Month.JANUARY, 10));
+
+        Activiteit l1 = new Les("Les 1", Formule.ZA, LocalDate.of(2019, Month.FEBRUARY, 23));
+        Activiteit l2 = new Les("Les 1", Formule.WO_ZA, LocalDate.of(2019, Month.FEBRUARY, 20));
+        Activiteit l3 = new Les("Les 1", Formule.DI_ZA, LocalDate.of(2020, Month.FEBRUARY, 19));
+
+        activiteiten.add(s1);
+        activiteiten.add(s2);
+        activiteiten.add(s3);
+        activiteiten.add(l1);
+        activiteiten.add(l2);
+        activiteiten.add(l3);
+
+        Aanwezigheid a1 = new Aanwezigheid(lid3, l1, 5);
+        Aanwezigheid a2 = new Aanwezigheid(lid4, l1, 5);
+        Aanwezigheid a3 = new Aanwezigheid(lid1, l2, 5);
+        Aanwezigheid a4 = new Aanwezigheid(lid2, l2, 5);
+        Aanwezigheid a5 = new Aanwezigheid(lid5, l3, 5);
+
+        aanwezigheden.add(a1);
+        aanwezigheden.add(a2);
+        aanwezigheden.add(a3);
+        aanwezigheden.add(a4);
+        aanwezigheden.add(a5);
     }
+
 }
