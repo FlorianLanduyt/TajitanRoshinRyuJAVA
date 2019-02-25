@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,15 +34,32 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
     private ImageView ivSignOff;
     @FXML
     private Button btnSignOff;
-
     @FXML
-    private ComboBox<Lid> cbLeden;
+    private TableView<?> tvInschrijvingen;
     @FXML
-    private Label lblPerDeelnemer;
+    private TableColumn<?, ?> colVoornaam;
     @FXML
-    private Button btnAlleActiviteiten;
+    private TableColumn<?, ?> colFamilienaam;
     @FXML
-    private Button btnActiviteitenPerDeelnemer;
+    private TableColumn<?, ?> colFormule;
+    @FXML
+    private TableColumn<?, ?> colDatum;
+    @FXML
+    private Label lblVan;
+    @FXML
+    private DatePicker dpDatumVan;
+    @FXML
+    private Button btnInschrijvingenInInterval;
+    @FXML
+    private Label lblPerFormule;
+    @FXML
+    private ComboBox<?> cbFormules;
+    @FXML
+    private Button btnInschrijvingenPerFormule;
+    @FXML
+    private Label lblTot;
+    @FXML
+    private DatePicker dpDatumTot;
 
     private BeginScherm beginScherm;
     private AdminController adminController;
@@ -65,19 +83,14 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
                 .getAangemeldeAdmin().getGebruikersnaam());
 
         //Tableview setup
-        //Combobox vullen
-        cbLeden.setItems(overzichtController.geefOverzichtLeden());
-
     }
 
     @FXML
-    private void toonAlleActiviteiten(ActionEvent event) {
-
+    private void toonInschrijvingenInInterval(ActionEvent event) {
     }
 
     @FXML
-    private void toonActiviteitenPerDeelnemer(ActionEvent event) {
-
+    private void toonInschrijvingenPerFormule(ActionEvent event) {
     }
 
     @FXML

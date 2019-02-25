@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.overzichten.OverzichtAanwezighedenSchermController">
+<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblAdminName" alignment="CENTER" layoutX="1107.0" layoutY="15.0" text="Aanmelden">
          <font>
@@ -23,21 +24,22 @@
          </image>
       </ImageView>
       <Button fx:id="btnSignOff" layoutX="1231.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAf" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-      <TableView fx:id="tvActiviteiten" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
+      <TableView fx:id="tvAanwezigheden" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
          <columns>
-            <TableColumn fx:id="colNaam" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Naam" />
-            <TableColumn fx:id="colDatum" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Datum" />
-            <TableColumn fx:id="colFormule" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Formule" />
-            <TableColumn fx:id="colStad" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Stad" />
-            <TableColumn fx:id="colPostcode" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Postcode" />
-            <TableColumn fx:id="colStraat" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Straat" />
-            <TableColumn fx:id="colHuisnummer" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Huisnummer" />
-            <TableColumn fx:id="colBus" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Bus" />
+            <TableColumn fx:id="colNaamActiviteit" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Naam activiteit" />
+            <TableColumn fx:id="colLid" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Lid" />
+            <TableColumn fx:id="colFormule" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Formule" />
+            <TableColumn fx:id="colDatum" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Datum" />
          </columns>
       </TableView>
-      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="67.0" prefHeight="25.0" prefWidth="262.0" />
-      <Label fx:id="lblPerDeelnemer" layoutX="210.0" layoutY="48.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk activiteiten per deelnemer:" />
-      <Button fx:id="btnAlleActiviteiten" layoutX="611.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonAlleActiviteiten" prefHeight="25.0" prefWidth="110.0" text="Alle activiteiten" />
-      <Button fx:id="btnActiviteitenPerDeelnemer" layoutX="484.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonActiviteitenPerDeelnemer" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
+      <Label fx:id="lblPerDeelnemer" layoutX="210.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk aanwezigheden per lid:" />
+      <Button fx:id="btnAanwezighedenPerLid" layoutX="210.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAanwezighedenPerLid" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <Label fx:id="lblOpDag" layoutX="483.0" layoutY="28.0" prefHeight="17.0" prefWidth="174.0" text="Bekijk aanwezigheden per dag:" />
+      <DatePicker fx:id="dpDatum" layoutX="483.0" layoutY="48.0" />
+      <Button fx:id="btnAanwezighedenOpDatum" layoutX="483.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAanwezighedenOpDatum" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <Label fx:id="lblPerFormule" layoutX="675.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk aanwezigheden per formule:" />
+      <ComboBox fx:id="cbFormules" layoutX="675.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
+      <Button fx:id="btnAanwezighedenPerFormule" layoutX="675.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAanwezighedenPerFormule" prefHeight="25.0" prefWidth="110.0" text="Filter" />
    </children>
 </fx:root>

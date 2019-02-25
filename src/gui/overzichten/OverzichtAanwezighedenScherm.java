@@ -1,7 +1,9 @@
 package gui.overzichten;
 
+import domein.Aanwezigheid;
 import domein.Activiteit;
 import domein.AdminController;
+import domein.Formule;
 import domein.Lid;
 import domein.OverzichtController;
 import gui.BeginScherm;
@@ -16,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,15 +36,34 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
     private ImageView ivSignOff;
     @FXML
     private Button btnSignOff;
-
+    @FXML
+    private TableView<?> tvAanwezigheden;
+    @FXML
+    private TableColumn<Aanwezigheid, String> colNaamActiviteit;
+    @FXML
+    private TableColumn<Aanwezigheid, String> colLid;
+    @FXML
+    private TableColumn<Aanwezigheid, String> colFormule;
+    @FXML
+    private TableColumn<Aanwezigheid, String> colDatum;
     @FXML
     private ComboBox<Lid> cbLeden;
     @FXML
     private Label lblPerDeelnemer;
     @FXML
-    private Button btnAlleActiviteiten;
+    private Button btnAanwezighedenPerLid;
     @FXML
-    private Button btnActiviteitenPerDeelnemer;
+    private Label lblOpDag;
+    @FXML
+    private DatePicker dpDatum;
+    @FXML
+    private Button btnAanwezighedenOpDatum;
+    @FXML
+    private Label lblPerFormule;
+    @FXML
+    private ComboBox<Formule> cbFormules;
+    @FXML
+    private Button btnAanwezighedenPerFormule;
 
     private BeginScherm beginScherm;
     private AdminController adminController;
@@ -71,13 +93,15 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
     }
 
     @FXML
-    private void toonAlleActiviteiten(ActionEvent event) {
-
+    private void toonAanwezighedenPerLid(ActionEvent event) {
     }
 
     @FXML
-    private void toonActiviteitenPerDeelnemer(ActionEvent event) {
+    private void toonAanwezighedenOpDatum(ActionEvent event) {
+    }
 
+    @FXML
+    private void toonAanwezighedenPerFormule(ActionEvent event) {
     }
 
     @FXML

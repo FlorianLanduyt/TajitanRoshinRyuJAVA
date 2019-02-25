@@ -33,15 +33,14 @@ public class OverzichtClubkampioenschapScherm extends AnchorPane {
     private ImageView ivSignOff;
     @FXML
     private Button btnSignOff;
-
     @FXML
-    private ComboBox<Lid> cbLeden;
+    private TableView<Lid> tvClubkampioenschap;
     @FXML
-    private Label lblPerDeelnemer;
+    private TableColumn<Lid, String> colVoornaam;
     @FXML
-    private Button btnAlleActiviteiten;
+    private TableColumn<Lid, String> colFamilienaam;
     @FXML
-    private Button btnActiviteitenPerDeelnemer;
+    private TableColumn<Integer, Integer> colPunten;
 
     private BeginScherm beginScherm;
     private AdminController adminController;
@@ -65,19 +64,6 @@ public class OverzichtClubkampioenschapScherm extends AnchorPane {
                 .getAangemeldeAdmin().getGebruikersnaam());
 
         //Tableview setup
-        //Combobox vullen
-        cbLeden.setItems(overzichtController.geefOverzichtLeden());
-
-    }
-
-    @FXML
-    private void toonAlleActiviteiten(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void toonActiviteitenPerDeelnemer(ActionEvent event) {
-
     }
 
     @FXML
