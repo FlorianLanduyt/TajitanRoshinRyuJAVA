@@ -23,21 +23,19 @@
          </image>
       </ImageView>
       <Button fx:id="btnSignOff" layoutX="1231.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAf" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-      <TableView fx:id="tvActiviteiten" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
+      <TableView fx:id="tvRaadplegingen" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
          <columns>
-            <TableColumn fx:id="colNaam" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Naam" />
-            <TableColumn fx:id="colDatum" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Datum" />
-            <TableColumn fx:id="colFormule" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Formule" />
-            <TableColumn fx:id="colStad" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Stad" />
-            <TableColumn fx:id="colPostcode" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Postcode" />
-            <TableColumn fx:id="colStraat" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Straat" />
-            <TableColumn fx:id="colHuisnummer" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Huisnummer" />
-            <TableColumn fx:id="colBus" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Bus" />
+            <TableColumn fx:id="colVoornaam" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Voornaam" />
+            <TableColumn fx:id="colFamilienaam" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Familienaam" />
+            <TableColumn fx:id="colNaamLesmateriaal" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Naam lesmateriaal" />
+            <TableColumn fx:id="colAantalRaadplegingen" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Aantal raadplegingen" />
          </columns>
       </TableView>
-      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="67.0" prefHeight="25.0" prefWidth="262.0" />
-      <Label fx:id="lblPerDeelnemer" layoutX="210.0" layoutY="48.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk activiteiten per deelnemer:" />
-      <Button fx:id="btnAlleActiviteiten" layoutX="611.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonAlleActiviteiten" prefHeight="25.0" prefWidth="110.0" text="Alle activiteiten" />
-      <Button fx:id="btnActiviteitenPerDeelnemer" layoutX="484.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonActiviteitenPerDeelnemer" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <Label fx:id="lblPerLesmateriaal" layoutX="483.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Per raadplegingen per lesmateriaal:" />
+      <Button fx:id="btnRaadplegingenPerLesmateriaal" layoutX="483.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonRaadplegingenPerLesmateriaal" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <Label fx:id="lblPerLid" layoutX="210.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk raadplegingen per lid:" />
+      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
+      <Button fx:id="btnRaadplegingenPerLid" layoutX="210.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonRaadplegingenPerLid" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <ComboBox fx:id="cbLesmateriaal" layoutX="483.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
    </children>
 </fx:root>

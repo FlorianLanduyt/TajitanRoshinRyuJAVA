@@ -3,7 +3,9 @@ package gui.overzichten;
 import domein.Activiteit;
 import domein.AdminController;
 import domein.Lid;
+import domein.Oefening;
 import domein.OverzichtController;
+import domein.Raadpleging;
 import gui.BeginScherm;
 import gui.OverzichtMenu;
 import java.io.IOException;
@@ -33,15 +35,28 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
     private ImageView ivSignOff;
     @FXML
     private Button btnSignOff;
-
+    @FXML
+    private TableView<Raadpleging> tvRaadplegingen;
+    @FXML
+    private TableColumn<Raadpleging, String> colVoornaam;
+    @FXML
+    private TableColumn<Raadpleging, String> colFamilienaam;
+    @FXML
+    private TableColumn<Raadpleging, String> colNaamLesmateriaal;
+    @FXML
+    private TableColumn<Raadpleging, String> colAantalRaadplegingen;
+    @FXML
+    private Label lblPerLesmateriaal;
+    @FXML
+    private Button btnRaadplegingenPerLesmateriaal;
+    @FXML
+    private Label lblPerLid;
     @FXML
     private ComboBox<Lid> cbLeden;
     @FXML
-    private Label lblPerDeelnemer;
+    private Button btnRaadplegingenPerLid;
     @FXML
-    private Button btnAlleActiviteiten;
-    @FXML
-    private Button btnActiviteitenPerDeelnemer;
+    private ComboBox<Oefening> cbLesmateriaal;
 
     private BeginScherm beginScherm;
     private AdminController adminController;
@@ -71,13 +86,11 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
     }
 
     @FXML
-    private void toonAlleActiviteiten(ActionEvent event) {
-
+    private void toonRaadplegingenPerLesmateriaal(ActionEvent event) {
     }
 
     @FXML
-    private void toonActiviteitenPerDeelnemer(ActionEvent event) {
-
+    private void toonRaadplegingenPerLid(ActionEvent event) {
     }
 
     @FXML

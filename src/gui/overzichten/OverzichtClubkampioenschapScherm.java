@@ -40,7 +40,7 @@ public class OverzichtClubkampioenschapScherm extends AnchorPane {
     @FXML
     private TableColumn<Lid, String> colFamilienaam;
     @FXML
-    private TableColumn<Integer, Integer> colPunten;
+    private TableColumn<Lid, String> colPunten;
 
     private BeginScherm beginScherm;
     private AdminController adminController;

@@ -2,6 +2,7 @@ package gui.overzichten;
 
 import domein.Activiteit;
 import domein.AdminController;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.OverzichtController;
 import gui.BeginScherm;
@@ -35,15 +36,15 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
     @FXML
     private Button btnSignOff;
     @FXML
-    private TableView<?> tvInschrijvingen;
+    private TableView<Inschrijving> tvInschrijvingen;
     @FXML
-    private TableColumn<?, ?> colVoornaam;
+    private TableColumn<Inschrijving, String> colVoornaam;
     @FXML
-    private TableColumn<?, ?> colFamilienaam;
+    private TableColumn<Inschrijving, String> colFamilienaam;
     @FXML
-    private TableColumn<?, ?> colFormule;
+    private TableColumn<Inschrijving, String> colFormule;
     @FXML
-    private TableColumn<?, ?> colDatum;
+    private TableColumn<Inschrijving, String> colDatum;
     @FXML
     private Label lblVan;
     @FXML
