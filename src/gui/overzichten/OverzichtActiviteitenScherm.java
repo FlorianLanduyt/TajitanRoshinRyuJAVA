@@ -1,6 +1,8 @@
 package gui.overzichten;
 
+import domein.Activiteit;
 import domein.AdminController;
+import domein.OverzichtController;
 import gui.BeginScherm;
 import gui.OverzichtMenu;
 import java.io.IOException;
@@ -13,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -27,11 +31,30 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
     private ImageView ivSignOff;
     @FXML
     private Button btnSignOff;
+    @FXML
+    private TableView<Activiteit> tvActiviteiten;
+    @FXML
+    private TableColumn<Activiteit, String> colNaam;
+    @FXML
+    private TableColumn<Activiteit, String> colDatum;
+    @FXML
+    private TableColumn<Activiteit, String> colFormule;
+    @FXML
+    private TableColumn<Activiteit, String> colStad;
+    @FXML
+    private TableColumn<Activiteit, String> colPostcode;
+    @FXML
+    private TableColumn<Activiteit, String> colStraat;
+    @FXML
+    private TableColumn<Activiteit, String> colHuisnummer;
+    @FXML
+    private TableColumn<Activiteit, String> colBus;
 
-    private OverzichtMenu overzichtMenu;
+    private BeginScherm beginScherm;
     private AdminController adminController;
+    private OverzichtController overzichtController;
 
-    public OverzichtActiviteitenScherm(OverzichtMenu overzichtMenu, AdminController adminController) {
+    public OverzichtActiviteitenScherm(BeginScherm beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtActiviteitenScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -40,9 +63,10 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        this.overzichtMenu = new OverzichtMenu(overzichtMenu.getParentClass(), adminController);
+        this.beginScherm = beginScherm;
         this.adminController = adminController;
-        this.getChildren().add(this.overzichtMenu);
+        this.overzichtController = new OverzichtController();
+        this.getChildren().add(new OverzichtMenu(this.beginScherm, this.adminController));
 
         lblAdminName.setText("Welkom, " + adminController
                 .getAangemeldeAdmin().getGebruikersnaam());

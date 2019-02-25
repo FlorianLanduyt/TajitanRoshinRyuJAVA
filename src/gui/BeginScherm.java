@@ -73,15 +73,13 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
 
     @FXML
     private void meldAf(ActionEvent event) {
-        adminController.setAangemeldeAdmin(null);
-        loginForm.removeObserver(this);
-        lblAdminName.setText("Aanmelden");
-        btnSignOff.setVisible(false);
-        ivSignOff.setVisible(false);
-        btnSignIn.setVisible(true);
-        ivSignIn.setVisible(true);
-        
-        this.getChildren().remove(hoofdMenu);
+        BeginScherm beginScherm = new BeginScherm();
+        Scene scene = new Scene(beginScherm);
+        Stage stage = (Stage) (getScene().getWindow());
+        stage.setScene(scene);
+        stage.setTitle("Taijitan Yoshin Ryu - Adminmodule");
+        stage.setResizable(false);
+        stage.show();
     }
 
     @Override

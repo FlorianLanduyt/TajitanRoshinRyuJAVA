@@ -25,11 +25,11 @@ public class HoofdMenu extends VBox {
     @FXML
     private Button btnBeheerLesmateriaal;
 
-    private BeginScherm parent;
+    private BeginScherm beginScherm;
     private OverzichtMenu overzichtMenu;
     private AdminController adminController;
 
-    public HoofdMenu(BeginScherm parent, AdminController adminController) {
+    public HoofdMenu(BeginScherm beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HoofdMenu.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -38,19 +38,14 @@ public class HoofdMenu extends VBox {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        this.parent = parent;
+        this.beginScherm = beginScherm;
         this.adminController = adminController;
     }
 
     @FXML
     private void toonOverzichtMenu(ActionEvent event) {
-        parent.getChildren().remove(this);
-        overzichtMenu = new OverzichtMenu(this, adminController);
-        parent.getChildren().add(overzichtMenu);
+        beginScherm.getChildren().remove(this);
+        overzichtMenu = new OverzichtMenu(beginScherm, adminController);
+        beginScherm.getChildren().add(overzichtMenu);
     }
-
-    public BeginScherm getParentClass() {
-        return parent;
-    }
-
 }

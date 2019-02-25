@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 public class OverzichtMenu extends VBox {
-
+    
     @FXML
     private Button btnActiviteiten;
     @FXML
@@ -28,11 +28,11 @@ public class OverzichtMenu extends VBox {
     private Button btnLesmateriaal;
     @FXML
     private Button btnTerug;
-
-    private HoofdMenu parent;
+    
+    private BeginScherm beginScherm;
     private AdminController adminController;
-
-    public OverzichtMenu(HoofdMenu parent, AdminController adminController) {
+    
+    public OverzichtMenu(BeginScherm beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtMenu.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -41,14 +41,14 @@ public class OverzichtMenu extends VBox {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        this.parent = parent;
+        this.beginScherm = beginScherm;
         this.adminController = adminController;
     }
-
+    
     @FXML
     private void toonOverzichtActiviteiten(ActionEvent event) {
         OverzichtActiviteitenScherm overzichtActiviteitenScherm
-                = new OverzichtActiviteitenScherm(this,adminController);
+                = new OverzichtActiviteitenScherm(beginScherm, adminController);
         Scene scene = new Scene(overzichtActiviteitenScherm);
         Stage stage = (Stage) (getScene().getWindow());
         stage.setScene(scene);
@@ -56,35 +56,31 @@ public class OverzichtMenu extends VBox {
         stage.setResizable(false);
         stage.show();
     }
-
+    
     @FXML
     private void toonOverzichtInschrijvingen(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void toonOverzichtAanwezigheden(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void toonOverzichtClubkampioenschap(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void toonOverzichtLesmateriaal(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void terugNaarHoofdmenu(ActionEvent event) {
-        parent.getParentClass().getChildren().remove(this);
-        parent.getParentClass().getChildren().add(parent);
+        beginScherm.getChildren().remove(this);
+        beginScherm.getChildren().add(new HoofdMenu(beginScherm, adminController));
     }
-
-    public HoofdMenu getParentClass() {
-        return parent;
-    }
-
+    
 }
