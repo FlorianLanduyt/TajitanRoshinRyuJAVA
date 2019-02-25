@@ -1,5 +1,6 @@
 package gui;
 
+import domein.AdminController;
 import gui.overzichten.OverzichtActiviteitenScherm;
 import java.io.IOException;
 import java.net.URL;
@@ -29,8 +30,9 @@ public class OverzichtMenu extends VBox {
     private Button btnTerug;
 
     private HoofdMenu parent;
+    private AdminController adminController;
 
-    public OverzichtMenu(HoofdMenu parent) {
+    public OverzichtMenu(HoofdMenu parent, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtMenu.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -40,17 +42,19 @@ public class OverzichtMenu extends VBox {
             throw new RuntimeException(ex);
         }
         this.parent = parent;
+        this.adminController = adminController;
     }
 
     @FXML
     private void toonOverzichtActiviteiten(ActionEvent event) {
         OverzichtActiviteitenScherm overzichtActiviteitenScherm
-                = new OverzichtActiviteitenScherm();
+                = new OverzichtActiviteitenScherm(this,adminController);
         Scene scene = new Scene(overzichtActiviteitenScherm);
         Stage stage = (Stage) (getScene().getWindow());
         stage.setScene(scene);
         stage.setTitle("Taijitan Yoshin Ryu - Adminmodule - Activiteitenoverzicht");
         stage.setResizable(false);
+        stage.show();
     }
 
     @FXML

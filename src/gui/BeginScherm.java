@@ -8,9 +8,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -21,26 +24,26 @@ import javafx.stage.Stage;
 import main.StartUpGUI;
 
 public class BeginScherm extends AnchorPane implements PropertyChangeListener {
-    
+
     @FXML
     private Button btnSignIn;
-    
+
     @FXML
     private Button btnSignOff;
-    
+
     @FXML
     private Label lblAdminName;
-    
+
     @FXML
     private ImageView ivSignIn;
-    
+
     @FXML
     private ImageView ivSignOff;
-    
+
     private AdminController adminController;
     private LoginForm loginForm;
     private HoofdMenu hoofdMenu;
-    
+
     public BeginScherm() {
         this.adminController = new AdminController();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeginScherm.fxml"));
@@ -51,11 +54,11 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        
+
         btnSignOff.setVisible(false);
         ivSignOff.setVisible(false);
     }
-    
+
     @FXML
     private void meldAan(ActionEvent event) {
         loginForm = new LoginForm(adminController);
@@ -67,7 +70,7 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         stage.setResizable(false);
         stage.showAndWait();
     }
-    
+
     @FXML
     private void meldAf(ActionEvent event) {
         adminController.setAangemeldeAdmin(null);
@@ -79,9 +82,8 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         ivSignIn.setVisible(true);
         
         this.getChildren().remove(hoofdMenu);
-        
     }
-    
+
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         adminController.setAangemeldeAdmin((Admin) pce.getNewValue());
@@ -91,9 +93,9 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         ivSignIn.setVisible(false);
         btnSignOff.setVisible(true);
         ivSignOff.setVisible(true);
-        
-        hoofdMenu = new HoofdMenu(this);
+
+        hoofdMenu = new HoofdMenu(this, adminController);
         this.getChildren().add(hoofdMenu);
     }
-    
+
 }

@@ -1,5 +1,6 @@
 package gui;
 
+import domein.AdminController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,10 +26,10 @@ public class HoofdMenu extends VBox {
     private Button btnBeheerLesmateriaal;
 
     private BeginScherm parent;
-
     private OverzichtMenu overzichtMenu;
+    private AdminController adminController;
 
-    public HoofdMenu(BeginScherm parent) {
+    public HoofdMenu(BeginScherm parent, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HoofdMenu.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -38,16 +39,17 @@ public class HoofdMenu extends VBox {
             throw new RuntimeException(ex);
         }
         this.parent = parent;
+        this.adminController = adminController;
     }
 
     @FXML
     private void toonOverzichtMenu(ActionEvent event) {
         parent.getChildren().remove(this);
-        overzichtMenu = new OverzichtMenu(this);
+        overzichtMenu = new OverzichtMenu(this, adminController);
         parent.getChildren().add(overzichtMenu);
     }
-    
-    public BeginScherm getParentClass(){
+
+    public BeginScherm getParentClass() {
         return parent;
     }
 
