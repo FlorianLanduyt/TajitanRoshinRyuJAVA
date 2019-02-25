@@ -71,6 +71,17 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
         lblAdminName.setText("Welkom, " + adminController
                 .getAangemeldeAdmin().getGebruikersnaam());
 
+        //Tableview setup
+        colNaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
+        colDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
+        colFormule.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
+        colStad.setCellValueFactory(cellData -> cellData.getValue().stadProperty());
+        colPostcode.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty());
+        colStraat.setCellValueFactory(cellData -> cellData.getValue().straatProperty());
+        colHuisnummer.setCellValueFactory(cellData -> cellData.getValue().huisnummerProperty());
+        colBus.setCellValueFactory(cellData -> cellData.getValue().busProperty());
+        tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteiten());
+
     }
 
     @FXML

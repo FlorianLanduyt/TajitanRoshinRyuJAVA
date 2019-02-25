@@ -6,12 +6,17 @@
 package domein;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import persistentie.DataInitializer;
 
 /**
@@ -21,17 +26,20 @@ import persistentie.DataInitializer;
 public class OverzichtController {
 
     private List<Inschrijving> inschrijvingen;
-    private List<Activiteit> activiteiten;
+    private ObservableList<Activiteit> activiteiten;
     private List<Aanwezigheid> aanwezigheden;
     private List<Lid> leden;
     private List<Raadpleging> raadplegingen;
 
     public OverzichtController() {
         this.inschrijvingen = new ArrayList<>();
-        this.activiteiten = new ArrayList<>();
+        this.activiteiten = FXCollections.observableArrayList();
         this.aanwezigheden = new ArrayList<>();
         this.leden = new ArrayList<>();
         this.raadplegingen = new ArrayList<>();
+
+        //Calling testdata methods
+        fillActiviteitenWithTestData(activiteiten);
     }
 
     public List<Aanwezigheid> geefOverzichtAanwezigheden() {
@@ -66,7 +74,7 @@ public class OverzichtController {
                 .collect(Collectors.toList());
     }
 
-    // Is het wel nodig om de naam van je methode zo expliciet uit te schrijven? Volstaat method overloading niet?
+    // Is het wel nodig om de naam van je methode zo expliciet uit te schrijven? Volstaat method overloading niet? --edit by tybo: we dont do that here
     public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
         return inschrijvingen.stream()
                 .filter(inschrijving
@@ -75,8 +83,8 @@ public class OverzichtController {
                 .collect(Collectors.toList());
     }
 
-    public List<Activiteit> geefOverzichtActiviteiten() {
-        return activiteiten;
+    public ObservableList<Activiteit> geefOverzichtActiviteiten() {
+        return FXCollections.unmodifiableObservableList(activiteiten);
     }
 
     public List<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
@@ -108,8 +116,27 @@ public class OverzichtController {
                 .filter(r -> r.getOefening().equals(oefening))
                 .collect(Collectors.toList());
     }
-    
-    public List<Lid> geefOverzichtLeden(){
+
+    public List<Lid> geefOverzichtLeden() {
         return leden;
+    }
+
+    //TESTMETHODS FILLING DATA
+    //TestMethod fill data to check tableview
+    private void fillActiviteitenWithTestData(ObservableList<Activiteit> activiteiten) {
+        Activiteit s1 = new Stage("Hoogtestage Ardennen", Formule.STAGE, LocalDate.of(2019, Month.MARCH, 12));
+        Activiteit s2 = new Stage("Hoogtestage Vogezen", Formule.STAGE, LocalDate.of(2019, Month.AUGUST, 28));
+        Activiteit s3 = new Stage("Uitstap Nederland", Formule.STAGE, LocalDate.of(2020, Month.JANUARY, 10));
+
+        Activiteit l1 = new Les("Les 1", Formule.ZA, LocalDate.of(2019, Month.FEBRUARY, 23));
+        Activiteit l2 = new Les("Les 1", Formule.WO_ZA, LocalDate.of(2019, Month.FEBRUARY, 20));
+        Activiteit l3 = new Les("Les 1", Formule.DI_ZA, LocalDate.of(2020, Month.FEBRUARY, 19));
+
+        activiteiten.add(s1);
+        activiteiten.add(s2);
+        activiteiten.add(s3);
+        activiteiten.add(l1);
+        activiteiten.add(l2);
+        activiteiten.add(l3);
     }
 }
