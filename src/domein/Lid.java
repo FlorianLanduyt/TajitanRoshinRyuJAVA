@@ -209,4 +209,9 @@ public class Lid {
     private void setGraad(String graad) {
         this.graad = graad;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", this.voornaam, this.achternaam);
+    }
 }

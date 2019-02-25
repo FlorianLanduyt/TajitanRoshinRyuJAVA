@@ -2,6 +2,7 @@ package gui.overzichten;
 
 import domein.Activiteit;
 import domein.AdminController;
+import domein.Lid;
 import domein.OverzichtController;
 import gui.BeginScherm;
 import gui.OverzichtMenu;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,6 +51,14 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
     private TableColumn<Activiteit, String> colHuisnummer;
     @FXML
     private TableColumn<Activiteit, String> colBus;
+    @FXML
+    private ComboBox<Lid> cbLeden;
+    @FXML
+    private Label lblPerDeelnemer;
+    @FXML
+    private Button btnAlleActiviteiten;
+    @FXML
+    private Button btnActiviteitenPerDeelnemer;
 
     private BeginScherm beginScherm;
     private AdminController adminController;
@@ -82,6 +92,18 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
         colBus.setCellValueFactory(cellData -> cellData.getValue().busProperty());
         tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteiten());
 
+        //Combobox vullen
+        cbLeden.setItems(overzichtController.geefOverzichtLeden());
+
+    }
+
+    @FXML
+    private void toonAlleActiviteiten(ActionEvent event) {
+        tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteiten());
+    }
+
+    @FXML
+    private void toonActiviteitenPerDeelnemer(ActionEvent event) {
     }
 
     @FXML

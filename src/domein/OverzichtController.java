@@ -28,18 +28,19 @@ public class OverzichtController {
     private List<Inschrijving> inschrijvingen;
     private ObservableList<Activiteit> activiteiten;
     private List<Aanwezigheid> aanwezigheden;
-    private List<Lid> leden;
+    private ObservableList<Lid> leden;
     private List<Raadpleging> raadplegingen;
 
     public OverzichtController() {
         this.inschrijvingen = new ArrayList<>();
         this.activiteiten = FXCollections.observableArrayList();
         this.aanwezigheden = new ArrayList<>();
-        this.leden = new ArrayList<>();
+        this.leden = FXCollections.observableArrayList();
         this.raadplegingen = new ArrayList<>();
 
         //Calling testdata methods
         fillActiviteitenWithTestData(activiteiten);
+        fillComboboxLedenWithTestData(leden);
     }
 
     public List<Aanwezigheid> geefOverzichtAanwezigheden() {
@@ -117,8 +118,12 @@ public class OverzichtController {
                 .collect(Collectors.toList());
     }
 
-    public List<Lid> geefOverzichtLeden() {
-        return leden;
+    public ObservableList<Lid> geefOverzichtLeden() {
+        return FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(leden
+                        .stream()
+                        .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
+                        .collect(Collectors.toList())));
     }
 
     //TESTMETHODS FILLING DATA
@@ -138,5 +143,44 @@ public class OverzichtController {
         activiteiten.add(l1);
         activiteiten.add(l2);
         activiteiten.add(l3);
+    }
+
+    //TestMethod fill date activities combobox members
+    private void fillComboboxLedenWithTestData(ObservableList<Lid> leden) {
+        Lid lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
+                "97.07.17-003.21", LocalDate.now(),
+                "0479330959", "051303050", "Winkelhoekstraat",
+                "52", "8870", "tim.geldof@outlook.com",
+                "Wachtwoord", "Izegem", "Man",
+                "Belg", "Dan-1");
+        Lid lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
+                "99.12.10-007.41", LocalDate.now(),
+                "0479365887", "098556880", "Prinses Clementinalaan",
+                "11", "9980", "tybo.vanderstraeten@outlook.com",
+                "TomatoSoup", "Gent", "Man",
+                "Belg", "Kyu-2");
+        Lid lid3 = new Lid("Mark", "Witthaker", LocalDate.of(1975, Month.JUNE, 6),
+                "75.12.10-007.41", LocalDate.now(),
+                "0478365887", "018556880", "Prinses Mandarijnalaan",
+                "45", "9000", "mark.witthaker@outlook.com",
+                "MyMusicSucks4", "Gent", "Man",
+                "Belg", "Kyu-2");
+        Lid lid4 = new Lid("Florian", "Landuyt", LocalDate.of(1995, Month.DECEMBER, 12),
+                "95.12.12-007.41", LocalDate.now(),
+                "0479865887", "088556880", "Kerkstraat",
+                "141", "8770", "florian.landuyt@outlook.com",
+                "TurnenIsLeuk8", "Gent", "Man",
+                "Belg", "Dan-2");
+        Lid lid5 = new Lid("Rob", "De Putter", LocalDate.of(1999, Month.MARCH, 12),
+                "99.03.12-007.41", LocalDate.now(),
+                "0478899964", "054556880", "Schoolstraat",
+                "110", "9600", "rob.deputter@hotmail.com",
+                "TurnenIsLeuk8", "Gent", "Vrouw",
+                "Belg", "Kyu-2");
+        leden.add(lid1);
+        leden.add(lid2);
+        leden.add(lid3);
+        leden.add(lid4);
+        leden.add(lid5);
     }
 }
