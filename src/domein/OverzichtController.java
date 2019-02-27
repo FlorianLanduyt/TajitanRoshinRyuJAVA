@@ -8,6 +8,7 @@ package domein;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -131,6 +132,10 @@ public class OverzichtController {
                 .filter(l -> l.getRijksregisterNr().equals(rijksregisternr))
                 .findAny()
                 .orElse(null);
+    }
+    
+    public ObservableList<Formule> geefFormules(){
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(Arrays.asList(Formule.values())));
     }
 
     //TESTMETHODS FILLING DATA

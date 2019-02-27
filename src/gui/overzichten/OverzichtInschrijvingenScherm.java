@@ -2,6 +2,7 @@ package gui.overzichten;
 
 import domein.Activiteit;
 import domein.AdminController;
+import domein.Formule;
 import domein.Inschrijving;
 import domein.Lid;
 import domein.OverzichtController;
@@ -54,7 +55,7 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
     @FXML
     private Label lblPerFormule;
     @FXML
-    private ComboBox<?> cbFormules;
+    private ComboBox<Formule> cbFormules;
     @FXML
     private Button btnInschrijvingenPerFormule;
     @FXML
@@ -84,6 +85,8 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
                 .getAangemeldeAdmin().getGebruikersnaam());
 
         //Tableview setup
+        //Combobox vullen
+        cbFormules.setItems(overzichtController.geefFormules());
     }
 
     @FXML

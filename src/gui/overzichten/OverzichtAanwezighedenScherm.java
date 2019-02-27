@@ -10,6 +10,7 @@ import gui.BeginScherm;
 import gui.OverzichtMenu;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -89,7 +90,7 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
         //Tableview setup
         //Combobox vullen
         cbLeden.setItems(overzichtController.geefOverzichtLeden());
-
+        cbFormules.setItems(overzichtController.geefFormules());
     }
 
     @FXML
