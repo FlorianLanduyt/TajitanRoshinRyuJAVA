@@ -2,6 +2,7 @@ package domein;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Lid {
@@ -228,4 +229,36 @@ public class Lid {
     public String toString() {
         return String.format("%s %s", getVoornaam(), getAchternaam());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Lid other = (Lid) obj;
+        if (!Objects.equals(this.voornaam, other.voornaam)) {
+            return false;
+        }
+        if (!Objects.equals(this.achternaam, other.achternaam)) {
+            return false;
+        }
+        if (!Objects.equals(this.rijksregisterNr, other.rijksregisterNr)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

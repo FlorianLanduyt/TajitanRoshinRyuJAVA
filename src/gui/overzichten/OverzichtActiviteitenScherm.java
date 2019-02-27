@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -105,8 +106,16 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
 
     @FXML
     private void toonActiviteitenPerDeelnemer(ActionEvent event) {
-        Lid lid = overzichtController.geefLidDoorRijksregisternr(cbLeden.getSelectionModel().selectedItemProperty().getValue().getRijksregisterNr());
-        tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteitenVoorBepaaldeDeelnemer(lid));
+        Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
+        if (lid != null) {
+            tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteitenVoorBepaaldeDeelnemer(lid));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Filterfout");
+            alert.setHeaderText("Filteren niet geslaagd");
+            alert.setContentText("U dient een lid te selecteren.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

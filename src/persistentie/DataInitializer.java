@@ -65,23 +65,12 @@ public class DataInitializer {
                 "110", "9600", "rob.deputter@hotmail.com",
                 "TurnenIsLeuk8", "Gent", "Vrouw",
                 "Belg", "Kyu-2");
+
         leden.add(lid1);
         leden.add(lid2);
         leden.add(lid3);
         leden.add(lid4);
         leden.add(lid5);
-
-        Inschrijving i1 = new Inschrijving(Formule.WO_ZA, lid1, LocalDate.now());
-        Inschrijving i2 = new Inschrijving(Formule.WO_ZA, lid2, LocalDate.now());
-        Inschrijving i3 = new Inschrijving(Formule.ZA, lid3, LocalDate.now());
-        Inschrijving i4 = new Inschrijving(Formule.ZA, lid4, LocalDate.now());
-        Inschrijving i5 = new Inschrijving(Formule.DI_ZA, lid5, LocalDate.now());
-
-        inschrijvingen.add(i1);
-        inschrijvingen.add(i2);
-        inschrijvingen.add(i3);
-        inschrijvingen.add(i4);
-        inschrijvingen.add(i5);
 
         Activiteit s1 = new Stage("Hoogtestage Ardennen", Formule.STAGE, LocalDate.of(2019, Month.MARCH, 12));
         Activiteit s2 = new Stage("Hoogtestage Vogezen", Formule.STAGE, LocalDate.of(2019, Month.AUGUST, 28));
@@ -97,6 +86,29 @@ public class DataInitializer {
         activiteiten.add(l1);
         activiteiten.add(l2);
         activiteiten.add(l3);
+
+        activiteiten.forEach(a -> {
+            a.setStad("Gent");
+            a.setPostcode("9000");
+            a.setStraat("Korenmarkt");
+            a.setHuisnummer("20");
+            a.setBus("5A");
+        });
+
+        for (int i = 0; i < 5000; i++) {
+            Activiteit a = new Stage("Meerdaagse stage", Formule.STAGE, LocalDate.of(2019, Month.DECEMBER, 8));
+            a.setStad("Gent");
+            a.setPostcode("9000");
+            a.setStraat("Korenmarkt");
+            a.setHuisnummer("20");
+            a.setBus("5A");
+            a.voegDeelnemerToe(lid5);
+            activiteiten.add(a);
+        }
+
+        s1.voegDeelnemerToe(lid1);
+        s2.voegDeelnemerToe(lid2);
+        s3.voegDeelnemerToe(lid2);
 
         Aanwezigheid a1 = new Aanwezigheid(lid3, l1, 5);
         Aanwezigheid a2 = new Aanwezigheid(lid4, l1, 5);
