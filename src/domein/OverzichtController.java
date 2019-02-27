@@ -5,6 +5,7 @@
  */
 package domein;
 
+import exceptions.DatumIntervalException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -30,16 +31,16 @@ import persistentie.DataInitializer;
  */
 public class OverzichtController {
 
-    private List<Inschrijving> inschrijvingen;
+    private ObservableList<Inschrijving> inschrijvingen;
     private ObservableList<Activiteit> activiteiten;
-    private List<Aanwezigheid> aanwezigheden;
+    private ObservableList<Aanwezigheid> aanwezigheden;
     private ObservableList<Lid> leden;
     private List<Raadpleging> raadplegingen;
 
     public OverzichtController() {
-        this.inschrijvingen = new ArrayList<>();
+        this.inschrijvingen = FXCollections.observableArrayList();
         this.activiteiten = FXCollections.observableArrayList();
-        this.aanwezigheden = new ArrayList<>();
+        this.aanwezigheden = FXCollections.observableArrayList();
         this.leden = FXCollections.observableArrayList();
         this.raadplegingen = new ArrayList<>();
 
@@ -47,45 +48,67 @@ public class OverzichtController {
         fillTestData();
     }
 
-    public List<Aanwezigheid> geefOverzichtAanwezigheden() {
-        return aanwezigheden;
+    public ObservableList<Aanwezigheid> geefOverzichtAanwezigheden() {
+        ObservableList<Aanwezigheid> aanwezighedenSortedDatum = FXCollections.observableArrayList(aanwezigheden.stream()
+                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(aanwezighedenSortedDatum);
     }
 
-    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeDatum(LocalDate datum) {
-        return aanwezigheden.stream()
-                .filter(aanwezigheid -> aanwezigheid.getActiviteit().getDatum().equals(datum))
-                .collect(Collectors.toList());
+    public ObservableList<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeDatum(LocalDate datum) {
+        if (LocalDate.now().compareTo(datum) < 0) {
+            throw new DatumIntervalException("Datum mag niet in de toekomst liggen!");
+        }
+        ObservableList<Aanwezigheid> aanwezighedenVoorDatum = FXCollections.observableArrayList(aanwezigheden.stream()
+                .filter(aanwezigheid -> aanwezigheid.getDatum().equals(datum))
+                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(aanwezighedenVoorDatum);
+
     }
 
-    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldLid(Lid lid) {
-        return aanwezigheden.stream()
+    public ObservableList<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldLid(Lid lid) {
+        ObservableList<Aanwezigheid> aanwezighedenVoorLid = FXCollections.observableArrayList(aanwezigheden.stream()
                 .filter(aanwezigheid -> aanwezigheid.getLid().equals(lid))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(aanwezighedenVoorLid);
     }
 
-    public List<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeFormule(Formule formule) {
-        return aanwezigheden.stream()
+    public ObservableList<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeFormule(Formule formule) {
+        ObservableList<Aanwezigheid> aanwezighedenVoorFormule = FXCollections.observableArrayList(aanwezigheden.stream()
                 .filter(aanwezigheid -> aanwezigheid.getActiviteit().getFormule().equals(formule))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(aanwezighedenVoorFormule);
     }
 
-    public List<Inschrijving> geefOverzichtInschrijvingen() {
-        return inschrijvingen;
+    public ObservableList<Inschrijving> geefOverzichtInschrijvingen() {
+        ObservableList<Inschrijving> inschrijvingenSortedDatum = FXCollections.observableArrayList(inschrijvingen.stream()
+                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(inschrijvingenSortedDatum);
     }
 
-    public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule formule) {
-        return inschrijvingen.stream()
+    public ObservableList<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule formule) {
+        ObservableList<Inschrijving> inschrijvingenVoorFormule = FXCollections.observableArrayList(inschrijvingen.stream()
                 .filter(inschrijving -> inschrijving.getFormule().equals(formule))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(inschrijvingenVoorFormule);
     }
 
-    // Is het wel nodig om de naam van je methode zo expliciet uit te schrijven? Volstaat method overloading niet? --edit by tybo: we dont do that here
-    public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
-        return inschrijvingen.stream()
+    public ObservableList<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
+        if (tot.compareTo(van) < 0) {
+            throw new DatumIntervalException();
+        }
+        ObservableList<Inschrijving> inschrijvingenVoorInterval = FXCollections.observableArrayList(inschrijvingen.stream()
                 .filter(inschrijving
                         -> inschrijving.getTijdstip().compareTo(tot) <= 0
                 && inschrijving.getTijdstip().compareTo(van) >= 0)
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(inschrijvingenVoorInterval);
     }
 
     public ObservableList<Activiteit> geefOverzichtActiviteiten() {
@@ -139,15 +162,15 @@ public class OverzichtController {
     }
 
     public ObservableList<Lid> geefOverzichtLeden() {
-        return FXCollections.unmodifiableObservableList(
-                FXCollections.observableArrayList(leden
-                        .stream()
-                        .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                        .collect(Collectors.toList())));
+        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
+                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(ledenSorted);
     }
 
     public ObservableList<Formule> geefFormules() {
-        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(Arrays.asList(Formule.values())));
+        ObservableList<Formule> formules = FXCollections.observableArrayList(Arrays.asList(Formule.values()));
+        return FXCollections.unmodifiableObservableList(formules);
     }
 
     //TESTMETHODS FILLING DATA

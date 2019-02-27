@@ -26,10 +26,11 @@
       <Button fx:id="btnSignOff" layoutX="1231.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAf" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
       <TableView fx:id="tvAanwezigheden" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
          <columns>
-            <TableColumn fx:id="colNaamActiviteit" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Naam activiteit" />
-            <TableColumn fx:id="colLid" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Lid" />
-            <TableColumn fx:id="colFormule" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Formule" />
-            <TableColumn fx:id="colDatum" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Datum" />
+            <TableColumn fx:id="colNaamActiviteit" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Naam activiteit" />
+            <TableColumn fx:id="colVoornaam" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Voornaam" />
+            <TableColumn fx:id="colFamilienaam" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Familienaam" />
+            <TableColumn fx:id="colFormule" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Formule" />
+            <TableColumn fx:id="colDatum" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Datum" />
          </columns>
       </TableView>
       <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
@@ -41,5 +42,6 @@
       <Label fx:id="lblPerFormule" layoutX="675.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk aanwezigheden per formule:" />
       <ComboBox fx:id="cbFormules" layoutX="675.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
       <Button fx:id="btnAanwezighedenPerFormule" layoutX="675.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAanwezighedenPerFormule" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <Button fx:id="btnAlleAanwezigheden" layoutX="949.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAlleAanwezigheden" prefHeight="25.0" prefWidth="122.0" text="Alle aanwezigheden" />
    </children>
 </fx:root>

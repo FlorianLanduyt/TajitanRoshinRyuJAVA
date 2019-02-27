@@ -141,6 +141,17 @@ public class DataInitializer {
         raadplegingen.add(r6);
         raadplegingen.add(r7);
 
-        //     public Raadpleging(Lid lid, Oefening oefening, int teller) {
+        Inschrijving i1 = new Inschrijving(Formule.WO_ZA, lid1, LocalDate.of(2019, Month.DECEMBER, 1));
+        Inschrijving i2 = new Inschrijving(Formule.ACTIVITEIT, lid2, LocalDate.of(2019, Month.DECEMBER, 5));
+        Inschrijving i3 = new Inschrijving(Formule.STAGE, lid3, LocalDate.of(2019, Month.DECEMBER, 8));
+        Inschrijving i4 = new Inschrijving(Formule.DI_DO, lid4, LocalDate.of(2019, Month.DECEMBER, 12));
+        Inschrijving i5 = new Inschrijving(Formule.WO, lid5, LocalDate.of(2019, Month.DECEMBER, 24));
+
+        inschrijvingen.add(i1);
+        inschrijvingen.add(i2);
+        inschrijvingen.add(i3);
+        inschrijvingen.add(i4);
+        inschrijvingen.add(i5);
+
     }
 }

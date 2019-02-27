@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package domein;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -13,22 +15,46 @@ import java.time.LocalDate;
  */
 public class Inschrijving {
 
-    private Formule formule;
     private Lid lid;
-    private LocalDate tijdstip;
+
+    //SimpleStringProperties
+    private SimpleStringProperty sVoornaam = new SimpleStringProperty();
+    private SimpleStringProperty sAchternaam = new SimpleStringProperty();
+    private SimpleStringProperty sFormule = new SimpleStringProperty();
+    private SimpleStringProperty sTijdstip = new SimpleStringProperty();
 
     public Inschrijving(Formule formule, Lid lid, LocalDate tijdstip) {
         setFormule(formule);
         setLid(lid);
         setTijdstip(tijdstip);
+        setVoornaam();
+        setAchternaam();
     }
 
+    //Getters voor SimpleStringProperties
+    public SimpleStringProperty voornaamProperty() {
+        return sVoornaam;
+    }
+
+    public SimpleStringProperty achternaamProperty() {
+        return sAchternaam;
+    }
+
+    public SimpleStringProperty formuleProperty() {
+        return sFormule;
+    }
+
+    public SimpleStringProperty tijdstipProperty() {
+        return sTijdstip;
+    }
+
+    //Gewone getters en setters
     public Formule getFormule() {
-        return formule;
+        return Formule.valueOf(sFormule.get());
     }
 
     private void setFormule(Formule formule) {
-        this.formule = formule;
+        sFormule.set(formule.name());
     }
 
     public Lid getLid() {
@@ -40,12 +66,27 @@ public class Inschrijving {
     }
 
     public LocalDate getTijdstip() {
-        return tijdstip;
+        return LocalDate.parse(sTijdstip.get());
     }
 
     private void setTijdstip(LocalDate tijdstip) {
-        this.tijdstip = tijdstip;
+        sTijdstip.set(tijdstip.toString());
     }
-    
+
+    public String getVoornaam() {
+        return sVoornaam.get();
+    }
+
+    public void setVoornaam() {
+        sVoornaam.set(getLid().getVoornaam());
+    }
+
+    public String getAchternaam() {
+        return sAchternaam.get();
+    }
+
+    public void setAchternaam() {
+        sAchternaam.set(getLid().getAchternaam());
+    }
 
 }
