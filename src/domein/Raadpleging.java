@@ -5,6 +5,8 @@
  */
 package domein;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author Tim
@@ -13,14 +15,42 @@ public class Raadpleging {
 
     private Lid lid;
     private Oefening oefening;
-    private int teller;
+    private int aantalRaadplegingen;
 
-    public Raadpleging(Lid lid, Oefening oefening, int teller) {
+    //SimpleStringProperties
+    private SimpleStringProperty sVoornaam = new SimpleStringProperty();
+    private SimpleStringProperty sAchternaam = new SimpleStringProperty();
+    private SimpleStringProperty sOefeningNaam = new SimpleStringProperty();
+    private SimpleStringProperty sAantalRaadplegingen = new SimpleStringProperty();
+
+    public Raadpleging(Lid lid, Oefening oefening) {
         setLid(lid);
         setOefening(oefening);
-        setTeller(teller);
+        setOefeningNaam();
+        setVoornaam();
+        setAchternaam();
+        this.aantalRaadplegingen = 0;
+        verhoogAantalRaadplegingen();
     }
 
+    //Getters voor SimpleStringProperties
+    public SimpleStringProperty voornaamProperty() {
+        return sVoornaam;
+    }
+
+    public SimpleStringProperty achternaamProperty() {
+        return sAchternaam;
+    }
+
+    public SimpleStringProperty oefeningNaamProperty() {
+        return sOefeningNaam;
+    }
+
+    public SimpleStringProperty aantalRaadplegingenProperty() {
+        return sAantalRaadplegingen;
+    }
+
+    //Gewone getters en setters
     public Lid getLid() {
         return lid;
     }
@@ -37,12 +67,37 @@ public class Raadpleging {
         this.oefening = oefening;
     }
 
-    public int getTeller() {
-        return teller;
+    public String getVoornaam() {
+        return sVoornaam.get();
     }
 
-    private void setTeller(int teller) {
-        this.teller = teller;
+    public void setVoornaam() {
+        sVoornaam.set(getLid().getVoornaam());
+    }
+
+    public String getAchternaam() {
+        return sAchternaam.get();
+    }
+
+    public void setAchternaam() {
+        sAchternaam.set(getLid().getAchternaam());
+    }
+
+    public String getOefeningNaam() {
+        return sOefeningNaam.get();
+    }
+
+    private void setOefeningNaam() {
+        sOefeningNaam.set(oefening.getTitel());
+    }
+
+    public int getAantalRaadplegingen() {
+        return Integer.valueOf(sAantalRaadplegingen.get());
+    }
+
+    public void verhoogAantalRaadplegingen() {
+        this.aantalRaadplegingen += 1;
+        sAantalRaadplegingen.set(String.valueOf(this.aantalRaadplegingen));
     }
 
 }

@@ -10,16 +10,27 @@ package domein;
  * @author Tim
  */
 public class Oefening {
+
+    private String titel;
     private String urlVideo;
     private String afbeelding;
     private String tekst;
     private Thema thema;
 
-    public Oefening(String urlVideo, String afbeelding, String tekst, Thema thema) {
+    public Oefening(String titel, String urlVideo, String afbeelding, String tekst, Thema thema) {
+        setTitel(titel);
         setUrlVideo(urlVideo);
         setAfbeelding(afbeelding);
         setTekst(tekst);
         setThema(thema);
+    }
+
+    public String getTitel() {
+        return titel;
+    }
+
+    private void setTitel(String titel) {
+        this.titel = titel;
     }
 
     public String getUrlVideo() {
@@ -53,7 +64,5 @@ public class Oefening {
     private void setThema(Thema thema) {
         this.thema = thema;
     }
-    
-    
- 
+
 }

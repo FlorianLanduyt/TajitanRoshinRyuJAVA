@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -35,14 +36,16 @@ public class OverzichtController {
     private ObservableList<Activiteit> activiteiten;
     private ObservableList<Aanwezigheid> aanwezigheden;
     private ObservableList<Lid> leden;
-    private List<Raadpleging> raadplegingen;
+    private ObservableList<Raadpleging> raadplegingen;
+    private ObservableList<Oefening> oefeningen;
 
     public OverzichtController() {
         this.inschrijvingen = FXCollections.observableArrayList();
         this.activiteiten = FXCollections.observableArrayList();
         this.aanwezigheden = FXCollections.observableArrayList();
         this.leden = FXCollections.observableArrayList();
-        this.raadplegingen = new ArrayList<>();
+        this.raadplegingen = FXCollections.observableArrayList();
+        this.oefeningen = FXCollections.observableArrayList();
 
         //Calling testdata method
         fillTestData();
@@ -128,13 +131,13 @@ public class OverzichtController {
 
     public ObservableList<Lid> geefOverzichtClubkampioenschap() {
         berekenPuntenLeden();
-        ObservableList<Lid> ledenGesorteerdOpPunten = FXCollections.observableArrayList(leden.stream()
+        ObservableList<Lid> ledenSortedPunten = FXCollections.observableArrayList(leden.stream()
                 .sorted(Comparator.comparing(Lid::getPuntenAantal).reversed())
                 .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenGesorteerdOpPunten);
+        return FXCollections.unmodifiableObservableList(ledenSortedPunten);
     }
 
-    public void berekenPuntenLeden() {
+    private void berekenPuntenLeden() {
         int aantalPunten = 0;
         leden.stream().forEach(lid -> {
             lid.setPuntenAantal(
@@ -145,20 +148,27 @@ public class OverzichtController {
         );
     }
 
-    public List<Raadpleging> geefOverzichtRaadplegingen() {
-        return raadplegingen;
+    public ObservableList<Raadpleging> geefOverzichtRaadplegingen() {
+        ObservableList<Raadpleging> raadplegingenSortedTitel = FXCollections.observableArrayList(raadplegingen.stream()
+                //.sorted(Comparator.comparing(Raadpleging::getOefeningNaam))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(raadplegingenSortedTitel);
     }
 
-    public List<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldLid(Lid lid) {
-        return raadplegingen.stream()
+    public ObservableList<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldLid(Lid lid) {
+        ObservableList<Raadpleging> raadplegingenVoorLid = FXCollections.observableArrayList(raadplegingen.stream()
                 .filter(r -> r.getLid().equals(lid))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Raadpleging::getOefeningNaam))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(raadplegingenVoorLid);
     }
 
-    public List<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldeOefening(Oefening oefening) {
-        return raadplegingen.stream()
+    public ObservableList<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldeOefening(Oefening oefening) {
+        ObservableList<Raadpleging> raadplegingenVoorOefening = FXCollections.observableArrayList(raadplegingen.stream()
                 .filter(r -> r.getOefening().equals(oefening))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Raadpleging::getOefeningNaam))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(raadplegingenVoorOefening);
     }
 
     public ObservableList<Lid> geefOverzichtLeden() {
@@ -173,10 +183,27 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(formules);
     }
 
+    public ObservableList<String> geefOefeningNamen() {
+        ObservableList<String> oefeningNamenSorted = FXCollections.observableArrayList(oefeningen.stream()
+                .map(Oefening::getTitel)
+                .distinct()
+                .sorted(Comparator.comparing(String::toString))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(oefeningNamenSorted);
+    }
+
+    public Oefening geefOefeningOpTitel(String titel) {
+        Oefening oefening = oefeningen.stream()
+                .filter(o -> o.getTitel().equals(titel))
+                .findAny()
+                .orElse(null);
+        return oefening;
+    }
+
     //TESTMETHODS FILLING DATA
     //TestMethod fill data
     private void fillTestData() {
-        DataInitializer.initializeData(inschrijvingen, activiteiten, aanwezigheden, leden, raadplegingen);
+        DataInitializer.initializeData(inschrijvingen, activiteiten, aanwezigheden, leden, raadplegingen, oefeningen);
     }
 
 }

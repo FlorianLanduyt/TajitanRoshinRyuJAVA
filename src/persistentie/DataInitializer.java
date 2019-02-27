@@ -33,7 +33,8 @@ public class DataInitializer {
             List<Activiteit> activiteiten,
             List<Aanwezigheid> aanwezigheden,
             List<Lid> leden,
-            List<Raadpleging> raadplegingen) {
+            List<Raadpleging> raadplegingen,
+            List<Oefening> oefeningen) {
 
         Lid lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
                 "97.07.17-003.21", LocalDate.now(),
@@ -122,16 +123,18 @@ public class DataInitializer {
         aanwezigheden.add(a4);
         aanwezigheden.add(a5);
 
-        Oefening oef1 = new Oefening("www.youtube.com/schop", "schop.jpg", "maak een snelle voorwaartse beweging met je voet", new Thema("Techniek"));
-        Oefening oef2 = new Oefening("www.youtube.com/sla", "sla.jpg", "maak een snelle voorwaartse beweging met je arm", new Thema("Techniek"));
+        Oefening oef1 = new Oefening("Schoppen", "www.youtube.com/schop", "schop.jpg", "maak een snelle voorwaartse beweging met je voet", new Thema("Techniek"));
+        Oefening oef2 = new Oefening("Slaan", "www.youtube.com/sla", "sla.jpg", "maak een snelle voorwaartse beweging met je arm", new Thema("Techniek"));
+        oefeningen.add(oef1);
+        oefeningen.add(oef2);
 
-        Raadpleging r1 = new Raadpleging(lid1, oef1, 1);
-        Raadpleging r2 = new Raadpleging(lid1, oef2, 3);
-        Raadpleging r3 = new Raadpleging(lid2, oef1, 1);
-        Raadpleging r4 = new Raadpleging(lid2, oef2, 2);
-        Raadpleging r5 = new Raadpleging(lid3, oef2, 1);
-        Raadpleging r6 = new Raadpleging(lid4, oef1, 1);
-        Raadpleging r7 = new Raadpleging(lid5, oef1, 6);
+        Raadpleging r1 = new Raadpleging(lid1, oef1);
+        Raadpleging r2 = new Raadpleging(lid1, oef2);
+        Raadpleging r3 = new Raadpleging(lid2, oef1);
+        Raadpleging r4 = new Raadpleging(lid2, oef2);
+        Raadpleging r5 = new Raadpleging(lid3, oef2);
+        Raadpleging r6 = new Raadpleging(lid4, oef1);
+        Raadpleging r7 = new Raadpleging(lid5, oef1);
 
         raadplegingen.add(r1);
         raadplegingen.add(r2);
@@ -140,6 +143,16 @@ public class DataInitializer {
         raadplegingen.add(r5);
         raadplegingen.add(r6);
         raadplegingen.add(r7);
+
+        //Aantal raadplegingen met for loops
+        for (int i = 0; i < 15; i++) {
+            r1.verhoogAantalRaadplegingen();
+            r3.verhoogAantalRaadplegingen();
+        }
+
+        for (int i = 0; i < 4; i++) {
+            r2.verhoogAantalRaadplegingen();
+        }
 
         Inschrijving i1 = new Inschrijving(Formule.WO_ZA, lid1, LocalDate.of(2019, Month.DECEMBER, 1));
         Inschrijving i2 = new Inschrijving(Formule.ACTIVITEIT, lid2, LocalDate.of(2019, Month.DECEMBER, 5));

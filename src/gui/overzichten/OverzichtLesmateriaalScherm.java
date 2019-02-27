@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -46,6 +47,8 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
     @FXML
     private TableColumn<Raadpleging, String> colAantalRaadplegingen;
     @FXML
+    private Button btnAlleRaadplegingen;
+    @FXML
     private Label lblPerLesmateriaal;
     @FXML
     private Button btnRaadplegingenPerLesmateriaal;
@@ -56,7 +59,7 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
     @FXML
     private Button btnRaadplegingenPerLid;
     @FXML
-    private ComboBox<Oefening> cbLesmateriaal;
+    private ComboBox<String> cbLesmateriaal;
 
     private BeginScherm beginScherm;
     private AdminController adminController;
@@ -80,17 +83,52 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
                 .getAangemeldeAdmin().getGebruikersnaam());
 
         //Tableview setup
+        colNaamLesmateriaal.setCellValueFactory(cellData -> cellData.getValue().oefeningNaamProperty());
+        colVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
+        colFamilienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
+        colAantalRaadplegingen.setCellValueFactory(cellData -> cellData.getValue().aantalRaadplegingenProperty());
+        tvRaadplegingen.setItems(overzichtController.geefOverzichtRaadplegingen());
         //Combobox vullen
         cbLeden.setItems(overzichtController.geefOverzichtLeden());
+        cbLesmateriaal.setItems(overzichtController.geefOefeningNamen());
 
+    }
+
+    @FXML
+    private void toonAlleRaadplegingen(ActionEvent event) {
+        tvRaadplegingen.setItems(overzichtController.geefOverzichtRaadplegingen());
+        cbLeden.getSelectionModel().clearSelection();
+        cbLesmateriaal.getSelectionModel().clearSelection();
     }
 
     @FXML
     private void toonRaadplegingenPerLesmateriaal(ActionEvent event) {
+        Oefening oefening = overzichtController.geefOefeningOpTitel(cbLesmateriaal.getSelectionModel().selectedItemProperty().getValue());
+        if (oefening != null) {
+            tvRaadplegingen.setItems(overzichtController.geefOverzichtRaadplegingenVoorBepaaldeOefening(oefening));
+            cbLeden.getSelectionModel().clearSelection();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Filterfout");
+            alert.setHeaderText("Filteren niet geslaagd");
+            alert.setContentText("U dient een lid te selecteren.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void toonRaadplegingenPerLid(ActionEvent event) {
+        Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
+        if (lid != null) {
+            tvRaadplegingen.setItems(overzichtController.geefOverzichtRaadplegingenVoorBepaaldLid(lid));
+            cbLesmateriaal.getSelectionModel().clearSelection();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Filterfout");
+            alert.setHeaderText("Filteren niet geslaagd");
+            alert.setContentText("U dient een oefening te selecteren.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
