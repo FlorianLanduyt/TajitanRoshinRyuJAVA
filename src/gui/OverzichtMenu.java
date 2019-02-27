@@ -1,5 +1,6 @@
 package gui;
 
+import domein.Admin;
 import domein.AdminController;
 import gui.overzichten.OverzichtAanwezighedenScherm;
 import gui.overzichten.OverzichtActiviteitenScherm;
@@ -7,16 +8,14 @@ import gui.overzichten.OverzichtClubkampioenschapScherm;
 import gui.overzichten.OverzichtInschrijvingenScherm;
 import gui.overzichten.OverzichtLesmateriaalScherm;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 public class OverzichtMenu extends VBox {
 
@@ -111,8 +110,8 @@ public class OverzichtMenu extends VBox {
 
     @FXML
     private void terugNaarHoofdmenu(ActionEvent event) {
-        beginScherm.getChildren().remove(this);
         beginScherm.getChildren().add(new HoofdMenu(beginScherm, adminController));
+        beginScherm.getChildren().remove(this);
     }
 
 }

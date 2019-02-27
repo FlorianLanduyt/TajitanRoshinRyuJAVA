@@ -15,11 +15,11 @@ import javafx.stage.Stage;
  * @author Tybo Vanderstraeten
  */
 public class StartUpGUI extends Application {
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Declaring guiController instance
@@ -31,5 +31,5 @@ public class StartUpGUI extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
     }
-    
+
 }
