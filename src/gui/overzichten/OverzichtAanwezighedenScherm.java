@@ -6,10 +6,12 @@ import domein.AdminController;
 import domein.Formule;
 import domein.Lid;
 import domein.OverzichtController;
+import exceptions.DatumIntervalException;
 import gui.BeginScherm;
 import gui.OverzichtMenu;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -38,15 +41,19 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
     @FXML
     private Button btnSignOff;
     @FXML
-    private TableView<?> tvAanwezigheden;
+    private TableView<Aanwezigheid> tvAanwezigheden;
     @FXML
     private TableColumn<Aanwezigheid, String> colNaamActiviteit;
     @FXML
-    private TableColumn<Aanwezigheid, String> colLid;
+    private TableColumn<Aanwezigheid, String> colVoornaam;
+    @FXML
+    private TableColumn<Aanwezigheid, String> colFamilienaam;
     @FXML
     private TableColumn<Aanwezigheid, String> colFormule;
     @FXML
     private TableColumn<Aanwezigheid, String> colDatum;
+    @FXML
+    private Button btnAlleAanwezigheden;
     @FXML
     private ComboBox<Lid> cbLeden;
     @FXML
@@ -88,21 +95,78 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
                 .getAangemeldeAdmin().getGebruikersnaam());
 
         //Tableview setup
+        colNaamActiviteit.setCellValueFactory(cellData -> cellData.getValue().activiteitNaamProperty());
+        colVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
+        colFamilienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
+        colFormule.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
+        colDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
+        tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezigheden());
         //Combobox vullen
         cbLeden.setItems(overzichtController.geefOverzichtLeden());
         cbFormules.setItems(overzichtController.geefFormules());
     }
 
     @FXML
+    private void toonAlleAanwezigheden(ActionEvent event) {
+        tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezigheden());
+        cbFormules.getSelectionModel().clearSelection();
+        cbLeden.getSelectionModel().clearSelection();
+        dpDatum.setValue(null);
+    }
+
+    @FXML
     private void toonAanwezighedenPerLid(ActionEvent event) {
+        Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
+        if (lid != null) {
+            tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldLid(lid));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Filterfout");
+            alert.setHeaderText("Filteren niet geslaagd");
+            alert.setContentText("U dient een lid te selecteren.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void toonAanwezighedenOpDatum(ActionEvent event) {
+        try {
+            LocalDate datum = dpDatum.getValue();
+            if (datum != null) {
+                tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldeDatum(datum));
+                cbLeden.getSelectionModel().clearSelection();
+                cbFormules.getSelectionModel().clearSelection();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Filterfout");
+                alert.setHeaderText("Filteren niet geslaagd");
+                alert.setContentText("U dient een datum te selecteren.");
+                alert.showAndWait();
+            }
+        } catch (DatumIntervalException ex) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Filterfout");
+            alert.setHeaderText("Filteren niet geslaagd");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+        }
+
     }
 
     @FXML
     private void toonAanwezighedenPerFormule(ActionEvent event) {
+        Formule formule = cbFormules.getSelectionModel().selectedItemProperty().getValue();
+        if (formule != null) {
+            tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldeFormule(formule));
+            dpDatum.setValue(null);
+            cbLeden.getSelectionModel().clearSelection();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Filterfout");
+            alert.setHeaderText("Filteren niet geslaagd");
+            alert.setContentText("U dient een formule te selecteren.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

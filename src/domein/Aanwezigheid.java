@@ -5,6 +5,9 @@
  */
 package domein;
 
+import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author Tim
@@ -15,12 +18,46 @@ public class Aanwezigheid {
     private Activiteit activiteit;
     private int puntenAantal;
 
+    //SimpleStringProperties
+    private SimpleStringProperty sActiviteitNaam = new SimpleStringProperty();
+    private SimpleStringProperty sVoornaam = new SimpleStringProperty();
+    private SimpleStringProperty sAchternaam = new SimpleStringProperty();
+    private SimpleStringProperty sFormule = new SimpleStringProperty();
+    private SimpleStringProperty sDatum = new SimpleStringProperty();
+
     public Aanwezigheid(Lid lid, Activiteit activiteit) {
         setLid(lid);
         setActiviteit(activiteit);
+        setDatum();
+        setVoornaam();
+        setAchternaam();
+        setFormule();
+        setActiviteitNaam();
         berekenPunten();
     }
 
+    //Getters voor SimpleStringProperties
+    public SimpleStringProperty activiteitNaamProperty() {
+        return sActiviteitNaam;
+    }
+
+    public SimpleStringProperty voornaamProperty() {
+        return sVoornaam;
+    }
+
+    public SimpleStringProperty achternaamProperty() {
+        return sAchternaam;
+    }
+
+    public SimpleStringProperty formuleProperty() {
+        return sFormule;
+    }
+
+    public SimpleStringProperty datumProperty() {
+        return sDatum;
+    }
+
+    //Gewone getters en setters
     public Lid getLid() {
         return lid;
     }
@@ -40,7 +77,47 @@ public class Aanwezigheid {
     public int getPuntenAantal() {
         return puntenAantal;
     }
-    
+
+    public String getActiviteitNaam() {
+        return sActiviteitNaam.get();
+    }
+
+    private void setActiviteitNaam() {
+        sActiviteitNaam.set(activiteit.getNaam());
+    }
+
+    public Formule getFormule() {
+        return Formule.valueOf(sFormule.get());
+    }
+
+    private void setFormule() {
+        sFormule.set(activiteit.getFormule().name());
+    }
+
+    public LocalDate getDatum() {
+        return LocalDate.parse(sDatum.get());
+    }
+
+    private void setDatum() {
+        sDatum.set(LocalDate.now().toString());
+    }
+
+    public String getVoornaam() {
+        return sVoornaam.get();
+    }
+
+    public void setVoornaam() {
+        sVoornaam.set(getLid().getVoornaam());
+    }
+
+    public String getAchternaam() {
+        return sAchternaam.get();
+    }
+
+    public void setAchternaam() {
+        sAchternaam.set(getLid().getAchternaam());
+    }
+
     private void berekenPunten() {
         switch (activiteit.getFormule().name()) {
             case "DI_DO":
