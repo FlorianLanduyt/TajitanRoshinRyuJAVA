@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.beans.PropertyChangeListener;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
 public class LoginForm extends AnchorPane {
@@ -28,6 +29,8 @@ public class LoginForm extends AnchorPane {
     private Button btnCancel;
     @FXML
     private Button btnLogin;
+    @FXML
+    private Label lblWachtwoordVergeten;
 
     private PropertyChangeSupport subject;
     private AdminController adminController;

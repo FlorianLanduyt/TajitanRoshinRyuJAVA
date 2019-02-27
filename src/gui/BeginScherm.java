@@ -27,16 +27,12 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
 
     @FXML
     private Button btnSignIn;
-
     @FXML
     private Button btnSignOff;
-
     @FXML
     private Label lblAdminName;
-
     @FXML
     private ImageView ivSignIn;
-
     @FXML
     private ImageView ivSignOff;
 
@@ -55,12 +51,12 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
             throw new RuntimeException(ex);
         }
 
-        btnSignOff.setVisible(false);
-        ivSignOff.setVisible(false);
+        signOffVisibility(false);
     }
 
     @FXML
     private void meldAan(ActionEvent event) {
+        signInVisibility(false);
         loginForm = new LoginForm(adminController);
         loginForm.addObserver(this);
         Scene scene = new Scene(loginForm);
@@ -69,6 +65,9 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         stage.setTitle("Aanmelden");
         stage.setResizable(false);
         stage.showAndWait();
+        if (adminController.getAangemeldeAdmin() == null) {
+            signInVisibility(true);
+        }
     }
 
     @FXML
@@ -87,13 +86,21 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         adminController.setAangemeldeAdmin((Admin) pce.getNewValue());
         lblAdminName.setText("Welkom, " + adminController
                 .getAangemeldeAdmin().getGebruikersnaam());
-        btnSignIn.setVisible(false);
-        ivSignIn.setVisible(false);
-        btnSignOff.setVisible(true);
-        ivSignOff.setVisible(true);
+        signInVisibility(false);
+        signOffVisibility(true);
 
         hoofdMenu = new HoofdMenu(this, adminController);
         this.getChildren().add(hoofdMenu);
+    }
+
+    private void signInVisibility(boolean value) {
+        btnSignIn.setVisible(value);
+        ivSignIn.setVisible(value);
+    }
+
+    private void signOffVisibility(boolean value) {
+        btnSignOff.setVisible(value);
+        ivSignOff.setVisible(value);
     }
 
 }

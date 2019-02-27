@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 public class OverzichtActiviteitenScherm extends AnchorPane {
 
     @FXML
+    private Label lblActiviteiten;
+    @FXML
     private AnchorPane AnchorPane;
     @FXML
     private Label lblAdminName;

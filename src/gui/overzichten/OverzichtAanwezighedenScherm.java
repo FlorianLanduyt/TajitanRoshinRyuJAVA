@@ -33,6 +33,8 @@ import javafx.stage.Stage;
 public class OverzichtAanwezighedenScherm extends AnchorPane {
 
     @FXML
+    private Label lblAanwezigheden;
+    @FXML
     private AnchorPane AnchorPane;
     @FXML
     private Label lblAdminName;

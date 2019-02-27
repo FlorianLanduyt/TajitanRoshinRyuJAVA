@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 public class OverzichtClubkampioenschapScherm extends AnchorPane {
 
     @FXML
+    private Label lblClubkampioenschap;
+    @FXML
     private AnchorPane AnchorPane;
     @FXML
     private Label lblAdminName;
