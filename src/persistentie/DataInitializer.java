@@ -95,7 +95,7 @@ public class DataInitializer {
             a.setBus("5A");
         });
 
-        for (int i = 0; i < 5000; i++) {
+        for (int i = 0; i < 50; i++) {
             Activiteit a = new Stage("Meerdaagse stage", Formule.STAGE, LocalDate.of(2019, Month.DECEMBER, 8));
             a.setStad("Gent");
             a.setPostcode("9000");
@@ -110,11 +110,11 @@ public class DataInitializer {
         s2.voegDeelnemerToe(lid2);
         s3.voegDeelnemerToe(lid2);
 
-        Aanwezigheid a1 = new Aanwezigheid(lid3, l1, 5);
-        Aanwezigheid a2 = new Aanwezigheid(lid4, l1, 5);
-        Aanwezigheid a3 = new Aanwezigheid(lid1, l2, 5);
-        Aanwezigheid a4 = new Aanwezigheid(lid2, l2, 5);
-        Aanwezigheid a5 = new Aanwezigheid(lid5, l3, 5);
+        Aanwezigheid a1 = new Aanwezigheid(lid3, l1);
+        Aanwezigheid a2 = new Aanwezigheid(lid4, l1);
+        Aanwezigheid a3 = new Aanwezigheid(lid1, l2);
+        Aanwezigheid a4 = new Aanwezigheid(lid2, l2);
+        Aanwezigheid a5 = new Aanwezigheid(lid5, l3);
 
         aanwezigheden.add(a1);
         aanwezigheden.add(a2);

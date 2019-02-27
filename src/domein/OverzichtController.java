@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,8 +17,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import jdk.nashorn.internal.runtime.ScriptRuntime;
 import persistentie.DataInitializer;
 
 /**
@@ -99,12 +103,23 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(activiteitenVoorLid);
     }
 
-    public Map<Lid, Integer> geefOverzichtClubkampioenschap() {
-        Map<Lid, Integer> deelnemersMetPunten = aanwezigheden.stream()
-                .collect(Collectors.groupingBy(Aanwezigheid::getLid,
-                        Collectors.summingInt(
-                                aanwezigheid -> aanwezigheid.getPuntenAantal())));
-        return deelnemersMetPunten;
+    public ObservableList<Lid> geefOverzichtClubkampioenschap() {
+        berekenPuntenLeden();
+        ObservableList<Lid> ledenGesorteerdOpPunten = FXCollections.observableArrayList(leden.stream()
+                .sorted(Comparator.comparing(Lid::getPuntenAantal).reversed())
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(ledenGesorteerdOpPunten);
+    }
+
+    public void berekenPuntenLeden() {
+        int aantalPunten = 0;
+        leden.stream().forEach(lid -> {
+            lid.setPuntenAantal(
+                    aanwezigheden.stream()
+                            .filter(aanwezigheid -> aanwezigheid.getLid().equals(lid))
+                            .collect(Collectors.summingInt(a -> a.getPuntenAantal())));
+        }
+        );
     }
 
     public List<Raadpleging> geefOverzichtRaadplegingen() {

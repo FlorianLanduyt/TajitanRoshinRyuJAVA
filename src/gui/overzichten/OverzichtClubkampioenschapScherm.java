@@ -1,5 +1,6 @@
 package gui.overzichten;
 
+import domein.Aanwezigheid;
 import domein.Activiteit;
 import domein.AdminController;
 import domein.Lid;
@@ -64,6 +65,10 @@ public class OverzichtClubkampioenschapScherm extends AnchorPane {
                 .getAangemeldeAdmin().getGebruikersnaam());
 
         //Tableview setup
+        colVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
+        colFamilienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
+        colPunten.setCellValueFactory(cellData -> cellData.getValue().puntenAantalProperty());
+        tvClubkampioenschap.setItems(overzichtController.geefOverzichtClubkampioenschap());
     }
 
     @FXML

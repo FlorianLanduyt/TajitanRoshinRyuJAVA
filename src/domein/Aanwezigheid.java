@@ -10,14 +10,15 @@ package domein;
  * @author Tim
  */
 public class Aanwezigheid {
+
     private Lid lid;
     private Activiteit activiteit;
     private int puntenAantal;
 
-    public Aanwezigheid(Lid lid, Activiteit activiteit, int puntenAantal) {
+    public Aanwezigheid(Lid lid, Activiteit activiteit) {
         setLid(lid);
         setActiviteit(activiteit);
-        setPuntenAantal(puntenAantal);
+        berekenPunten();
     }
 
     public Lid getLid() {
@@ -39,10 +40,20 @@ public class Aanwezigheid {
     public int getPuntenAantal() {
         return puntenAantal;
     }
-
-    private void setPuntenAantal(int puntenAantal) {
-        this.puntenAantal = puntenAantal;
+    
+    private void berekenPunten() {
+        switch (activiteit.getFormule().name()) {
+            case "DI_DO":
+            case "DI_ZA":
+            case "WO_ZA":
+                this.puntenAantal = 5;
+                break;
+            case "WO":
+            case "ZA":
+                this.puntenAantal = 10;
+                break;
+            default:
+                this.puntenAantal = 0;
+        }
     }
-    
-    
 }
