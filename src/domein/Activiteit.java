@@ -48,35 +48,35 @@ public class Activiteit {
     }
 
     //Getters voor simplestringproperties
-    public StringProperty naamProperty() {
+    public SimpleStringProperty naamProperty() {
         return sNaam;
     }
 
-    public StringProperty formuleProperty() {
+    public SimpleStringProperty formuleProperty() {
         return sFormule;
     }
 
-    public StringProperty datumProperty() {
+    public SimpleStringProperty datumProperty() {
         return sDatum;
     }
 
-    public StringProperty straatProperty() {
+    public SimpleStringProperty straatProperty() {
         return sStraat;
     }
 
-    public StringProperty stadProperty() {
+    public SimpleStringProperty stadProperty() {
         return sStad;
     }
 
-    public StringProperty postcodeProperty() {
+    public SimpleStringProperty postcodeProperty() {
         return sPostcode;
     }
 
-    public StringProperty huisnummerProperty() {
+    public SimpleStringProperty huisnummerProperty() {
         return sHuisnummer;
     }
 
-    public StringProperty busProperty() {
+    public SimpleStringProperty busProperty() {
         return sBus;
     }
 

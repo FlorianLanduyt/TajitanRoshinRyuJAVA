@@ -5,6 +5,7 @@
  */
 package domein;
 
+import exceptions.DatumIntervalException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -30,14 +31,14 @@ import persistentie.DataInitializer;
  */
 public class OverzichtController {
 
-    private List<Inschrijving> inschrijvingen;
+    private ObservableList<Inschrijving> inschrijvingen;
     private ObservableList<Activiteit> activiteiten;
     private List<Aanwezigheid> aanwezigheden;
     private ObservableList<Lid> leden;
     private List<Raadpleging> raadplegingen;
 
     public OverzichtController() {
-        this.inschrijvingen = new ArrayList<>();
+        this.inschrijvingen = FXCollections.observableArrayList();
         this.activiteiten = FXCollections.observableArrayList();
         this.aanwezigheden = new ArrayList<>();
         this.leden = FXCollections.observableArrayList();
@@ -69,23 +70,32 @@ public class OverzichtController {
                 .collect(Collectors.toList());
     }
 
-    public List<Inschrijving> geefOverzichtInschrijvingen() {
-        return inschrijvingen;
+    public ObservableList<Inschrijving> geefOverzichtInschrijvingen() {
+        ObservableList<Inschrijving> inschrijvingenSortedDatum = FXCollections.observableArrayList(inschrijvingen.stream()
+                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
+                .collect(Collectors.toList()));
+        return inschrijvingenSortedDatum;
     }
 
-    public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule formule) {
-        return inschrijvingen.stream()
+    public ObservableList<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule formule) {
+        ObservableList<Inschrijving> inschrijvingenVoorFormule = FXCollections.observableArrayList(inschrijvingen.stream()
                 .filter(inschrijving -> inschrijving.getFormule().equals(formule))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
+                .collect(Collectors.toList()));
+        return inschrijvingenVoorFormule;
     }
 
-    // Is het wel nodig om de naam van je methode zo expliciet uit te schrijven? Volstaat method overloading niet? --edit by tybo: we dont do that here
-    public List<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
-        return inschrijvingen.stream()
+    public ObservableList<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
+        if (tot.compareTo(van) < 0) {
+            throw new DatumIntervalException();
+        }
+        ObservableList<Inschrijving> inschrijvingenVoorInterval = FXCollections.observableArrayList(inschrijvingen.stream()
                 .filter(inschrijving
                         -> inschrijving.getTijdstip().compareTo(tot) <= 0
                 && inschrijving.getTijdstip().compareTo(van) >= 0)
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
+                .collect(Collectors.toList()));
+        return inschrijvingenVoorInterval;
     }
 
     public ObservableList<Activiteit> geefOverzichtActiviteiten() {
