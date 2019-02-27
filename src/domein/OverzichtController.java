@@ -133,8 +133,8 @@ public class OverzichtController {
                 .findAny()
                 .orElse(null);
     }
-    
-    public ObservableList<Formule> geefFormules(){
+
+    public ObservableList<Formule> geefFormules() {
         return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(Arrays.asList(Formule.values())));
     }
 
@@ -192,6 +192,14 @@ public class OverzichtController {
         activiteiten.add(l1);
         activiteiten.add(l2);
         activiteiten.add(l3);
+
+        activiteiten.forEach(a -> {
+            a.setStad("Gent");
+            a.setPostcode("9000");
+            a.setStraat("Korenmarkt");
+            a.setHuisnummer("20");
+            a.setBus("5A");
+        });
 
         Aanwezigheid a1 = new Aanwezigheid(lid3, l1, 5);
         Aanwezigheid a2 = new Aanwezigheid(lid4, l1, 5);

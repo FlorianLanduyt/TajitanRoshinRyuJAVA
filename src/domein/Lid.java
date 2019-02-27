@@ -68,7 +68,7 @@ public class Lid {
         return sVoornaam.get();
     }
     
-    private void setVoornaam(String voornaam) {
+    public void setVoornaam(String voornaam) {
         sVoornaam.set(voornaam);
     }
     
@@ -76,7 +76,7 @@ public class Lid {
         return sAchternaam.get();
     }
     
-    private void setAchternaam(String achternaam) {
+    public void setAchternaam(String achternaam) {
         sAchternaam.set(achternaam); 
     }
     
@@ -84,7 +84,7 @@ public class Lid {
         return geboortedatum;
     }
     
-    private void setGeboortedatum(LocalDate geboortedatum) {
+    public void setGeboortedatum(LocalDate geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
     
@@ -92,7 +92,7 @@ public class Lid {
         return rijksregisterNr;
     }
     
-    private void setRijksregisterNr(String rijksregisterNr) {
+    public void setRijksregisterNr(String rijksregisterNr) {
         this.rijksregisterNr = rijksregisterNr;
     }
     
@@ -100,7 +100,7 @@ public class Lid {
         return datumEersteTraining;
     }
     
-    private void setDatumEersteTraining(LocalDate datumEersteTraining) {
+    public void setDatumEersteTraining(LocalDate datumEersteTraining) {
         this.datumEersteTraining = datumEersteTraining;
     }
     
@@ -116,7 +116,7 @@ public class Lid {
         return vasteTelefoonNr;
     }
     
-    private void setVasteTelefoonNr(String vasteTelefoonNr) {
+    public void setVasteTelefoonNr(String vasteTelefoonNr) {
         this.vasteTelefoonNr = vasteTelefoonNr;
     }
     
@@ -124,7 +124,7 @@ public class Lid {
         return straat;
     }
     
-    private void setStraat(String straat) {
+    public void setStraat(String straat) {
         this.straat = straat;
     }
     
@@ -132,7 +132,7 @@ public class Lid {
         return huisNr;
     }
     
-    private void setHuisNr(String huisNr) {
+    public void setHuisNr(String huisNr) {
         this.huisNr = huisNr;
     }
     
@@ -148,7 +148,7 @@ public class Lid {
         return postcode;
     }
     
-    private void setPostcode(String postcode) {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
     
@@ -156,7 +156,7 @@ public class Lid {
         return email;
     }
     
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
     
@@ -164,7 +164,7 @@ public class Lid {
         return wachtwoord;
     }
     
-    private void setWachtwoord(String wachtwoord) {
+    public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
     }
     
@@ -188,7 +188,7 @@ public class Lid {
         return geboorteplaats;
     }
     
-    private void setGeboorteplaats(String geboorteplaats) {
+    public void setGeboorteplaats(String geboorteplaats) {
         this.geboorteplaats = geboorteplaats;
     }
     
@@ -196,7 +196,7 @@ public class Lid {
         return geslacht;
     }
     
-    private void setGeslacht(String geslacht) {
+    public void setGeslacht(String geslacht) {
         this.geslacht = geslacht;
     }
     
@@ -204,7 +204,7 @@ public class Lid {
         return nationaliteit;
     }
     
-    private void setNationaliteit(String nationaliteit) {
+    public void setNationaliteit(String nationaliteit) {
         this.nationaliteit = nationaliteit;
     }
     
@@ -220,7 +220,7 @@ public class Lid {
         return graad;
     }
     
-    private void setGraad(String graad) {
+    public void setGraad(String graad) {
         this.graad = graad;
     }
     
