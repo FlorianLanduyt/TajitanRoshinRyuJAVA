@@ -89,9 +89,11 @@ public class OverzichtController {
     }
 
     public ObservableList<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
-        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(activiteiten.stream()
+
+        ObservableList<Activiteit> activiteitenVoorLid = FXCollections.observableArrayList(activiteiten.stream()
                 .filter(activiteit -> activiteit.getDeelnemers().contains(lid))
-                .collect(Collectors.toList())));
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(activiteitenVoorLid);
     }
 
     public Map<Lid, Integer> geefOverzichtClubkampioenschap() {
@@ -200,6 +202,21 @@ public class OverzichtController {
             a.setHuisnummer("20");
             a.setBus("5A");
         });
+
+        for (int i = 0; i < 50; i++) {
+            Activiteit a = new Stage("Meerdaagse stage", Formule.STAGE, LocalDate.of(2019, Month.DECEMBER, 8));
+            a.setStad("Gent");
+            a.setPostcode("9000");
+            a.setStraat("Korenmarkt");
+            a.setHuisnummer("20");
+            a.setBus("5A");
+            a.voegDeelnemerToe(lid5);
+            activiteiten.add(a);
+        }
+
+        s1.voegDeelnemerToe(lid1);
+        s2.voegDeelnemerToe(lid2);
+        s3.voegDeelnemerToe(lid2);
 
         Aanwezigheid a1 = new Aanwezigheid(lid3, l1, 5);
         Aanwezigheid a2 = new Aanwezigheid(lid4, l1, 5);

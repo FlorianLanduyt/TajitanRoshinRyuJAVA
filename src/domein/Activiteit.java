@@ -6,6 +6,7 @@
 package domein;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -43,6 +44,7 @@ public class Activiteit {
         setNaam(naam);
         setFormule(formule);
         setDatum(datum);
+        deelnemers=new ArrayList<>();
     }
 
     //Getters voor simplestringproperties
