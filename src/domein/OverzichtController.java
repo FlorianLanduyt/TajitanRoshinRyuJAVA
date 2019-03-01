@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import exceptions.DatumIntervalException;
@@ -26,11 +21,9 @@ import javafx.collections.ObservableList;
 import jdk.nashorn.internal.runtime.ScriptRuntime;
 import persistentie.DataInitializer;
 
-/**
- *
- * @author robdeputter
- */
 public class OverzichtController {
+
+    private BeheerController beheerController;
 
     private ObservableList<Inschrijving> inschrijvingen;
     private ObservableList<Activiteit> activiteiten;
@@ -40,15 +33,14 @@ public class OverzichtController {
     private ObservableList<Oefening> oefeningen;
 
     public OverzichtController() {
-        this.inschrijvingen = FXCollections.observableArrayList();
-        this.activiteiten = FXCollections.observableArrayList();
-        this.aanwezigheden = FXCollections.observableArrayList();
-        this.leden = FXCollections.observableArrayList();
-        this.raadplegingen = FXCollections.observableArrayList();
-        this.oefeningen = FXCollections.observableArrayList();
+        beheerController = new BeheerController();
 
-        //Calling testdata method
-        fillTestData();
+        this.inschrijvingen = FXCollections.observableArrayList(beheerController.geefInschrijvingen());
+        this.activiteiten = FXCollections.observableArrayList(beheerController.geefActiviteiten());
+        this.aanwezigheden = FXCollections.observableArrayList(beheerController.geefAanwezigheden());
+        this.leden = FXCollections.observableArrayList(beheerController.geefLeden());
+        this.raadplegingen = FXCollections.observableArrayList(beheerController.geefRaadplegingen());
+        this.oefeningen = FXCollections.observableArrayList(beheerController.geefOefeningen());
     }
 
     public ObservableList<Aanwezigheid> geefOverzichtAanwezigheden() {
@@ -199,11 +191,4 @@ public class OverzichtController {
                 .orElse(null);
         return oefening;
     }
-
-    //TESTMETHODS FILLING DATA
-    //TestMethod fill data
-    private void fillTestData() {
-        DataInitializer.initializeData(inschrijvingen, activiteiten, aanwezigheden, leden, raadplegingen, oefeningen);
-    }
-
 }

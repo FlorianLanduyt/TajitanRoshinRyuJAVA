@@ -18,19 +18,15 @@ import java.util.List;
  */
 public class AdminController {
 
+    private BeheerController beheerController;
     private List<Admin> admins;
     private Admin aangemeldeAdmin;
 
     public AdminController() {
-        admins = new ArrayList<>();
-        aangemeldeAdmin = null;
+        beheerController = new BeheerController();
 
-        //Hardcoded admins
-        Admin tybo = new Admin("Tybo", "admin");
-        Admin rob = new Admin("Rob", "admin");
-        Admin florian = new Admin("Florian", "admin");
-        Admin tim = new Admin("Tim", "admin");
-        Arrays.stream(new Admin[]{tybo, rob, florian, tim}).forEach(a -> voegAdminToe(a));
+        admins = new ArrayList<>(beheerController.geefAdmins());
+        aangemeldeAdmin = null;
     }
 
     public Admin getAangemeldeAdmin() {
@@ -44,19 +40,6 @@ public class AdminController {
                 .findAny()
                 .orElse(null);
         aangemeldeAdmin = a;
-
-    }
-
-    public List<Admin> getAdmins() {
-        return admins;
-    }
-
-    public void voegAdminToe(Admin admin) {
-        admins.add(admin);
-    }
-
-    public void verwijderAdmin(Admin admin) {
-        admins.remove(admin);
     }
 
     public boolean isAangemeld(Admin admin) {

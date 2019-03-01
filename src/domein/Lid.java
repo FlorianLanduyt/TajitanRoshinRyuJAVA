@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Lid {
 
+    private int id;
     private String voornaam;
     private String achternaam;
     private LocalDate geboortedatum;
@@ -73,6 +74,10 @@ public class Lid {
     }
 
     //Gewone getters en setters
+    public int getId() {
+        return id;
+    }
+
     public String getVoornaam() {
         return sVoornaam.get();
     }
@@ -117,7 +122,7 @@ public class Lid {
         return gsmNr;
     }
 
-    private void setGsmNr(String gsmNr) {
+    public void setGsmNr(String gsmNr) {
         this.gsmNr = gsmNr;
     }
 
@@ -240,7 +245,7 @@ public class Lid {
     public void setPuntenAantal(int puntenAantal) {
         sPuntenAantal.set(String.valueOf(puntenAantal));
     }
-    
+
     @Override
     public String toString() {
         return String.format("%s %s", getVoornaam(), getAchternaam());
@@ -248,9 +253,13 @@ public class Lid {
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.rijksregisterNr);
         return hash;
     }
+
+    
 
     @Override
     public boolean equals(Object obj) {
@@ -264,13 +273,7 @@ public class Lid {
             return false;
         }
         final Lid other = (Lid) obj;
-        if (!Objects.equals(this.voornaam, other.voornaam)) {
-            return false;
-        }
-        if (!Objects.equals(this.achternaam, other.achternaam)) {
-            return false;
-        }
-        if (!Objects.equals(this.rijksregisterNr, other.rijksregisterNr)) {
+        if (this.id != other.id) {
             return false;
         }
         return true;

@@ -34,7 +34,7 @@ public class DataInitializer {
             List<Aanwezigheid> aanwezigheden,
             List<Lid> leden,
             List<Raadpleging> raadplegingen,
-            List<Oefening> oefeningen) {
+            List<Oefening> oefeningen, List<Admin> admins) {
 
         Lid lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
                 "97.07.17-003.21", LocalDate.now(),
@@ -166,5 +166,14 @@ public class DataInitializer {
         inschrijvingen.add(i4);
         inschrijvingen.add(i5);
 
+        Admin tybo = new Admin("Tybo", "admin");
+        Admin rob = new Admin("Rob", "admin");
+        Admin florian = new Admin("Florian", "admin");
+        Admin tim = new Admin("Tim", "admin");
+
+        admins.add(tybo);
+        admins.add(rob);
+        admins.add(florian);
+        admins.add(tim);
     }
 }
