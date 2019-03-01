@@ -84,9 +84,6 @@ public class BeheerController {
     //Gaat pas werken eens JPA configured en de effectieve data uit db wordt gehaald -> id is dan pas echt aanwezig en niet overal null
     public void wijzigLid(Lid lidMetGewijzigdeVelden) {
         Lid lid = geefLidDoorId(lidMetGewijzigdeVelden.getId());
-        //Is dit allemaal nodig of zou het volstaan om gewoon te zeggen 'Lid lid = lidMetGewijzigdeVelden' ?
-        //Twijfel omdat ik niet zeker weet of dat dit lid dan effectief hetzelfde lid blijft of zogezegd een 
-        //andere instantie
         lid.setVoornaam(lidMetGewijzigdeVelden.getVoornaam());
         lid.setAchternaam(lidMetGewijzigdeVelden.getAchternaam());
         lid.setGsmNr(lidMetGewijzigdeVelden.getGsmNr());

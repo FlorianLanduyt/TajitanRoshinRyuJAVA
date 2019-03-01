@@ -32,7 +32,6 @@ public class LoginForm extends AnchorPane {
     @FXML
     private Label lblWachtwoordVergeten;
 
-    private PropertyChangeSupport subject;
     private AdminController adminController;
 
     public LoginForm(AdminController adminController) {
@@ -45,8 +44,6 @@ public class LoginForm extends AnchorPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
-        subject = new PropertyChangeSupport(this);
     }
 
     @FXML
@@ -59,9 +56,7 @@ public class LoginForm extends AnchorPane {
     private void meldAan(ActionEvent event) {
         Admin admin = new Admin(txfUsername.getText(), txfPassword.getText());
         if (adminController.adminBestaat(admin)) {
-            subject.firePropertyChange("aangemeldeAdmin",
-                    adminController.getAangemeldeAdmin(),
-                    admin);
+            adminController.setAangemeldeAdmin(admin);
             Stage stage = (Stage) (getScene().getWindow());
             stage.close();
         } else {
@@ -73,13 +68,5 @@ public class LoginForm extends AnchorPane {
             alert.setContentText("De inloggegevens waren incorrect.");
             alert.showAndWait();
         }
-    }
-
-    public void addObserver(PropertyChangeListener pcl) {
-        subject.addPropertyChangeListener(pcl);
-    }
-
-    public void removeObserver(PropertyChangeListener pcl) {
-        subject.removePropertyChangeListener(pcl);
     }
 }

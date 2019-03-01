@@ -52,7 +52,7 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
+        this.adminController.addPropertyChangeListener(this);
         signOffVisibility(false);
     }
 
@@ -60,7 +60,6 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
     private void meldAan(ActionEvent event) {
         signInVisibility(false);
         loginForm = new LoginForm(adminController);
-        loginForm.addObserver(this);
         Scene scene = new Scene(loginForm);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -85,9 +84,9 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        adminController.setAangemeldeAdmin((Admin) pce.getNewValue());
         lblAdminName.setText("Welkom, " + adminController
                 .getAangemeldeAdmin().getGebruikersnaam());
+
         signInVisibility(false);
         signOffVisibility(true);
 

@@ -21,12 +21,14 @@ public class AdminController {
     private BeheerController beheerController;
     private List<Admin> admins;
     private Admin aangemeldeAdmin;
+    private PropertyChangeSupport subject;
 
     public AdminController() {
         beheerController = new BeheerController();
 
         admins = new ArrayList<>(beheerController.geefAdmins());
         aangemeldeAdmin = null;
+        subject = new PropertyChangeSupport(this);
     }
 
     public Admin getAangemeldeAdmin() {
@@ -40,6 +42,7 @@ public class AdminController {
                 .findAny()
                 .orElse(null);
         aangemeldeAdmin = a;
+        subject.firePropertyChange("aangemeldeAdmin", null, a);
     }
 
     public boolean isAangemeld(Admin admin) {
@@ -53,5 +56,13 @@ public class AdminController {
                 .findAny()
                 .orElse(null);
         return a != null;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        subject.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        subject.removePropertyChangeListener(pcl);
     }
 }
