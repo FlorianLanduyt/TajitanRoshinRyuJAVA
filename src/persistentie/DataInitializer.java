@@ -10,6 +10,9 @@ import domein.Activiteit;
 import domein.Admin;
 import domein.Formule;
 import domein.Inschrijving;
+import domein.InschrijvingActiviteit;
+import domein.InschrijvingLessenreeks;
+import domein.InschrijvingStage;
 import domein.Les;
 import domein.Lid;
 import domein.Oefening;
@@ -154,11 +157,11 @@ public class DataInitializer {
             r2.verhoogAantalRaadplegingen();
         }
 
-        Inschrijving i1 = new Inschrijving(Formule.WO_ZA, lid1, LocalDate.of(2019, Month.DECEMBER, 1));
-        Inschrijving i2 = new Inschrijving(Formule.ACTIVITEIT, lid2, LocalDate.of(2019, Month.DECEMBER, 5));
-        Inschrijving i3 = new Inschrijving(Formule.STAGE, lid3, LocalDate.of(2019, Month.DECEMBER, 8));
-        Inschrijving i4 = new Inschrijving(Formule.DI_DO, lid4, LocalDate.of(2019, Month.DECEMBER, 12));
-        Inschrijving i5 = new Inschrijving(Formule.WO, lid5, LocalDate.of(2019, Month.DECEMBER, 24));
+        InschrijvingLessenreeks i1 = new InschrijvingLessenreeks(Formule.WO_ZA, lid1, LocalDate.of(2019, Month.DECEMBER, 1));
+        InschrijvingActiviteit i2 = new InschrijvingActiviteit(Formule.ACTIVITEIT, lid2, LocalDate.of(2019, Month.DECEMBER, 5));
+        InschrijvingStage i3 = new InschrijvingStage(Formule.STAGE, lid3, LocalDate.of(2019, Month.DECEMBER, 8));
+        InschrijvingLessenreeks i4 = new InschrijvingLessenreeks(Formule.DI_DO, lid4, LocalDate.of(2019, Month.DECEMBER, 12));
+        InschrijvingLessenreeks i5 = new InschrijvingLessenreeks(Formule.WO, lid5, LocalDate.of(2019, Month.DECEMBER, 24));
 
         inschrijvingen.add(i1);
         inschrijvingen.add(i2);

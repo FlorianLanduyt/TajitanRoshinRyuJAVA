@@ -27,6 +27,7 @@ public class Activiteit {
     private String huisnummer;
     private String bus;
     private List<Lid> deelnemers;
+    private List<Inschrijving> inschrijvingen;
 
     private final SimpleStringProperty sNaam = new SimpleStringProperty();
     private final SimpleStringProperty sFormule = new SimpleStringProperty();
@@ -44,7 +45,8 @@ public class Activiteit {
         setNaam(naam);
         setFormule(formule);
         setDatum(datum);
-        deelnemers=new ArrayList<>();
+        deelnemers = new ArrayList<>();
+        inschrijvingen = new ArrayList<>();
     }
 
     //Getters voor simplestringproperties
@@ -153,12 +155,28 @@ public class Activiteit {
         this.deelnemers = deelnemers;
     }
 
+    public List<Inschrijving> getInschrijvingen() {
+        return inschrijvingen;
+    }
+
+    public void setInschrijvingen(List<Inschrijving> inschrijvingen) {
+        this.inschrijvingen = inschrijvingen;
+    }
+
     public void voegDeelnemerToe(Lid lid) {
         this.deelnemers.add(lid);
     }
 
     public void verwijderDeelnemer(Lid lid) {
         this.deelnemers.remove(lid);
+    }
+
+    public void voegInschrijvingToe(Inschrijving inschrijving) {
+        this.inschrijvingen.add(inschrijving);
+    }
+
+    public void verwijderInschrijving(Inschrijving inschrijving) {
+        this.inschrijvingen.remove(inschrijving);
     }
 
 }

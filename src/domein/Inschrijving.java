@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author Tim
  */
-public class Inschrijving {
+public abstract class Inschrijving {
 
     private Lid lid;
 
