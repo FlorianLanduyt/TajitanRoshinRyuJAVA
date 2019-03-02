@@ -1,5 +1,8 @@
-package domein;
+package domein.inschrijving;
 
+import domein.enums.Formule;
+import domein.Lid;
+import domein.activiteit.Stage;
 import java.time.LocalDate;
 
 public class InschrijvingStage extends Inschrijving {

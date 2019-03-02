@@ -1,4 +1,4 @@
-package domein;
+package domein.enums;
 
 public enum Formule {
     DI_DO,

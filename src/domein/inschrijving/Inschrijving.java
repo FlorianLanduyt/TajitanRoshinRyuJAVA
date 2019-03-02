@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domein;
+package domein.inschrijving;
 
+import domein.Lid;
+import domein.enums.Formule;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
 

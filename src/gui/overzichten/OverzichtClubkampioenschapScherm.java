@@ -1,10 +1,10 @@
 package gui.overzichten;
 
 import domein.Aanwezigheid;
-import domein.Activiteit;
-import domein.AdminController;
+import domein.activiteit.Activiteit;
+import domein.controllers.AdminController;
 import domein.Lid;
-import domein.OverzichtController;
+import domein.controllers.OverzichtController;
 import gui.BeginScherm;
 import gui.OverzichtMenu;
 import java.io.IOException;

@@ -1,5 +1,13 @@
-package domein;
+package domein.controllers;
 
+import domein.Aanwezigheid;
+import domein.activiteit.Activiteit;
+import domein.enums.Formule;
+import domein.enums.Graad;
+import domein.inschrijving.Inschrijving;
+import domein.Lid;
+import domein.Oefening;
+import domein.Raadpleging;
 import exceptions.DatumIntervalException;
 import java.time.LocalDate;
 import java.time.Month;

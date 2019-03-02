@@ -5,6 +5,8 @@
  */
 package domein;
 
+import domein.activiteit.Activiteit;
+import domein.enums.Formule;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
 

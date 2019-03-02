@@ -1,11 +1,11 @@
 package gui.overzichten;
 
 import domein.Aanwezigheid;
-import domein.Activiteit;
-import domein.AdminController;
-import domein.Formule;
+import domein.activiteit.Activiteit;
+import domein.controllers.AdminController;
+import domein.enums.Formule;
 import domein.Lid;
-import domein.OverzichtController;
+import domein.controllers.OverzichtController;
 import exceptions.DatumIntervalException;
 import gui.BeginScherm;
 import gui.OverzichtMenu;

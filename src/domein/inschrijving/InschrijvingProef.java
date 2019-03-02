@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domein;
+package domein.inschrijving;
 
+import domein.enums.Formule;
+import domein.Lid;
+import domein.activiteit.Proef;
 import java.time.LocalDate;
 
 /**

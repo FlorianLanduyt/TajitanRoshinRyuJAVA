@@ -1,10 +1,10 @@
 package gui.overzichten;
 
-import domein.Activiteit;
-import domein.AdminController;
+import domein.activiteit.Activiteit;
+import domein.controllers.AdminController;
 import domein.Lid;
 import domein.Oefening;
-import domein.OverzichtController;
+import domein.controllers.OverzichtController;
 import domein.Raadpleging;
 import gui.BeginScherm;
 import gui.OverzichtMenu;

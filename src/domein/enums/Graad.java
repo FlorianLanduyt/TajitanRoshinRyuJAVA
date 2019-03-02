@@ -1,5 +1,5 @@
 
-package domein;
+package domein.enums;
 
 public enum Graad {
     KYU1,

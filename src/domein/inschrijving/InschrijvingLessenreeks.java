@@ -1,5 +1,8 @@
-package domein;
+package domein.inschrijving;
 
+import domein.enums.Formule;
+import domein.Lid;
+import domein.activiteit.Les;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

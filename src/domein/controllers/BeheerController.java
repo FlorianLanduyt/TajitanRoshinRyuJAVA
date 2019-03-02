@@ -1,5 +1,13 @@
-package domein;
+package domein.controllers;
 
+import domein.Aanwezigheid;
+import domein.activiteit.Activiteit;
+import domein.Admin;
+import domein.inschrijving.Inschrijving;
+import domein.Lid;
+import domein.Oefening;
+import domein.Raadpleging;
+import domein.Thema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

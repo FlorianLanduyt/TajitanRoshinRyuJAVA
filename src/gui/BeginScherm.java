@@ -1,7 +1,7 @@
 package gui;
 
 import domein.Admin;
-import domein.AdminController;
+import domein.controllers.AdminController;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;

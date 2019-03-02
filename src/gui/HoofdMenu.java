@@ -1,6 +1,6 @@
 package gui;
 
-import domein.AdminController;
+import domein.controllers.AdminController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

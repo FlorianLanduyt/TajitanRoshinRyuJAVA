@@ -1,7 +1,7 @@
 package gui;
 
 import domein.Admin;
-import domein.AdminController;
+import domein.controllers.AdminController;
 import gui.overzichten.OverzichtAanwezighedenScherm;
 import gui.overzichten.OverzichtActiviteitenScherm;
 import gui.overzichten.OverzichtClubkampioenschapScherm;
