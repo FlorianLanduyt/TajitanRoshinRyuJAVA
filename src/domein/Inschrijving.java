@@ -7,7 +7,6 @@ package domein;
 
 import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  *

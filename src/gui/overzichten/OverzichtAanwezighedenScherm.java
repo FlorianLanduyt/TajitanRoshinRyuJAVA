@@ -121,6 +121,8 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
         Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
         if (lid != null) {
             tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldLid(lid));
+            dpDatum.setValue(null);
+            cbFormules.getSelectionModel().clearSelection();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Filterfout");
