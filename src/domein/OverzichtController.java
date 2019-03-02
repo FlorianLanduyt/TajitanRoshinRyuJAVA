@@ -170,6 +170,22 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(ledenSorted);
     }
 
+    public ObservableList<Lid> geefOverzichtLid(Lid lid) {
+        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
+                .filter(l -> l.equals(lid))
+                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(ledenSorted);
+    }
+
+    public ObservableList<Lid> geefOverzichtLedenVoorBepaaldeGraad(Graad graad) {
+        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
+                .filter(l -> l.getGraad().equals(graad))
+                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(ledenSorted);
+    }
+
     public ObservableList<Formule> geefFormules() {
         ObservableList<Formule> formules = FXCollections.observableArrayList(Arrays.asList(Formule.values()));
         return FXCollections.unmodifiableObservableList(formules);

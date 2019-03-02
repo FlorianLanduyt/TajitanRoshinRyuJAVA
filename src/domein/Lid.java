@@ -48,6 +48,7 @@ public class Lid {
         setVoornaam(voornaam);
         setAchternaam(achternaam);
         setGeboortedatum(geboortedatum);
+        setGeslacht(geslacht);
         setRijksregisterNr(rijksregisterNr);
         setDatumEersteTraining(datumEersteTraining);
         setGsmNr(gsmNr);
@@ -59,7 +60,6 @@ public class Lid {
         setEmail(email);
         setWachtwoord(wachtwoord);
         setGeboorteplaats(geboorteplaats);
-        setGeslacht(geslacht);
         setNationaliteit(nationaliteit);
         setGraad(graad);
     }
@@ -132,83 +132,72 @@ public class Lid {
     }
 
     public void setRijksregisterNr(String rijksregisterNr) {
-//        String nrZonderTekens = rijksregisterNr.replaceAll(".", "").replaceAll("-", "");
-//        String gebdatum = nrZonderTekens.substring(1, 7);
-//        String geslacht = nrZonderTekens.substring(7, 10);
-//        String controlegetal = nrZonderTekens.substring(10, 12);
-//
-//        boolean gebDatumCorrect = false;
-//        boolean geslachtCorrect = Integer.valueOf(geslacht) % 2 == 0 ? this.geslacht.equalsIgnoreCase("VROUW") : this.geslacht.equalsIgnoreCase("MAN");
-//        boolean controleCorrect = false;
-//
-//        //Checken of geboortedatumdeel correct is
-//        if (String.valueOf(this.geboortedatum.getYear()).substring(3, 5).equals(gebdatum.substring(1, 3))) {
-//            switch (this.geboortedatum.getMonthValue()) {
-//                case 10:
-//                case 11:
-//                case 12:
-//                    if (String.valueOf(this.geboortedatum.getMonthValue()).equals(gebdatum.substring(3, 5))) {
-//                        switch (this.geboortedatum.getDayOfMonth()) {
-//                            case 1:
-//                            case 2:
-//                            case 3:
-//                            case 4:
-//                            case 5:
-//                            case 6:
-//                            case 7:
-//                            case 8:
-//                            case 9:
-//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(6, 7))) {
-//                                    gebDatumCorrect = true;
-//                                }
-//                                break;
-//                            default:
-//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(5, 7))) {
-//                                    gebDatumCorrect = true;
-//                                }
-//                        }
-//                    }
-//                    break;
-//                default:
-//                    if (String.valueOf(this.geboortedatum.getMonthValue()).equals(gebdatum.substring(4, 5))) {
-//                        switch (this.geboortedatum.getDayOfMonth()) {
-//                            case 1:
-//                            case 2:
-//                            case 3:
-//                            case 4:
-//                            case 5:
-//                            case 6:
-//                            case 7:
-//                            case 8:
-//                            case 9:
-//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(5, 7))) {
-//                                    gebDatumCorrect = true;
-//                                }
-//                                break;
-//                            default:
-//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(4, 7))) {
-//                                    gebDatumCorrect = true;
-//                                } else {
-//                                    gebDatumCorrect = false;
-//                                }
-//                        }
-//                    }
-//            }
-//
-//        }
-//        //Checken of controlegetal correct is
-//        if (this.geboortedatum.getYear() < 2000) {
-//            controleCorrect = Integer.valueOf(gebdatum.concat(geslacht)) % 97 == Integer.valueOf(controlegetal);
-//        } else {
-//            controleCorrect = Integer.valueOf("2".concat(gebdatum.concat(geslacht))) % 97 == Integer.valueOf(controlegetal);
-//        }
-//
-//        if (gebDatumCorrect && geslachtCorrect && controleCorrect) {
-//            this.rijksregisterNr = rijksregisterNr;
-//        } else {
-//            throw new IllegalArgumentException("Rijksregisternummer is niet correct.");
-//        }
-        this.rijksregisterNr = rijksregisterNr;
+        String nrZonderTekens = rijksregisterNr.replaceAll("[.]", "").replaceAll("-", "");
+        String gebdatum = nrZonderTekens.substring(0, 6);
+        String geslacht = nrZonderTekens.substring(6, 9);
+        String controlegetal = nrZonderTekens.substring(9, 11);
+
+        boolean gebDatumCorrect = false;
+        boolean controleCorrect = false;
+        //Geslacht checken
+        boolean geslachtCorrect = Integer.valueOf(geslacht) % 2 == 0 ? this.geslacht.equalsIgnoreCase("VROUW") : this.geslacht.equalsIgnoreCase("MAN");
+
+        //Checken of geboortedatumdeel correct is
+        if (String.valueOf(this.geboortedatum.getYear()).substring(2, 4).equals(gebdatum.substring(0, 2))) {
+            switch (this.geboortedatum.getMonthValue()) {
+                case 10:
+                case 11:
+                case 12:
+                    if (String.valueOf(this.geboortedatum.getMonthValue()).equals(gebdatum.substring(2, 4))) {
+                        switch (this.geboortedatum.getDayOfMonth()) {
+                            case 1:
+                            case 2:
+                            case 3:
+                            case 4:
+                            case 5:
+                            case 6:
+                            case 7:
+                            case 8:
+                            case 9:
+                                gebDatumCorrect = String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(5, 6));
+                                break;
+                            default:
+                                gebDatumCorrect = String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(4, 6));
+                        }
+                    }
+                    break;
+                default:
+                    if (String.valueOf(this.geboortedatum.getMonthValue()).equals(gebdatum.substring(3, 4))) {
+                        switch (this.geboortedatum.getDayOfMonth()) {
+                            case 1:
+                            case 2:
+                            case 3:
+                            case 4:
+                            case 5:
+                            case 6:
+                            case 7:
+                            case 8:
+                            case 9:
+                                gebDatumCorrect = String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(5, 6));
+                                break;
+                            default:
+                                gebDatumCorrect = String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(4, 6));
+                        }
+                    }
+            }
+        }
+        //Controlegetal check
+        if (geboortedatum.getYear() < 2000) {
+            controleCorrect = (97 - (Integer.valueOf(gebdatum.concat(geslacht)) % 97)) == Integer.valueOf(controlegetal);
+        } else {
+            controleCorrect = (97 - (Long.valueOf("2".concat(gebdatum.concat(geslacht))) % 97)) == Integer.valueOf(controlegetal);
+        }
+        //Alle booleans checken
+        if (gebDatumCorrect && geslachtCorrect && controleCorrect) {
+            this.rijksregisterNr = rijksregisterNr;
+        } else {
+            throw new IllegalArgumentException("Rijksregisternummer is niet correct.");
+        }
     }
 
     public LocalDate getDatumEersteTraining() {

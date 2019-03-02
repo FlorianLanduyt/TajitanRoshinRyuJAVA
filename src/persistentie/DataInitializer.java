@@ -40,31 +40,31 @@ public class DataInitializer {
             List<Oefening> oefeningen, List<Admin> admins) {
 
         Lid lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
-                "97.07.17-003.21", LocalDate.now(),
+                "97.07.17-001.23", LocalDate.now().minusYears(18),
                 "0479330959", "051303050", "Izegem", "Winkelhoekstraat",
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
                 "Belg", Graad.DAN5);
         Lid lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
-                "99.12.10-007.41", LocalDate.now().minusYears(18),
+                "99.12.08.173.04", LocalDate.now().minusYears(18),
                 "0479365887", "098556880", "Kortrijk", "Prinses Clementinalaan",
                 "11", "9980", "tybo.vanderstraeten@outlook.com",
                 "TomatoSoup", "Gent", "Man",
                 "Belg", Graad.KYU3);
         Lid lid3 = new Lid("Mark", "Witthaker", LocalDate.of(1975, Month.JUNE, 6),
-                "75.12.10-007.41", LocalDate.now().minusYears(18),
+                "75.06.06-001.78", LocalDate.now().minusYears(18),
                 "0478365887", "018556880", "Gent", "Prinses Mandarijnalaan",
                 "45", "9000", "mark.witthaker@outlook.com",
                 "MyMusicSucks4", "Gent", "Man",
                 "Belg", Graad.DAN1);
         Lid lid4 = new Lid("Florian", "Landuyt", LocalDate.of(1995, Month.DECEMBER, 12),
-                "95.12.12-007.41", LocalDate.now().minusYears(18),
+                "95.12.12-001.69", LocalDate.now().minusYears(18),
                 "0479865887", "088556880", "Deinze", "Kerkstraat",
                 "141", "8770", "florian.landuyt@outlook.com",
                 "TurnenIsLeuk8", "Gent", "Man",
                 "Belg", Graad.KYU3);
         Lid lid5 = new Lid("Rob", "De Putter", LocalDate.of(1999, Month.MARCH, 12),
-                "99.03.12-007.41", LocalDate.now().minusYears(18),
+                "99.03.12-002.89", LocalDate.now().minusYears(18),
                 "0478899964", "054556880", "Waregem", "Schoolstraat",
                 "110", "9600", "rob.deputter@hotmail.com",
                 "TurnenIsLeuk8", "Gent", "Vrouw",
