@@ -6,8 +6,8 @@ public class InschrijvingActiviteit extends Inschrijving {
 
     private Activiteit activiteit;
 
-    public InschrijvingActiviteit(Formule formule, Lid lid, LocalDate tijdstip) {
-        super(formule, lid, tijdstip);
+    public InschrijvingActiviteit(Lid lid, LocalDate tijdstip) {
+        super(Formule.ACTIVITEIT, lid, tijdstip);
         activiteit = null;
     }
 

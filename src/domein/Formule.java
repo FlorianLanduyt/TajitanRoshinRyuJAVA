@@ -7,5 +7,7 @@ public enum Formule {
     WO,
     ZA,
     ACTIVITEIT,
-    STAGE
+    STAGE,
+    EXAMEN,
+    PROEF
 }

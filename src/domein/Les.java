@@ -14,7 +14,8 @@ import java.time.LocalDate;
 public class Les extends Activiteit{
     
     public Les(String naam, Formule formule, LocalDate datum) {
-        super(naam, formule, datum);
+        super(naam, datum);
+        setFormule(formule);
     }
     
 }

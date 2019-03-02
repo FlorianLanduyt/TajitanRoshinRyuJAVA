@@ -6,8 +6,8 @@ public class InschrijvingStage extends Inschrijving {
 
     private Stage stage;
 
-    public InschrijvingStage(Formule formule, Lid lid, LocalDate tijdstip) {
-        super(formule, lid, tijdstip);
+    public InschrijvingStage(Lid lid, LocalDate tijdstip) {
+        super(Formule.STAGE, lid, tijdstip);
         stage = null;
     }
 

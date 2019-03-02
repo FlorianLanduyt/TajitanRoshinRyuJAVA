@@ -9,13 +9,13 @@ import java.time.LocalDate;
 
 /**
  *
- * @author Tim
+ * @author Tybo Vanderstraeten
  */
-public class Stage extends Activiteit {
+public class Examen extends Activiteit {
 
-    public Stage(String naam, LocalDate datum) {
+    public Examen(String naam, LocalDate datum) {
         super(naam, datum);
-        setFormule(Formule.STAGE);
+        setFormule(Formule.EXAMEN);
     }
 
 }

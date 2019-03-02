@@ -8,6 +8,7 @@ import domein.Aanwezigheid;
 import domein.Activiteit;
 import domein.Admin;
 import domein.Formule;
+import domein.Graad;
 import domein.Inschrijving;
 import domein.InschrijvingActiviteit;
 import domein.InschrijvingLessenreeks;
@@ -40,34 +41,34 @@ public class DataInitializer {
 
         Lid lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
                 "97.07.17-003.21", LocalDate.now(),
-                "0479330959", "051303050", "Winkelhoekstraat",
+                "0479330959", "051303050", "Izegem", "Winkelhoekstraat",
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
-                "Belg", "Dan-1");
+                "Belg", Graad.DAN5);
         Lid lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
-                "99.12.10-007.41", LocalDate.now(),
-                "0479365887", "098556880", "Prinses Clementinalaan",
+                "99.12.10-007.41", LocalDate.now().minusYears(18),
+                "0479365887", "098556880", "Kortrijk", "Prinses Clementinalaan",
                 "11", "9980", "tybo.vanderstraeten@outlook.com",
                 "TomatoSoup", "Gent", "Man",
-                "Belg", "Kyu-2");
+                "Belg", Graad.KYU3);
         Lid lid3 = new Lid("Mark", "Witthaker", LocalDate.of(1975, Month.JUNE, 6),
-                "75.12.10-007.41", LocalDate.now(),
-                "0478365887", "018556880", "Prinses Mandarijnalaan",
+                "75.12.10-007.41", LocalDate.now().minusYears(18),
+                "0478365887", "018556880", "Gent", "Prinses Mandarijnalaan",
                 "45", "9000", "mark.witthaker@outlook.com",
                 "MyMusicSucks4", "Gent", "Man",
-                "Belg", "Kyu-2");
+                "Belg", Graad.DAN1);
         Lid lid4 = new Lid("Florian", "Landuyt", LocalDate.of(1995, Month.DECEMBER, 12),
-                "95.12.12-007.41", LocalDate.now(),
-                "0479865887", "088556880", "Kerkstraat",
+                "95.12.12-007.41", LocalDate.now().minusYears(18),
+                "0479865887", "088556880", "Deinze", "Kerkstraat",
                 "141", "8770", "florian.landuyt@outlook.com",
                 "TurnenIsLeuk8", "Gent", "Man",
-                "Belg", "Dan-2");
+                "Belg", Graad.KYU3);
         Lid lid5 = new Lid("Rob", "De Putter", LocalDate.of(1999, Month.MARCH, 12),
-                "99.03.12-007.41", LocalDate.now(),
-                "0478899964", "054556880", "Schoolstraat",
+                "99.03.12-007.41", LocalDate.now().minusYears(18),
+                "0478899964", "054556880", "Waregem", "Schoolstraat",
                 "110", "9600", "rob.deputter@hotmail.com",
                 "TurnenIsLeuk8", "Gent", "Vrouw",
-                "Belg", "Kyu-2");
+                "Belg", Graad.KYU5);
 
         leden.add(lid1);
         leden.add(lid2);
@@ -75,9 +76,9 @@ public class DataInitializer {
         leden.add(lid4);
         leden.add(lid5);
 
-        Activiteit s1 = new Stage("Hoogtestage Ardennen", Formule.STAGE, LocalDate.of(2019, Month.MARCH, 12));
-        Activiteit s2 = new Stage("Hoogtestage Vogezen", Formule.STAGE, LocalDate.of(2019, Month.AUGUST, 28));
-        Activiteit s3 = new Stage("Uitstap Nederland", Formule.STAGE, LocalDate.of(2020, Month.JANUARY, 10));
+        Activiteit s1 = new Stage("Hoogtestage Ardennen", LocalDate.of(2019, Month.MARCH, 12));
+        Activiteit s2 = new Stage("Hoogtestage Vogezen", LocalDate.of(2019, Month.AUGUST, 28));
+        Activiteit s3 = new Stage("Uitstap Nederland", LocalDate.of(2020, Month.JANUARY, 10));
 
         Activiteit l1 = new Les("Les 1", Formule.ZA, LocalDate.of(2019, Month.FEBRUARY, 23));
         Activiteit l2 = new Les("Les 1", Formule.WO_ZA, LocalDate.of(2019, Month.FEBRUARY, 20));
@@ -97,17 +98,6 @@ public class DataInitializer {
             a.setHuisnummer("20");
             a.setBus("5A");
         });
-
-        for (int i = 0; i < 50; i++) {
-            Activiteit a = new Stage("Meerdaagse stage", Formule.STAGE, LocalDate.of(2019, Month.DECEMBER, 8));
-            a.setStad("Gent");
-            a.setPostcode("9000");
-            a.setStraat("Korenmarkt");
-            a.setHuisnummer("20");
-            a.setBus("5A");
-            a.voegDeelnemerToe(lid5);
-            activiteiten.add(a);
-        }
 
         s1.voegDeelnemerToe(lid1);
         s2.voegDeelnemerToe(lid2);
@@ -157,8 +147,8 @@ public class DataInitializer {
         }
 
         InschrijvingLessenreeks i1 = new InschrijvingLessenreeks(Formule.WO_ZA, lid1, LocalDate.of(2019, Month.DECEMBER, 1));
-        InschrijvingActiviteit i2 = new InschrijvingActiviteit(Formule.ACTIVITEIT, lid2, LocalDate.of(2019, Month.DECEMBER, 5));
-        InschrijvingStage i3 = new InschrijvingStage(Formule.STAGE, lid3, LocalDate.of(2019, Month.DECEMBER, 8));
+        InschrijvingActiviteit i2 = new InschrijvingActiviteit(lid2, LocalDate.of(2019, Month.DECEMBER, 5));
+        InschrijvingStage i3 = new InschrijvingStage(lid3, LocalDate.of(2019, Month.DECEMBER, 8));
         InschrijvingLessenreeks i4 = new InschrijvingLessenreeks(Formule.DI_DO, lid4, LocalDate.of(2019, Month.DECEMBER, 12));
         InschrijvingLessenreeks i5 = new InschrijvingLessenreeks(Formule.WO, lid5, LocalDate.of(2019, Month.DECEMBER, 24));
 

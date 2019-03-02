@@ -129,6 +129,16 @@ public class Aanwezigheid {
             case "ZA":
                 this.puntenAantal = 10;
                 break;
+            case "ACTIVITEIT":
+                this.puntenAantal = 75;
+                break;
+            case "STAGE":
+                this.puntenAantal = 150;
+                break;
+            case "EXAMEN":
+            case "PROEF":
+                this.puntenAantal = 500;
+                break;
             default:
                 this.puntenAantal = 0;
         }

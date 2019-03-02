@@ -2,6 +2,8 @@ package domein;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +19,7 @@ public class Lid {
     private LocalDate datumEersteTraining;
     private String gsmNr;
     private String vasteTelefoonNr;
+    private String stad;
     private String straat;
     private String huisNr;
     private String bus;
@@ -29,7 +32,7 @@ public class Lid {
     private String geslacht;
     private String nationaliteit;
     private String beroep;
-    private String graad;
+    private Graad graad;
 
     //SimpleStringProperties voor TableView
     private SimpleStringProperty sVoornaam = new SimpleStringProperty();
@@ -38,10 +41,10 @@ public class Lid {
 
     public Lid(String voornaam, String achternaam, LocalDate geboortedatum,
             String rijksregisterNr, LocalDate datumEersteTraining,
-            String gsmNr, String vasteTelefoonNr, String straat,
+            String gsmNr, String vasteTelefoonNr, String stad, String straat,
             String huisNr, String postcode, String email,
             String wachtwoord, String geboorteplaats, String geslacht,
-            String nationaliteit, String graad) {
+            String nationaliteit, Graad graad) {
         setVoornaam(voornaam);
         setAchternaam(achternaam);
         setGeboortedatum(geboortedatum);
@@ -49,6 +52,7 @@ public class Lid {
         setDatumEersteTraining(datumEersteTraining);
         setGsmNr(gsmNr);
         setVasteTelefoonNr(vasteTelefoonNr);
+        setStad(stad);
         setStraat(straat);
         setHuisNr(huisNr);
         setPostcode(postcode);
@@ -83,7 +87,14 @@ public class Lid {
     }
 
     public void setVoornaam(String voornaam) {
-        sVoornaam.set(voornaam);
+        if (voornaam == null || voornaam.isEmpty()) {
+            throw new IllegalArgumentException("Voornaam mag niet leeg zijn.");
+        }
+        if (voornaam.length() <= 25) {
+            sVoornaam.set(voornaam);
+        } else {
+            throw new IllegalArgumentException("Voornaam mag max. 25 karakters bevatten.");
+        }
     }
 
     public String getAchternaam() {
@@ -91,7 +102,14 @@ public class Lid {
     }
 
     public void setAchternaam(String achternaam) {
-        sAchternaam.set(achternaam);
+        if (achternaam == null || achternaam.isEmpty()) {
+            throw new IllegalArgumentException("Achternaam mag niet leeg zijn.");
+        }
+        if (achternaam.length() <= 50) {
+            sAchternaam.set(achternaam);
+        } else {
+            throw new IllegalArgumentException("Familienaam mag max. 50 karakters bevatten.");
+        }
     }
 
     public LocalDate getGeboortedatum() {
@@ -99,7 +117,14 @@ public class Lid {
     }
 
     public void setGeboortedatum(LocalDate geboortedatum) {
-        this.geboortedatum = geboortedatum;
+        if (geboortedatum == null) {
+            throw new IllegalArgumentException("Geboortedatum mag niet leeg zijn.");
+        }
+        if (geboortedatum.compareTo(LocalDate.now()) < 0) {
+            this.geboortedatum = geboortedatum;
+        } else {
+            throw new IllegalArgumentException("Geboortedatum moet in het verleden liggen!");
+        }
     }
 
     public String getRijksregisterNr() {
@@ -107,6 +132,82 @@ public class Lid {
     }
 
     public void setRijksregisterNr(String rijksregisterNr) {
+//        String nrZonderTekens = rijksregisterNr.replaceAll(".", "").replaceAll("-", "");
+//        String gebdatum = nrZonderTekens.substring(1, 7);
+//        String geslacht = nrZonderTekens.substring(7, 10);
+//        String controlegetal = nrZonderTekens.substring(10, 12);
+//
+//        boolean gebDatumCorrect = false;
+//        boolean geslachtCorrect = Integer.valueOf(geslacht) % 2 == 0 ? this.geslacht.equalsIgnoreCase("VROUW") : this.geslacht.equalsIgnoreCase("MAN");
+//        boolean controleCorrect = false;
+//
+//        //Checken of geboortedatumdeel correct is
+//        if (String.valueOf(this.geboortedatum.getYear()).substring(3, 5).equals(gebdatum.substring(1, 3))) {
+//            switch (this.geboortedatum.getMonthValue()) {
+//                case 10:
+//                case 11:
+//                case 12:
+//                    if (String.valueOf(this.geboortedatum.getMonthValue()).equals(gebdatum.substring(3, 5))) {
+//                        switch (this.geboortedatum.getDayOfMonth()) {
+//                            case 1:
+//                            case 2:
+//                            case 3:
+//                            case 4:
+//                            case 5:
+//                            case 6:
+//                            case 7:
+//                            case 8:
+//                            case 9:
+//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(6, 7))) {
+//                                    gebDatumCorrect = true;
+//                                }
+//                                break;
+//                            default:
+//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(5, 7))) {
+//                                    gebDatumCorrect = true;
+//                                }
+//                        }
+//                    }
+//                    break;
+//                default:
+//                    if (String.valueOf(this.geboortedatum.getMonthValue()).equals(gebdatum.substring(4, 5))) {
+//                        switch (this.geboortedatum.getDayOfMonth()) {
+//                            case 1:
+//                            case 2:
+//                            case 3:
+//                            case 4:
+//                            case 5:
+//                            case 6:
+//                            case 7:
+//                            case 8:
+//                            case 9:
+//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(5, 7))) {
+//                                    gebDatumCorrect = true;
+//                                }
+//                                break;
+//                            default:
+//                                if (String.valueOf(this.geboortedatum.getDayOfMonth()).equals(gebdatum.substring(4, 7))) {
+//                                    gebDatumCorrect = true;
+//                                } else {
+//                                    gebDatumCorrect = false;
+//                                }
+//                        }
+//                    }
+//            }
+//
+//        }
+//        //Checken of controlegetal correct is
+//        if (this.geboortedatum.getYear() < 2000) {
+//            controleCorrect = Integer.valueOf(gebdatum.concat(geslacht)) % 97 == Integer.valueOf(controlegetal);
+//        } else {
+//            controleCorrect = Integer.valueOf("2".concat(gebdatum.concat(geslacht))) % 97 == Integer.valueOf(controlegetal);
+//        }
+//
+//        if (gebDatumCorrect && geslachtCorrect && controleCorrect) {
+//            this.rijksregisterNr = rijksregisterNr;
+//        } else {
+//            throw new IllegalArgumentException("Rijksregisternummer is niet correct.");
+//        }
         this.rijksregisterNr = rijksregisterNr;
     }
 
@@ -115,6 +216,9 @@ public class Lid {
     }
 
     public void setDatumEersteTraining(LocalDate datumEersteTraining) {
+        if (datumEersteTraining == null) {
+            throw new IllegalArgumentException("Datum eerste training mag niet leeg zijn.");
+        }
         this.datumEersteTraining = datumEersteTraining;
     }
 
@@ -123,7 +227,14 @@ public class Lid {
     }
 
     public void setGsmNr(String gsmNr) {
-        this.gsmNr = gsmNr;
+        if (gsmNr == null || gsmNr.isEmpty()) {
+            throw new IllegalArgumentException("Gsmnummer mag niet leeg zijn.");
+        }
+        if (gsmNr.matches("[0-9]{10}")) {
+            this.gsmNr = gsmNr;
+        } else {
+            throw new IllegalArgumentException("Gsmnummer is niet correct.");
+        }
     }
 
     public String getVasteTelefoonNr() {
@@ -131,7 +242,29 @@ public class Lid {
     }
 
     public void setVasteTelefoonNr(String vasteTelefoonNr) {
-        this.vasteTelefoonNr = vasteTelefoonNr;
+        if (vasteTelefoonNr == null || vasteTelefoonNr.isEmpty()) {
+            throw new IllegalArgumentException("Telefoonnummer mag niet leeg zijn.");
+        }
+        if (vasteTelefoonNr.matches("[0-9]{9}")) {
+            this.vasteTelefoonNr = vasteTelefoonNr;
+        } else {
+            throw new IllegalArgumentException("Telefoonnummer is niet correct.");
+        }
+    }
+
+    public String getStad() {
+        return stad;
+    }
+
+    public void setStad(String stad) {
+        if (stad == null || stad.isEmpty()) {
+            throw new IllegalArgumentException("Stad mag niet leeg zijn.");
+        }
+        if (stad.length() <= 50) {
+            this.stad = stad;
+        } else {
+            throw new IllegalArgumentException("Stad mag max. 50 karakters bevatten.");
+        }
     }
 
     public String getStraat() {
@@ -139,7 +272,14 @@ public class Lid {
     }
 
     public void setStraat(String straat) {
-        this.straat = straat;
+        if (straat == null || straat.isEmpty()) {
+            throw new IllegalArgumentException("Straat mag niet leeg zijn.");
+        }
+        if (straat.length() <= 50) {
+            this.straat = straat;
+        } else {
+            throw new IllegalArgumentException("Straat mag max. 50 karakters bevatten.");
+        }
     }
 
     public String getHuisNr() {
@@ -147,7 +287,14 @@ public class Lid {
     }
 
     public void setHuisNr(String huisNr) {
-        this.huisNr = huisNr;
+        if (huisNr == null || huisNr.isEmpty()) {
+            throw new IllegalArgumentException("Huisnummer mag niet leeg zijn.");
+        }
+        if (huisNr.length() <= 5) {
+            this.huisNr = huisNr;
+        } else {
+            throw new IllegalArgumentException("Huisnummer mag max. 5 karakters bevatten.");
+        }
     }
 
     public String getBus() {
@@ -155,7 +302,14 @@ public class Lid {
     }
 
     public void setBus(String bus) {
-        this.bus = bus;
+        if (bus == null || bus.isEmpty()) {
+            throw new IllegalArgumentException("Bus mag niet leeg zijn.");
+        }
+        if (bus.length() <= 5) {
+            this.bus = bus;
+        } else {
+            throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
+        }
     }
 
     public String getPostcode() {
@@ -163,7 +317,14 @@ public class Lid {
     }
 
     public void setPostcode(String postcode) {
-        this.postcode = postcode;
+        if (postcode == null || postcode.isEmpty()) {
+            throw new IllegalArgumentException("Postcode mag niet leeg zijn.");
+        }
+        if (postcode.matches("[0-9]{4}")) {
+            this.postcode = postcode;
+        } else {
+            throw new IllegalArgumentException("Postcode moet 4 karakters bevatten.");
+        }
     }
 
     public String getEmail() {
@@ -171,7 +332,14 @@ public class Lid {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
+        }
+        if (email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("Emailadres is niet correct.");
+        }
     }
 
     public String getWachtwoord() {
@@ -179,6 +347,9 @@ public class Lid {
     }
 
     public void setWachtwoord(String wachtwoord) {
+        if (wachtwoord == null || wachtwoord.isEmpty()) {
+            throw new IllegalArgumentException("Wachtwoord mag niet leeg zijn.");
+        }
         this.wachtwoord = wachtwoord;
     }
 
@@ -187,7 +358,14 @@ public class Lid {
     }
 
     public void setEmailVader(String emailVader) {
-        this.emailVader = emailVader;
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
+        }
+        if (emailVader.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+            this.emailVader = emailVader;
+        } else {
+            throw new IllegalArgumentException("Emailadres is niet correct.");
+        }
     }
 
     public String getEmailMoeder() {
@@ -195,7 +373,14 @@ public class Lid {
     }
 
     public void setEmailMoeder(String emailMoeder) {
-        this.emailMoeder = emailMoeder;
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
+        }
+        if (emailMoeder.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+            this.emailMoeder = emailMoeder;
+        } else {
+            throw new IllegalArgumentException("Emailadres is niet correct.");
+        }
     }
 
     public String getGeboorteplaats() {
@@ -203,7 +388,14 @@ public class Lid {
     }
 
     public void setGeboorteplaats(String geboorteplaats) {
-        this.geboorteplaats = geboorteplaats;
+        if (geboorteplaats == null || geboorteplaats.isEmpty()) {
+            throw new IllegalArgumentException("Geboorteplaats mag niet leeg zijn.");
+        }
+        if (geboorteplaats.length() <= 50) {
+            this.geboorteplaats = geboorteplaats;
+        } else {
+            throw new IllegalArgumentException("Geboorteplaats mag max. 50 karakters bevatten.");
+        }
     }
 
     public String getGeslacht() {
@@ -211,7 +403,14 @@ public class Lid {
     }
 
     public void setGeslacht(String geslacht) {
-        this.geslacht = geslacht;
+        if (geslacht == null || geslacht.isEmpty()) {
+            throw new IllegalArgumentException("Geslacht mag niet leeg zijn.");
+        }
+        if (geslacht.equalsIgnoreCase("MAN") || geslacht.equalsIgnoreCase("VROUW")) {
+            this.geslacht = geslacht;
+        } else {
+            throw new IllegalArgumentException("Geslacht is niet correct.");
+        }
     }
 
     public String getNationaliteit() {
@@ -219,7 +418,14 @@ public class Lid {
     }
 
     public void setNationaliteit(String nationaliteit) {
-        this.nationaliteit = nationaliteit;
+        if (nationaliteit == null || nationaliteit.isEmpty()) {
+            throw new IllegalArgumentException("Nationaliteit mag niet leeg zijn.");
+        }
+        if (nationaliteit.length() <= 50) {
+            this.nationaliteit = nationaliteit;
+        } else {
+            throw new IllegalArgumentException("Nationaliteit mag max. 50 karakters bevatten.");
+        }
     }
 
     public String getBeroep() {
@@ -227,15 +433,29 @@ public class Lid {
     }
 
     public void setBeroep(String beroep) {
-        this.beroep = beroep;
+        if (beroep == null || beroep.isEmpty()) {
+            throw new IllegalArgumentException("Beroep mag niet leeg zijn.");
+        }
+        if (beroep.length() <= 25) {
+            this.beroep = beroep;
+        } else {
+            throw new IllegalArgumentException("Beroep mag max. 25 karakters bevatten.");
+        }
     }
 
-    public String getGraad() {
+    public Graad getGraad() {
         return graad;
     }
 
-    public void setGraad(String graad) {
-        this.graad = graad;
+    public void setGraad(Graad graad) {
+        if (graad == null) {
+            throw new IllegalArgumentException("Graad mag niet leeg zijn.");
+        }
+        if (Arrays.asList(Graad.values()).contains(graad)) {
+            this.graad = graad;
+        } else {
+            throw new IllegalArgumentException("Graad bestaatt niet.");
+        }
     }
 
     public int getPuntenAantal() {
@@ -275,7 +495,5 @@ public class Lid {
         }
         return true;
     }
-
-    
 
 }

@@ -38,12 +38,9 @@ public class Activiteit {
     private final SimpleStringProperty sHuisnummer = new SimpleStringProperty();
     private final SimpleStringProperty sBus = new SimpleStringProperty();
 
-    // enkel naam en datum zijn verplicht in de DB, 
-    // vandaar krijgen deze private setters 
-    // en worden deze altijd in de constructor geïnitialiseerd
-    public Activiteit(String naam, Formule formule, LocalDate datum) {
+    public Activiteit(String naam, LocalDate datum) {
         setNaam(naam);
-        setFormule(formule);
+        setFormule(Formule.ACTIVITEIT);
         setDatum(datum);
         deelnemers = new ArrayList<>();
         inschrijvingen = new ArrayList<>();
@@ -95,7 +92,7 @@ public class Activiteit {
         return Formule.valueOf(sFormule.get());
     }
 
-    private void setFormule(Formule formule) {
+    public void setFormule(Formule formule) {
         sFormule.set(formule.name());
     }
 
