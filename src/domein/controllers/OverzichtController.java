@@ -8,6 +8,7 @@ import domein.inschrijving.Inschrijving;
 import domein.Lid;
 import domein.Oefening;
 import domein.Raadpleging;
+import domein.enums.Functie;
 import exceptions.DatumIntervalException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -51,6 +52,9 @@ public class OverzichtController {
         this.oefeningen = FXCollections.observableArrayList(beheerController.geefOefeningen());
     }
 
+    //
+    //AANWEZIGHEDEN
+    //
     public ObservableList<Aanwezigheid> geefOverzichtAanwezigheden() {
         ObservableList<Aanwezigheid> aanwezighedenSortedDatum = FXCollections.observableArrayList(aanwezigheden.stream()
                 .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
@@ -86,6 +90,9 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(aanwezighedenVoorFormule);
     }
 
+    //
+    //INSCHRIJVINGEN
+    //
     public ObservableList<Inschrijving> geefOverzichtInschrijvingen() {
         ObservableList<Inschrijving> inschrijvingenSortedDatum = FXCollections.observableArrayList(inschrijvingen.stream()
                 .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
@@ -114,6 +121,9 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(inschrijvingenVoorInterval);
     }
 
+    //
+    //ACTIVITEITEN
+    //
     public ObservableList<Activiteit> geefOverzichtActiviteiten() {
         ObservableList<Activiteit> activiteitenSortedDatum = FXCollections.observableArrayList(activiteiten.stream()
                 .sorted(Comparator.comparing(Activiteit::getDatum).reversed())
@@ -129,6 +139,9 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(activiteitenVoorLid);
     }
 
+    //
+    //CLUBKAMPIOENSCHAP
+    //
     public ObservableList<Lid> geefOverzichtClubkampioenschap() {
         berekenPuntenLeden();
         ObservableList<Lid> ledenSortedPunten = FXCollections.observableArrayList(leden.stream()
@@ -148,6 +161,9 @@ public class OverzichtController {
         );
     }
 
+    //
+    //RAADPLEGINGEN
+    //
     public ObservableList<Raadpleging> geefOverzichtRaadplegingen() {
         ObservableList<Raadpleging> raadplegingenSortedTitel = FXCollections.observableArrayList(raadplegingen.stream()
                 //.sorted(Comparator.comparing(Raadpleging::getOefeningNaam))
@@ -171,6 +187,9 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(raadplegingenVoorOefening);
     }
 
+    //
+    //LEDEN
+    //
     public ObservableList<Lid> geefOverzichtLeden() {
         ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
                 .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
@@ -194,11 +213,30 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(ledenSorted);
     }
 
+    public ObservableList<Lid> geefOverzichtLedenVoorBepaaldType(Functie functie) {
+        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
+                .filter(l -> l.getFunctie().equals(functie))
+                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
+                .collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(ledenSorted);
+    }
+
+    //
+    //ENUMS
+    //
     public ObservableList<Formule> geefFormules() {
         ObservableList<Formule> formules = FXCollections.observableArrayList(Arrays.asList(Formule.values()));
         return FXCollections.unmodifiableObservableList(formules);
     }
 
+    public ObservableList<Functie> geefFuncties() {
+        ObservableList<Functie> functies = FXCollections.observableArrayList(Arrays.asList(Functie.values()));
+        return FXCollections.unmodifiableObservableList(functies);
+    }
+
+    //
+    //OVERIG
+    //
     public ObservableList<String> geefOefeningNamen() {
         ObservableList<String> oefeningNamenSorted = FXCollections.observableArrayList(oefeningen.stream()
                 .map(Oefening::getTitel)

@@ -46,6 +46,7 @@ public class BeheerController {
     }
 
     //Getters voor aanwezigheden, inschrijvingen, raadplegingen, themas
+    //Geen CRUD operaties at the moment
     public List<Aanwezigheid> geefAanwezigheden() {
         return this.aanwezigheden;
     }
@@ -62,7 +63,9 @@ public class BeheerController {
         return this.themas;
     }
 
-    //CRUD operaties activiteiten
+    //
+    //CRUD OPERATIES ACTIVITEITEN
+    //
     public List<Activiteit> geefActiviteiten() {
         return this.activiteiten;
     }
@@ -75,12 +78,15 @@ public class BeheerController {
         this.activiteiten.remove(activiteit);
     }
 
-    //CRUD operaties leden
+    //
+    //CRUD OPERATIES LEDEN
+    //
     public List<Lid> geefLeden() {
         return this.leden;
     }
 
     //Gaat pas werken eens JPA configured en de effectieve data uit db wordt gehaald -> id is dan pas echt aanwezig en niet overal null
+    //Als je deze methode toch nodig hebt, kan je het aanpassen naar parameter rijksregisternr, tot we een DB hebben
     private Lid geefLidDoorId(int id) {
         Optional<Lid> lid = this.leden.stream().filter(l -> l.getId() == id).findFirst();
         if (lid.isPresent()) {
@@ -90,6 +96,7 @@ public class BeheerController {
     }
 
     //Gaat pas werken eens JPA configured en de effectieve data uit db wordt gehaald -> id is dan pas echt aanwezig en niet overal null
+    //Zie boven
     public void wijzigLid(Lid lidMetGewijzigdeVelden) {
         Lid lid = geefLidDoorId(lidMetGewijzigdeVelden.getId());
         lid.setVoornaam(lidMetGewijzigdeVelden.getVoornaam());
@@ -115,7 +122,9 @@ public class BeheerController {
         this.leden.remove(lid);
     }
 
-    //CRUD operaties oefeningen
+    //
+    //CRUD OPERATIES OEFENINGEN
+    // 
     public List<Oefening> geefOefeningen() {
         return this.oefeningen;
     }
@@ -127,8 +136,10 @@ public class BeheerController {
     public void verwijderOefening(Oefening oefening) {
         this.oefeningen.remove(oefening);
     }
-
-    //CRUD operaties admins
+    
+    //
+    //CRUD OPERATIES ADMIN
+    //
     public List<Admin> geefAdmins() {
         return this.admins;
     }

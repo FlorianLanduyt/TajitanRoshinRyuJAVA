@@ -1,5 +1,6 @@
 package domein;
 
+import domein.enums.Functie;
 import domein.enums.Graad;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class Lid {
     private String nationaliteit;
     private String beroep;
     private Graad graad;
+    private Functie functie;
 
     //SimpleStringProperties voor TableView
     private SimpleStringProperty sVoornaam = new SimpleStringProperty();
@@ -45,7 +47,7 @@ public class Lid {
             String gsmNr, String vasteTelefoonNr, String stad, String straat,
             String huisNr, String postcode, String email,
             String wachtwoord, String geboorteplaats, String geslacht,
-            String nationaliteit, Graad graad) {
+            String nationaliteit, Graad graad, Functie functie) {
         setVoornaam(voornaam);
         setAchternaam(achternaam);
         setGeboortedatum(geboortedatum);
@@ -63,6 +65,7 @@ public class Lid {
         setGeboorteplaats(geboorteplaats);
         setNationaliteit(nationaliteit);
         setGraad(graad);
+        setFunctie(functie);
     }
 
     //Getters voor SimpleStringProperties
@@ -433,6 +436,14 @@ public class Lid {
         }
     }
 
+    public int getPuntenAantal() {
+        return Integer.valueOf(sPuntenAantal.get());
+    }
+
+    public void setPuntenAantal(int puntenAantal) {
+        sPuntenAantal.set(String.valueOf(puntenAantal));
+    }
+
     public Graad getGraad() {
         return graad;
     }
@@ -444,16 +455,20 @@ public class Lid {
         if (Arrays.asList(Graad.values()).contains(graad)) {
             this.graad = graad;
         } else {
-            throw new IllegalArgumentException("Graad bestaatt niet.");
+            throw new IllegalArgumentException("Graad bestaat niet.");
         }
     }
 
-    public int getPuntenAantal() {
-        return Integer.valueOf(sPuntenAantal.get());
+    public Functie getFunctie() {
+        return functie;
     }
 
-    public void setPuntenAantal(int puntenAantal) {
-        sPuntenAantal.set(String.valueOf(puntenAantal));
+    public void setFunctie(Functie functie) {
+        if (Arrays.asList(Functie.values()).contains(functie)) {
+            this.functie = functie;
+        } else {
+            throw new IllegalArgumentException("Functie bestaat niet.");
+        }
     }
 
     @Override
@@ -469,7 +484,8 @@ public class Lid {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj
+    ) {
         if (this == obj) {
             return true;
         }
