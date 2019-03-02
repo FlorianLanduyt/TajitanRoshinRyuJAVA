@@ -254,12 +254,9 @@ public class Lid {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + this.id;
         hash = 53 * hash + Objects.hashCode(this.rijksregisterNr);
         return hash;
     }
-
-    
 
     @Override
     public boolean equals(Object obj) {
@@ -273,10 +270,12 @@ public class Lid {
             return false;
         }
         final Lid other = (Lid) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.rijksregisterNr, other.rijksregisterNr)) {
             return false;
         }
         return true;
     }
+
+    
 
 }

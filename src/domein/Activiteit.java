@@ -151,16 +151,8 @@ public class Activiteit {
         return deelnemers;
     }
 
-    public void setDeelnemers(List<Lid> deelnemers) {
-        this.deelnemers = deelnemers;
-    }
-
     public List<Inschrijving> getInschrijvingen() {
         return inschrijvingen;
-    }
-
-    public void setInschrijvingen(List<Inschrijving> inschrijvingen) {
-        this.inschrijvingen = inschrijvingen;
     }
 
     public void voegDeelnemerToe(Lid lid) {

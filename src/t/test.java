@@ -13,12 +13,12 @@ import domein.OverzichtController;
  * @author Tybo Vanderstraeten
  */
 public class test {
-
+    
     public static void main(String[] args) {
         OverzichtController oc = new OverzichtController();
-
+        
         oc.geefOverzichtLeden().forEach(l -> System.out.println(l));
-      
+        oc.geefOverzichtClubkampioenschap().forEach(l -> System.out.println(l.getPuntenAantal()));
     }
-
+    
 }
