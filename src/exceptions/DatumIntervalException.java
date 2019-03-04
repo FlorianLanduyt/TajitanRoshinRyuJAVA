@@ -6,8 +6,8 @@ public class DatumIntervalException extends IllegalArgumentException {
         this("Datum 'tot' kan niet voor datum 'van' liggen!");
     }
     
-    public DatumIntervalException(String string) {
-        super(string);
+    public DatumIntervalException(String message) {
+        super(message);
     }
     
 }
