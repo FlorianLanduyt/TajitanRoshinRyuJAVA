@@ -7,15 +7,14 @@ package gui.beherenLid;
 
 import domein.Lid;
 import domein.controllers.AdminController;
-import domein.controllers.BeheerController;
+import domein.controllers.DataController;
+import domein.controllers.LidBeheerderController;
 import domein.controllers.OverzichtController;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginScherm;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,7 +59,7 @@ public class BeherenLidSchermController extends AnchorPane {
     private Button btnWijzigingenOpslaan;
     @FXML
     private Button btnLidVerwijderen;
-    
+
     // Gespecifieerde data
     @FXML
     private TextField txtVoornaam;
@@ -70,10 +69,10 @@ public class BeherenLidSchermController extends AnchorPane {
     private DatePicker dpGeboorteDatum;
     @FXML
     private TextField txtRijksregisternummer;
-    
+
     @FXML
     private TextField txtGsmnummer;
-    
+
     @FXML
     private TextField txtStraat;
     @FXML
@@ -84,7 +83,7 @@ public class BeherenLidSchermController extends AnchorPane {
     private TextField txtPostcode;
     @FXML
     private TextField txtBus;
-    
+
     @FXML
     private TextField txtTelefoon;
     @FXML
@@ -117,9 +116,9 @@ public class BeherenLidSchermController extends AnchorPane {
     //andere variabelen
     private BeginScherm beginscherm;
     private AdminController adminController;
-    private BeheerController beheerController;
+    private LidBeheerderController lidBeheerderController;
     
-  
+
     public BeherenLidSchermController(BeginScherm beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenLidScherm.fxml"));
         loader.setRoot(this);
@@ -129,63 +128,65 @@ public class BeherenLidSchermController extends AnchorPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        
+
         this.beginscherm = beginScherm;
         this.adminController = adminController;
-        this.beheerController = new BeheerController();
-        
+        this.lidBeheerderController = new LidBeheerderController();
+
         //tabel opvullen
         colVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         colAchternaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
         colGraad.setCellValueFactory(cellData -> cellData.getValue().graadProperty());
         colType.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
-        tblOverzichtLeden.setItems(FXCollections.observableArrayList(beheerController.geefLeden()));
-        
+        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLeden());
+
         //comboboxen opvullen
-        cboFilterNaam.setItems(FXCollections.observableArrayList(beheerController.geefLeden()));
-        cboFilterGraad.setItems(FXCollections.observableArrayList(Graad.values()));
-        cboFilterType.setItems(FXCollections.observableArrayList(Functie.values()));
-        cboGraad.setItems(FXCollections.observableArrayList(Graad.values()));
-        cboType_Functie.setItems(FXCollections.observableArrayList(Functie.values()));
-        cboGeslacht.setItems(FXCollections.observableArrayList("Man","Vrouw"));
-        
-        
+        cboFilterNaam.setItems(lidBeheerderController.geefOverzichtLeden());
+        cboFilterGraad.setItems(lidBeheerderController.geefGraden());
+        cboFilterType.setItems(lidBeheerderController.geefFuncties());
+        cboGraad.setItems(lidBeheerderController.geefGraden());
+        cboType_Functie.setItems(lidBeheerderController.geefFuncties());
+        cboGeslacht.setItems(lidBeheerderController.geefGeslachten());
+
         //veranderen bij het klikken in de tabel
         tblOverzichtLeden.getSelectionModel().selectedItemProperty()
                 .addListener((obsValue, oldValue, newValue) -> {
                     toonSpecifiekeData(newValue);
                 });
-        
 
     }
-    
-    public void toonSpecifiekeData(Lid lid){
+
+    public void toonSpecifiekeData(Lid lid) {
         //alle tekstvelden clearen
-        clearAlleVelden();
-        txtVoornaam.setText(lid.getVoornaam());
-        txtAchternaam.setText(lid.getAchternaam());
-        dpGeboorteDatum.setValue(lid.getGeboortedatum());
-        txtGeboorteplaats.setText(lid.getGeboorteplaats());
-        txtRijksregisternummer.setText(lid.getRijksregisterNr());
-        txtGsmnummer.setText(lid.getGsmNr());
-        txtTelefoon.setText(lid.getVasteTelefoonNr());
-        txtStraat.setText(lid.getStraat());
-        txtHuisnummer.setText(lid.getHuisNr());
-        txtBus.setText(lid.getBus());
-        txtStad.setText(lid.getStad());
-        txtPostcode.setText(lid.getPostcode());
-        txtEmail.setText(lid.getEmail());
-        txtEmailVader.setText(lid.getEmail());
-        txtEmailmoeder.setText(lid.getEmailMoeder());
-        txtNationaliteit.setText(lid.getNationaliteit());
-        cboGeslacht.getSelectionModel().select(lid.getGeslacht());
-        cboGraad.getSelectionModel().select(lid.getGraad());
-        txtBeroep.setText(lid.getBeroep());
-        cboType_Functie.getSelectionModel().select(lid.getFunctie());
+        try {
+            clearAlleVelden();
+            txtVoornaam.setText(lid.getVoornaam());
+            txtAchternaam.setText(lid.getAchternaam());
+            dpGeboorteDatum.setValue(lid.getGeboortedatum());
+            txtGeboorteplaats.setText(lid.getGeboorteplaats());
+            txtRijksregisternummer.setText(lid.getRijksregisterNr());
+            txtGsmnummer.setText(lid.getGsmNr());
+            txtTelefoon.setText(lid.getVasteTelefoonNr());
+            txtStraat.setText(lid.getStraat());
+            txtHuisnummer.setText(lid.getHuisNr());
+            txtBus.setText(lid.getBus());
+            txtStad.setText(lid.getStad());
+            txtPostcode.setText(lid.getPostcode());
+            txtEmail.setText(lid.getEmail());
+            txtEmailVader.setText(lid.getEmail());
+            txtEmailmoeder.setText(lid.getEmailMoeder());
+            txtNationaliteit.setText(lid.getNationaliteit());
+            cboGeslacht.getSelectionModel().select(lid.getGeslacht());
+            cboGraad.getSelectionModel().select(lid.getGraad());
+            txtBeroep.setText(lid.getBeroep());
+            cboType_Functie.getSelectionModel().select(lid.getFunctie());
+        }catch(NullPointerException e){
+            //als je de list veranderd vindt hij geen data meer
+        }
 
     }
-    
-    public void clearAlleVelden(){
+
+    public void clearAlleVelden() {
         txtVoornaam.clear();
         txtAchternaam.clear();
         dpGeboorteDatum.setValue(LocalDate.MIN);
@@ -210,23 +211,29 @@ public class BeherenLidSchermController extends AnchorPane {
 
     @FXML
     private void toonLedenOpNaam(ActionEvent event) {
+        Lid lid = cboFilterNaam.getSelectionModel().getSelectedItem();
+        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLid(lid));
         cboFilterGraad.getSelectionModel().clearSelection();
         cboFilterType.getSelectionModel().clearSelection();
-        Lid lid = cboFilterNaam.getSelectionModel().getSelectedItem();
-        
+
     }
 
     @FXML
     private void toonLedenOpGraad(ActionEvent event) {
+        Graad graad = cboFilterGraad.getSelectionModel().getSelectedItem();
+        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLedenVoorBepaaldeGraad(graad));
         cboFilterNaam.getSelectionModel().clearSelection();
         cboFilterType.getSelectionModel().clearSelection();
+
     }
 
     @FXML
     private void toonLedenOpType(ActionEvent event) {
+        Functie functie = cboFilterType.getSelectionModel().getSelectedItem();
+        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLedenVoorBepaaldType(functie));
         cboFilterGraad.getSelectionModel().clearSelection();
         cboFilterNaam.getSelectionModel().clearSelection();
-        
+
     }
 
     @FXML
@@ -242,19 +249,21 @@ public class BeherenLidSchermController extends AnchorPane {
 
     @FXML
     private void toevoegenLid(ActionEvent event) {
-       
+
     }
 
     @FXML
     private void opslaanWijzigingen(ActionEvent event) {
         Lid lid = tblOverzichtLeden.getSelectionModel().getSelectedItem();
-        beheerController.wijzigLid(lid);
+        lidBeheerderController.wijzigLid(lid);
     }
 
     @FXML
     private void verwijderenLid(ActionEvent event) {
+        Lid lid = tblOverzichtLeden.getSelectionModel().getSelectedItem();
+        lidBeheerderController.verwijderLid(lid);
+        tblOverzichtLeden.getSelectionModel().selectNext();
+
     }
 
-    
-    
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import persistentie.DataInitializer;
 
-public class BeheerController {
+public class DataController {
 
     private List<Aanwezigheid> aanwezigheden;
     private List<Activiteit> activiteiten;
@@ -24,7 +24,7 @@ public class BeheerController {
     private List<Thema> themas;
     private List<Admin> admins;
     
-    public BeheerController() {
+    public DataController() {
         this.aanwezigheden = new ArrayList<>();
         this.activiteiten = new ArrayList<>();
         this.inschrijvingen = new ArrayList<>();

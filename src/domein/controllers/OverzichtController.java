@@ -32,7 +32,7 @@ import persistentie.DataInitializer;
 
 public class OverzichtController {
 
-    private BeheerController beheerController;
+    private DataController dataController;
 
     private ObservableList<Inschrijving> inschrijvingen;
     private ObservableList<Activiteit> activiteiten;
@@ -42,14 +42,14 @@ public class OverzichtController {
     private ObservableList<Oefening> oefeningen;
 
     public OverzichtController() {
-        beheerController = new BeheerController();
+        dataController = new DataController();
 
-        this.inschrijvingen = FXCollections.observableArrayList(beheerController.geefInschrijvingen());
-        this.activiteiten = FXCollections.observableArrayList(beheerController.geefActiviteiten());
-        this.aanwezigheden = FXCollections.observableArrayList(beheerController.geefAanwezigheden());
-        this.leden = FXCollections.observableArrayList(beheerController.geefLeden());
-        this.raadplegingen = FXCollections.observableArrayList(beheerController.geefRaadplegingen());
-        this.oefeningen = FXCollections.observableArrayList(beheerController.geefOefeningen());
+        this.inschrijvingen = FXCollections.observableArrayList(dataController.geefInschrijvingen());
+        this.activiteiten = FXCollections.observableArrayList(dataController.geefActiviteiten());
+        this.aanwezigheden = FXCollections.observableArrayList(dataController.geefAanwezigheden());
+        this.leden = FXCollections.observableArrayList(dataController.geefLeden());
+        this.raadplegingen = FXCollections.observableArrayList(dataController.geefRaadplegingen());
+        this.oefeningen = FXCollections.observableArrayList(dataController.geefOefeningen());
     }
 
     //
@@ -233,7 +233,17 @@ public class OverzichtController {
         ObservableList<Functie> functies = FXCollections.observableArrayList(Arrays.asList(Functie.values()));
         return FXCollections.unmodifiableObservableList(functies);
     }
-
+    
+    public ObservableList<Graad> geefGraden(){
+        ObservableList<Graad> graden = FXCollections.observableArrayList(Arrays.asList(Graad.values()));
+        return graden;
+    }
+    
+    public ObservableList<String> geefGeslachten(){
+        ObservableList<String> geslachten = FXCollections.observableArrayList("Man","Vrouw");
+        return geslachten;      
+    }
+    
     //
     //OVERIG
     //

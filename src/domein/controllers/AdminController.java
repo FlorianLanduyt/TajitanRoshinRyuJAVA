@@ -17,15 +17,15 @@ import java.util.List;
  */
 public class AdminController {
 
-    private BeheerController beheerController;
+    private DataController dataController;
     private List<Admin> admins;
     private Admin aangemeldeAdmin;
     private PropertyChangeSupport subject;
 
     public AdminController() {
-        beheerController = new BeheerController();
+        dataController = new DataController();
 
-        admins = new ArrayList<>(beheerController.geefAdmins());
+        admins = new ArrayList<>(dataController.geefAdmins());
         aangemeldeAdmin = null;
         subject = new PropertyChangeSupport(this);
     }

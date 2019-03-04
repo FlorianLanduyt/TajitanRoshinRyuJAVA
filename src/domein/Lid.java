@@ -458,9 +458,6 @@ public class Lid {
         return graad;
     }
     
-    public String getsGraad(){ // is nodig om de tabel van leden op te vullen!
-        return sGraad.get();
-    }
 
     public void setGraad(Graad graad) {
         if (graad == null) {
@@ -478,10 +475,7 @@ public class Lid {
         return functie;
     }
     
-    public String getSFunctie(){
-        return sType.get();
-                
-    }
+    
 
     public void setFunctie(Functie functie) {
         if (Arrays.asList(Functie.values()).contains(functie)) {
