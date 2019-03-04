@@ -35,12 +35,14 @@ public class Lid {
     private String nationaliteit;
     private String beroep;
     private Graad graad;
-    private Functie functie;
+    private Functie functie; // dit is hetzelfde als type!!!!
 
     //SimpleStringProperties voor TableView
     private SimpleStringProperty sVoornaam = new SimpleStringProperty();
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
     private SimpleStringProperty sPuntenAantal = new SimpleStringProperty();
+    private SimpleStringProperty sGraad = new SimpleStringProperty();
+    private SimpleStringProperty sType = new SimpleStringProperty();
 
     public Lid(String voornaam, String achternaam, LocalDate geboortedatum,
             String rijksregisterNr, LocalDate datumEersteTraining,
@@ -79,6 +81,14 @@ public class Lid {
 
     public SimpleStringProperty puntenAantalProperty() {
         return sPuntenAantal;
+    }
+    
+    public SimpleStringProperty graadProperty(){
+        return sGraad;
+    }
+    
+    public SimpleStringProperty typeProperty(){
+        return sType;
     }
 
     //Gewone getters en setters
@@ -447,6 +457,10 @@ public class Lid {
     public Graad getGraad() {
         return graad;
     }
+    
+    public String getsGraad(){ // is nodig om de tabel van leden op te vullen!
+        return sGraad.get();
+    }
 
     public void setGraad(Graad graad) {
         if (graad == null) {
@@ -454,6 +468,7 @@ public class Lid {
         }
         if (Arrays.asList(Graad.values()).contains(graad)) {
             this.graad = graad;
+            sGraad.set(graad.name());
         } else {
             throw new IllegalArgumentException("Graad bestaat niet.");
         }
@@ -462,10 +477,16 @@ public class Lid {
     public Functie getFunctie() {
         return functie;
     }
+    
+    public String getSFunctie(){
+        return sType.get();
+                
+    }
 
     public void setFunctie(Functie functie) {
         if (Arrays.asList(Functie.values()).contains(functie)) {
             this.functie = functie;
+            sType.set(functie.name());
         } else {
             throw new IllegalArgumentException("Functie bestaat niet.");
         }

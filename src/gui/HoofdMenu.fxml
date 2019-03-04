@@ -15,7 +15,7 @@
             <Insets left="5.0" right="5.0" top="40.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="btnBeheerLeden" defaultButton="true" mnemonicParsing="false" prefHeight="116.0" prefWidth="200.0" text="Beheer leden">
+      <Button fx:id="btnBeheerLeden" defaultButton="true" mnemonicParsing="false" onAction="#toonBeherenLidMenu" prefHeight="116.0" prefWidth="200.0" text="Beheer leden">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -1,6 +1,8 @@
 package gui;
 
 import domein.controllers.AdminController;
+import gui.beherenLid.BeherenLidSchermController;
+import gui.overzichten.OverzichtAanwezighedenScherm;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -29,6 +32,7 @@ public class HoofdMenu extends VBox {
 
     private BeginScherm beginScherm;
     private OverzichtMenu overzichtMenu;
+    
     private AdminController adminController;
 
     public HoofdMenu(BeginScherm beginScherm, AdminController adminController) {
@@ -49,5 +53,18 @@ public class HoofdMenu extends VBox {
         beginScherm.getChildren().remove(this);
         overzichtMenu = new OverzichtMenu(beginScherm, adminController);
         beginScherm.getChildren().add(overzichtMenu);
+    }
+    
+    @FXML
+    private void toonBeherenLidMenu(ActionEvent event) {
+        BeherenLidSchermController beherenLidSchermController
+                = new BeherenLidSchermController(beginScherm, adminController);
+        Scene scene = new Scene(beherenLidSchermController);
+        Stage stage = (Stage) (getScene().getWindow());
+        stage.setScene(scene);
+        stage.setTitle("Taijitan Yoshin Ryu - Adminmodule - Beheer leden");
+        stage.setResizable(false);
+        stage.show();
+        
     }
 }

@@ -23,7 +23,7 @@ public class BeheerController {
     private List<Raadpleging> raadplegingen;
     private List<Thema> themas;
     private List<Admin> admins;
-
+    
     public BeheerController() {
         this.aanwezigheden = new ArrayList<>();
         this.activiteiten = new ArrayList<>();
@@ -33,7 +33,7 @@ public class BeheerController {
         this.raadplegingen = new ArrayList<>();
         this.themas = new ArrayList<>();
         this.admins = new ArrayList<>();
-
+        
         //Calling initializeData
         InitializeData();
     }
@@ -62,7 +62,7 @@ public class BeheerController {
     public List<Thema> geefThemas() {
         return this.themas;
     }
-
+    
     //
     //CRUD OPERATIES ACTIVITEITEN
     //
