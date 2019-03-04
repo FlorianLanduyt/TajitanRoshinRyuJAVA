@@ -16,6 +16,7 @@ import gui.BeginScherm;
 import java.io.IOException;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -138,10 +139,10 @@ public class BeherenLidSchermController extends AnchorPane {
         colAchternaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
         colGraad.setCellValueFactory(cellData -> cellData.getValue().graadProperty());
         colType.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
-        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLeden());
+        tblOverzichtLeden.setItems(lidBeheerderController.geefObservableListLeden());
 
         //comboboxen opvullen
-        cboFilterNaam.setItems(lidBeheerderController.geefOverzichtLeden());
+        cboFilterNaam.setItems(lidBeheerderController.geefAlleLeden());
         cboFilterGraad.setItems(lidBeheerderController.geefGraden());
         cboFilterType.setItems(lidBeheerderController.geefFuncties());
         cboGraad.setItems(lidBeheerderController.geefGraden());
@@ -212,7 +213,7 @@ public class BeherenLidSchermController extends AnchorPane {
     @FXML
     private void toonLedenOpNaam(ActionEvent event) {
         Lid lid = cboFilterNaam.getSelectionModel().getSelectedItem();
-        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLid(lid));
+        lidBeheerderController.geefOverzichtLid(lid);
         cboFilterGraad.getSelectionModel().clearSelection();
         cboFilterType.getSelectionModel().clearSelection();
 
@@ -221,7 +222,7 @@ public class BeherenLidSchermController extends AnchorPane {
     @FXML
     private void toonLedenOpGraad(ActionEvent event) {
         Graad graad = cboFilterGraad.getSelectionModel().getSelectedItem();
-        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLedenVoorBepaaldeGraad(graad));
+        lidBeheerderController.geefOverzichtLedenVoorBepaaldeGraad(graad);
         cboFilterNaam.getSelectionModel().clearSelection();
         cboFilterType.getSelectionModel().clearSelection();
 
@@ -230,7 +231,7 @@ public class BeherenLidSchermController extends AnchorPane {
     @FXML
     private void toonLedenOpType(ActionEvent event) {
         Functie functie = cboFilterType.getSelectionModel().getSelectedItem();
-        tblOverzichtLeden.setItems(lidBeheerderController.geefOverzichtLedenVoorBepaaldType(functie));
+        lidBeheerderController.geefOverzichtLedenVoorBepaaldType(functie);
         cboFilterGraad.getSelectionModel().clearSelection();
         cboFilterNaam.getSelectionModel().clearSelection();
 
@@ -262,7 +263,8 @@ public class BeherenLidSchermController extends AnchorPane {
     private void verwijderenLid(ActionEvent event) {
         Lid lid = tblOverzichtLeden.getSelectionModel().getSelectedItem();
         lidBeheerderController.verwijderLid(lid);
-        tblOverzichtLeden.getSelectionModel().selectNext();
+        
+        
 
     }
 

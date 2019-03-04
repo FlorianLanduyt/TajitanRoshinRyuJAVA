@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  *
@@ -22,49 +24,60 @@ import javafx.collections.ObservableList;
  */
 public class LidBeheerderController {
     
-    private List<Lid> leden;
     private DataController dataController;
+    private ObservableList<Lid> ledenList;
+    private FilteredList<Lid> filteredList;
+    private SortedList<Lid> sortedList;
+    
+    private final Comparator<Lid> byVoornaam = (p1, p2) -> p1.getVoornaam().compareToIgnoreCase(p2.getVoornaam());
+    
+    private final Comparator<Lid> byAchternaam = (p1, p2) -> p1.getAchternaam().compareToIgnoreCase(p2.getAchternaam());
+    
+    private final Comparator<Lid> sortOrder = byVoornaam.thenComparing(byAchternaam);
+    
    
     
 
     public LidBeheerderController() {
         dataController = new DataController();
-        this.leden = dataController.geefLeden();
+        ledenList = FXCollections.observableArrayList(dataController.geefLeden());
+        filteredList = new FilteredList(ledenList , p -> true);
+        sortedList = new SortedList(filteredList,sortOrder);
     }
     
     
     //
     //Overzichte van leden!
     //
-    public ObservableList<Lid> geefOverzichtLeden() {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
+    public ObservableList<Lid> geefAlleLeden(){ //voor combobox
+        return FXCollections.unmodifiableObservableList(ledenList);
+    }
+    public ObservableList<Lid> geefObservableListLeden(){
+        return FXCollections.unmodifiableObservableList(sortedList);
+    }
+    
+    public void geefOverzichtLeden() {
+        filteredList.setPredicate(lid -> {
+            return true;
+        });
     }
 
-    public ObservableList<Lid> geefOverzichtLid(Lid lid) {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .filter(l -> l.equals(lid))
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
+    public void geefOverzichtLid(Lid lid) {
+        filteredList.setPredicate(l -> {
+            if(l.equals(lid)){
+                return true;
+            }
+            return false;
+        } );
+        
     }
 
-    public ObservableList<Lid> geefOverzichtLedenVoorBepaaldeGraad(Graad graad) {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .filter(l -> l.getGraad().equals(graad))
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
+    public void geefOverzichtLedenVoorBepaaldeGraad(Graad graad) {
+        filteredList.setPredicate(lid -> lid.getGraad().equals(graad));
     }
 
-    public ObservableList<Lid> geefOverzichtLedenVoorBepaaldType(Functie functie) {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .filter(l -> l.getFunctie().equals(functie))
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
+    public void geefOverzichtLedenVoorBepaaldType(Functie functie) {
+        filteredList.setPredicate(lid -> lid.getFunctie().equals(functie));
     }
     
     //
@@ -73,6 +86,7 @@ public class LidBeheerderController {
     
      public void wijzigLid(Lid lidMetGewijzigdeVelden) {
         dataController.wijzigLid(lidMetGewijzigdeVelden);
+        
     }
 
     public void voegLidToe(Lid lid) {
@@ -81,7 +95,7 @@ public class LidBeheerderController {
 
     public void verwijderLid(Lid lid) {
         dataController.verwijderLid(lid);
-        
+        ledenList.remove(lid); //dit zou eigenlijk niet mogen
         
     }
 
