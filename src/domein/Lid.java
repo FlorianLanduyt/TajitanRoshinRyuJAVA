@@ -146,6 +146,10 @@ public class Lid {
     }
 
     public void setRijksregisterNr(String rijksregisterNr) {
+        if(rijksregisterNr == null || rijksregisterNr == ""){
+            throw new IllegalArgumentException("Rijksregisternummer mag niet leeg zijn");
+        }
+        
         String nrZonderTekens = rijksregisterNr.replaceAll("[.]", "").replaceAll("-", "");
         String gebdatum = nrZonderTekens.substring(0, 6);
         String geslacht = nrZonderTekens.substring(6, 9);
