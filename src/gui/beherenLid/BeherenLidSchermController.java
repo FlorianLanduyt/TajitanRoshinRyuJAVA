@@ -204,6 +204,9 @@ public class BeherenLidSchermController extends AnchorPane {
     }
 
     public void clearAlleVelden() {
+        btnSlaGegevensNieuwLidOp.setVisible(false);//tijdelijk
+        btnWijzigingenOpslaan.setDisable(false);//tijdelijk
+        btnLidVerwijderen.setDisable(false);//tijdelijk
         txtVoornaam.clear();
         txtAchternaam.clear();
         dpGeboorteDatum.setValue(null);
@@ -279,6 +282,9 @@ public class BeherenLidSchermController extends AnchorPane {
     private void toevoegenLid(ActionEvent event) {
         tblOverzichtLeden.getSelectionModel().clearSelection();
         btnSlaGegevensNieuwLidOp.setVisible(true);
+        btnWijzigingenOpslaan.setDisable(true);//tijdelijk
+        btnLidVerwijderen.setDisable(true);//tijdelijk
+        
 
     }
      @FXML
@@ -290,7 +296,10 @@ public class BeherenLidSchermController extends AnchorPane {
                     txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(),txtWachtwoord.getText(),
                     txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
                     cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
-            btnSlaGegevensNieuwLidOp.setVisible(false);
+            btnSlaGegevensNieuwLidOp.setVisible(false);//tijdelijk
+            btnWijzigingenOpslaan.setDisable(false);// tijdelijk
+            btnLidVerwijderen.setDisable(false);//tijdelijk
+            
         }
         catch(IllegalArgumentException e){
             Alert alert = new Alert(Alert.AlertType.WARNING);
