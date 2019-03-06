@@ -146,7 +146,7 @@ public class Lid {
     }
 
     public void setRijksregisterNr(String rijksregisterNr) {
-        if(rijksregisterNr == null || rijksregisterNr == ""){
+        if(rijksregisterNr == null || rijksregisterNr.isEmpty()){
             throw new IllegalArgumentException("Rijksregisternummer mag niet leeg zijn");
         }
         
@@ -443,10 +443,10 @@ public class Lid {
         if (beroep == null || beroep.isEmpty()) {
             throw new IllegalArgumentException("Beroep mag niet leeg zijn.");
         }
-        if (beroep.length() <= 25) {
+        if (beroep.length() <= 50) {
             this.beroep = beroep;
         } else {
-            throw new IllegalArgumentException("Beroep mag max. 25 karakters bevatten.");
+            throw new IllegalArgumentException("Beroep mag max. 50 karakters bevatten.");
         }
     }
 
@@ -455,6 +455,9 @@ public class Lid {
     }
 
     public void setPuntenAantal(int puntenAantal) {
+        if(puntenAantal<0){
+            throw new IllegalArgumentException("Puntenaantal mag niet negatief zijn");
+        }
         sPuntenAantal.set(String.valueOf(puntenAantal));
     }
 
