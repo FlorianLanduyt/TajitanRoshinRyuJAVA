@@ -8,7 +8,11 @@ import domein.Lid;
 import domein.Oefening;
 import domein.Raadpleging;
 import domein.Thema;
+import domein.enums.Formule;
+import domein.enums.Functie;
+import domein.enums.Graad;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import persistentie.DataInitializer;
@@ -87,7 +91,7 @@ public class DataController {
 
     //Gaat pas werken eens JPA configured en de effectieve data uit db wordt gehaald -> id is dan pas echt aanwezig en niet overal null
     //Als je deze methode toch nodig hebt, kan je het aanpassen naar parameter rijksregisternr, tot we een DB hebben
-    private Lid geefLidDoorId(int id) {
+    public Lid geefLidDoorId(int id) {
         Optional<Lid> lid = this.leden.stream().filter(l -> l.getId() == id).findFirst();
         if (lid.isPresent()) {
             return lid.get();
@@ -95,32 +99,6 @@ public class DataController {
         return null;
     }
 
-    //Gaat pas werken eens JPA configured en de effectieve data uit db wordt gehaald -> id is dan pas echt aanwezig en niet overal null
-    //Zie boven
-    public void wijzigLid(Lid lidMetGewijzigdeVelden) {
-        Lid lid = geefLidDoorId(lidMetGewijzigdeVelden.getId());
-        lid.setVoornaam(lidMetGewijzigdeVelden.getVoornaam());
-        lid.setAchternaam(lidMetGewijzigdeVelden.getAchternaam());
-        lid.setGsmNr(lidMetGewijzigdeVelden.getGsmNr());
-        lid.setVasteTelefoonNr(lidMetGewijzigdeVelden.getVasteTelefoonNr());
-        lid.setStraat(lidMetGewijzigdeVelden.getStraat());
-        lid.setHuisNr(lidMetGewijzigdeVelden.getHuisNr());
-        lid.setPostcode(lidMetGewijzigdeVelden.getPostcode());
-        lid.setEmail(lidMetGewijzigdeVelden.getEmail());
-        lid.setWachtwoord(lidMetGewijzigdeVelden.getWachtwoord());
-        lid.setEmailVader(lidMetGewijzigdeVelden.getEmailVader());
-        lid.setEmailMoeder(lidMetGewijzigdeVelden.getEmailMoeder());
-        lid.setBeroep(lidMetGewijzigdeVelden.getBeroep());
-        lid.setGraad(lidMetGewijzigdeVelden.getGraad());
-    }
-
-    public void voegLidToe(Lid lid) {
-        this.leden.add(lid);
-    }
-
-    public void verwijderLid(Lid lid) {
-        this.leden.remove(lid);
-    }
 
     //
     //CRUD OPERATIES OEFENINGEN
@@ -150,5 +128,29 @@ public class DataController {
 
     public void verwijderAdmin(Admin admin) {
         this.admins.remove(admin);
+    }
+    
+    //
+    //ENUMS
+    //
+    
+    public List<Formule> geefFormules() {
+        List<Formule> formules = Arrays.asList(Formule.values());
+        return formules;
+    }
+
+    public List<Functie> geefFuncties() {
+        List<Functie> functies = Arrays.asList(Functie.values());
+        return functies;
+    }
+    
+    public List<Graad> geefGraden(){
+        List<Graad> graden = Arrays.asList(Graad.values());
+        return graden;
+    }
+    
+    public List<String> geefGeslachten(){
+        List<String> geslachten = Arrays.asList("Man","Vrouw");
+        return geslachten;      
     }
 }
