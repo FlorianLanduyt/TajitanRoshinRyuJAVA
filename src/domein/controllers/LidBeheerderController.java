@@ -11,6 +11,7 @@ import domein.enums.Functie;
 import domein.enums.Graad;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -34,6 +35,12 @@ public class LidBeheerderController {
     
     private final Comparator<Lid> sortOrder = byVoornaam.thenComparing(byAchternaam);
     
+    //dit is nodig om de filterwaarden in te stellen!!
+    private String voornaamFilter;
+    private String familieNaamFilter;
+    private Graad graadFilter;
+    private Functie functieFilter;
+    
    
     
 
@@ -54,31 +61,88 @@ public class LidBeheerderController {
     public ObservableList<Lid> geefObservableListLeden(){
         return FXCollections.unmodifiableObservableList(sortedList);
     }
-    
-    public void geefOverzichtLeden() {
+    public void filterList(String voornaam, String familienaam, Graad graad, Functie functie){
+        
         filteredList.setPredicate(lid -> {
-            return true;
-        });
-    }
-
-    public void geefOverzichtLid(Lid lid) {
-        filteredList.setPredicate(l -> {
-            if(l.equals(lid)){
+            boolean voornaamEmpty = voornaam.isEmpty() || voornaam.equals("");
+            boolean familienaamEmpty = familienaam.isEmpty() || familienaam.equals("");
+            boolean graadEmpty = graad == null || graad.name().equals("");
+            boolean functieEmpty = functie == null || functie.name().equals("");
+            
+            boolean voornaamFilter = lid.getVoornaam().toLowerCase().equals(voornaam.toLowerCase()) || lid.getVoornaam().toLowerCase().startsWith(voornaam.toLowerCase());
+            boolean familieNaamFilter = lid.getAchternaam().toLowerCase().equals(familienaam.toLowerCase()) || lid.getAchternaam().toLowerCase().startsWith(familienaam.toLowerCase());
+            boolean graadFilter = lid.getGraad().equals(graad);
+            boolean functieFilter = lid.getFunctie().equals(functie);
+            
+            //0000
+            if(voornaamEmpty && familienaamEmpty && graadEmpty && functieEmpty){
                 return true;
             }
-            return false;
-        } );
-        
+            //0001
+            if(voornaamEmpty && familienaamEmpty && graadEmpty && !functieEmpty){
+                return functieFilter;
+            }
+            //0010
+            if(voornaamEmpty && familienaamEmpty && !graadEmpty && functieEmpty){
+                return graadFilter;
+            }
+            //0011
+            if(voornaamEmpty && familienaamEmpty && !graadEmpty && !functieEmpty){
+                return graadFilter && functieFilter;
+            }
+            //0100
+            if(voornaamEmpty && !familienaamEmpty && graadEmpty && functieEmpty){
+                return familieNaamFilter;
+            }
+            //0101
+            if(voornaamEmpty && !familienaamEmpty && graadEmpty && !functieEmpty){
+                return  familieNaamFilter && functieFilter;
+            }
+            //0110
+            if(voornaamEmpty && !familienaamEmpty && !graadEmpty && functieEmpty){
+                return familieNaamFilter && graadFilter;
+            }
+            //0111
+            if(voornaamEmpty && !familienaamEmpty && !graadEmpty && !functieEmpty){
+                return familieNaamFilter && graadFilter && functieFilter;
+            }
+            //1000
+            if(!voornaamEmpty && familienaamEmpty && graadEmpty && functieEmpty){
+                return voornaamFilter;
+            }
+            //1001
+            if(!voornaamEmpty && familienaamEmpty && graadEmpty && !functieEmpty){
+                return voornaamFilter && functieFilter;
+            }
+            //1010
+            if(!voornaamEmpty && familienaamEmpty && !graadEmpty && functieEmpty){
+                return voornaamFilter && graadFilter;
+            }
+            //1011
+            if(!voornaamEmpty && familienaamEmpty && !graadEmpty && !functieEmpty){
+                return voornaamFilter && graadFilter && functieFilter;
+            }
+            //1100
+            if(!voornaamEmpty && !familienaamEmpty && graadEmpty && functieEmpty){
+                return voornaamFilter && familieNaamFilter;
+            }
+            //1101
+            if(!voornaamEmpty && !familienaamEmpty && graadEmpty && !functieEmpty){
+                return voornaamFilter && familieNaamFilter && functieFilter;
+            }
+            //1110
+            if(!voornaamEmpty && !familienaamEmpty && !graadEmpty && functieEmpty){
+                return voornaamFilter && familieNaamFilter && graadFilter;
+            }
+            //1111
+            if(!voornaamEmpty && !familienaamEmpty && !graadEmpty && !functieEmpty){
+                return voornaamFilter && familieNaamFilter && graadFilter && functieFilter;
+            }
+            
+            return true;
+                
+        });
     }
-
-    public void geefOverzichtLedenVoorBepaaldeGraad(Graad graad) {
-        filteredList.setPredicate(lid -> lid.getGraad().equals(graad));
-    }
-
-    public void geefOverzichtLedenVoorBepaaldType(Functie functie) {
-        filteredList.setPredicate(lid -> lid.getFunctie().equals(functie));
-    }
-    
     //
     //CRUD-operaties
     //
@@ -149,8 +213,23 @@ public class LidBeheerderController {
         return FXCollections.unmodifiableObservableList(functies);
     }
     
+    public ObservableList<String> geefFunctiesFilter(){
+        ObservableList<String> functies = FXCollections.observableArrayList(dataController
+                .geefFuncties().stream().map(functie -> functie.name())
+                .collect(Collectors.toList()));
+        functies.add(0, "Alle types");
+        return functies;
+    }
+    
     public ObservableList<Graad> geefGraden(){
         ObservableList<Graad> graden = FXCollections.observableArrayList(dataController.geefGraden());
+        return graden;
+    }
+    public ObservableList<String> geefGradenFilter(){
+        ObservableList<String> graden = FXCollections.observableArrayList(dataController.geefGraden()
+                .stream().map(graad -> graad.name())
+                .collect(Collectors.toList()));
+        graden.add(0, "Alle graden");
         return graden;
     }
     

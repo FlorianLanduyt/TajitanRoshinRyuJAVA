@@ -7,30 +7,29 @@ package gui.beherenLid;
 
 import domein.Lid;
 import domein.controllers.AdminController;
-import domein.controllers.DataController;
 import domein.controllers.LidBeheerderController;
-import domein.controllers.OverzichtController;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginScherm;
+import java.awt.Color;
 import java.io.IOException;
-import java.time.LocalDate;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 /**
@@ -41,11 +40,13 @@ import javafx.stage.Stage;
 public class BeherenLidSchermController extends AnchorPane {
 
     @FXML
-    private ComboBox<Lid> cboFilterNaam;
+    private ComboBox<String> cboFilterGraad;
     @FXML
-    private ComboBox<Graad> cboFilterGraad;
+    private ComboBox<String> cboFilterType;
     @FXML
-    private ComboBox<Functie> cboFilterType;
+    private TextField txtFilterVoornaam;
+    @FXML
+    private TextField txtFilterFamilienaam;
     @FXML
     private TableView<Lid> tblOverzichtLeden;
     @FXML
@@ -119,12 +120,16 @@ public class BeherenLidSchermController extends AnchorPane {
     private DatePicker dpEersteTraining;
     @FXML
     private TextField txtWachtwoord;
+    @FXML
+    private Label lblErrorlog;
     //andere variabelen
     private BeginScherm beginscherm;
     private AdminController adminController;
     private LidBeheerderController lidBeheerderController;
     @FXML
     private Button btnSlaGegevensNieuwLidOp;
+    
+    
 
     public BeherenLidSchermController(BeginScherm beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenLidScherm.fxml"));
@@ -141,7 +146,7 @@ public class BeherenLidSchermController extends AnchorPane {
         this.lidBeheerderController = new LidBeheerderController();
 
         btnSlaGegevensNieuwLidOp.setVisible(false);
-        
+
         //tabel opvullen
         colVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         colAchternaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
@@ -150,9 +155,8 @@ public class BeherenLidSchermController extends AnchorPane {
         tblOverzichtLeden.setItems(lidBeheerderController.geefObservableListLeden());
 
         //comboboxen opvullen
-        cboFilterNaam.setItems(lidBeheerderController.geefAlleLeden());
-        cboFilterGraad.setItems(lidBeheerderController.geefGraden());
-        cboFilterType.setItems(lidBeheerderController.geefFuncties());
+        cboFilterGraad.setItems(lidBeheerderController.geefGradenFilter());
+        cboFilterType.setItems(lidBeheerderController.geefFunctiesFilter());
         cboGraad.setItems(lidBeheerderController.geefGraden());
         cboType_Functie.setItems(lidBeheerderController.geefFuncties());
         cboGeslacht.setItems(lidBeheerderController.geefGeslachten());
@@ -168,9 +172,11 @@ public class BeherenLidSchermController extends AnchorPane {
 
 //        lidBeheerderController.addObserver(o
 //                -> btnWijzigingenOpslaan.setDisable(tblOverzichtLeden.getSelectionModel().isEmpty()));
-
     }
 
+    //
+    //opvullen en verwijderen van data uit detaillijst
+    //
     public void toonSpecifiekeData(Lid lid) {
         //alle tekstvelden clearen
         try {
@@ -231,106 +237,124 @@ public class BeherenLidSchermController extends AnchorPane {
         txtWachtwoord.clear();
     }
 
+    //
+    //filtermethodes
+    //
     @FXML
-    private void toonLedenOpNaam(ActionEvent event) {
-        Lid lid = cboFilterNaam.getSelectionModel().getSelectedItem();
-        lidBeheerderController.geefOverzichtLid(lid);
-        //andere cbo's resetten
-        cboFilterGraad.getSelectionModel().clearSelection();
-        cboFilterType.getSelectionModel().clearSelection();
-        //eerste rij selecteren
+    private void filterLedenCBO(ActionEvent event) {
+        String voornaam = txtFilterVoornaam.getText();
+        String familienaam = txtFilterFamilienaam.getText();
+        Graad graad = cboFilterGraad
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cboFilterGraad.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Graad.valueOf(cboFilterGraad.getSelectionModel().getSelectedItem());
+
+        Functie functie = cboFilterType
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cboFilterType.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Functie.valueOf(cboFilterType.getSelectionModel().getSelectedItem());
+
+        lidBeheerderController.filterList(voornaam, familienaam, graad, functie);
         tblOverzichtLeden.getSelectionModel().selectFirst();
-
     }
 
     @FXML
-    private void toonLedenOpGraad(ActionEvent event) {
-        Graad graad = cboFilterGraad.getSelectionModel().getSelectedItem();
-        lidBeheerderController.geefOverzichtLedenVoorBepaaldeGraad(graad);
-        //andere cbo's resetten
-        cboFilterNaam.getSelectionModel().clearSelection();
-        cboFilterType.getSelectionModel().clearSelection();
-        //eerste rij selecteren
+    private void filterLedenTXT(KeyEvent event) {
+        String voornaam = txtFilterVoornaam.getText();
+        String familienaam = txtFilterFamilienaam.getText();
+
+        Graad graad = cboFilterGraad
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cboFilterGraad.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Graad.valueOf(cboFilterGraad.getSelectionModel().getSelectedItem());
+
+        Functie functie = cboFilterType
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cboFilterType.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Functie.valueOf(cboFilterType.getSelectionModel().getSelectedItem());
+
+        lidBeheerderController.filterList(voornaam, familienaam, graad, functie);
         tblOverzichtLeden.getSelectionModel().selectFirst();
-
     }
 
-    @FXML
-    private void toonLedenOpType(ActionEvent event) {
-        Functie functie = cboFilterType.getSelectionModel().getSelectedItem();
-        lidBeheerderController.geefOverzichtLedenVoorBepaaldType(functie);
-        //cbo's resetten
-        cboFilterGraad.getSelectionModel().clearSelection();
-        cboFilterNaam.getSelectionModel().clearSelection();
-        //eerst rij selecteren
-        tblOverzichtLeden.getSelectionModel().selectFirst();
-
-    }
-
-    @FXML
-    private void meldAf(ActionEvent event) {
-        BeginScherm beginScherm = new BeginScherm();
-        Scene scene = new Scene(beginScherm);
-        Stage stage = (Stage) (getScene().getWindow());
-        stage.setScene(scene);
-        stage.setTitle("Taijitan Yoshin Ryu - Adminmodule");
-        stage.setResizable(false);
-        stage.show();
-    }
-
+    //
+    // CRUD-operaties
+    //
     @FXML
     private void toevoegenLid(ActionEvent event) {
         tblOverzichtLeden.getSelectionModel().clearSelection();
         btnSlaGegevensNieuwLidOp.setVisible(true);
         btnWijzigingenOpslaan.setDisable(true);//tijdelijk
         btnLidVerwijderen.setDisable(true);//tijdelijk
-        
 
     }
-     @FXML
+
+    @FXML
     private void slaGegevensNieuwLidOp(ActionEvent event) {
         try {
             lidBeheerderController.voegLidToe(txtVoornaam.getText(), txtAchternaam.getText(), dpGeboorteDatum.getValue(),
                     txtRijksregisternummer.getText(), dpEersteTraining.getValue(), txtGsmnummer.getText(), txtTelefoon.getText(),
                     txtStraat.getText(), txtStad.getText(), txtHuisnummer.getText(), txtBus.getText(), txtPostcode.getText(),
-                    txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(),txtWachtwoord.getText(),
+                    txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(), txtWachtwoord.getText(),
                     txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
                     cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
             btnSlaGegevensNieuwLidOp.setVisible(false);//tijdelijk
             btnWijzigingenOpslaan.setDisable(false);// tijdelijk
             btnLidVerwijderen.setDisable(false);//tijdelijk
+            lblErrorlog.setText("");
+        } catch (IllegalArgumentException e) {
             
+            
+            lblErrorlog.setText(e.getMessage());
         }
-        catch(IllegalArgumentException e){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Foute input!");
-                alert.setHeaderText("U heeft een fout ingegeven voor de volgende waarde");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
-        }
-        
+
     }
 
     @FXML
     private void opslaanWijzigingen(ActionEvent event) {
         if (!tblOverzichtLeden.getSelectionModel().isEmpty()) {
             Lid lid = tblOverzichtLeden.getSelectionModel().getSelectedItem();
-            
+
             //alles opvragen
             //alle parameters mee te geven aan wijzigLid + het lid zelf!
             try {
-                lidBeheerderController.wijzigLid(lid, txtVoornaam.getText(), txtAchternaam.getText(), dpGeboorteDatum.getValue(),
-                        txtRijksregisternummer.getText(), dpEersteTraining.getValue(), txtGsmnummer.getText(), txtTelefoon.getText(),
-                        txtStraat.getText(), txtStad.getText(), txtHuisnummer.getText(), txtBus.getText(), txtPostcode.getText(),
-                        txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(), txtWachtwoord.getText(),
-                        txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
-                        cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Bevestiging verwijderen");
+                alert.setHeaderText("Bevestiging");
+                alert.setContentText(String.format("Ben je zeker dat je lid %s wil wijzigen?", lid.getVoornaam() + " " + lid.getAchternaam()));
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    lidBeheerderController.wijzigLid(lid, txtVoornaam.getText(), txtAchternaam.getText(), dpGeboorteDatum.getValue(),
+                            txtRijksregisternummer.getText(), dpEersteTraining.getValue(), txtGsmnummer.getText(), txtTelefoon.getText(),
+                            txtStraat.getText(), txtStad.getText(), txtHuisnummer.getText(), txtBus.getText(), txtPostcode.getText(),
+                            txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(), txtWachtwoord.getText(),
+                            txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
+                            cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
+                    lblErrorlog.setText("");
+                    
+                }
             } catch (IllegalArgumentException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Foute input!");
-                alert.setHeaderText("U heeft een fout ingegeven voor de volgende waarde(n)");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.WARNING);
+//                alert.setTitle("Foute input!");
+//                alert.setHeaderText("U heeft een fout ingegeven voor de volgende waarde(n)");
+//                alert.setContentText(e.getMessage());
+//                alert.showAndWait();
+                lblErrorlog.setText(e.getMessage());
+            
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -344,10 +368,29 @@ public class BeherenLidSchermController extends AnchorPane {
     @FXML
     private void verwijderenLid(ActionEvent event) {
         Lid lid = tblOverzichtLeden.getSelectionModel().getSelectedItem();
-        lidBeheerderController.verwijderLid(lid);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bevestiging verwijderen");
+        alert.setHeaderText("Bevestiging");
+        alert.setContentText(String.format("Ben je zeker dat je lid %s wil verwijderen?", lid.getVoornaam() + " " + lid.getAchternaam()));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            lidBeheerderController.verwijderLid(lid);
+        }
 
     }
 
-   
-
+    //
+    //andere methodes
+    //
+    @FXML
+    private void meldAf(ActionEvent event) {
+        BeginScherm beginScherm = new BeginScherm();
+        Scene scene = new Scene(beginScherm);
+        Stage stage = (Stage) (getScene().getWindow());
+        stage.setScene(scene);
+        stage.setTitle("Taijitan Yoshin Ryu - Adminmodule");
+        stage.setResizable(false);
+        stage.show();
+    }
 }
