@@ -2,6 +2,7 @@ package domein;
 
 import domein.Lid;
 import domein.enums.Formule;
+import exceptions.VolzetException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -253,6 +254,7 @@ public class Activiteit {
     }
 
     public int getAantalDeelnemers() {
+        setAantalDeelnemers();
         return Integer.valueOf(sAantalDeelnemers.get());
     }
 
@@ -263,9 +265,14 @@ public class Activiteit {
     }
 
     public void setVolzet() {
-        Boolean volzet = this.maxDeelnemers == this.aantalDeelnemers;
+        Boolean volzet = this.maxDeelnemers == getAantalDeelnemers();
         this.isVolzet = volzet;
         sIsVolzet.set(String.valueOf(volzet));
+    }
+
+    public boolean isVolzet() {
+        setVolzet();
+        return Boolean.valueOf(sIsVolzet.get());
     }
 
     //
@@ -276,15 +283,17 @@ public class Activiteit {
     }
 
     public void voegInschrijvingToe(Inschrijving inschrijving) {
-        this.inschrijvingen.add(inschrijving);
+        if (isVolzet()) {
+            throw new VolzetException("Deze activiteit is volzet.");
+        } else {
+            this.inschrijvingen.add(inschrijving);
+            setAantalDeelnemers();
+        }
     }
 
     public void verwijderInschrijving(Inschrijving inschrijving) {
         this.inschrijvingen.remove(inschrijving);
-    }
-
-    public boolean isVolzet() {
-        return Boolean.valueOf(sIsVolzet.get());
+        setAantalDeelnemers();
     }
 
 }
