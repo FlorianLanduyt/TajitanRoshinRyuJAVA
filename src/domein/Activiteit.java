@@ -2,6 +2,7 @@ package domein;
 
 import domein.Lid;
 import domein.enums.Formule;
+import exceptions.DatumIntervalException;
 import exceptions.VolzetException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -141,6 +142,10 @@ public class Activiteit {
     public void setBeginDatum(LocalDate beginDatum) {
         if (beginDatum == null) {
             throw new IllegalArgumentException("Begindatum mag niet leeg zijn.");
+        } else if (eindDatum != null) {
+            if (beginDatum.compareTo(this.eindDatum) > 0) {
+                throw new DatumIntervalException("Begindatum mag niet na einddatum liggen.");
+            }
         } else {
             this.beginDatum = beginDatum;
             sBeginDatum.set(beginDatum.toString());
@@ -154,6 +159,8 @@ public class Activiteit {
     public void setEindDatum(LocalDate eindDatum) {
         if (eindDatum == null) {
             throw new IllegalArgumentException("Einddatum mag niet leeg zijn.");
+        } else if (eindDatum.compareTo(this.beginDatum) < 0) {
+            throw new DatumIntervalException("Einddatum mag niet voor begindatum liggen.");
         } else {
             this.eindDatum = eindDatum;
             sEindDatum.set(eindDatum.toString());
