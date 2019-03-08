@@ -1,6 +1,6 @@
 package gui.overzichten;
 
-import domein.activiteit.Activiteit;
+import domein.Activiteit;
 import domein.controllers.AdminController;
 import domein.Lid;
 import domein.controllers.OverzichtController;
@@ -86,7 +86,7 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
 
         //Tableview setup
         colNaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
-        colDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
+        colDatum.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
         colFormule.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
         colStad.setCellValueFactory(cellData -> cellData.getValue().stadProperty());
         colPostcode.setCellValueFactory(cellData -> cellData.getValue().postcodeProperty());

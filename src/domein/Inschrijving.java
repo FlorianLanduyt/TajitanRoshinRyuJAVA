@@ -3,20 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domein.inschrijving;
+package domein;
 
 import domein.Lid;
 import domein.enums.Formule;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
  * @author Tim
  */
-public abstract class Inschrijving {
+public class Inschrijving {
 
     private Lid lid;
+    private Formule formule;
+    private List<Activiteit> activiteiten;
 
     //SimpleStringProperties
     private SimpleStringProperty sVoornaam = new SimpleStringProperty();
@@ -30,6 +34,7 @@ public abstract class Inschrijving {
         setTijdstip(tijdstip);
         setVoornaam();
         setAchternaam();
+        activiteiten = new ArrayList<>();
     }
 
     //Getters voor SimpleStringProperties
@@ -55,6 +60,7 @@ public abstract class Inschrijving {
     }
 
     private void setFormule(Formule formule) {
+        this.formule = formule;
         sFormule.set(formule.name());
     }
 
@@ -88,6 +94,18 @@ public abstract class Inschrijving {
 
     public void setAchternaam() {
         sAchternaam.set(getLid().getAchternaam());
+    }
+
+    public List<Activiteit> getActiviteiten() {
+        return activiteiten;
+    }
+
+    public void voegActiviteitToe(Activiteit activiteit) {
+        this.activiteiten.add(activiteit);
+    }
+
+    public void verwijderActiviteit(Activiteit activiteit) {
+        this.activiteiten.remove(activiteit);
     }
 
 }

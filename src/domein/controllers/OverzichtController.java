@@ -1,10 +1,10 @@
 package domein.controllers;
 
 import domein.Aanwezigheid;
-import domein.activiteit.Activiteit;
+import domein.Activiteit;
 import domein.enums.Formule;
 import domein.enums.Graad;
-import domein.inschrijving.Inschrijving;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.Oefening;
 import domein.Raadpleging;
@@ -126,19 +126,19 @@ public class OverzichtController {
     //
     public ObservableList<Activiteit> geefOverzichtActiviteiten() {
         ObservableList<Activiteit> activiteitenSortedDatum = FXCollections.observableArrayList(activiteiten.stream()
-                .sorted(Comparator.comparing(Activiteit::getDatum).reversed())
+                .sorted(Comparator.comparing(Activiteit::getBeginDatum).reversed())
                 .collect(Collectors.toList()));
         return FXCollections.unmodifiableObservableList(activiteitenSortedDatum);
     }
 
     public ObservableList<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
-
         ObservableList<Activiteit> activiteitenVoorLid = FXCollections.observableArrayList(activiteiten.stream()
-                .filter(activiteit -> activiteit.getDeelnemers().contains(lid))
+                .filter(activiteit -> activiteit.getInschrijvingen().stream()
+                .anyMatch(i -> i.getLid().equals(lid)))
                 .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(activiteitenVoorLid);
+        return FXCollections.unmodifiableObservableList(activiteitenVoorLid); 
     }
-
+    
     //
     //CLUBKAMPIOENSCHAP
     //
@@ -233,17 +233,17 @@ public class OverzichtController {
         ObservableList<Functie> functies = FXCollections.observableArrayList(Arrays.asList(Functie.values()));
         return FXCollections.unmodifiableObservableList(functies);
     }
-    
-    public ObservableList<Graad> geefGraden(){
+
+    public ObservableList<Graad> geefGraden() {
         ObservableList<Graad> graden = FXCollections.observableArrayList(Arrays.asList(Graad.values()));
         return graden;
     }
-    
-    public ObservableList<String> geefGeslachten(){
-        ObservableList<String> geslachten = FXCollections.observableArrayList("Man","Vrouw");
-        return geslachten;      
+
+    public ObservableList<String> geefGeslachten() {
+        ObservableList<String> geslachten = FXCollections.observableArrayList("Man", "Vrouw");
+        return geslachten;
     }
-    
+
     //
     //OVERIG
     //

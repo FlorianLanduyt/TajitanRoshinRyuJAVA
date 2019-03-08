@@ -5,25 +5,18 @@
 package persistentie;
 
 import domein.Aanwezigheid;
-import domein.activiteit.Activiteit;
+import domein.Activiteit;
 import domein.Admin;
 import domein.enums.Formule;
 import domein.enums.Graad;
-import domein.inschrijving.Inschrijving;
-import domein.inschrijving.InschrijvingActiviteit;
-import domein.inschrijving.InschrijvingLessenreeks;
-import domein.inschrijving.InschrijvingStage;
-import domein.activiteit.Les;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.Oefening;
-import domein.controllers.OverzichtController;
 import domein.Raadpleging;
-import domein.activiteit.Stage;
 import domein.Thema;
 import domein.enums.Functie;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,13 +70,13 @@ public class DataInitializer {
         leden.add(lid4);
         leden.add(lid5);
 
-        Activiteit s1 = new Stage("Hoogtestage Ardennen", LocalDate.of(2019, Month.MARCH, 12));
-        Activiteit s2 = new Stage("Hoogtestage Vogezen", LocalDate.of(2019, Month.AUGUST, 28));
-        Activiteit s3 = new Stage("Uitstap Nederland", LocalDate.of(2020, Month.JANUARY, 10));
+        Activiteit s1 = new Activiteit("Hoogtestage Ardennen", Formule.STAGE, 50, LocalDate.of(2019, Month.MARCH, 12));
+        Activiteit s2 = new Activiteit("Hoogtestage Vogezen", Formule.STAGE, 50, LocalDate.of(2019, Month.AUGUST, 28));
+        Activiteit s3 = new Activiteit("Uitstap Nederland", Formule.ACTIVITEIT, 50, LocalDate.of(2020, Month.JANUARY, 10));
 
-        Activiteit l1 = new Les("Les 1", Formule.ZA, LocalDate.of(2019, Month.FEBRUARY, 23));
-        Activiteit l2 = new Les("Les 1", Formule.WO_ZA, LocalDate.of(2019, Month.FEBRUARY, 20));
-        Activiteit l3 = new Les("Les 1", Formule.DI_ZA, LocalDate.of(2020, Month.FEBRUARY, 19));
+        Activiteit l1 = new Activiteit("Les 1", Formule.ZA, 50, LocalDate.of(2019, Month.FEBRUARY, 23));
+        Activiteit l2 = new Activiteit("Les 1", Formule.WO_ZA, 50, LocalDate.of(2019, Month.FEBRUARY, 20));
+        Activiteit l3 = new Activiteit("Les 1", Formule.DI_ZA, 50, LocalDate.of(2020, Month.FEBRUARY, 19));
 
         activiteiten.add(s1);
         activiteiten.add(s2);
@@ -99,10 +92,6 @@ public class DataInitializer {
             a.setHuisnummer("20");
             a.setBus("5A");
         });
-
-        s1.voegDeelnemerToe(lid1);
-        s2.voegDeelnemerToe(lid2);
-        s3.voegDeelnemerToe(lid2);
 
         Aanwezigheid a1 = new Aanwezigheid(lid3, l1);
         Aanwezigheid a2 = new Aanwezigheid(lid4, l1);
@@ -147,17 +136,29 @@ public class DataInitializer {
             r2.verhoogAantalRaadplegingen();
         }
 
-        InschrijvingLessenreeks i1 = new InschrijvingLessenreeks(Formule.WO_ZA, lid1, LocalDate.of(2019, Month.DECEMBER, 1));
-        InschrijvingActiviteit i2 = new InschrijvingActiviteit(lid2, LocalDate.of(2019, Month.DECEMBER, 5));
-        InschrijvingStage i3 = new InschrijvingStage(lid3, LocalDate.of(2019, Month.DECEMBER, 8));
-        InschrijvingLessenreeks i4 = new InschrijvingLessenreeks(Formule.DI_DO, lid4, LocalDate.of(2019, Month.DECEMBER, 12));
-        InschrijvingLessenreeks i5 = new InschrijvingLessenreeks(Formule.WO, lid5, LocalDate.of(2019, Month.DECEMBER, 24));
+        Inschrijving i1 = new Inschrijving(Formule.WO_ZA, lid1, LocalDate.of(2019, Month.DECEMBER, 1));
+        Inschrijving i2 = new Inschrijving(Formule.STAGE, lid2, LocalDate.of(2019, Month.DECEMBER, 5));
+        Inschrijving i3 = new Inschrijving(Formule.STAGE, lid3, LocalDate.of(2019, Month.DECEMBER, 8));
+        Inschrijving i4 = new Inschrijving(Formule.WO_ZA, lid4, LocalDate.of(2019, Month.DECEMBER, 12));
+        Inschrijving i5 = new Inschrijving(Formule.WO_ZA, lid5, LocalDate.of(2019, Month.DECEMBER, 24));
 
         inschrijvingen.add(i1);
         inschrijvingen.add(i2);
         inschrijvingen.add(i3);
         inschrijvingen.add(i4);
         inschrijvingen.add(i5);
+
+        i1.voegActiviteitToe(l2);
+        i2.voegActiviteitToe(s1);
+        i3.voegActiviteitToe(s2);
+        i4.voegActiviteitToe(l2);
+        i5.voegActiviteitToe(l2);
+
+        l2.voegInschrijvingToe(i1);
+        s1.voegInschrijvingToe(i2);
+        s2.voegInschrijvingToe(i3);
+        l2.voegInschrijvingToe(i4);
+        l2.voegInschrijvingToe(i5);
 
         Admin tybo = new Admin("Tybo", "admin");
         Admin rob = new Admin("Rob", "admin");

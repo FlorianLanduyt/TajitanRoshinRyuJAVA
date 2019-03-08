@@ -1,9 +1,9 @@
 package gui.overzichten;
 
-import domein.activiteit.Activiteit;
+import domein.Activiteit;
 import domein.controllers.AdminController;
 import domein.enums.Formule;
-import domein.inschrijving.Inschrijving;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.controllers.OverzichtController;
 import exceptions.DatumIntervalException;

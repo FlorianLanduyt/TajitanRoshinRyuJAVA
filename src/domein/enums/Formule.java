@@ -9,5 +9,6 @@ public enum Formule {
     ACTIVITEIT,
     STAGE,
     EXAMEN,
-    PROEF
+    PROEF,
+    UITSTAP
 }

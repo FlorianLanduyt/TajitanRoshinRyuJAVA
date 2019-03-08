@@ -1,9 +1,9 @@
 package domein.controllers;
 
 import domein.Aanwezigheid;
-import domein.activiteit.Activiteit;
+import domein.Activiteit;
 import domein.Admin;
-import domein.inschrijving.Inschrijving;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.Oefening;
 import domein.Raadpleging;

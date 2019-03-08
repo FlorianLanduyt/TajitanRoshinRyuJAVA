@@ -1,6 +1,6 @@
 package gui.overzichten;
 
-import domein.activiteit.Activiteit;
+import domein.Activiteit;
 import domein.controllers.AdminController;
 import domein.Lid;
 import domein.Oefening;

@@ -5,7 +5,6 @@
  */
 package domein;
 
-import domein.activiteit.Activiteit;
 import domein.enums.Formule;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
@@ -132,6 +131,7 @@ public class Aanwezigheid {
                 this.puntenAantal = 10;
                 break;
             case "ACTIVITEIT":
+            case "UITSTAP":
                 this.puntenAantal = 75;
                 break;
             case "STAGE":
