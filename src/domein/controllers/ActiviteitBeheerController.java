@@ -21,12 +21,6 @@ public class ActiviteitBeheerController {
     private final Comparator<Activiteit> byDate = (p1, p2) -> p1.getBeginDatum().compareTo(p2.getBeginDatum());
     private final Comparator<Activiteit> sortOrder = byDate.reversed();
 
-    //Filterprops
-    private String naamFilter;
-    private Formule formuleFilter;
-    private int aantalDeelnemersFilter;
-    private boolean volzetFilter;
-
     public ActiviteitBeheerController() {
         dataController = new DataController();
         activiteitenList = FXCollections.observableArrayList(dataController.geefActiviteiten());

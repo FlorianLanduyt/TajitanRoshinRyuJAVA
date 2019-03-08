@@ -26,12 +26,6 @@ public class LidBeheerderController {
 
     private final Comparator<Lid> sortOrder = byVoornaam.thenComparing(byAchternaam);
 
-    //dit is nodig om de filterwaarden in te stellen!!
-    private String voornaamFilter;
-    private String familieNaamFilter;
-    private Graad graadFilter;
-    private Functie functieFilter;
-
     public LidBeheerderController() {
         dataController = new DataController();
         ledenList = FXCollections.observableArrayList(dataController.geefLeden());
