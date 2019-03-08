@@ -1,6 +1,7 @@
 package domein;
 
 import domein.enums.Formule;
+import exceptions.VolzetException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,11 +94,12 @@ public class Inschrijving {
     }
 
     public void voegActiviteitToe(Activiteit activiteit) {
+        activiteit.voegInschrijvingToe(this);
         this.activiteiten.add(activiteit);
     }
 
     public void verwijderActiviteit(Activiteit activiteit) {
+        activiteit.verwijderInschrijving(this);
         this.activiteiten.remove(activiteit);
     }
-
 }

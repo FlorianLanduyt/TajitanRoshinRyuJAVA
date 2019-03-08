@@ -259,8 +259,8 @@ public class Activiteit {
     }
 
     public void setAantalDeelnemers() {
-        Number aantal = inschrijvingen.stream().count();
-        this.aantalDeelnemers = (int) aantal;
+        int aantal = (int) inschrijvingen.stream().count();
+        this.aantalDeelnemers = aantal;
         sAantalDeelnemers.set(String.valueOf(aantal));
     }
 
@@ -287,14 +287,12 @@ public class Activiteit {
             throw new VolzetException("Deze activiteit is volzet.");
         } else {
             this.inschrijvingen.add(inschrijving);
-            inschrijving.voegActiviteitToe(this);
             setAantalDeelnemers();
         }
     }
 
     public void verwijderInschrijving(Inschrijving inschrijving) {
         this.inschrijvingen.remove(inschrijving);
-        inschrijving.verwijderActiviteit(this);
         setAantalDeelnemers();
     }
 
