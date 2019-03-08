@@ -4,6 +4,7 @@ import domein.Lid;
 import domein.enums.Formule;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
@@ -105,8 +106,15 @@ public class Activiteit {
     }
 
     public void setNaam(String naam) {
-        this.naam = naam;
-        sNaam.set(naam);
+        if (naam == null || naam.isEmpty()) {
+            throw new IllegalArgumentException("Naam mag niet leeg zijn.");
+        }
+        if (naam.length() <= 35) {
+            this.naam = naam;
+            sNaam.set(naam);
+        } else {
+            throw new IllegalArgumentException("Naam mag max. 35 karakters bevatten.");
+        }
     }
 
     public Formule getFormule() {
@@ -114,8 +122,15 @@ public class Activiteit {
     }
 
     public void setFormule(Formule formule) {
-        this.formule = formule;
-        sFormule.set(formule.name());
+        if (formule == null) {
+            throw new IllegalArgumentException("Formule mag niet leeg zijn.");
+        }
+        if (Arrays.asList(Formule.values()).contains(formule)) {
+            this.formule = formule;
+            sFormule.set(formule.name());
+        } else {
+            throw new IllegalArgumentException("Formule bestaat niet.");
+        }
     }
 
     public LocalDate getBeginDatum() {
@@ -123,8 +138,12 @@ public class Activiteit {
     }
 
     public void setBeginDatum(LocalDate beginDatum) {
-        this.beginDatum = beginDatum;
-        sBeginDatum.set(beginDatum.toString());
+        if (beginDatum == null) {
+            throw new IllegalArgumentException("Begindatum mag niet leeg zijn.");
+        } else {
+            this.beginDatum = beginDatum;
+            sBeginDatum.set(beginDatum.toString());
+        }
     }
 
     public LocalDate getEindDatum() {
@@ -132,8 +151,12 @@ public class Activiteit {
     }
 
     public void setEindDatum(LocalDate eindDatum) {
-        this.eindDatum = eindDatum;
-        sEindDatum.set(eindDatum.toString());
+        if (eindDatum == null) {
+            throw new IllegalArgumentException("Einddatum mag niet leeg zijn.");
+        } else {
+            this.eindDatum = eindDatum;
+            sEindDatum.set(eindDatum.toString());
+        }
     }
 
     public String getStraat() {
@@ -141,8 +164,15 @@ public class Activiteit {
     }
 
     public void setStraat(String straat) {
-        this.straat = straat;
-        sStraat.set(straat);
+        if (straat == null || straat.isEmpty()) {
+            throw new IllegalArgumentException("Straat mag niet leeg zijn.");
+        }
+        if (straat.length() <= 50) {
+            this.straat = straat;
+            sStraat.set(straat);
+        } else {
+            throw new IllegalArgumentException("Straat mag max. 50 karakters bevatten.");
+        }
     }
 
     public String getStad() {
@@ -150,8 +180,15 @@ public class Activiteit {
     }
 
     public void setStad(String stad) {
-        this.stad = stad;
-        sStad.set(stad);
+        if (stad == null || stad.isEmpty()) {
+            throw new IllegalArgumentException("Stad mag niet leeg zijn.");
+        }
+        if (stad.length() <= 50) {
+            this.stad = stad;
+            sStad.set(stad);
+        } else {
+            throw new IllegalArgumentException("Stad mag max. 50 karakters bevatten.");
+        }
     }
 
     public String getPostcode() {
@@ -159,8 +196,15 @@ public class Activiteit {
     }
 
     public void setPostcode(String postcode) {
-        this.postcode = postcode;
-        sPostcode.set(postcode);
+        if (postcode == null || postcode.isEmpty()) {
+            throw new IllegalArgumentException("Postcode mag niet leeg zijn.");
+        }
+        if (postcode.matches("[0-9]{4}")) {
+            this.postcode = postcode;
+            sPostcode.set(postcode);
+        } else {
+            throw new IllegalArgumentException("Postcode moet 4 karakters bevatten.");
+        }
     }
 
     public String getHuisnummer() {
@@ -168,8 +212,15 @@ public class Activiteit {
     }
 
     public void setHuisnummer(String huisnummer) {
-        this.huisnummer = huisnummer;
-        sHuisnummer.set(huisnummer);
+        if (huisnummer == null || huisnummer.isEmpty()) {
+            throw new IllegalArgumentException("Huisnummer mag niet leeg zijn.");
+        }
+        if (huisnummer.length() <= 5) {
+            this.huisnummer = huisnummer;
+            sHuisnummer.set(huisnummer);
+        } else {
+            throw new IllegalArgumentException("Huisnummer mag max. 5 karakters bevatten.");
+        }
     }
 
     public String getBus() {
@@ -177,8 +228,15 @@ public class Activiteit {
     }
 
     public void setBus(String bus) {
-        this.bus = bus;
-        sBus.set(bus);
+        if (bus == null || bus.isEmpty()) {
+            throw new IllegalArgumentException("Bus mag niet leeg zijn.");
+        }
+        if (bus.length() <= 5) {
+            this.bus = bus;
+            sBus.set(bus);
+        } else {
+            throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
+        }
     }
 
     public int getMaxDeelnemers() {
@@ -186,8 +244,12 @@ public class Activiteit {
     }
 
     public void setMaxDeelnemers(int maxDeelnemers) {
-        this.maxDeelnemers = maxDeelnemers;
-        sMaxDeelnemers.set(String.valueOf(maxDeelnemers));
+        if (String.valueOf(maxDeelnemers).isEmpty() || String.valueOf(maxDeelnemers).equals("")) {
+            throw new IllegalArgumentException("Max. aantal deelnemers mag niet leeg zijn.");
+        } else {
+            this.maxDeelnemers = maxDeelnemers;
+            sMaxDeelnemers.set(String.valueOf(maxDeelnemers));
+        }
     }
 
     public int getAantalDeelnemers() {
