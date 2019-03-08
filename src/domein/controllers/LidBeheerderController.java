@@ -146,9 +146,6 @@ public class LidBeheerderController {
     //
     //CRUD-operaties
     //
-    
-    //Gaat pas werken eens JPA configured en de effectieve data uit db wordt gehaald -> id is dan pas echt aanwezig en niet overal null
-    //Zie boven
     public void wijzigLid(Lid lid, String voornaam, String achternaam,LocalDate geboorteDatum,String rijksregisterNr
             , LocalDate datumEersteTraining, String gsmNr, String vasteTelefoonNr,
              String straat,String stad, String huisNr, String bus, String postcode, String email
