@@ -287,12 +287,14 @@ public class Activiteit {
             throw new VolzetException("Deze activiteit is volzet.");
         } else {
             this.inschrijvingen.add(inschrijving);
+            inschrijving.voegActiviteitToe(this);
             setAantalDeelnemers();
         }
     }
 
     public void verwijderInschrijving(Inschrijving inschrijving) {
         this.inschrijvingen.remove(inschrijving);
+        inschrijving.verwijderActiviteit(this);
         setAantalDeelnemers();
     }
 

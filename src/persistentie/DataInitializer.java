@@ -148,12 +148,6 @@ public class DataInitializer {
         inschrijvingen.add(i4);
         inschrijvingen.add(i5);
 
-        i1.voegActiviteitToe(l2);
-        i2.voegActiviteitToe(s1);
-        i3.voegActiviteitToe(s2);
-        i4.voegActiviteitToe(l2);
-        i5.voegActiviteitToe(l2);
-
         l2.voegInschrijvingToe(i1);
         s1.voegInschrijvingToe(i2);
         s2.voegInschrijvingToe(i3);

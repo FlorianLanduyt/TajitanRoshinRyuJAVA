@@ -15,8 +15,8 @@ public class VolzetException extends IllegalArgumentException {
         this("Deze activiteit is volzet.");
     }
 
-    public VolzetException(String string) {
-        super(string);
+    public VolzetException(String message) {
+        super(message);
     }
 
 }

@@ -34,6 +34,7 @@ public class Lid {
     private String geslacht;
     private String nationaliteit;
     private String beroep;
+    private int puntenAantal;
     private Graad graad;
     private Functie functie; // dit is hetzelfde als type!!!!
 
@@ -82,12 +83,12 @@ public class Lid {
     public SimpleStringProperty puntenAantalProperty() {
         return sPuntenAantal;
     }
-    
-    public SimpleStringProperty graadProperty(){
+
+    public SimpleStringProperty graadProperty() {
         return sGraad;
     }
-    
-    public SimpleStringProperty typeProperty(){
+
+    public SimpleStringProperty typeProperty() {
         return sType;
     }
 
@@ -105,6 +106,7 @@ public class Lid {
             throw new IllegalArgumentException("Voornaam mag niet leeg zijn.");
         }
         if (voornaam.length() <= 25) {
+            this.voornaam = voornaam;
             sVoornaam.set(voornaam);
         } else {
             throw new IllegalArgumentException("Voornaam mag max. 25 karakters bevatten.");
@@ -120,6 +122,7 @@ public class Lid {
             throw new IllegalArgumentException("Achternaam mag niet leeg zijn.");
         }
         if (achternaam.length() <= 50) {
+            this.achternaam = achternaam;
             sAchternaam.set(achternaam);
         } else {
             throw new IllegalArgumentException("Familienaam mag max. 50 karakters bevatten.");
@@ -146,10 +149,10 @@ public class Lid {
     }
 
     public void setRijksregisterNr(String rijksregisterNr) {
-        if(rijksregisterNr == null || rijksregisterNr.isEmpty()){
+        if (rijksregisterNr == null || rijksregisterNr.isEmpty()) {
             throw new IllegalArgumentException("Rijksregisternummer mag niet leeg zijn");
         }
-        
+
         String nrZonderTekens = rijksregisterNr.replaceAll("[.]", "").replaceAll("-", "");
         String gebdatum = nrZonderTekens.substring(0, 6);
         String geslacht = nrZonderTekens.substring(6, 9);
@@ -225,8 +228,9 @@ public class Lid {
     public void setDatumEersteTraining(LocalDate datumEersteTraining) {
         if (datumEersteTraining == null) {
             throw new IllegalArgumentException("Datum eerste training mag niet leeg zijn.");
+        } else {
+            this.datumEersteTraining = datumEersteTraining;
         }
-        this.datumEersteTraining = datumEersteTraining;
     }
 
     public String getGsmNr() {
@@ -237,7 +241,7 @@ public class Lid {
         if (gsmNr == null || gsmNr.isEmpty()) {
             throw new IllegalArgumentException("Gsmnummer mag niet leeg zijn.");
         }
-        if (gsmNr.matches("[0-9]{10}")) {
+        if (gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
             this.gsmNr = gsmNr;
         } else {
             throw new IllegalArgumentException("Gsmnummer is niet correct.");
@@ -356,8 +360,9 @@ public class Lid {
     public void setWachtwoord(String wachtwoord) {
         if (wachtwoord == null || wachtwoord.isEmpty()) {
             throw new IllegalArgumentException("Wachtwoord mag niet leeg zijn.");
+        } else {
+            this.wachtwoord = wachtwoord;
         }
-        this.wachtwoord = wachtwoord;
     }
 
     public String getEmailVader() {
@@ -455,16 +460,17 @@ public class Lid {
     }
 
     public void setPuntenAantal(int puntenAantal) {
-        if(puntenAantal<0){
+        if (puntenAantal < 0) {
             throw new IllegalArgumentException("Puntenaantal mag niet negatief zijn");
+        } else {
+            this.puntenAantal = puntenAantal;
+            sPuntenAantal.set(String.valueOf(puntenAantal));
         }
-        sPuntenAantal.set(String.valueOf(puntenAantal));
     }
 
     public Graad getGraad() {
         return graad;
     }
-    
 
     public void setGraad(Graad graad) {
         if (graad == null) {
@@ -481,10 +487,11 @@ public class Lid {
     public Functie getFunctie() {
         return functie;
     }
-    
-    
 
     public void setFunctie(Functie functie) {
+        if (functie == null) {
+            throw new IllegalArgumentException("Functie mag niet leeg zijn.");
+        }
         if (Arrays.asList(Functie.values()).contains(functie)) {
             this.functie = functie;
             sType.set(functie.name());

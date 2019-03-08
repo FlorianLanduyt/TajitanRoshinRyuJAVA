@@ -1,25 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
-import domein.Lid;
 import domein.enums.Formule;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- *
- * @author Tim
- */
 public class Inschrijving {
 
     private Lid lid;
     private Formule formule;
+    private LocalDate tijdstip;
     private List<Activiteit> activiteiten;
 
     //SimpleStringProperties
@@ -77,6 +68,7 @@ public class Inschrijving {
     }
 
     private void setTijdstip(LocalDate tijdstip) {
+        this.tijdstip = tijdstip;
         sTijdstip.set(tijdstip.toString());
     }
 
