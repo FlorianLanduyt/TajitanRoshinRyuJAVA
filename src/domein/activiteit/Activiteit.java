@@ -33,7 +33,7 @@ public class Activiteit {
     private List<Lid> deelnemers;
     private List<Inschrijving> inschrijvingen;
 
-    private final SimpleStringProperty sNaam = new SimpleStringProperty();
+    private  SimpleStringProperty sNaam = new SimpleStringProperty();
     private final SimpleStringProperty sFormule = new SimpleStringProperty();
     private final SimpleStringProperty sDatum = new SimpleStringProperty();
     private final SimpleStringProperty sStraat = new SimpleStringProperty();

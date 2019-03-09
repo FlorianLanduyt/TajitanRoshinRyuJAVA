@@ -55,16 +55,16 @@ public class HoofdMenu extends VBox {
         beginScherm.getChildren().add(overzichtMenu);
     }
     
-    @FXML
-    private void toonBeherenLidMenu(ActionEvent event) {
-        BeherenLidSchermController beherenLidSchermController
-                = new BeherenLidSchermController(beginScherm, adminController);
-        Scene scene = new Scene(beherenLidSchermController);
-        Stage stage = (Stage) (getScene().getWindow());
-        stage.setScene(scene);
-        stage.setTitle("Taijitan Yoshin Ryu - Adminmodule - Beheer leden");
-        stage.setResizable(false);
-        stage.show();
-        
-    }
+//    @FXML
+//    private void toonBeherenLidMenu(ActionEvent event) {
+//        BeherenLidSchermController beherenLidSchermController
+//                = new BeherenLidSchermController(beginScherm, adminController);
+//        Scene scene = new Scene(beherenLidSchermController);
+//        Stage stage = (Stage) (getScene().getWindow());
+//        stage.setScene(scene);
+//        stage.setTitle("Taijitan Yoshin Ryu - Adminmodule - Beheer leden");
+//        stage.setResizable(false);
+//        stage.show();
+//        
+//    }
 }

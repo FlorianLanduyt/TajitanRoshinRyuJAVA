@@ -13,6 +13,7 @@ import domein.controllers.OverzichtController;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
 import java.io.IOException;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
@@ -115,12 +116,12 @@ public class BeherenLidSchermController extends AnchorPane {
     private Button btnSignOff;
 
     //andere variabelen
-    private BeginScherm beginscherm;
+    private BeginSchermFlo beginscherm;
     private AdminController adminController;
     private LidBeheerderController lidBeheerderController;
     
 
-    public BeherenLidSchermController(BeginScherm beginScherm, AdminController adminController) {
+    public BeherenLidSchermController(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenLidScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -263,8 +264,6 @@ public class BeherenLidSchermController extends AnchorPane {
     private void verwijderenLid(ActionEvent event) {
         Lid lid = tblOverzichtLeden.getSelectionModel().getSelectedItem();
         lidBeheerderController.verwijderLid(lid);
-        
-        
 
     }
 

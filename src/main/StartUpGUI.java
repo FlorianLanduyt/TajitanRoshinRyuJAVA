@@ -5,7 +5,11 @@
  */
 package main;
 
+import domein.controllers.AdminController;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
+import gui.MenuKnoppen;
+import java.io.File;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,12 +27,17 @@ public class StartUpGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Declaring guiController instance
-        BeginScherm beginScherm = new BeginScherm();
+        BeginSchermFlo beginScherm = new BeginSchermFlo(new AdminController(), false, "Hoofdmenu");
         //Settings for GUI
-        Scene scene = new Scene(beginScherm);
+        Scene scene = new Scene(beginScherm, 1250, 750);
+        //String css = this.getClass().getResource("/css/style.css").toExternalForm();
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+        
         primaryStage.setScene(scene);
+        
         primaryStage.setTitle("Taijitan Yoshin Ryu - Adminmodule");
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 

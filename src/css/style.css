@@ -1,0 +1,27 @@
+.btn {
+    -fx-background-color: transparent;
+}
+
+.btn:active {
+    -fx-background-color: white;
+}
+
+.btn:hover {
+    -fx-background-color: #dee8e2;
+    -fx-border: solid 1px;
+    -fx-text-align: center;
+    -fx-margin: 5px;
+    -fx-border-color: transparent transparent #E8E8E8 transparent;
+}
+
+.bgr {
+    -fx-background-color: #dee8e2;
+}
+
+.titel{
+    -fx-font-size: 60px;
+}
+
+.table {
+    -fx-alignment: CENTER;
+}
