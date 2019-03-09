@@ -71,6 +71,7 @@ public class DataInitializer {
         leden.add(lid5);
 
         Activiteit s1 = new Activiteit("Hoogtestage Ardennen", Formule.STAGE, 50, LocalDate.of(2019, Month.MARCH, 12));
+        s1.setEindDatum(LocalDate.of(2019, Month.MARCH, 16));
         Activiteit s2 = new Activiteit("Hoogtestage Vogezen", Formule.STAGE, 50, LocalDate.of(2019, Month.AUGUST, 28));
         Activiteit s3 = new Activiteit("Uitstap Nederland", Formule.ACTIVITEIT, 50, LocalDate.of(2020, Month.JANUARY, 10));
 

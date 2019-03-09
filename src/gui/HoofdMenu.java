@@ -1,6 +1,7 @@
 package gui;
 
 import domein.controllers.AdminController;
+import gui.beherenActiviteit.BeherenActiviteitSchermController;
 import gui.beherenLid.BeherenLidSchermController;
 import gui.overzichten.OverzichtAanwezighedenScherm;
 import java.io.IOException;
@@ -64,7 +65,24 @@ public class HoofdMenu extends VBox {
         stage.setScene(scene);
         stage.setTitle("Taijitan Yoshin Ryu - Adminmodule - Beheer leden");
         stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.show();
+    }
+    
+    @FXML
+    private void toonBeherenActiviteit(ActionEvent event) {
+        BeherenActiviteitSchermController beherenActiviteitSchermController
+                = new BeherenActiviteitSchermController(beginScherm, adminController);
+        Scene scene = new Scene(beherenActiviteitSchermController);
+        Stage stage = (Stage) (getScene().getWindow());
+        stage.setScene(scene);
+        stage.setTitle("Taijitan Yoshin Ryu - Adminmodule - Beheer activiteiten");
+        stage.setResizable(false);
+        stage.setMaximized(true);
         stage.show();
         
+        
     }
+    
+    
 }

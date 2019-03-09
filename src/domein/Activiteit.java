@@ -46,11 +46,13 @@ public class Activiteit {
         setMaxDeelnemers(maxDeelnemers);
         setBeginDatum(beginDatum);
         inschrijvingen = new ArrayList<>();
+        this.setVolzet(); 
     }
 
     public Activiteit(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum, LocalDate eindDatum) {
         this(naam, formule, maxDeelnemers, beginDatum);
         setEindDatum(eindDatum);
+        this.setVolzet();
     }
 
     //Getters voor simplestringproperties
@@ -153,7 +155,11 @@ public class Activiteit {
     }
 
     public LocalDate getEindDatum() {
-        return LocalDate.parse(sEindDatum.get());
+        if(sEindDatum.get() != null){
+            return LocalDate.parse(sEindDatum.get());
+        }
+        return null;
+        
     }
 
     public void setEindDatum(LocalDate eindDatum) {

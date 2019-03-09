@@ -210,6 +210,7 @@ public class BeherenLidSchermController extends AnchorPane {
     }
 
     public void clearAlleVelden() {
+        lblErrorlog.setText("");
         btnSlaGegevensNieuwLidOp.setVisible(false);//tijdelijk
         btnWijzigingenOpslaan.setDisable(false);//tijdelijk
         btnLidVerwijderen.setDisable(false);//tijdelijk
@@ -315,8 +316,6 @@ public class BeherenLidSchermController extends AnchorPane {
             btnLidVerwijderen.setDisable(false);//tijdelijk
             lblErrorlog.setText("");
         } catch (IllegalArgumentException e) {
-            
-            
             lblErrorlog.setText(e.getMessage());
         }
 

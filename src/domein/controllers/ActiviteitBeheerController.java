@@ -6,6 +6,7 @@ import domein.Lid;
 import domein.enums.Formule;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
@@ -51,7 +52,7 @@ public class ActiviteitBeheerController {
 
             boolean naamFilter = activiteit.getNaam().equalsIgnoreCase(naam) || activiteit.getNaam().toLowerCase().startsWith(naam.toLowerCase());
             boolean formuleFilter = activiteit.getFormule().equals(formule);
-            boolean aantalDeelnemersFilter = activiteit.getAantalDeelnemers() == aantalDeelnemers || String.valueOf(activiteit.getAantalDeelnemers()).startsWith(String.valueOf(aantalDeelnemers));
+            boolean aantalDeelnemersFilter = activiteit.getMaxDeelnemers()== aantalDeelnemers || activiteit.getMaxDeelnemers()<= aantalDeelnemers;
             boolean volzetFilter = activiteit.isVolzet() == volzet;
 
             //0000
@@ -169,6 +170,14 @@ public class ActiviteitBeheerController {
     public ObservableList<Formule> geefFormules() {
         ObservableList<Formule> formules = FXCollections.observableArrayList(dataController.geefFormules());
         return FXCollections.unmodifiableObservableList(formules);
+    }
+    
+    public ObservableList<String> geefFormulesFilter(){
+         ObservableList<String> formules = FXCollections.observableArrayList(dataController
+                .geefFormules().stream().map(functie -> functie.name())
+                .collect(Collectors.toList()));
+        formules.add(0, "Alle types");
+        return formules;
     }
 
     public ObservableList<Lid> geefLeden() {
