@@ -5,12 +5,19 @@
  */
 package domein;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+
 /**
  *
  * @author Tim
  */
-public class Thema {
+@Entity
+public class Thema implements Serializable{
     public String naam;
+
+    public Thema() {
+    }
     
     public Thema(String naam){
         this.naam = naam;
