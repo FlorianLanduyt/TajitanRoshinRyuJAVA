@@ -116,6 +116,8 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     private ActiviteitBeheerController activiteitBeheerController;
     @FXML
     private AnchorPane AnchorPane;
+    @FXML
+    private Button btnVerwijderDeelnemer;
 
     /**
      * Initializes the controller class.
@@ -136,11 +138,14 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         colFormuleActiviteit.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
         colDeelnemers.setCellValueFactory(
                 cellData -> new SimpleObjectProperty<>(
-                        String.format("%s / %s", cellData.getValue().aantalDeelnemersProperty().get() == null ? 0 : cellData.getValue().aantalDeelnemersProperty().get(),
+                        String.format("%s / %s", cellData.getValue().aantalDeelnemersProperty().get() == null
+                                ? 0
+                                : cellData.getValue().aantalDeelnemersProperty().get(),
                                 cellData.getValue().maxDeelnemersProperty().get())));
+
         colStartdatum.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
-        colEinddatum.setCellValueFactory(cellData -> cellData.getValue().eindDatumProperty().get() == null
-                ? cellData.getValue().beginDatumProperty() : cellData.getValue().eindDatumProperty());
+
+        colEinddatum.setCellValueFactory(cellData -> cellData.getValue().eindDatumProperty());
 
         colVolzet.setCellValueFactory(cellData -> cellData.getValue().isVolzetProperty());
 
@@ -160,28 +165,32 @@ public class BeherenActiviteitSchermController extends AnchorPane {
 
     }
 
+    //
+    // opvullen gedetailleerde lijst
+    //
     public void updateGedetaileerdeLijst(Activiteit newValue) {
-        try{
+        try {
             clearGedetailleerdeLijst();
-        txtNaamActiviteit.setText(newValue.getNaam());
-        cboType.getSelectionModel().select(newValue.getFormule());
-        dpStartdatum.setValue(newValue.getBeginDatum());
-        dpEinddatum.setValue(newValue.getEindDatum() == null ? null : newValue.getEindDatum());
-        txtMaxAantalDeelnemers.setText(Integer.toString(newValue.getMaxDeelnemers()));
-        cbIsVolzet.setSelected(newValue.isVolzet());
-        txtStraat.setText(newValue.getStraat());
-        txtHuisnr.setText(newValue.getHuisnummer());
-        txtBus.setText(newValue.getBus());
-        txtStad.setText(newValue.getStad());
-        txtPostcode.setText(newValue.getPostcode());
-        //tblDeelnemers.setSelectionModel(newValue); --> UC3
-        }catch(NullPointerException e){
+            txtNaamActiviteit.setText(newValue.getNaam());
+            cboType.getSelectionModel().select(newValue.getFormule());
+            dpStartdatum.setValue(newValue.getBeginDatum());
+            dpEinddatum.setValue(newValue.getEindDatum() == null ? null : newValue.getEindDatum());
+            txtMaxAantalDeelnemers.setText(Integer.toString(newValue.getMaxDeelnemers()));
+            cbIsVolzet.setSelected(newValue.isVolzet());
+            txtStraat.setText(newValue.getStraat());
+            txtHuisnr.setText(newValue.getHuisnummer());
+            txtBus.setText(newValue.getBus());
+            txtStad.setText(newValue.getStad());
+            txtPostcode.setText(newValue.getPostcode());
+            //tblDeelnemers.setSelectionModel(newValue); --> UC3
+        } catch (NullPointerException e) {
             //als de lijst leeg begint te kome 
         }
-        
+
     }
 
     public void clearGedetailleerdeLijst() {
+        lblFoutopvang.setText("");
         btnNieuweActiviteit.setDisable(false);
         btnWijzigActiviteit.setDisable(false);
         btnVerwijderActiviteit.setDisable(false);
@@ -200,11 +209,9 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         tblDeelnemers.setSelectionModel(null);
     }
 
-    @FXML
-    private void voegDeelnemerToe(ActionEvent event) {
-        //UC3 --> inschrijvingen
-    }
-
+    //
+    //CRUD - activiteiten
+    //
     @FXML
     private void voegActiviteitToe(ActionEvent event) {
         clearGedetailleerdeLijst();
@@ -238,9 +245,17 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     private void wijzigActiviteit(ActionEvent event) {
         Activiteit activiteit = tblActiviteiten.getSelectionModel().getSelectedItem();
         try {
-            activiteitBeheerController.wijzigActiviteit(activiteit, txtNaamActiviteit.getText(), cboType.getSelectionModel().getSelectedItem(),
-                    Integer.parseInt(txtMaxAantalDeelnemers.getText()), dpStartdatum.getValue(), dpEinddatum.getValue(),
-                    txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bevestiging wijziging");
+            alert.setHeaderText("Bevestiging");
+            alert.setContentText(String.format("Ben je zeker dat je activiteit %s wilt wijzigen?", activiteit.getNaam()));
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                activiteitBeheerController.wijzigActiviteit(activiteit, txtNaamActiviteit.getText(), cboType.getSelectionModel().getSelectedItem(),
+                        Integer.parseInt(txtMaxAantalDeelnemers.getText()), dpStartdatum.getValue(), dpEinddatum.getValue(),
+                        txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText());
+            }
             lblFoutopvang.setText("");
         } catch (NumberFormatException ex) {
             lblFoutopvang.setText("U moet een nummer geven bij max. aantal deelnemers!");
@@ -257,7 +272,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Bevestiging verwijderen");
         alert.setHeaderText("Bevestiging");
-        alert.setContentText(String.format("Ben je zeker dat je activiteit %s wil verwijderen?", activiteit.getNaam()));
+        alert.setContentText(String.format("Ben je zeker dat je activiteit %s wilt verwijderen?", activiteit.getNaam()));
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
@@ -266,6 +281,22 @@ public class BeherenActiviteitSchermController extends AnchorPane {
 
     }
 
+    //
+    //CRUD - inschrijvingen
+    //
+    @FXML
+    private void voegDeelnemerToe(ActionEvent event) {
+        //UC4 --> inschrijvingen
+    }
+
+    @FXML
+    private void verwijderDeelnemer(ActionEvent event) {
+        //UC4 --> inschrijvingen
+    }
+
+    //
+    //filters
+    //
     @FXML
     private void filterActiviteitenTXT(KeyEvent event) {
         filter();
@@ -286,7 +317,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
                             : cboFilterType.getSelectionModel().getSelectedItem() == null
                             ? null
                             : Formule.valueOf(cboFilterType.getSelectionModel().getSelectedItem());
-            
+
             int aantalDeelnemers = (txtFilterAantalDeelnemers.getText() == null || txtFilterAantalDeelnemers.getText().equals("")) ? Integer.MAX_VALUE : Integer.parseInt(txtFilterAantalDeelnemers.getText());
             Boolean volzet = cbFilterVolzet.isSelected();
             activiteitBeheerController.filterList(naam, formule, aantalDeelnemers, volzet);
