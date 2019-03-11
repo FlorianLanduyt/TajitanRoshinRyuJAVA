@@ -15,10 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.beans.PropertyChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class LoginForm extends AnchorPane {
 
@@ -45,6 +48,15 @@ public class LoginForm extends AnchorPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        
+//        this.setOnKeyPressed(new EventHandler<KeyEvent>(){
+//            @Override
+//            public void handle(KeyEvent event) {
+//                if (event.getCode().equals(KeyCode.ENTER)){
+//                    meldAan(event);
+//                    }
+//                }
+//        });
     }
 
     @FXML

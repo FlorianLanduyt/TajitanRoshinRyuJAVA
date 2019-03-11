@@ -2,7 +2,7 @@ package gui;
 
 import domein.controllers.AdminController;
 import gui.beherenLid.BeherenLidSchermController;
-import gui.overzichten.OverzichtActiviteitenSchermFlo;
+import gui.overzichten.Overzicht;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -74,7 +74,8 @@ public class BeginSchermFlo extends BorderPane {
     
     
     //Overzichtmenu knoppen
-    public <T> void ToonOverzichtenScherm(T scherm) {
+    public <T> void ToonOverzichtenScherm(T scherm, String soortOverzicht) {
+        header.maakOverzichtTitle(soortOverzicht);
         this.setCenter(null);
         this.setCenter((Node) scherm);
     }

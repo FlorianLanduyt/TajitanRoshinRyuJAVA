@@ -6,7 +6,8 @@
 package gui;
 
 import domein.controllers.AdminController;
-import gui.overzichten.OverzichtActiviteitenSchermFlo;
+import gui.overzichten.ActiviteitenOverzicht;
+import gui.overzichten.Overzicht;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -34,7 +35,7 @@ public class OverzichtMenuKnoppen extends MenuKnoppen{
         btnActiviteiten.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                parent.ToonOverzichtenScherm(new OverzichtActiviteitenSchermFlo(parent, ac));
+                parent.ToonOverzichtenScherm(new ActiviteitenOverzicht(parent, ac), "Activiteiten Overzicht");
             }
         });
         btnActiviteiten.setOnKeyPressed(new EventHandler<KeyEvent>(){

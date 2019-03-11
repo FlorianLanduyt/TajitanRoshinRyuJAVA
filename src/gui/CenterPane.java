@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.overzichten;
+package gui;
 
 /**
  *
  * @author florianlanduyt
  */
-public enum Filter {
-    PERLID,
-    DATUMRANGE,
-    DATUMDAG,
-    PERFORMULE
-    
+public interface CenterPane {
+    void buildGui();
+    void maakTabel();
+    void maakFilters();
 }

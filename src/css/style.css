@@ -22,6 +22,8 @@
     -fx-font-size: 60px;
 }
 
-.table {
-    -fx-alignment: CENTER;
+
+
+#table .table-column {
+  -fx-alignment: CENTER;
 }

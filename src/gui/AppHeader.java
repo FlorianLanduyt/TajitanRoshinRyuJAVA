@@ -52,6 +52,17 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         lblMenu.setAlignment(Pos.BASELINE_CENTER);
         this.setLeft(lblMenu);
     }
+    
+    public void maakOverzichtTitle(String menu) {
+        Label lblOverzicht = new Label(menu);
+        lblOverzicht.setPrefWidth(200);
+        lblOverzicht.setPrefHeight(45);
+        lblOverzicht.setStyle("-fx-font-size: 16px");
+        //lblOverzicht.getStyleClass().add("bgr");
+        this.setAlignment(lblOverzicht, Pos.CENTER_LEFT);
+        lblOverzicht.setPadding(new Insets(0,0,0,10));
+        this.setCenter(lblOverzicht);
+    }
 
     private void maakAanmeldBox() {
         aanmeldenBox = new GridPane();
@@ -131,6 +142,13 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         this.menuTitle = menuTitle;
         maakMenuTitle();
     }
+    
+//    public void setOverzichtTitle(String overzichtTitle){
+//        this.overzichtTitle = overzichtTitle;
+//        maakOverzichtTitle();
+//    }
+    
+    
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
