@@ -2,16 +2,37 @@ package domein;
 
 import domein.enums.Formule;
 import exceptions.VolzetException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class Inschrijving {
+@Entity
+public class Inschrijving implements Serializable {
 
+    @Id
+    private int id;
+    
+    @ManyToOne
     private Lid lid;
+    
+    @Enumerated(EnumType.STRING)
     private Formule formule;
+
+    @Temporal(TemporalType.DATE)
     private LocalDate tijdstip;
+
+    @ManyToMany(mappedBy = "inschrijvingen")
     private List<Activiteit> activiteiten;
 
     //SimpleStringProperties
@@ -19,6 +40,9 @@ public class Inschrijving {
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
     private SimpleStringProperty sFormule = new SimpleStringProperty();
     private SimpleStringProperty sTijdstip = new SimpleStringProperty();
+
+    public Inschrijving() {
+    }
 
     public Inschrijving(Formule formule, Lid lid, LocalDate tijdstip) {
         setFormule(formule);

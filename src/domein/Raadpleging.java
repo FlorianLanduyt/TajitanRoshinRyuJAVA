@@ -5,15 +5,24 @@
  */
 package domein;
 
+import java.io.Serializable;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Tim
  */
-public class Raadpleging {
 
+@Entity
+public class Raadpleging implements Serializable {
+    @Id
+    private int id;
+    @ManyToOne
     private Lid lid;
+    @ManyToOne
     private Oefening oefening;
     private int aantalRaadplegingen;
 
@@ -22,6 +31,9 @@ public class Raadpleging {
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
     private SimpleStringProperty sOefeningNaam = new SimpleStringProperty();
     private SimpleStringProperty sAantalRaadplegingen = new SimpleStringProperty();
+
+    public Raadpleging() {
+    }
 
     public Raadpleging(Lid lid, Oefening oefening) {
         setLid(lid);

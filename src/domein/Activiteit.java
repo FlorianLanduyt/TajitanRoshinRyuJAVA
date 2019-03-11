@@ -4,19 +4,40 @@ import domein.Lid;
 import domein.enums.Formule;
 import exceptions.DatumIntervalException;
 import exceptions.VolzetException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class Activiteit {
 
+@Entity
+public class Activiteit implements Serializable {
+    @Id
+    private int id;
+    
     private String naam;
+    
+    @Enumerated(EnumType.STRING)
     private Formule formule;
+    
+    @Temporal(TemporalType.DATE)
     private LocalDate beginDatum;
+    
+    @Temporal(TemporalType.DATE)
     private LocalDate eindDatum;
+    
     private String straat;
     private String stad;
     private String postcode;
@@ -25,6 +46,7 @@ public class Activiteit {
     private int maxDeelnemers;
     private int aantalDeelnemers;
     private boolean isVolzet;
+    @ManyToMany
     private List<Inschrijving> inschrijvingen;
 
     private final SimpleStringProperty sNaam = new SimpleStringProperty();
@@ -39,6 +61,12 @@ public class Activiteit {
     private final SimpleStringProperty sMaxDeelnemers = new SimpleStringProperty();
     private final SimpleStringProperty sAantalDeelnemers = new SimpleStringProperty();
     private final SimpleStringProperty sIsVolzet = new SimpleStringProperty();
+    @ManyToOne
+    private Inschrijving inschrijving;
+
+    public Activiteit() {
+    }
+
 
     public Activiteit(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum) {
         setNaam(naam);
@@ -307,6 +335,14 @@ public class Activiteit {
     public void verwijderInschrijving(Inschrijving inschrijving) {
         this.inschrijvingen.remove(inschrijving);
         setAantalDeelnemers();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

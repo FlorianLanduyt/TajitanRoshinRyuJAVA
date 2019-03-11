@@ -2,6 +2,7 @@ package domein;
 
 import domein.enums.Functie;
 import domein.enums.Graad;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,14 +11,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class Lid {
-
+@Entity
+public class Lid implements Serializable {
+    @Id
     private int id;
     private String voornaam;
     private String achternaam;
+
+    @Temporal(TemporalType.DATE)
     private LocalDate geboortedatum;
     private String rijksregisterNr;
+
+    @Temporal(TemporalType.DATE)
     private LocalDate datumEersteTraining;
     private String gsmNr;
     private String vasteTelefoonNr;
@@ -35,7 +47,11 @@ public class Lid {
     private String nationaliteit;
     private String beroep;
     private int puntenAantal;
+
+    @Enumerated(EnumType.STRING)
     private Graad graad;
+
+    @Enumerated(EnumType.STRING)
     private Functie functie; // dit is hetzelfde als type!!!!
 
     //SimpleStringProperties voor TableView
@@ -44,6 +60,9 @@ public class Lid {
     private SimpleStringProperty sPuntenAantal = new SimpleStringProperty();
     private SimpleStringProperty sGraad = new SimpleStringProperty();
     private SimpleStringProperty sType = new SimpleStringProperty();
+
+    public Lid() {
+    }
 
     public Lid(String voornaam, String achternaam, LocalDate geboortedatum,
             String rijksregisterNr, LocalDate datumEersteTraining,

@@ -6,16 +6,25 @@
 package domein;
 
 import domein.enums.Formule;
+import java.io.Serializable;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Tim
  */
-public class Aanwezigheid {
-
+@Entity
+public class Aanwezigheid implements Serializable{
+    @Id
+    private int id;
+    @ManyToOne
     private Lid lid;
+    @ManyToOne
     private Activiteit activiteit;
     private int puntenAantal;
 
@@ -25,6 +34,9 @@ public class Aanwezigheid {
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
     private SimpleStringProperty sFormule = new SimpleStringProperty();
     private SimpleStringProperty sDatum = new SimpleStringProperty();
+
+    public Aanwezigheid() {
+    }
 
     public Aanwezigheid(Lid lid, Activiteit activiteit) {
         setLid(lid);

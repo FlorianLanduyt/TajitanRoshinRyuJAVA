@@ -1,16 +1,23 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.Objects;
-
-public class Admin {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
+public class Admin implements Serializable{
 
     /*Admin klasse dient om later in de domeincontroller een 'ingelogdeAdmin:Admin' te kunnen bijhouden,
       Op deze manier kunnen we dan bepaalde functionaliteiten enablen/disablen op basis of er een
       Admin is ingelogd of niet
      */
+    @Id
     private int id;
     private String gebruikersnaam;
     private String wachtwoord;
+
+    public Admin() {
+    }
 
     public Admin(String gebruikersnaam, String wachtwoord) {
         setGebruikersnaam(gebruikersnaam);
@@ -61,5 +68,13 @@ public class Admin {
             return false;
         }
         return true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
