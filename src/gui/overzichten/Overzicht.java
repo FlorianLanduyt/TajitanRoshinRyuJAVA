@@ -5,7 +5,6 @@
  */
 package gui.overzichten;
 
-import domein.Lid;
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
 import gui.BeginSchermFlo;
@@ -42,7 +41,7 @@ public class Overzicht<T> extends BorderPane {
         this.parent = parent;
         this.ac = ac;
         this.oc = new OverzichtController();
-        
+
         filters = new ArrayList<>();
         kolommen = new ArrayList<>();
         detailsNodes = new ArrayList<>();
@@ -51,41 +50,59 @@ public class Overzicht<T> extends BorderPane {
     public void buildGui() {
         this.setPadding(new Insets(5, 30, 30, 10));
         filtersEnTabel = new VBox(20);
-        
+
         maakFilters();
         maakTabel();
         maakDetailScherm();
         this.setLeft(filtersEnTabel);
-        this.setRight(this);
-
     }
 
     private void maakFilters() {
         VBox filterBox = new VBox(5);
-        filters.stream().forEach(f -> f.setMinWidth(300));
-        filters.stream().forEach(f -> filterBox.getChildren().add(f));
+        filters.stream().forEach(f -> {
+            f.setMinWidth(300);
+            filterBox.getChildren().add(f);
+        });
+        
         filtersEnTabel.getChildren().add(filterBox);
     }
 
     private void maakTabel() {
         VBox tabel = new VBox();
-        DoubleBinding breedteScherm = this.widthProperty().multiply(0.40);
+        DoubleBinding breedteScherm = this.widthProperty().multiply(0.60);
         DoubleBinding breedteKolom = breedteScherm.divide(kolommen.size());
-        
+
         tabel.prefWidthProperty().bind(breedteScherm);
-        kolommen.stream().forEach(k -> k.prefWidthProperty().bind(breedteKolom));
-        kolommen.stream().forEach(k -> tvTabel.getColumns().add(k));
-        
-        tvTabel.setPrefHeight(1000);
-        tvTabel.setScaleShape(false);
-        tvTabel.setId("table");
+        kolommen.stream().forEach(k -> {
+            k.prefWidthProperty().bind(breedteKolom);
+            tvTabel.getColumns().add(k);
+        });
+        opmaakTabel();
 
         tabel.getChildren().add(tvTabel);
         filtersEnTabel.getChildren().add(tabel);
     }
-    
-    private void maakDetailScherm(){
-        VBox detailsScherm = new VBox();
+
+    private void opmaakTabel() {
+        tvTabel.setPrefHeight(1000);
+        tvTabel.setScaleShape(false);
+        tvTabel.setId("table");
+        tvTabel.getSelectionModel().clearSelection();
+    }
+
+    private void maakDetailScherm() {
+        detailScherm.setSpacing(10);
+        detailScherm.setPadding(new Insets(45, 10, 0, 30));
+        //detailScherm.setAlignment(Pos.CENTER_LEFT);
+
+        tvTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                this.setCenter(detailScherm);
+            }
+        });
+        
+        
+
     }
 
     public void addCombobox(ComboBox cb) {
@@ -99,10 +116,9 @@ public class Overzicht<T> extends BorderPane {
     public void setTvTabel(TableView<T> tvTabel) {
         this.tvTabel = tvTabel;
     }
-    
-    public void setDetailScherm(VBox detailScherm){
+
+    public void setDetailScherm(VBox detailScherm) {
         this.detailScherm = detailScherm;
     }
 
-    
 }

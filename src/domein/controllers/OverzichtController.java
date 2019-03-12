@@ -138,7 +138,7 @@ public class OverzichtController {
                 .collect(Collectors.toList()));
         return FXCollections.unmodifiableObservableList(activiteitenVoorLid);
     }
-
+    
     //
     //CLUBKAMPIOENSCHAP
     //

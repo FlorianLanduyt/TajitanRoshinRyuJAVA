@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein.activiteit;
 
-import domein.Lid;
 import domein.Lid;
 import domein.inschrijving.Inschrijving;
 import domein.enums.Formule;
@@ -13,8 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.util.converter.LocalDateStringConverter;
 
 /**
  *
@@ -33,7 +25,7 @@ public class Activiteit {
     private List<Lid> deelnemers;
     private List<Inschrijving> inschrijvingen;
 
-    private  SimpleStringProperty sNaam = new SimpleStringProperty();
+    private final SimpleStringProperty sNaam = new SimpleStringProperty();
     private final SimpleStringProperty sFormule = new SimpleStringProperty();
     private final SimpleStringProperty sDatum = new SimpleStringProperty();
     private final SimpleStringProperty sStraat = new SimpleStringProperty();
