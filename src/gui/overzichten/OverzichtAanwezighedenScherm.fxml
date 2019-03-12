@@ -24,7 +24,7 @@
          </image>
       </ImageView>
       <Button fx:id="btnSignOff" layoutX="1231.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAf" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-      <TableView fx:id="tvAanwezigheden" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
+      <TableView fx:id="tvAanwezigheden" layoutX="210.0" layoutY="84.0" prefHeight="616.0" prefWidth="1050.0">
          <columns>
             <TableColumn fx:id="colNaamActiviteit" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Naam activiteit" />
             <TableColumn fx:id="colVoornaam" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Voornaam" />
@@ -33,16 +33,12 @@
             <TableColumn fx:id="colDatum" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" text="Datum" />
          </columns>
       </TableView>
-      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
+      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="48.0" onAction="#toonAanwezighedenPerLid" prefHeight="25.0" prefWidth="262.0" />
       <Label fx:id="lblPerDeelnemer" layoutX="210.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk aanwezigheden per lid:" />
-      <Button fx:id="btnAanwezighedenPerLid" layoutX="210.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAanwezighedenPerLid" prefHeight="25.0" prefWidth="110.0" text="Filter" />
       <Label fx:id="lblOpDag" layoutX="483.0" layoutY="28.0" prefHeight="17.0" prefWidth="174.0" text="Bekijk aanwezigheden per dag:" />
-      <DatePicker fx:id="dpDatum" layoutX="483.0" layoutY="48.0" />
-      <Button fx:id="btnAanwezighedenOpDatum" layoutX="483.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAanwezighedenOpDatum" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <DatePicker fx:id="dpDatum" layoutX="483.0" layoutY="48.0" onAction="#toonAanwezighedenOpDatum" />
       <Label fx:id="lblPerFormule" layoutX="675.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk aanwezigheden per formule:" />
-      <ComboBox fx:id="cbFormules" layoutX="675.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
-      <Button fx:id="btnAanwezighedenPerFormule" layoutX="675.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAanwezighedenPerFormule" prefHeight="25.0" prefWidth="110.0" text="Filter" />
-      <Button fx:id="btnAlleAanwezigheden" layoutX="949.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAlleAanwezigheden" prefHeight="25.0" prefWidth="122.0" text="Alle aanwezigheden" />
+      <ComboBox fx:id="cbFormules" layoutX="675.0" layoutY="48.0" onAction="#toonAanwezighedenPerFormule" prefHeight="25.0" prefWidth="262.0" />
       <Label fx:id="lblAanwezigheden" layoutX="210.0" layoutY="2.0" prefHeight="17.0" prefWidth="156.0" text="Aanwezigheden">
          <font>
             <Font name="System Bold" size="18.0" />

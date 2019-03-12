@@ -11,134 +11,194 @@ import domein.Raadpleging;
 import domein.enums.Functie;
 import exceptions.DatumIntervalException;
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import persistentie.DataInitializer;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 public class OverzichtController {
 
     private DataController dataController;
 
     private ObservableList<Inschrijving> inschrijvingen;
+    private FilteredList<Inschrijving> inschrijvingenFilteredList;
+    private SortedList<Inschrijving> inschrijvingenSortedList;
+    private Comparator<Inschrijving> byTijdstip = (i1, i2) -> i1.getTijdstip().compareTo(i2.getTijdstip());
+    private Comparator<Inschrijving> inschrijvingsSortOrder = byTijdstip.reversed();
+
     private ObservableList<Activiteit> activiteiten;
+    private FilteredList<Activiteit> activiteitenFilteredList;
+    private SortedList<Activiteit> activiteitenSortedList;
+    private Comparator<Activiteit> byBeginDatum = (a1, a2) -> a1.getBeginDatum().compareTo(a2.getBeginDatum());
+    private Comparator<Activiteit> activiteitSortOrder = byBeginDatum.reversed();
+
     private ObservableList<Aanwezigheid> aanwezigheden;
-    private ObservableList<Lid> leden;
+    private FilteredList<Aanwezigheid> aanwezighedenFilteredList;
+    private SortedList<Aanwezigheid> aanwezighedenSortedList;
+    private Comparator<Aanwezigheid> byDatum = (a1, a2) -> a1.getDatum().compareTo(a2.getDatum());
+    
+    private ObservableList<Lid> leden; //nodig voor cbo's
+    
     private ObservableList<Raadpleging> raadplegingen;
-    private ObservableList<Oefening> oefeningen;
+    private FilteredList<Raadpleging> raadplegingenFilteredList;
+    private SortedList<Raadpleging> raadplegingenSortedList;
+    private Comparator<Raadpleging> byOefnnaam = (r1, r2) -> r1.getOefeningNaam().compareTo(r2.getOefeningNaam());
+    
+    private ObservableList<Oefening> oefeningen; 
 
     public OverzichtController() {
         dataController = new DataController();
 
         this.inschrijvingen = FXCollections.observableArrayList(dataController.geefInschrijvingen());
+        inschrijvingenFilteredList = new FilteredList(inschrijvingen, p -> true);
+        inschrijvingenSortedList = new SortedList(inschrijvingenFilteredList, inschrijvingsSortOrder);
+
         this.activiteiten = FXCollections.observableArrayList(dataController.geefActiviteiten());
+        activiteitenFilteredList = new FilteredList(activiteiten, p -> true);
+        activiteitenSortedList = new SortedList(activiteitenFilteredList, activiteitSortOrder);
+
         this.aanwezigheden = FXCollections.observableArrayList(dataController.geefAanwezigheden());
+        aanwezighedenFilteredList = new FilteredList(aanwezigheden,p -> true);
+        aanwezighedenSortedList = new SortedList(aanwezighedenFilteredList, byDatum.reversed());
+
         this.leden = FXCollections.observableArrayList(dataController.geefLeden());
+
         this.raadplegingen = FXCollections.observableArrayList(dataController.geefRaadplegingen());
+        raadplegingenFilteredList = new FilteredList(raadplegingen, p -> true);
+        raadplegingenSortedList = new SortedList(raadplegingenFilteredList, byOefnnaam);
+
         this.oefeningen = FXCollections.observableArrayList(dataController.geefOefeningen());
+
     }
 
     //
     //AANWEZIGHEDEN
     //
     public ObservableList<Aanwezigheid> geefOverzichtAanwezigheden() {
-        ObservableList<Aanwezigheid> aanwezighedenSortedDatum = FXCollections.observableArrayList(aanwezigheden.stream()
-                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(aanwezighedenSortedDatum);
+        return FXCollections.unmodifiableObservableList(aanwezighedenSortedList);
     }
 
-    public ObservableList<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeDatum(LocalDate datum) {
-        if (LocalDate.now().compareTo(datum) < 0) {
-            throw new DatumIntervalException("Datum mag niet in de toekomst liggen!");
-        }
-        ObservableList<Aanwezigheid> aanwezighedenVoorDatum = FXCollections.observableArrayList(aanwezigheden.stream()
-                .filter(aanwezigheid -> aanwezigheid.getDatum().equals(datum))
-                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(aanwezighedenVoorDatum);
 
+    public void veranderAanwezigheidFilter(LocalDate datum,String lid, Formule formule){
+        aanwezighedenFilteredList.setPredicate(aanwezigheid -> {
+            boolean datumEmpty = datum == null;
+            boolean lidEmpty = lid == null;
+            boolean formuleEmpty = formule == null;
+            
+            boolean datumFilter = aanwezigheid.getDatum().equals(datum);
+            boolean lidFilter = aanwezigheid.getLid().geefVolledigeNaam().equals(lid);
+            boolean formuleFilter = aanwezigheid.getFormule().equals(formule);
+            
+            //000
+            if (datumEmpty && lidEmpty && formuleEmpty){
+                return true;
+            }
+            //001
+            if (datumEmpty && lidEmpty && !formuleEmpty){
+                return formuleFilter;
+            }
+            //010
+            if (datumEmpty && !lidEmpty && formuleEmpty){
+                return lidFilter;
+            }
+            //011
+            if (datumEmpty && !lidEmpty && !formuleEmpty){
+                return lidFilter && formuleFilter;
+            }
+            //100
+            if (!datumEmpty && lidEmpty && formuleEmpty){
+                return datumFilter;
+            }
+            //101
+            if (!datumEmpty && lidEmpty && !formuleEmpty){
+                return datumFilter && formuleFilter;
+            }
+            //110
+            if (!datumEmpty && !lidEmpty && formuleEmpty){
+                return datumFilter && lidFilter;
+            }
+            //111
+            if(!datumEmpty && !lidEmpty && !formuleEmpty){
+                return datumFilter && lidFilter && formuleFilter;
+            }
+            return true;
+        });
+        
     }
-
-    public ObservableList<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldLid(Lid lid) {
-        ObservableList<Aanwezigheid> aanwezighedenVoorLid = FXCollections.observableArrayList(aanwezigheden.stream()
-                .filter(aanwezigheid -> aanwezigheid.getLid().equals(lid))
-                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(aanwezighedenVoorLid);
-    }
-
-    public ObservableList<Aanwezigheid> geefOverzichtAanwezighedenVoorBepaaldeFormule(Formule formule) {
-        ObservableList<Aanwezigheid> aanwezighedenVoorFormule = FXCollections.observableArrayList(aanwezigheden.stream()
-                .filter(aanwezigheid -> aanwezigheid.getActiviteit().getFormule().equals(formule))
-                .sorted(Comparator.comparing(Aanwezigheid::getDatum).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(aanwezighedenVoorFormule);
-    }
-
     //
     //INSCHRIJVINGEN
     //
     public ObservableList<Inschrijving> geefOverzichtInschrijvingen() {
-        ObservableList<Inschrijving> inschrijvingenSortedDatum = FXCollections.observableArrayList(inschrijvingen.stream()
-                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(inschrijvingenSortedDatum);
+        return FXCollections.unmodifiableObservableList(inschrijvingenSortedList);
     }
 
-    public ObservableList<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldeFormule(Formule formule) {
-        ObservableList<Inschrijving> inschrijvingenVoorFormule = FXCollections.observableArrayList(inschrijvingen.stream()
-                .filter(inschrijving -> inschrijving.getFormule().equals(formule))
-                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(inschrijvingenVoorFormule);
-    }
 
-    public ObservableList<Inschrijving> geefOverzichtInschrijvingenVoorBepaaldInterval(LocalDate van, LocalDate tot) {
-        if (tot.compareTo(van) < 0) {
-            throw new DatumIntervalException();
-        }
-        ObservableList<Inschrijving> inschrijvingenVoorInterval = FXCollections.observableArrayList(inschrijvingen.stream()
-                .filter(inschrijving
-                        -> inschrijving.getTijdstip().compareTo(tot) <= 0
-                && inschrijving.getTijdstip().compareTo(van) >= 0)
-                .sorted(Comparator.comparing(Inschrijving::getTijdstip).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(inschrijvingenVoorInterval);
+    public void veranderInschrijvingFilter(Formule formule, LocalDate van, LocalDate tot) {
+        inschrijvingenFilteredList.setPredicate(inschrijving -> {
+            boolean formuleEmpty = formule == null;
+            boolean vanEmpty = van == null;
+            boolean totEmpty = tot == null;
+
+            boolean formuleFilter = inschrijving.getFormule().equals(formule);
+            boolean vanFilter = vanEmpty ? false : inschrijving.getTijdstip().compareTo(van) >= 0;
+            boolean totFilter = totEmpty ? false : inschrijving.getTijdstip().compareTo(tot) <= 0;
+
+            //000
+            if (formuleEmpty && vanEmpty && totEmpty) {
+                return true;
+            }
+            //001
+            if (formuleEmpty && vanEmpty && !totEmpty) {
+                return totFilter;
+            }
+            //010
+            if (formuleEmpty && !vanEmpty && totEmpty) {
+                return vanFilter;
+            }
+            //011
+            if (formuleEmpty && !vanEmpty && !totEmpty) {
+                return vanFilter && totFilter;
+            }
+            //100
+            if (!formuleEmpty && vanEmpty && totEmpty) {
+                return formuleFilter;
+            }
+            //101
+            if (!formuleEmpty && vanEmpty && !totEmpty) {
+                return formuleFilter && totFilter;
+            }
+            //110
+            if (!formuleEmpty && !vanEmpty && totEmpty){
+                return formuleFilter && vanFilter;
+            }
+            //111
+            if (!formuleEmpty && !vanEmpty && !totEmpty){
+                return formuleFilter && vanFilter && totFilter;
+            }
+            return true;
+        });
+
     }
 
     //
     //ACTIVITEITEN
     //
     public ObservableList<Activiteit> geefOverzichtActiviteiten() {
-        ObservableList<Activiteit> activiteitenSortedDatum = FXCollections.observableArrayList(activiteiten.stream()
-                .sorted(Comparator.comparing(Activiteit::getBeginDatum).reversed())
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(activiteitenSortedDatum);
+        return FXCollections.unmodifiableObservableList(activiteitenSortedList);
     }
 
-    public ObservableList<Activiteit> geefOverzichtActiviteitenVoorBepaaldeDeelnemer(Lid lid) {
-        ObservableList<Activiteit> activiteitenVoorLid = FXCollections.observableArrayList(activiteiten.stream()
-                .filter(activiteit -> activiteit.getInschrijvingen().stream()
-                .anyMatch(i -> i.getLid().equals(lid)))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(activiteitenVoorLid); 
+    public void veranderActiviteitenFilter(Formule formule) {
+        activiteitenFilteredList.setPredicate(activiteit -> {
+            if (formule != null) {
+                return activiteit.getFormule().equals(formule);
+            }
+            return true;
+        });
     }
-    
+
     //
     //CLUBKAMPIOENSCHAP
     //
@@ -164,62 +224,57 @@ public class OverzichtController {
     //
     //RAADPLEGINGEN
     //
+    
     public ObservableList<Raadpleging> geefOverzichtRaadplegingen() {
-        ObservableList<Raadpleging> raadplegingenSortedTitel = FXCollections.observableArrayList(raadplegingen.stream()
-                //.sorted(Comparator.comparing(Raadpleging::getOefeningNaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(raadplegingenSortedTitel);
+        return FXCollections.unmodifiableObservableList(raadplegingenSortedList);
     }
 
-    public ObservableList<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldLid(Lid lid) {
-        ObservableList<Raadpleging> raadplegingenVoorLid = FXCollections.observableArrayList(raadplegingen.stream()
-                .filter(r -> r.getLid().equals(lid))
-                .sorted(Comparator.comparing(Raadpleging::getOefeningNaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(raadplegingenVoorLid);
-    }
-
-    public ObservableList<Raadpleging> geefOverzichtRaadplegingenVoorBepaaldeOefening(Oefening oefening) {
-        ObservableList<Raadpleging> raadplegingenVoorOefening = FXCollections.observableArrayList(raadplegingen.stream()
-                .filter(r -> r.getOefening().equals(oefening))
-                .sorted(Comparator.comparing(Raadpleging::getOefeningNaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(raadplegingenVoorOefening);
+    
+    public void veranderRaadplegingFilter(String lid , Oefening oefening){
+        raadplegingenFilteredList.setPredicate(raadpleging -> {
+            boolean lidEmpty = lid == null;
+            boolean oefeningEmpty = oefening == null;
+            boolean lidFilter = raadpleging.getLid().geefVolledigeNaam().equals(lid);
+            boolean oefeningFilter = raadpleging.getOefening().equals(oefening);
+            
+            //00
+            if(lidEmpty && oefeningEmpty){
+                return true;
+            }
+            //01
+            if (lidEmpty && !oefeningEmpty){
+                return oefeningFilter;
+            }
+            //10
+            if (!lidEmpty && oefeningEmpty){
+                return lidFilter;
+            }
+            //11
+            if (!lidEmpty && !oefeningEmpty){
+                return lidFilter && oefeningFilter;
+            }
+            
+            return true;
+        });
+        
     }
 
     //
     //LEDEN
     //
     public ObservableList<Lid> geefOverzichtLeden() {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
+        return FXCollections.unmodifiableObservableList(leden)
+                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam));
+    }
+    
+    public ObservableList<String> geefOverzichtLedenFilter(){
+         ObservableList<String> leden = FXCollections.observableArrayList(dataController
+                .geefLeden().stream().map(lid -> String.format("%s %s", lid.getVoornaam(),lid.getAchternaam()))
                 .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
+        leden.add(0, "Alle leden");
+        return leden;
     }
 
-    public ObservableList<Lid> geefOverzichtLid(Lid lid) {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .filter(l -> l.equals(lid))
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
-    }
-
-    public ObservableList<Lid> geefOverzichtLedenVoorBepaaldeGraad(Graad graad) {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .filter(l -> l.getGraad().equals(graad))
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
-    }
-
-    public ObservableList<Lid> geefOverzichtLedenVoorBepaaldType(Functie functie) {
-        ObservableList<Lid> ledenSorted = FXCollections.observableArrayList(leden.stream()
-                .filter(l -> l.getFunctie().equals(functie))
-                .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam))
-                .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSorted);
-    }
 
     //
     //ENUMS
@@ -227,6 +282,14 @@ public class OverzichtController {
     public ObservableList<Formule> geefFormules() {
         ObservableList<Formule> formules = FXCollections.observableArrayList(Arrays.asList(Formule.values()));
         return FXCollections.unmodifiableObservableList(formules);
+    }
+    
+    public ObservableList<String> geefFormulesFilter() {
+        ObservableList<String> functies = FXCollections.observableArrayList(dataController
+                .geefFormules().stream().map(formule -> formule.name())
+                .collect(Collectors.toList()));
+        functies.add(0, "Alle formules");
+        return functies;
     }
 
     public ObservableList<Functie> geefFuncties() {
@@ -253,6 +316,8 @@ public class OverzichtController {
                 .distinct()
                 .sorted(Comparator.comparing(String::toString))
                 .collect(Collectors.toList()));
+        
+        oefeningNamenSorted.add(0, "Alle oefeningen");
         return FXCollections.unmodifiableObservableList(oefeningNamenSorted);
     }
 

@@ -332,14 +332,17 @@ public class Lid implements Serializable {
     }
 
     public void setBus(String bus) {
-        if (bus == null || bus.isEmpty()) {
-            throw new IllegalArgumentException("Bus mag niet leeg zijn.");
+        if (bus != null) {
+            if (bus.length() <= 5) {
+                this.bus = bus;
+            } else {
+                throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
+            }
         }
-        if (bus.length() <= 5) {
-            this.bus = bus;
-        } else {
-            throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
+        else{
+            this.bus = null;
         }
+
     }
 
     public String getPostcode() {
@@ -389,14 +392,17 @@ public class Lid implements Serializable {
     }
 
     public void setEmailVader(String emailVader) {
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
+        if (emailVader != null) {
+            if (emailVader.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+                this.emailVader = emailVader;
+            } else {
+                throw new IllegalArgumentException("Emailadres is niet correct.");
+            }
         }
-        if (emailVader.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
-            this.emailVader = emailVader;
-        } else {
-            throw new IllegalArgumentException("Emailadres is niet correct.");
+        else{
+            this.emailVader = null;
         }
+
     }
 
     public String getEmailMoeder() {
@@ -404,14 +410,17 @@ public class Lid implements Serializable {
     }
 
     public void setEmailMoeder(String emailMoeder) {
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
+        if (emailMoeder != null) {
+            if (emailMoeder.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+                this.emailMoeder = emailMoeder;
+            } else {
+                throw new IllegalArgumentException("Emailadres is niet correct.");
+            }
         }
-        if (emailMoeder.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
-            this.emailMoeder = emailMoeder;
-        } else {
-            throw new IllegalArgumentException("Emailadres is niet correct.");
+        else{
+            this.emailMoeder = null;
         }
+
     }
 
     public String getGeboorteplaats() {
@@ -464,14 +473,17 @@ public class Lid implements Serializable {
     }
 
     public void setBeroep(String beroep) {
-        if (beroep == null || beroep.isEmpty()) {
-            throw new IllegalArgumentException("Beroep mag niet leeg zijn.");
+        if (beroep != null) {
+            if (beroep.length() <= 50) {
+                this.beroep = beroep;
+            } else {
+                throw new IllegalArgumentException("Beroep mag max. 50 karakters bevatten.");
+            }
         }
-        if (beroep.length() <= 50) {
-            this.beroep = beroep;
-        } else {
-            throw new IllegalArgumentException("Beroep mag max. 50 karakters bevatten.");
+        else{
+            this.beroep = null;
         }
+
     }
 
     public int getPuntenAantal() {
@@ -548,6 +560,10 @@ public class Lid implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    public String geefVolledigeNaam(){
+        return voornaam + " " + achternaam;
     }
 
 }

@@ -6,6 +6,7 @@ import domein.controllers.AdminController;
 import domein.enums.Formule;
 import domein.Lid;
 import domein.controllers.OverzichtController;
+import domein.enums.Functie;
 import exceptions.DatumIntervalException;
 import gui.BeginScherm;
 import gui.BeginSchermFlo;
@@ -58,7 +59,7 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
     @FXML
     private Button btnAlleAanwezigheden;
     @FXML
-    private ComboBox<Lid> cbLeden;
+    private ComboBox<String> cbLeden;
     @FXML
     private Label lblPerDeelnemer;
     @FXML
@@ -72,7 +73,7 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
     @FXML
     private Label lblPerFormule;
     @FXML
-    private ComboBox<Formule> cbFormules;
+    private ComboBox<String> cbFormules;
     @FXML
     private Button btnAanwezighedenPerFormule;
 
@@ -105,8 +106,8 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
         colDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
         tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezigheden());
         //Combobox vullen
-        cbLeden.setItems(overzichtController.geefOverzichtLeden());
-        cbFormules.setItems(overzichtController.geefFormules());
+        cbLeden.setItems(overzichtController.geefOverzichtLedenFilter());
+        cbFormules.setItems(overzichtController.geefFormulesFilter());
     }
 
     @FXML
@@ -119,59 +120,79 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
 
     @FXML
     private void toonAanwezighedenPerLid(ActionEvent event) {
-        Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
-        if (lid != null) {
-            tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldLid(lid));
-            dpDatum.setValue(null);
-            cbFormules.getSelectionModel().clearSelection();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText("U dient een lid te selecteren.");
-            alert.showAndWait();
-        }
+//        Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
+//        if (lid != null) {
+//            tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldLid(lid));
+//            dpDatum.setValue(null);
+//            cbFormules.getSelectionModel().clearSelection();
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Filterfout");
+//            alert.setHeaderText("Filteren niet geslaagd");
+//            alert.setContentText("U dient een lid te selecteren.");
+//            alert.showAndWait();
+//        }
+        filter();
     }
 
     @FXML
     private void toonAanwezighedenOpDatum(ActionEvent event) {
-        try {
-            LocalDate datum = dpDatum.getValue();
-            if (datum != null) {
-                tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldeDatum(datum));
-                cbLeden.getSelectionModel().clearSelection();
-                cbFormules.getSelectionModel().clearSelection();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Filterfout");
-                alert.setHeaderText("Filteren niet geslaagd");
-                alert.setContentText("U dient een datum te selecteren.");
-                alert.showAndWait();
-            }
-        } catch (DatumIntervalException ex) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
-        }
+//        try {
+//            LocalDate datum = dpDatum.getValue();
+//            if (datum != null) {
+//                tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldeDatum(datum));
+//                cbLeden.getSelectionModel().clearSelection();
+//                cbFormules.getSelectionModel().clearSelection();
+//            } else {
+//                Alert alert = new Alert(Alert.AlertType.WARNING);
+//                alert.setTitle("Filterfout");
+//                alert.setHeaderText("Filteren niet geslaagd");
+//                alert.setContentText("U dient een datum te selecteren.");
+//                alert.showAndWait();
+//            }
+//        } catch (DatumIntervalException ex) {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Filterfout");
+//            alert.setHeaderText("Filteren niet geslaagd");
+//            alert.setContentText(ex.getMessage());
+//            alert.showAndWait();
+//        }
+        filter();
 
     }
 
     @FXML
     private void toonAanwezighedenPerFormule(ActionEvent event) {
-        Formule formule = cbFormules.getSelectionModel().selectedItemProperty().getValue();
-        if (formule != null) {
-            tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldeFormule(formule));
-            dpDatum.setValue(null);
-            cbLeden.getSelectionModel().clearSelection();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText("U dient een formule te selecteren.");
-            alert.showAndWait();
-        }
+//        Formule formule = cbFormules.getSelectionModel().selectedItemProperty().getValue();
+//        if (formule != null) {
+//            tvAanwezigheden.setItems(overzichtController.geefOverzichtAanwezighedenVoorBepaaldeFormule(formule));
+//            dpDatum.setValue(null);
+//            cbLeden.getSelectionModel().clearSelection();
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Filterfout");
+//            alert.setHeaderText("Filteren niet geslaagd");
+//            alert.setContentText("U dient een formule te selecteren.");
+//            alert.showAndWait();
+//        }
+        filter();
+    }
+    
+    public void filter(){
+          Formule formule = cbFormules
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cbFormules.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Formule.valueOf(cbFormules.getSelectionModel().getSelectedItem());
+          
+        String slid = cbLeden.getSelectionModel().getSelectedIndex() == 0 
+                ? null 
+                : cbLeden.getSelectionModel().getSelectedItem();
+        LocalDate datum = dpDatum.getValue();
+        
+        overzichtController.veranderAanwezigheidFilter(datum, slid, formule);
     }
 
     @FXML

@@ -58,7 +58,7 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
     @FXML
     private Label lblPerLid;
     @FXML
-    private ComboBox<Lid> cbLeden;
+    private ComboBox<String> cbLeden;
     @FXML
     private Button btnRaadplegingenPerLid;
     @FXML
@@ -92,7 +92,7 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
         colAantalRaadplegingen.setCellValueFactory(cellData -> cellData.getValue().aantalRaadplegingenProperty());
         tvRaadplegingen.setItems(overzichtController.geefOverzichtRaadplegingen());
         //Combobox vullen
-        cbLeden.setItems(overzichtController.geefOverzichtLeden());
+        cbLeden.setItems(overzichtController.geefOverzichtLedenFilter());
         cbLesmateriaal.setItems(overzichtController.geefOefeningNamen());
 
     }
@@ -106,32 +106,20 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
 
     @FXML
     private void toonRaadplegingenPerLesmateriaal(ActionEvent event) {
-        Oefening oefening = overzichtController.geefOefeningOpTitel(cbLesmateriaal.getSelectionModel().selectedItemProperty().getValue());
-        if (oefening != null) {
-            tvRaadplegingen.setItems(overzichtController.geefOverzichtRaadplegingenVoorBepaaldeOefening(oefening));
-            cbLeden.getSelectionModel().clearSelection();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText("U dient een lid te selecteren.");
-            alert.showAndWait();
-        }
+        filter();
     }
 
     @FXML
     private void toonRaadplegingenPerLid(ActionEvent event) {
-        Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
-        if (lid != null) {
-            tvRaadplegingen.setItems(overzichtController.geefOverzichtRaadplegingenVoorBepaaldLid(lid));
-            cbLesmateriaal.getSelectionModel().clearSelection();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText("U dient een oefening te selecteren.");
-            alert.showAndWait();
-        }
+        filter();
+    }
+    
+    private void filter(){
+        String lid = cbLeden.getSelectionModel().getSelectedIndex() == 0 
+                ? null 
+                : cbLeden.getSelectionModel().getSelectedItem();
+        Oefening oefening = overzichtController.geefOefeningOpTitel(cbLesmateriaal.getSelectionModel().getSelectedItem()); 
+        overzichtController.veranderRaadplegingFilter(lid, oefening);
     }
 
     @FXML

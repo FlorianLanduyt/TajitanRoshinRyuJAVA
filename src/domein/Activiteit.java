@@ -74,7 +74,7 @@ public class Activiteit implements Serializable {
         setMaxDeelnemers(maxDeelnemers);
         setBeginDatum(beginDatum);
         inschrijvingen = new ArrayList<>();
-        this.setVolzet(); 
+        this.setVolzet();
     }
 
     public Activiteit(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum, LocalDate eindDatum) {
@@ -183,21 +183,24 @@ public class Activiteit implements Serializable {
     }
 
     public LocalDate getEindDatum() {
-        if(sEindDatum.get() != null){
+        if (sEindDatum.get() != null) {
             return LocalDate.parse(sEindDatum.get());
         }
         return null;
-        
+
     }
 
     public void setEindDatum(LocalDate eindDatum) {
-        if (eindDatum == null) {
-            throw new IllegalArgumentException("Einddatum mag niet leeg zijn.");
-        } else if (eindDatum.compareTo(this.beginDatum) < 0) {
-            throw new DatumIntervalException("Einddatum mag niet voor begindatum liggen.");
-        } else {
-            this.eindDatum = eindDatum;
-            sEindDatum.set(eindDatum.toString());
+        if (eindDatum != null) {
+            if (eindDatum.compareTo(this.beginDatum) < 0) {
+                throw new DatumIntervalException("Einddatum mag niet voor begindatum liggen.");
+            } else {
+                this.eindDatum = eindDatum;
+                sEindDatum.set(eindDatum.toString());
+            }
+        }
+        else{
+            this.eindDatum = null;
         }
     }
 
@@ -270,15 +273,18 @@ public class Activiteit implements Serializable {
     }
 
     public void setBus(String bus) {
-        if (bus == null || bus.isEmpty()) {
-            throw new IllegalArgumentException("Bus mag niet leeg zijn.");
+        if (bus != null) {
+            if (bus.length() <= 5) {
+                this.bus = bus;
+                sBus.set(bus);
+            } else {
+                throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
+            }
         }
-        if (bus.length() <= 5) {
-            this.bus = bus;
-            sBus.set(bus);
-        } else {
-            throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
+        else{
+            this.bus = null;
         }
+
     }
 
     public int getMaxDeelnemers() {

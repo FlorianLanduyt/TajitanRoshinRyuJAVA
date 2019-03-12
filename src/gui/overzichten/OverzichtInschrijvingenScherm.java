@@ -63,7 +63,7 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
     @FXML
     private Label lblPerFormule;
     @FXML
-    private ComboBox<Formule> cbFormules;
+    private ComboBox<String> cbFormules;
     @FXML
     private Button btnInschrijvingenPerFormule;
     @FXML
@@ -99,7 +99,7 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
         colDatum.setCellValueFactory(cellData -> cellData.getValue().tijdstipProperty());
         tvInschrijvingen.setItems(overzichtController.geefOverzichtInschrijvingen());
         //Combobox vullen
-        cbFormules.setItems(overzichtController.geefFormules());
+        cbFormules.setItems(overzichtController.geefFormulesFilter());
     }
 
     @FXML
@@ -112,42 +112,25 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
 
     @FXML
     private void toonInschrijvingenInInterval(ActionEvent event) {
-        try {
-            LocalDate van = dpDatumVan.getValue();
-            LocalDate tot = dpDatumTot.getValue();
-            if (van != null && tot != null) {
-                tvInschrijvingen.setItems(overzichtController.geefOverzichtInschrijvingenVoorBepaaldInterval(van, tot));
-                cbFormules.getSelectionModel().clearSelection();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Filterfout");
-                alert.setHeaderText("Filteren niet geslaagd");
-                alert.setContentText("U dient een begin- en einddatum te selecteren.");
-                alert.showAndWait();
-            }
-        } catch (DatumIntervalException ex) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
-        }
+        filter();
     }
 
     @FXML
     private void toonInschrijvingenPerFormule(ActionEvent event) {
-        Formule formule = cbFormules.getSelectionModel().selectedItemProperty().getValue();
-        if (formule != null) {
-            tvInschrijvingen.setItems(overzichtController.geefOverzichtInschrijvingenVoorBepaaldeFormule(formule));
-            dpDatumVan.setValue(null);
-            dpDatumTot.setValue(null);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText("U dient een formule te selecteren.");
-            alert.showAndWait();
-        }
+        filter();
+    }
+    
+    private void filter(){
+        Formule formule = cbFormules
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cbFormules.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Formule.valueOf(cbFormules.getSelectionModel().getSelectedItem());
+        LocalDate van = dpDatumVan.getValue();
+        LocalDate tot = dpDatumTot.getValue();
+        overzichtController.veranderInschrijvingFilter(formule,van, tot);
     }
 
     @FXML
