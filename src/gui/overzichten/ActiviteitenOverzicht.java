@@ -6,7 +6,7 @@
 package gui.overzichten;
 
 import domein.Lid;
-import domein.activiteit.Activiteit;
+import domein.Activiteit;
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
 import gui.BeginSchermFlo;
@@ -90,7 +90,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         colFormule = new TableColumn("Formule");
         
         colVoornaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
-        colDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
+        colDatum.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
         colFormule.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
         
         super.addKolom(colVoornaam);
@@ -146,10 +146,10 @@ public class ActiviteitenOverzicht extends Overzicht {
     private void vulDetailScherm() {
         Activiteit a = activiteitTabel.getSelectionModel().getSelectedItem();
         txNaam.setText(a.getNaam());
-        txDatum.setText(a.datumProperty().getValue());
+        txDatum.setText(a.beginDatumProperty().getValue());
         txAdres.setText(a.straatProperty().getValue() + " " + a.getHuisnummer() + ", " + a.getPostcode() + " " + a.getStad());
 
-        deelnemers.setItems(FXCollections.observableList(a.getDeelnemers()));
+//        deelnemers.setItems(FXCollections.observableList(a.aantalDeelnemersProperty()));
     }
     
     private <T> VBox opmaaDeelnemersTabel(TableView<T> tabel) {
