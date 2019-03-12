@@ -100,9 +100,6 @@ public class Overzicht<T> extends BorderPane {
                 this.setCenter(detailScherm);
             }
         });
-        
-        
-
     }
 
     public void addCombobox(ComboBox cb) {
