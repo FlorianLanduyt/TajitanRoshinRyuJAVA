@@ -1,29 +1,18 @@
 package gui;
 
-import domein.Admin;
 import domein.controllers.AdminController;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import main.StartUpGUI;
 
 public class BeginScherm extends AnchorPane implements PropertyChangeListener {
 
@@ -41,6 +30,8 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
     private AdminController adminController;
     private LoginForm loginForm;
     private HoofdMenu hoofdMenu;
+    
+    private BeginSchermFlo beginscherm;
 
     public BeginScherm() {
         this.adminController = new AdminController();
@@ -90,7 +81,7 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         signInVisibility(false);
         signOffVisibility(true);
 
-        hoofdMenu = new HoofdMenu(this, adminController);
+        hoofdMenu = new HoofdMenu(beginscherm, adminController);
         this.getChildren().add(hoofdMenu);
     }
 
@@ -103,5 +94,7 @@ public class BeginScherm extends AnchorPane implements PropertyChangeListener {
         btnSignOff.setVisible(value);
         ivSignOff.setVisible(value);
     }
+    
+    
 
 }

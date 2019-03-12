@@ -8,6 +8,7 @@ import domein.Lid;
 import domein.controllers.OverzichtController;
 import exceptions.DatumIntervalException;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
 import gui.OverzichtMenu;
 import java.io.IOException;
 import java.net.URL;
@@ -70,11 +71,11 @@ public class OverzichtInschrijvingenScherm extends AnchorPane {
     @FXML
     private DatePicker dpDatumTot;
 
-    private BeginScherm beginScherm;
+    private BeginSchermFlo beginScherm;
     private AdminController adminController;
     private OverzichtController overzichtController;
 
-    public OverzichtInschrijvingenScherm(BeginScherm beginScherm, AdminController adminController) {
+    public OverzichtInschrijvingenScherm(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtInschrijvingenScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);

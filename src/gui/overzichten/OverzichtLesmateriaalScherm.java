@@ -7,6 +7,7 @@ import domein.Oefening;
 import domein.controllers.OverzichtController;
 import domein.Raadpleging;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
 import gui.OverzichtMenu;
 import java.io.IOException;
 import java.net.URL;
@@ -63,11 +64,11 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
     @FXML
     private ComboBox<String> cbLesmateriaal;
 
-    private BeginScherm beginScherm;
+    private BeginSchermFlo beginScherm;
     private AdminController adminController;
     private OverzichtController overzichtController;
 
-    public OverzichtLesmateriaalScherm(BeginScherm beginScherm, AdminController adminController) {
+    public OverzichtLesmateriaalScherm(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtLesmateriaalScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);

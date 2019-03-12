@@ -8,6 +8,7 @@ import domein.Lid;
 import domein.controllers.OverzichtController;
 import exceptions.DatumIntervalException;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
 import gui.OverzichtMenu;
 import java.io.IOException;
 import java.net.URL;
@@ -75,11 +76,11 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
     @FXML
     private Button btnAanwezighedenPerFormule;
 
-    private BeginScherm beginScherm;
+    private BeginSchermFlo beginScherm;
     private AdminController adminController;
     private OverzichtController overzichtController;
 
-    public OverzichtAanwezighedenScherm(BeginScherm beginScherm, AdminController adminController) {
+    public OverzichtAanwezighedenScherm(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtAanwezighedenScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);

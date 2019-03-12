@@ -12,6 +12,7 @@ import domein.controllers.AdminController;
 import domein.enums.Formule;
 import domein.enums.Functie;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
 import java.awt.Checkbox;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -122,7 +123,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     /**
      * Initializes the controller class.
      */
-    public BeherenActiviteitSchermController(BeginScherm beginScherm, AdminController adminController) {
+    public BeherenActiviteitSchermController(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenActiviteitScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);

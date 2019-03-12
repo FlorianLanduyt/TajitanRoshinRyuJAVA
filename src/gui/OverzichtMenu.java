@@ -32,10 +32,10 @@ public class OverzichtMenu extends VBox {
     @FXML
     private Button btnTerug;
 
-    private BeginScherm beginScherm;
+    private BeginSchermFlo beginScherm;
     private AdminController adminController;
 
-    public OverzichtMenu(BeginScherm beginScherm, AdminController adminController) {
+    public OverzichtMenu(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtMenu.fxml"));
         loader.setRoot(this);
         loader.setController(this);

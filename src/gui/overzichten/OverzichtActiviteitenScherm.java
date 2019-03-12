@@ -5,6 +5,7 @@ import domein.controllers.AdminController;
 import domein.Lid;
 import domein.controllers.OverzichtController;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
 import gui.OverzichtMenu;
 import java.io.IOException;
 import java.net.URL;
@@ -63,11 +64,11 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
     @FXML
     private Button btnActiviteitenPerDeelnemer;
 
-    private BeginScherm beginScherm;
+    private BeginSchermFlo beginScherm;
     private AdminController adminController;
     private OverzichtController overzichtController;
 
-    public OverzichtActiviteitenScherm(BeginScherm beginScherm, AdminController adminController) {
+    public OverzichtActiviteitenScherm(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtActiviteitenScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);

@@ -6,6 +6,7 @@ import domein.controllers.AdminController;
 import domein.Lid;
 import domein.controllers.OverzichtController;
 import gui.BeginScherm;
+import gui.BeginSchermFlo;
 import gui.OverzichtMenu;
 import java.io.IOException;
 import java.net.URL;
@@ -45,11 +46,11 @@ public class OverzichtClubkampioenschapScherm extends AnchorPane {
     @FXML
     private TableColumn<Lid, String> colPunten;
 
-    private BeginScherm beginScherm;
+    private BeginSchermFlo beginScherm;
     private AdminController adminController;
     private OverzichtController overzichtController;
 
-    public OverzichtClubkampioenschapScherm(BeginScherm beginScherm, AdminController adminController) {
+    public OverzichtClubkampioenschapScherm(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtClubkampioenschapScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);

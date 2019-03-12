@@ -12,6 +12,7 @@ import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginScherm;
 import java.awt.Color;
+import gui.BeginSchermFlo;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.event.ActionEvent;
@@ -123,7 +124,7 @@ public class BeherenLidSchermController extends AnchorPane {
     @FXML
     private Label lblErrorlog;
     //andere variabelen
-    private BeginScherm beginscherm;
+    private BeginSchermFlo beginscherm;
     private AdminController adminController;
     private LidBeheerderController lidBeheerderController;
     @FXML
@@ -131,7 +132,7 @@ public class BeherenLidSchermController extends AnchorPane {
     
     
 
-    public BeherenLidSchermController(BeginScherm beginScherm, AdminController adminController) {
+    public BeherenLidSchermController(BeginSchermFlo beginScherm, AdminController adminController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenLidScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -376,6 +377,7 @@ public class BeherenLidSchermController extends AnchorPane {
         if (result.get() == ButtonType.OK) {
             lidBeheerderController.verwijderLid(lid);
         }
+        lidBeheerderController.verwijderLid(lid);
 
     }
 
