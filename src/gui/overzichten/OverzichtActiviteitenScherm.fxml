@@ -35,10 +35,8 @@
             <TableColumn fx:id="colBus" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Bus" />
         </columns>
       </TableView>
-      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="67.0" prefHeight="25.0" prefWidth="262.0" />
-      <Label fx:id="lblPerDeelnemer" layoutX="210.0" layoutY="48.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk activiteiten per deelnemer:" />
-      <Button fx:id="btnAlleActiviteiten" layoutX="611.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonAlleActiviteiten" prefHeight="25.0" prefWidth="110.0" text="Alle activiteiten" />
-      <Button fx:id="btnActiviteitenPerDeelnemer" layoutX="484.0" layoutY="67.0" mnemonicParsing="false" onAction="#toonActiviteitenPerDeelnemer" prefHeight="25.0" prefWidth="110.0" text="Filter" />
+      <ComboBox fx:id="cbFormules" layoutX="210.0" layoutY="67.0" onAction="#toonActiviteitenPerFormules" prefHeight="25.0" prefWidth="262.0" />
+      <Label fx:id="lblPerDeelnemer" layoutX="210.0" layoutY="48.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk activiteiten per formule:" />
       <Label fx:id="lblActiviteiten" layoutX="210.0" layoutY="2.0" prefHeight="17.0" prefWidth="156.0" text="Activiteiten">
          <font>
             <Font name="System Bold" size="18.0" />

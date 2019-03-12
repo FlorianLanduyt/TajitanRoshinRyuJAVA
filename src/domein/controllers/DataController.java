@@ -83,7 +83,7 @@ public class DataController {
     public List<Admin> geefAdmins() {
         return this.admins;
     }
-
+    
     //
     //ENUMS
     //

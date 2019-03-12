@@ -23,7 +23,7 @@
          </image>
       </ImageView>
       <Button fx:id="btnSignOff" layoutX="1231.0" layoutY="3.0" mnemonicParsing="false" onAction="#meldAf" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-      <TableView fx:id="tvRaadplegingen" layoutX="210.0" layoutY="110.0" prefHeight="590.0" prefWidth="1050.0">
+      <TableView fx:id="tvRaadplegingen" layoutX="210.0" layoutY="83.0" prefHeight="617.0" prefWidth="1050.0">
          <columns>
             <TableColumn fx:id="colVoornaam" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Voornaam" />
             <TableColumn fx:id="colFamilienaam" maxWidth="262.5" minWidth="262.5" prefWidth="262.5" text="Familienaam" />
@@ -32,12 +32,9 @@
          </columns>
       </TableView>
       <Label fx:id="lblPerLesmateriaal" layoutX="483.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Per raadplegingen per lesmateriaal:" />
-      <Button fx:id="btnRaadplegingenPerLesmateriaal" layoutX="483.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonRaadplegingenPerLesmateriaal" prefHeight="25.0" prefWidth="110.0" text="Filter" />
       <Label fx:id="lblPerLid" layoutX="210.0" layoutY="28.0" prefHeight="17.0" prefWidth="262.0" text="Bekijk raadplegingen per lid:" />
-      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
-      <Button fx:id="btnRaadplegingenPerLid" layoutX="210.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonRaadplegingenPerLid" prefHeight="25.0" prefWidth="110.0" text="Filter" />
-      <ComboBox fx:id="cbLesmateriaal" layoutX="483.0" layoutY="48.0" prefHeight="25.0" prefWidth="262.0" />
-      <Button fx:id="btnAlleRaadplegingen" layoutX="757.0" layoutY="80.0" mnemonicParsing="false" onAction="#toonAlleRaadplegingen" prefHeight="25.0" prefWidth="116.0" text="Alle raadplegingen" />
+      <ComboBox fx:id="cbLeden" layoutX="210.0" layoutY="48.0" onAction="#toonRaadplegingenPerLid" prefHeight="25.0" prefWidth="262.0" />
+      <ComboBox fx:id="cbLesmateriaal" layoutX="483.0" layoutY="48.0" onAction="#toonRaadplegingenPerLesmateriaal" prefHeight="25.0" prefWidth="262.0" />
       <Label fx:id="lblRaadplegingen" layoutX="210.0" layoutY="2.0" prefHeight="27.0" prefWidth="249.0" text="Raadplegingen lesmateriaal">
          <font>
             <Font name="System Bold" size="18.0" />

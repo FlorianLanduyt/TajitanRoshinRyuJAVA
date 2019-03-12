@@ -4,6 +4,7 @@ import domein.Activiteit;
 import domein.controllers.AdminController;
 import domein.Lid;
 import domein.controllers.OverzichtController;
+import domein.enums.Formule;
 import gui.BeginScherm;
 import gui.OverzichtMenu;
 import java.io.IOException;
@@ -54,14 +55,15 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
     private TableColumn<Activiteit, String> colHuisnummer;
     @FXML
     private TableColumn<Activiteit, String> colBus;
-    @FXML
-    private ComboBox<Lid> cbLeden;
+   
     @FXML
     private Label lblPerDeelnemer;
     @FXML
     private Button btnAlleActiviteiten;
     @FXML
     private Button btnActiviteitenPerDeelnemer;
+    @FXML
+    private ComboBox<String> cbFormules;
 
     private BeginScherm beginScherm;
     private AdminController adminController;
@@ -96,28 +98,32 @@ public class OverzichtActiviteitenScherm extends AnchorPane {
         tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteiten());
 
         //Combobox vullen
-        cbLeden.setItems(overzichtController.geefOverzichtLeden());
+        cbFormules.setItems(overzichtController.geefFormulesFilter());
 
     }
 
     @FXML
     private void toonAlleActiviteiten(ActionEvent event) {
         tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteiten());
-        cbLeden.getSelectionModel().clearSelection();
+        cbFormules.getSelectionModel().clearSelection();
     }
 
     @FXML
-    private void toonActiviteitenPerDeelnemer(ActionEvent event) {
-        Lid lid = cbLeden.getSelectionModel().selectedItemProperty().getValue();
-        if (lid != null) {
-            tvActiviteiten.setItems(overzichtController.geefOverzichtActiviteitenVoorBepaaldeDeelnemer(lid));
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Filterfout");
-            alert.setHeaderText("Filteren niet geslaagd");
-            alert.setContentText("U dient een lid te selecteren.");
-            alert.showAndWait();
-        }
+    private void toonActiviteitenPerFormules(ActionEvent event) {
+        filter();
+    }
+    
+    
+    private void filter(){
+        Formule formule = cbFormules
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cbFormules.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Formule.valueOf(cbFormules.getSelectionModel().getSelectedItem());
+        
+        overzichtController.veranderActiviteitenFilter(formule);
     }
 
     @FXML
