@@ -1,10 +1,12 @@
 package domein;
 
 import domein.enums.Formule;
+import exceptions.DatumIntervalException;
 import exceptions.VolzetException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
@@ -22,10 +24,10 @@ public class Inschrijving implements Serializable {
 
     @Id
     private int id;
-    
+
     @ManyToOne
     private Lid lid;
-    
+
     @Enumerated(EnumType.STRING)
     private Formule formule;
 
@@ -76,8 +78,15 @@ public class Inschrijving implements Serializable {
     }
 
     private void setFormule(Formule formule) {
-        this.formule = formule;
-        sFormule.set(formule.name());
+        if (formule == null) {
+            throw new IllegalArgumentException("Formule mag niet leeg zijn.");
+        }
+        if (Arrays.asList(Formule.values()).contains(formule)) {
+            this.formule = formule;
+            sFormule.set(formule.name());
+        } else {
+            throw new IllegalArgumentException("Formule bestaat niet.");
+        }
     }
 
     public Lid getLid() {
@@ -85,7 +94,11 @@ public class Inschrijving implements Serializable {
     }
 
     private void setLid(Lid lid) {
-        this.lid = lid;
+        if (lid == null) {
+            throw new IllegalArgumentException("Lid mag niet leeg zijn.");
+        } else {
+            this.lid = lid;
+        }
     }
 
     public LocalDate getTijdstip() {
@@ -93,8 +106,12 @@ public class Inschrijving implements Serializable {
     }
 
     private void setTijdstip(LocalDate tijdstip) {
-        this.tijdstip = tijdstip;
-        sTijdstip.set(tijdstip.toString());
+        if (tijdstip == null) {
+            throw new IllegalArgumentException("Tijdstip inschrijving mag niet leeg zijn.");
+        } else {
+            this.tijdstip = tijdstip;
+            sTijdstip.set(tijdstip.toString());
+        }
     }
 
     public String getVoornaam() {

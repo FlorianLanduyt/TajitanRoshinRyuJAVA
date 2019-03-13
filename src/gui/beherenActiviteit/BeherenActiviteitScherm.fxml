@@ -78,6 +78,7 @@
                   </ImageView>
                </graphic>
             </Button>
+            <DatePicker fx:id="dpInschrijvingsDatum" layoutX="17.0" layoutY="437.0" prefHeight="27.0" prefWidth="150.0" />
          </children>
       </Pane>
       <Button fx:id="btnNieuweActiviteit" layoutX="830.0" layoutY="579.0" mnemonicParsing="false" onAction="#voegActiviteitToe" prefHeight="27.0" prefWidth="173.0" text="Nieuwe activiteit" />
