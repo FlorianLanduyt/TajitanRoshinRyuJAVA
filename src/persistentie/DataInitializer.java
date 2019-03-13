@@ -70,14 +70,19 @@ public class DataInitializer {
         leden.add(lid4);
         leden.add(lid5);
 
-        Activiteit s1 = new Activiteit("Hoogtestage Ardennen", Formule.STAGE, 50, LocalDate.of(2019, Month.MARCH, 12));
-        s1.setEindDatum(LocalDate.of(2019, Month.MARCH, 16));
-        Activiteit s2 = new Activiteit("Hoogtestage Vogezen", Formule.STAGE, 50, LocalDate.of(2019, Month.AUGUST, 28));
-        Activiteit s3 = new Activiteit("Uitstap Nederland", Formule.ACTIVITEIT, 50, LocalDate.of(2020, Month.JANUARY, 10));
+        Activiteit s1 = new Activiteit("Hoogtestage Ardennen", Formule.STAGE, 50, LocalDate.of(2020, Month.MARCH, 12),
+                LocalDate.of(2020, Month.MARCH, 16), LocalDate.of(2020, Month.FEBRUARY, 20));
+        Activiteit s2 = new Activiteit("Hoogtestage Vogezen", Formule.STAGE, 50, LocalDate.of(2020, Month.AUGUST, 28),
+                LocalDate.of(2020, Month.FEBRUARY, 20));
+        Activiteit s3 = new Activiteit("Uitstap Nederland", Formule.ACTIVITEIT, 50, LocalDate.of(2020, Month.DECEMBER, 10),
+                LocalDate.of(2020, Month.FEBRUARY, 20));
 
-        Activiteit l1 = new Activiteit("Les 1", Formule.ZA, 50, LocalDate.of(2019, Month.FEBRUARY, 23));
-        Activiteit l2 = new Activiteit("Les 1", Formule.WO_ZA, 50, LocalDate.of(2019, Month.FEBRUARY, 20));
-        Activiteit l3 = new Activiteit("Les 1", Formule.DI_ZA, 50, LocalDate.of(2020, Month.FEBRUARY, 19));
+        Activiteit l1 = new Activiteit("Les 1", Formule.ZA, 50, LocalDate.of(2020, Month.MARCH, 23),
+                LocalDate.of(2020, Month.FEBRUARY, 20));
+        Activiteit l2 = new Activiteit("Les 1", Formule.WO_ZA, 50, LocalDate.of(2020, Month.MARCH, 20),
+                LocalDate.of(2020, Month.FEBRUARY, 20));
+        Activiteit l3 = new Activiteit("Les 1", Formule.DI_ZA, 50, LocalDate.of(2020, Month.MARCH, 19),
+                LocalDate.of(2020, Month.FEBRUARY, 20));
 
         activiteiten.add(s1);
         activiteiten.add(s2);
