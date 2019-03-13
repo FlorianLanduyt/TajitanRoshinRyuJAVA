@@ -32,7 +32,8 @@ public class ActiviteitenOverzicht extends Overzicht {
 
     private OverzichtController oc;
     private AdminController ac;
-
+    private BeginSchermFlo parent;
+    
     private TableView<Activiteit> activiteitTabel;
     private TableColumn<Activiteit, String> colVoornaam;
     private TableColumn<Activiteit, String> colDatum;
@@ -46,10 +47,12 @@ public class ActiviteitenOverzicht extends Overzicht {
     private Text txDatum;
     private Text txAdres;
 
-    public ActiviteitenOverzicht(BeginSchermFlo parent, AdminController ac) {
-        super(parent, ac);
+    public ActiviteitenOverzicht(BeginSchermFlo parent, AdminController ac, String soortScherm) {
+        super(parent, ac, soortScherm);
         this.oc = new OverzichtController();
         this.ac = ac;
+        
+        this.parent = parent;
 
         maakOverzicht();
         
@@ -60,6 +63,7 @@ public class ActiviteitenOverzicht extends Overzicht {
     }
 
     private void maakOverzicht() {
+        //parent.maakOverzichtTitle("Activiteit overzicht");
         maakFilters();
         maakTabel();
         maakDetailScherm();
@@ -70,7 +74,6 @@ public class ActiviteitenOverzicht extends Overzicht {
     private void maakFilters() {
         cbFormule = new ComboBox<>();
         cbFormule.setItems(oc.geefFormulesFilter());
-        //cbFormule.setPromptText("                   -- Alle Formules --");
 
         super.addCombobox(cbFormule);
     }
@@ -114,7 +117,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         VBox deelnemersBox = opmaaDeelnemersTabel(deelnemers);
 
         scherm.getChildren().add(deelnemersBox);
-        super.setDetailScherm(scherm);
+        super.setDetailScherm(scherm); 
 
     }
     

@@ -35,7 +35,7 @@ public class OverzichtMenuKnoppen extends MenuKnoppen{
         btnActiviteiten.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                parent.ToonOverzichtenScherm(new ActiviteitenOverzicht(parent, ac), "Activiteiten Overzicht");
+                parent.ToonOverzichtenScherm(new ActiviteitenOverzicht(parent, ac, "Activiteiten overzicht"));
             }
         });
         btnActiviteiten.setOnKeyPressed(new EventHandler<KeyEvent>(){

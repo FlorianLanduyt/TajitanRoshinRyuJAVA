@@ -36,8 +36,10 @@ public class Overzicht<T> extends BorderPane {
     private List<TableColumn<T, String>> kolommen;
     private List<ComboBox> filters;
     private List<Node> detailsNodes;
+    
+    private String titelOverzicht;
 
-    public Overzicht(BeginSchermFlo parent, AdminController ac) {
+    public Overzicht(BeginSchermFlo parent, AdminController ac, String overzicht) {
         this.parent = parent;
         this.ac = ac;
         this.oc = new OverzichtController();
@@ -45,12 +47,15 @@ public class Overzicht<T> extends BorderPane {
         filters = new ArrayList<>();
         kolommen = new ArrayList<>();
         detailsNodes = new ArrayList<>();
+        
+        titelOverzicht = overzicht;
     }
 
     public void buildGui() {
         this.setPadding(new Insets(5, 30, 30, 10));
         filtersEnTabel = new VBox(20);
-
+        
+        parent.maakOverzichtTitle(titelOverzicht);
         maakFilters();
         maakTabel();
         maakDetailScherm();
@@ -62,7 +67,9 @@ public class Overzicht<T> extends BorderPane {
         filters.stream().forEach(f -> {
             f.setMinWidth(300);
             filterBox.getChildren().add(f);
+            f.getSelectionModel().select(0);
         });
+        
         
         filtersEnTabel.getChildren().add(filterBox);
     }
