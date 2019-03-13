@@ -109,9 +109,14 @@ public class ActiviteitenOverzicht extends Overzicht {
         geefInformatieActiviteit();
 
         deelnemers = new TableView();
-        TableColumn<Lid, String> naam = new TableColumn("Naam");
+        TableColumn<Lid, String> naam = new TableColumn("Voornaam");
+        TableColumn<Lid, String> familienaam = new TableColumn("Familienaam");
         naam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
+        familienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
+        
         deelnemers.getColumns().add(naam);
+        deelnemers.getColumns().add(familienaam);
+        
 
         VBox deelnemersBox = opmaaDeelnemersTabel(deelnemers);
 
@@ -154,14 +159,13 @@ public class ActiviteitenOverzicht extends Overzicht {
         txNaam.setText(a.getNaam());
         txDatum.setText(a.beginDatumProperty().getValue());
         txAdres.setText(a.straatProperty().getValue() + " " + a.getHuisnummer() + ", " + a.getPostcode() + " " + a.getStad());
-
-       deelnemers.setItems(FXCollections.observableList(a.getInschrijvingen().stream().map(i -> i.getLid()).collect(Collectors.toList())));
+        deelnemers.setItems(FXCollections.observableList(a.getInschrijvingen().stream().map(i -> i.getLid()).collect(Collectors.toList())));
     }
     
     private <T> VBox opmaaDeelnemersTabel(TableView<T> tabel) {
         VBox tabelBox = new VBox();
-        tabelBox.setMaxSize(200, 200);
-        tabel.getColumns().stream().forEach(k -> k.setMinWidth(199));
+        tabelBox.setMaxSize(250, 200);
+        tabel.getColumns().stream().forEach(k -> k.setMinWidth(124));
         tabelBox.getChildren().add(tabel);
 
         return tabelBox;

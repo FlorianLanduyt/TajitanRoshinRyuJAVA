@@ -63,7 +63,7 @@ public class HoofdmenuKnoppen  extends MenuKnoppen {
         btnBeheerActiviteiten.setOnAction(new EventHandler <ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                parent.beheerActiviteiten();
             }
         });
         super.addKnop(btnBeheerActiviteiten);

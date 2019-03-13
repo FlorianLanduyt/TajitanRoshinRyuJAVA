@@ -1,7 +1,9 @@
 package gui;
 
 import domein.controllers.AdminController;
+import gui.beherenActiviteit.BeherenActiviteitSchermController;
 import gui.beherenLid.BeherenLidSchermController;
+import gui.overzichten.ActiviteitenOverzicht;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -69,6 +71,10 @@ public class BeginSchermFlo extends BorderPane {
     
     public void beheerLid(){
         this.setCenter(new BeherenLidSchermController(this, ac));
+    }
+    
+    public void beheerActiviteiten(){
+        this.setCenter(new BeherenActiviteitSchermController(this, ac));
     }
     
     public <T> void ToonOverzichtenScherm(T scherm) {

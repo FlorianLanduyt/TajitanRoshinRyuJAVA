@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<fx:root id="AnchorPane" prefHeight="620.0" prefWidth="1014.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="AnchorPane" prefHeight="597.0" prefWidth="1014.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tblActiviteiten" layoutX="27.0" layoutY="88.0" prefHeight="487.0" prefWidth="610.0">
+      <TableView fx:id="tblActiviteiten" layoutX="27.0" layoutY="48.0" prefHeight="514.0" prefWidth="610.0">
         <columns>
           <TableColumn fx:id="colNaamActiviteit" maxWidth="7000.0" prefWidth="75.0" text="Naam" />
           <TableColumn fx:id="colFormuleActiviteit" prefWidth="75.0" text="Type" />
@@ -28,22 +28,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField fx:id="txtFilterNaam" layoutX="27.0" layoutY="50.0" onKeyReleased="#filterActiviteitenTXT" prefHeight="27.0" prefWidth="145.0" promptText="Filter op naam" />
-      <ComboBox fx:id="cboFilterType" layoutX="175.0" layoutY="50.0" onAction="#filterActiviteiten" prefHeight="27.0" prefWidth="104.0" promptText="Type" />
-      <CheckBox fx:id="cbFilterVolzet" layoutX="388.0" layoutY="55.0" mnemonicParsing="false" onAction="#filterActiviteiten" text="Volzet" />
-      <Pane layoutX="643.0" layoutY="88.0" prefHeight="487.0" prefWidth="360.0" style="-fx-background-color: AliceBlue; -fx-border-style: dotted;">
+      <TextField fx:id="txtFilterNaam" layoutX="27.0" layoutY="12.0" onKeyReleased="#filterActiviteitenTXT" prefHeight="27.0" prefWidth="145.0" promptText="Filter op naam" />
+      <ComboBox fx:id="cboFilterType" layoutX="175.0" layoutY="12.0" onAction="#filterActiviteiten" prefHeight="27.0" prefWidth="104.0" promptText="Type" />
+      <CheckBox fx:id="cbFilterVolzet" layoutX="388.0" layoutY="17.0" mnemonicParsing="false" onAction="#filterActiviteiten" text="Volzet" />
+      <Pane layoutX="643.0" layoutY="48.0" prefHeight="514.0" prefWidth="360.0" style="-fx-background-color: AliceBlue; -fx-border-style: dotted;">
          <children>
             <Label layoutX="11.0" layoutY="2.0" text="Naam *" />
             <TextField fx:id="txtNaamActiviteit" layoutX="11.0" layoutY="20.0" />
             <Label layoutX="184.0" layoutY="2.0" text="Type *" />
             <ComboBox fx:id="cboType" layoutX="184.0" layoutY="20.0" prefWidth="150.0" />
-            <Label layoutX="14.0" layoutY="51.0" text="Start -en einddatum" />
-            <DatePicker fx:id="dpStartdatum" layoutX="14.0" layoutY="71.0" prefHeight="27.0" prefWidth="150.0" promptText="Startdatum *" />
-            <DatePicker fx:id="dpEinddatum" layoutX="184.0" layoutY="71.0" prefHeight="27.0" prefWidth="150.0" promptText="Einddatum" />
-            <Label layoutX="14.0" layoutY="105.0" text="Max. aantal deelnemers *" />
-            <CheckBox fx:id="cbIsVolzet" disable="true" layoutX="184.0" layoutY="130.0" mnemonicParsing="false" text="Volzet" />
-            <Label layoutX="15.0" layoutY="235.0" text="Deelnemer(s)" />
-            <Button fx:id="btnVoegDeelnemerToe" layoutX="296.0" layoutY="428.0" mnemonicParsing="false" onAction="#voegDeelnemerToe">
+            <Label layoutX="14.0" layoutY="50.0" text="Start -en einddatum" />
+            <DatePicker fx:id="dpStartdatum" layoutX="14.0" layoutY="70.0" prefHeight="27.0" prefWidth="150.0" promptText="Startdatum *" />
+            <DatePicker fx:id="dpEinddatum" layoutX="184.0" layoutY="70.0" prefHeight="27.0" prefWidth="150.0" promptText="Einddatum" />
+            <Label layoutX="14.0" layoutY="99.0" text="Max. aantal deelnemers *" />
+            <CheckBox fx:id="cbIsVolzet" disable="true" layoutX="184.0" layoutY="122.0" mnemonicParsing="false" text="Volzet" />
+            <Label layoutX="15.0" layoutY="272.0" text="Deelnemer(s)" />
+            <Button fx:id="btnVoegDeelnemerToe" layoutX="296.0" layoutY="465.0" mnemonicParsing="false" onAction="#voegDeelnemerToe">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="22.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -52,7 +52,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TableView fx:id="tblDeelnemers" layoutX="15.0" layoutY="255.0" prefHeight="170.0" prefWidth="319.0">
+            <TableView fx:id="tblDeelnemers" layoutX="15.0" layoutY="292.0" prefHeight="170.0" prefWidth="319.0">
               <columns>
                 <TableColumn fx:id="colDeelnemerNaam" prefWidth="255.0" resizable="false" text="Naam" />
                 <TableColumn fx:id="colVerwijderDeelnemer" prefWidth="62.0" resizable="false" />
@@ -61,15 +61,15 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="txtMaxAantalDeelnemers" layoutX="14.0" layoutY="125.0" prefHeight="27.0" prefWidth="155.0" />
-            <Label fx:id="lblFoutopvang" layoutX="16.0" layoutY="450.0" textFill="#ff1500" />
-            <Label layoutX="14.0" layoutY="158.0" text="Locatie *" />
-            <TextField fx:id="txtStraat" layoutX="15.0" layoutY="178.0" prefHeight="27.0" prefWidth="187.0" promptText="Straat *" />
-            <TextField fx:id="txtStad" layoutX="15.0" layoutY="208.0" prefHeight="27.0" prefWidth="187.0" promptText="Stad / Gemeente *" />
-            <TextField fx:id="txtHuisnr" layoutX="205.0" layoutY="178.0" prefHeight="27.0" prefWidth="62.0" promptText="Huisnr*" />
-            <TextField fx:id="txtBus" layoutX="270.0" layoutY="178.0" prefHeight="27.0" prefWidth="62.0" promptText="Bus" />
-            <TextField fx:id="txtPostcode" layoutX="206.0" layoutY="208.0" prefHeight="27.0" prefWidth="125.0" promptText="Postcode *" />
-            <Button fx:id="btnVerwijderDeelnemer" layoutX="251.0" layoutY="428.0" mnemonicParsing="false" onAction="#verwijderDeelnemer">
+            <TextField fx:id="txtMaxAantalDeelnemers" layoutX="14.0" layoutY="117.0" prefHeight="27.0" prefWidth="155.0" />
+            <Label fx:id="lblFoutopvang" layoutX="15.0" layoutY="492.0" prefHeight="17.0" prefWidth="319.0" text="gsdgsdg" textFill="#ff1500" />
+            <Label layoutX="14.0" layoutY="194.0" text="Locatie *" />
+            <TextField fx:id="txtStraat" layoutX="15.0" layoutY="214.0" prefHeight="27.0" prefWidth="187.0" promptText="Straat *" />
+            <TextField fx:id="txtStad" layoutX="15.0" layoutY="244.0" prefHeight="27.0" prefWidth="187.0" promptText="Stad / Gemeente *" />
+            <TextField fx:id="txtHuisnr" layoutX="205.0" layoutY="214.0" prefHeight="27.0" prefWidth="62.0" promptText="Huisnr*" />
+            <TextField fx:id="txtBus" layoutX="270.0" layoutY="214.0" prefHeight="27.0" prefWidth="62.0" promptText="Bus" />
+            <TextField fx:id="txtPostcode" layoutX="206.0" layoutY="244.0" prefHeight="27.0" prefWidth="125.0" promptText="Postcode *" />
+            <Button fx:id="btnVerwijderDeelnemer" layoutX="251.0" layoutY="465.0" mnemonicParsing="false" onAction="#verwijderDeelnemer">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="22.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -78,13 +78,14 @@
                   </ImageView>
                </graphic>
             </Button>
-            <DatePicker fx:id="dpInschrijvingsDatum" layoutX="17.0" layoutY="437.0" prefHeight="27.0" prefWidth="150.0" />
+            <DatePicker fx:id="dpInschrijvingsDatum" layoutX="14.0" layoutY="167.0" prefHeight="27.0" prefWidth="150.0" />
+            <Label layoutX="15.0" layoutY="147.0" text="Uiterste inschrijving *" />
          </children>
       </Pane>
-      <Button fx:id="btnNieuweActiviteit" layoutX="830.0" layoutY="579.0" mnemonicParsing="false" onAction="#voegActiviteitToe" prefHeight="27.0" prefWidth="173.0" text="Nieuwe activiteit" />
-      <Button fx:id="btnWijzigActiviteit" layoutX="643.0" layoutY="579.0" mnemonicParsing="false" onAction="#wijzigActiviteit" prefHeight="27.0" prefWidth="173.0" text="Wijzig activiteit" />
-      <Button fx:id="btnVerwijderActiviteit" layoutX="514.0" layoutY="579.0" mnemonicParsing="false" onAction="#verwijderActiviteit" prefHeight="27.0" prefWidth="123.0" text="Verwijder" />
-      <TextField fx:id="txtFilterAantalDeelnemers" layoutX="281.0" layoutY="50.0" onKeyReleased="#filterActiviteitenTXT" prefHeight="27.0" prefWidth="104.0" promptText="# deelnemers" />
-      <Button fx:id="btnOpslaanNieuweActiviteit" layoutX="740.0" layoutY="50.0" mnemonicParsing="false" onAction="#opslaanNieuweActiviteit" text="Opslaan nieuwe activiteit" />
+      <Button fx:id="btnNieuweActiviteit" layoutX="830.0" layoutY="564.0" mnemonicParsing="false" onAction="#voegActiviteitToe" prefHeight="27.0" prefWidth="173.0" text="Nieuwe activiteit" />
+      <Button fx:id="btnWijzigActiviteit" layoutX="643.0" layoutY="564.0" mnemonicParsing="false" onAction="#wijzigActiviteit" prefHeight="27.0" prefWidth="173.0" text="Wijzig activiteit" />
+      <Button fx:id="btnVerwijderActiviteit" layoutX="514.0" layoutY="564.0" mnemonicParsing="false" onAction="#verwijderActiviteit" prefHeight="27.0" prefWidth="123.0" text="Verwijder" />
+      <TextField fx:id="txtFilterAantalDeelnemers" layoutX="281.0" layoutY="12.0" onKeyReleased="#filterActiviteitenTXT" prefHeight="27.0" prefWidth="104.0" promptText="# deelnemers" />
+      <Button fx:id="btnOpslaanNieuweActiviteit" layoutX="740.0" layoutY="12.0" mnemonicParsing="false" onAction="#opslaanNieuweActiviteit" text="Opslaan nieuwe activiteit" />
    </children>
 </fx:root>

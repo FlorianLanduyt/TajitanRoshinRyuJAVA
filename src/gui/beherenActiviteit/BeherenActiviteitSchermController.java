@@ -129,7 +129,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             throw new RuntimeException(ex);
         }
         this.activiteitBeheerController = new ActiviteitBeheerController();
-
+        beginScherm.maakOverzichtTitle("Beheren activiteit");
         //Activiteitentabel opvullen
         colNaamActiviteit.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
         colFormuleActiviteit.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());

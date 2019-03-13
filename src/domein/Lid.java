@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Lid implements Serializable {
+
     @Id
     private int id;
     private String voornaam;
@@ -338,8 +339,7 @@ public class Lid implements Serializable {
             } else {
                 throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
             }
-        }
-        else{
+        } else {
             this.bus = null;
         }
 
@@ -367,8 +367,7 @@ public class Lid implements Serializable {
     public void setEmail(String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
-        }
-        if (email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+        } else if (email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
             this.email = email;
         } else {
             throw new IllegalArgumentException("Emailadres is niet correct.");
@@ -393,14 +392,18 @@ public class Lid implements Serializable {
 
     public void setEmailVader(String emailVader) {
         if (emailVader != null) {
-            if (emailVader.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
-                this.emailVader = emailVader;
-            } else {
-                throw new IllegalArgumentException("Emailadres is niet correct.");
+            if (emailVader.isEmpty() || emailVader.equals("")) {
+                this.emailVader = "";
+            } 
+            else {
+                if (emailVader.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+                    this.emailVader = emailVader;
+                } 
+                else {
+                    throw new IllegalArgumentException("Emailadres vader is niet correct.");
+                }
             }
-        }
-        else{
-            this.emailVader = null;
+
         }
 
     }
@@ -411,14 +414,16 @@ public class Lid implements Serializable {
 
     public void setEmailMoeder(String emailMoeder) {
         if (emailMoeder != null) {
-            if (emailMoeder.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
-                this.emailMoeder = emailMoeder;
+            if (emailMoeder.isEmpty() || emailMoeder.equals("")) {
+                this.emailMoeder = "";
             } else {
-                throw new IllegalArgumentException("Emailadres is niet correct.");
+                if (emailMoeder.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+                    this.emailMoeder = emailMoeder;
+                } else {
+                    throw new IllegalArgumentException("Emailadres moeder is niet correct.");
+                }
             }
-        }
-        else{
-            this.emailMoeder = null;
+
         }
 
     }
@@ -479,8 +484,7 @@ public class Lid implements Serializable {
             } else {
                 throw new IllegalArgumentException("Beroep mag max. 50 karakters bevatten.");
             }
-        }
-        else{
+        } else {
             this.beroep = null;
         }
 
@@ -561,8 +565,8 @@ public class Lid implements Serializable {
         }
         return true;
     }
-    
-    public String geefVolledigeNaam(){
+
+    public String geefVolledigeNaam() {
         return voornaam + " " + achternaam;
     }
 

@@ -81,7 +81,7 @@ public class OverzichtMenuKnoppen extends MenuKnoppen {
         super.addKnop(btnClubKampioenschap);
 
         //BUTTON BEHEREN LESMATERIALEN 
-        Button btnOverzichtRaadplegingenLesmateriaal = new Button("Overzicht lesmaterialen  ");
+        Button btnOverzichtRaadplegingenLesmateriaal = new Button("Lesmaterialen  ");
         btnOverzichtRaadplegingenLesmateriaal.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

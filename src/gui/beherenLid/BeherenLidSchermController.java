@@ -139,10 +139,12 @@ public class BeherenLidSchermController extends AnchorPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
+        
         this.beginscherm = beginScherm;
         this.adminController = adminController;
         this.lidBeheerderController = new LidBeheerderController();
+        beginScherm.maakOverzichtTitle("Beheren lid");
+        
 
         btnSlaGegevensNieuwLidOp.setVisible(false);
 
