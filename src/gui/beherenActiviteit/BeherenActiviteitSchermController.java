@@ -73,6 +73,8 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     @FXML
     private DatePicker dpEinddatum;
     @FXML
+    private DatePicker dpInschrijvingsDatum;
+    @FXML
     private TextField txtMaxAantalDeelnemers;
     @FXML
     private CheckBox cbIsVolzet;
@@ -170,6 +172,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             cboType.getSelectionModel().select(newValue.getFormule());
             dpStartdatum.setValue(newValue.getBeginDatum());
             dpEinddatum.setValue(newValue.getEindDatum() == null ? null : newValue.getEindDatum());
+            dpInschrijvingsDatum.setValue(newValue.getUitersteInschrijvingsDatum());
             txtMaxAantalDeelnemers.setText(Integer.toString(newValue.getMaxDeelnemers()));
             cbIsVolzet.setSelected(newValue.isVolzet());
             txtStraat.setText(newValue.getStraat());
@@ -194,6 +197,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         cboType.getSelectionModel().clearSelection();
         dpStartdatum.setValue(null);
         dpEinddatum.setValue(null);
+        dpInschrijvingsDatum.setValue(null);
         txtMaxAantalDeelnemers.clear();
         cbIsVolzet.setSelected(false);
         txtStraat.clear();
@@ -220,7 +224,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         try {
             activiteitBeheerController.voegActiviteitToe(txtNaamActiviteit.getText(), cboType.getSelectionModel().getSelectedItem(),
                     Integer.parseInt(txtMaxAantalDeelnemers.getText()),
-                    dpStartdatum.getValue(), dpEinddatum.getValue(),
+                    dpStartdatum.getValue(), dpEinddatum.getValue(), dpInschrijvingsDatum.getValue(),
                     txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText());
             lblFoutopvang.setText("");
             btnWijzigActiviteit.setDisable(false);
@@ -248,7 +252,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 activiteitBeheerController.wijzigActiviteit(activiteit, txtNaamActiviteit.getText(), cboType.getSelectionModel().getSelectedItem(),
-                        Integer.parseInt(txtMaxAantalDeelnemers.getText()), dpStartdatum.getValue(), dpEinddatum.getValue(),
+                        Integer.parseInt(txtMaxAantalDeelnemers.getText()), dpStartdatum.getValue(), dpEinddatum.getValue(), dpInschrijvingsDatum.getValue(),
                         txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText());
             }
             lblFoutopvang.setText("");

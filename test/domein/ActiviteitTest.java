@@ -17,8 +17,6 @@ public class ActiviteitTest {
     Lid lid;
     Lid lid2;
     Activiteit activiteit;
-    Inschrijving inschrijving;
-    Inschrijving inschrijving2;
 
     @Before
     public void setUp() {
@@ -37,10 +35,8 @@ public class ActiviteitTest {
                 "Belg", Graad.KYU3, Functie.LID);
 
         activiteit = new Activiteit("Testactiviteit", Formule.ACTIVITEIT,
-                1, LocalDate.of(2019, Month.DECEMBER, 20));
+                1, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.MARCH, 10));
 
-        inschrijving = new Inschrijving(Formule.ACTIVITEIT, lid, LocalDate.now());
-        inschrijving2 = new Inschrijving(Formule.ACTIVITEIT, lid2, LocalDate.now());
     }
 
     @After
@@ -60,58 +56,7 @@ public class ActiviteitTest {
                 "Belg", Graad.KYU3, Functie.LID);
 
         activiteit = new Activiteit("Testactiviteit", Formule.ACTIVITEIT,
-                1, LocalDate.of(2019, Month.DECEMBER, 20));
-
-        inschrijving = new Inschrijving(Formule.ACTIVITEIT, lid, LocalDate.now());
-        inschrijving2 = new Inschrijving(Formule.ACTIVITEIT, lid2, LocalDate.now());
-    }
-
-    @Test
-    public void activiteitHeeftInschrijving() {
-        inschrijving.voegActiviteitToe(activiteit);
-        Assert.assertEquals(true, activiteit.getInschrijvingen().size() == 1);
-    }
-
-    @Test
-    public void inschrijvingHeeftActiviteit() {
-        inschrijving.voegActiviteitToe(activiteit);
-        Assert.assertEquals(true, inschrijving.getActiviteiten().size() == 1);
-    }
-
-    @Test(expected = VolzetException.class)
-    public void activiteitVolzet_InschrijvingNietToegevoegd_ThrowsVolzetException() {
-        inschrijving.voegActiviteitToe(activiteit); // de eerste wordt toegevoegd, de volgende zal niet meer lukken
-        inschrijving2.voegActiviteitToe(activiteit);
-    }
-
-    @Test
-    public void activiteitVolzet_InschrijvingNietToegevoegd_InschrijvingHeeftGeenActiviteit() {
-        inschrijving.voegActiviteitToe(activiteit); // de eerste wordt toegevoegd, de volgende zal niet meer lukken
-        try {
-            inschrijving2.voegActiviteitToe(activiteit);
-        } catch (VolzetException ex) {
-            Assert.assertEquals(true, inschrijving.getActiviteiten().size() == 1);
-        }
-    }
-
-    @Test
-    public void activiteitVolzet_InschrijvingNietToegevoegd_ActiviteitHeeft1Inschrijving() {
-        inschrijving.voegActiviteitToe(activiteit); // de eerste wordt toegevoegd, de volgende zal niet meer lukken
-        try {
-            inschrijving2.voegActiviteitToe(activiteit);
-        } catch (VolzetException ex) {
-            Assert.assertEquals(true, activiteit.getInschrijvingen().size() == 1);
-        }
-    }
-
-    @Test
-    public void verwijderenInschrijving() {
-        inschrijving.voegActiviteitToe(activiteit); // de eerste wordt toegevoegd, de volgende zal niet meer lukken
-        Assert.assertEquals(true, activiteit.getInschrijvingen().size() == 1);
-        Assert.assertEquals(true, inschrijving.getActiviteiten().size() == 1);
-        inschrijving.verwijderActiviteit(activiteit);
-        Assert.assertEquals(true, activiteit.getInschrijvingen().size() == 0);
-        Assert.assertEquals(true, inschrijving.getActiviteiten().size() == 0);
+                1, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.MARCH, 10));
     }
 
     //Setter tests
@@ -301,9 +246,36 @@ public class ActiviteitTest {
 
     @Test(expected = DatumIntervalException.class)
     public void activiteit_SetBeginDatum_SetEindDatum_BeginKomtVoorEinde_ThrowsDatumIntervalException() {
-        Activiteit activiteit = new Activiteit("TestActiviteit", Formule.WO_ZA, 50, LocalDate.now());
         activiteit.setEindDatum(LocalDate.now().plusDays(10));
         activiteit.setBeginDatum(LocalDate.now().plusDays(15));
+    }
+
+    //UitersteInschrijvingsDatum
+    @Test(expected = IllegalArgumentException.class)
+    public void activiteit_SetUitersteInschrijvingsDatum_Null_ThrowsIllegalArgumentException() {
+        activiteit.setUitersteInschrijvingsDatum(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void activiteit_SetUitersteInschrijvingsDatum_Empty_ThrowsIllegalArgumentException() {
+        activiteit.setUitersteInschrijvingsDatum(LocalDate.of(Integer.valueOf(""), Integer.valueOf(""), Integer.valueOf("")));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void activiteit_SetUitersteInschrijvingsDatum_InVerleden_ThrowsIllegalArgumentException() {
+        activiteit.setUitersteInschrijvingsDatum(LocalDate.now().minusDays(1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void activiteit_SetUitersteInschrijvingsDatum_NaBeginDatum_ThrowsIllegalArgumentException() {
+        activiteit.setBeginDatum(LocalDate.now().plusDays(10));
+        activiteit.setUitersteInschrijvingsDatum(LocalDate.now().plusDays(15));
+    }
+
+    @Test
+    public void activiteit_SetUitersteInschrijvingsDatum_Correct() {
+        activiteit.setBeginDatum(LocalDate.now().plusDays(5));
+        activiteit.setUitersteInschrijvingsDatum(LocalDate.now());
     }
 
     //MaxDeelnemers

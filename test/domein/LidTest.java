@@ -178,11 +178,6 @@ public class LidTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void leegBusnummerWerptException() {
-        lid.setBus("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void legePostCodeWerptException() {
         lid.setPostcode("");
     }

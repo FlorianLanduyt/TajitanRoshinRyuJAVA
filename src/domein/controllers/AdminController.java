@@ -24,7 +24,6 @@ public class AdminController {
 
     public AdminController() {
         dataController = new DataController();
-
         admins = new ArrayList<>(dataController.geefAdmins());
         aangemeldeAdmin = null;
         subject = new PropertyChangeSupport(this);

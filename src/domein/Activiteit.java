@@ -21,23 +21,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 public class Activiteit implements Serializable {
+
     @Id
     private int id;
-    
+
     private String naam;
-    
+
     @Enumerated(EnumType.STRING)
     private Formule formule;
-    
+
     @Temporal(TemporalType.DATE)
     private LocalDate beginDatum;
-    
+
     @Temporal(TemporalType.DATE)
     private LocalDate eindDatum;
-    
+
+    @Temporal(TemporalType.DATE)
+    private LocalDate uitersteInschrijvingsDatum;
+
     private String straat;
     private String stad;
     private String postcode;
@@ -53,6 +56,7 @@ public class Activiteit implements Serializable {
     private final SimpleStringProperty sFormule = new SimpleStringProperty();
     private final SimpleStringProperty sBeginDatum = new SimpleStringProperty();
     private final SimpleStringProperty sEindDatum = new SimpleStringProperty();
+    private final SimpleStringProperty sUitersteInschrijvingsDatum = new SimpleStringProperty();
     private final SimpleStringProperty sStraat = new SimpleStringProperty();
     private final SimpleStringProperty sStad = new SimpleStringProperty();
     private final SimpleStringProperty sPostcode = new SimpleStringProperty();
@@ -67,18 +71,18 @@ public class Activiteit implements Serializable {
     public Activiteit() {
     }
 
-
-    public Activiteit(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum) {
+    public Activiteit(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum, LocalDate uitersteInschrijvingsDatum) {
         setNaam(naam);
         setFormule(formule);
         setMaxDeelnemers(maxDeelnemers);
         setBeginDatum(beginDatum);
+        setUitersteInschrijvingsDatum(uitersteInschrijvingsDatum);
         inschrijvingen = new ArrayList<>();
         this.setVolzet();
     }
 
-    public Activiteit(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum, LocalDate eindDatum) {
-        this(naam, formule, maxDeelnemers, beginDatum);
+    public Activiteit(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum, LocalDate eindDatum, LocalDate uitersteInschrijvingsDatum) {
+        this(naam, formule, maxDeelnemers, beginDatum, uitersteInschrijvingsDatum);
         setEindDatum(eindDatum);
         this.setVolzet();
     }
@@ -98,6 +102,10 @@ public class Activiteit implements Serializable {
 
     public SimpleStringProperty eindDatumProperty() {
         return sEindDatum;
+    }
+
+    public SimpleStringProperty uitersteInschrijvingsDatumProperty() {
+        return sUitersteInschrijvingsDatum;
     }
 
     public SimpleStringProperty straatProperty() {
@@ -198,9 +206,25 @@ public class Activiteit implements Serializable {
                 this.eindDatum = eindDatum;
                 sEindDatum.set(eindDatum.toString());
             }
-        }
-        else{
+        } else {
             this.eindDatum = null;
+        }
+    }
+
+    public LocalDate getUitersteInschrijvingsDatum() {
+        return LocalDate.parse(sUitersteInschrijvingsDatum.get());
+    }
+
+    public void setUitersteInschrijvingsDatum(LocalDate uitersteInschrijvingsDatum) {
+        if (uitersteInschrijvingsDatum == null) {
+            throw new IllegalArgumentException("Uiterste inschrijvingsdatum mag niet leeg zijn.");
+        } else if (uitersteInschrijvingsDatum.compareTo(LocalDate.now()) < 0) {
+            throw new IllegalArgumentException("Uiterste inschrijvingsdatum mag niet in het verleden liggen.");
+        } else if (this.beginDatum.compareTo(uitersteInschrijvingsDatum) < 0) {
+            throw new IllegalArgumentException("Uiterste inschrijvingsdatum mag niet na begindatum liggen.");
+        } else {
+            this.uitersteInschrijvingsDatum = uitersteInschrijvingsDatum;
+            sUitersteInschrijvingsDatum.set(uitersteInschrijvingsDatum.toString());
         }
     }
 
@@ -280,8 +304,7 @@ public class Activiteit implements Serializable {
             } else {
                 throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
             }
-        }
-        else{
+        } else {
             this.bus = null;
         }
 
@@ -330,7 +353,9 @@ public class Activiteit implements Serializable {
     }
 
     public void voegInschrijvingToe(Inschrijving inschrijving) {
-        if (isVolzet()) {
+        if (this.inschrijvingen.contains(inschrijving)) {
+            throw new IllegalArgumentException("Inschrijving is al toegevoegd aan deze activiteit.");
+        } else if (isVolzet()) {
             throw new VolzetException("Deze activiteit is volzet.");
         } else {
             this.inschrijvingen.add(inschrijving);
