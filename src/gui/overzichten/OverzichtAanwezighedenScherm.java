@@ -1,27 +1,18 @@
 package gui.overzichten;
 
 import domein.Aanwezigheid;
-import domein.Activiteit;
 import domein.controllers.AdminController;
 import domein.enums.Formule;
-import domein.Lid;
 import domein.controllers.OverzichtController;
-import domein.enums.Functie;
-import exceptions.DatumIntervalException;
 import gui.BeginScherm;
 import gui.BeginSchermFlo;
 import gui.OverzichtMenu;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;

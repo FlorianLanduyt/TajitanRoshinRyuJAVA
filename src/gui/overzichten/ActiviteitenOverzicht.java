@@ -9,10 +9,14 @@ import domein.Lid;
 import domein.Activiteit;
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
+import domein.enums.Formule;
 import gui.BeginSchermFlo;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,7 +39,7 @@ public class ActiviteitenOverzicht extends Overzicht {
     private TableColumn<Activiteit, String> colFormule;
     private TableView<Lid> deelnemers;
 
-    private ComboBox cbFormule;
+    private ComboBox<String> cbFormule;
     private VBox scherm;
 
     private Text txNaam;
@@ -49,9 +53,9 @@ public class ActiviteitenOverzicht extends Overzicht {
 
         maakOverzicht();
         
-//        cbFormule.setOnAction((ActionEvent event) -> {
-//            veranderTable(cbFormule.getSelectionModel().getSelectedItem());
-//        });
+        cbFormule.setOnAction((ActionEvent event) -> {
+            filter();
+        });
         
     }
 
@@ -65,8 +69,8 @@ public class ActiviteitenOverzicht extends Overzicht {
 
     private void maakFilters() {
         cbFormule = new ComboBox<>();
-        cbFormule.setItems(oc.geefFormules());
-        cbFormule.setPromptText("                   -- Alle Formules --");
+        cbFormule.setItems(oc.geefFormulesFilter());
+        //cbFormule.setPromptText("                   -- Alle Formules --");
 
         super.addCombobox(cbFormule);
     }
@@ -149,7 +153,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         txDatum.setText(a.beginDatumProperty().getValue());
         txAdres.setText(a.straatProperty().getValue() + " " + a.getHuisnummer() + ", " + a.getPostcode() + " " + a.getStad());
 
-//        deelnemers.setItems(FXCollections.observableList(a.aantalDeelnemersProperty()));
+       deelnemers.setItems(FXCollections.observableList(a.getInschrijvingen().stream().map(i -> i.getLid()).collect(Collectors.toList())));
     }
     
     private <T> VBox opmaaDeelnemersTabel(TableView<T> tabel) {
@@ -168,4 +172,15 @@ public class ActiviteitenOverzicht extends Overzicht {
 //    private void veranderTable(Object value) {
 //        activiteitTabel.getColumns().stream().filter(p-> p.)
 //    }
+    private void filter(){
+        Formule formule = cbFormule
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cbFormule.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Formule.valueOf(cbFormule.getSelectionModel().getSelectedItem());
+        
+        oc.veranderActiviteitenFilter(formule);
+    }
 }

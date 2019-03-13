@@ -11,7 +11,6 @@ import domein.controllers.LidBeheerderController;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginScherm;
-import java.awt.Color;
 import gui.BeginSchermFlo;
 import java.io.IOException;
 import java.util.Optional;
@@ -30,7 +29,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 /**
