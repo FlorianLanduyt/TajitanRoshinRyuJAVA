@@ -2,6 +2,7 @@ package domein.controllers;
 
 import javafx.collections.ObservableList;
 import domein.Activiteit;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.enums.Formule;
 import java.time.LocalDate;
@@ -52,7 +53,7 @@ public class ActiviteitBeheerController {
 
             boolean naamFilter = activiteit.getNaam().equalsIgnoreCase(naam) || activiteit.getNaam().toLowerCase().startsWith(naam.toLowerCase());
             boolean formuleFilter = activiteit.getFormule().equals(formule);
-            boolean aantalDeelnemersFilter = activiteit.getMaxDeelnemers()== aantalDeelnemers || activiteit.getMaxDeelnemers()<= aantalDeelnemers;
+            boolean aantalDeelnemersFilter = activiteit.getMaxDeelnemers() == aantalDeelnemers || activiteit.getMaxDeelnemers() <= aantalDeelnemers;
             boolean volzetFilter = activiteit.isVolzet() == volzet;
 
             //0000
@@ -171,9 +172,9 @@ public class ActiviteitBeheerController {
         ObservableList<Formule> formules = FXCollections.observableArrayList(dataController.geefFormules());
         return FXCollections.unmodifiableObservableList(formules);
     }
-    
-    public ObservableList<String> geefFormulesFilter(){
-         ObservableList<String> formules = FXCollections.observableArrayList(dataController
+
+    public ObservableList<String> geefFormulesFilter() {
+        ObservableList<String> formules = FXCollections.observableArrayList(dataController
                 .geefFormules().stream().map(functie -> functie.name())
                 .collect(Collectors.toList()));
         formules.add(0, "Alle types");
@@ -183,6 +184,18 @@ public class ActiviteitBeheerController {
     public ObservableList<Lid> geefLeden() {
         ObservableList<Lid> leden = FXCollections.observableArrayList(dataController.geefLeden());
         return FXCollections.unmodifiableObservableList(leden);
+    }
+
+    //
+    //INSCHRIJVEN BIJ ACTIVITEIT
+    //
+    public void voegInschrijvingToe(Activiteit activiteit, Lid lid) {
+        Inschrijving inschrijving = new Inschrijving(activiteit.getFormule(), lid, LocalDate.now());
+        inschrijving.voegActiviteitToe(activiteit);
+    }
+
+    public void verwijderInschrijving(Activiteit activiteit, Inschrijving inschrijving) {
+        inschrijving.verwijderActiviteit(activiteit);
     }
 
     //
