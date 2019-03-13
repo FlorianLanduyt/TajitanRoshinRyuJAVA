@@ -37,7 +37,7 @@ public class Overzicht<T> extends BorderPane {
     private List<TableColumn<T, String>> kolommen;
     private List<ComboBox> comboboxen;
     private List<DatePicker> datepickers;
-    
+
     private final String titelOverzicht;
 
     public Overzicht(BeginSchermFlo parent, AdminController ac, String overzicht) {
@@ -48,14 +48,14 @@ public class Overzicht<T> extends BorderPane {
         comboboxen = new ArrayList<>();
         kolommen = new ArrayList<>();
         datepickers = new ArrayList<>();
-        
+
         titelOverzicht = overzicht;
     }
 
     public void buildGui() {
         this.setPadding(new Insets(5, 30, 30, 10));
         filtersEnTabel = new VBox(20);
-        
+
         parent.maakOverzichtTitle(titelOverzicht);
         maakFilters();
         maakTabel();
@@ -70,8 +70,7 @@ public class Overzicht<T> extends BorderPane {
             filterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
         });
-        
-        
+
         filtersEnTabel.getChildren().add(filterBox);
     }
 
@@ -126,7 +125,7 @@ public class Overzicht<T> extends BorderPane {
         this.detailScherm = detailScherm;
     }
 
-    public void addDatePicker (DatePicker picker){
+    public void addDatePicker(DatePicker picker) {
         datepickers.add(picker);
     }
 }

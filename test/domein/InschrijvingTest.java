@@ -106,4 +106,9 @@ public class InschrijvingTest {
         ac.verwijderInschrijving(activiteitStage, lid1);
         Assert.assertEquals(0, activiteitStage.getInschrijvingen().size());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void verwijderenInschrijving_ActiviteitStage_InschrijvingBestaatNiet_ThrowsIllegalArgumentException() {
+        ac.verwijderInschrijving(activiteitStage, lid1);
+    }
 }
