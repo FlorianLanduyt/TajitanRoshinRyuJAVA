@@ -5,7 +5,6 @@ import domein.enums.Functie;
 import domein.enums.Graad;
 import exceptions.DatumIntervalException;
 import exceptions.VolzetException;
-import java.lang.annotation.Repeatable;
 import java.time.LocalDate;
 import java.time.Month;
 import org.junit.After;
@@ -235,16 +234,6 @@ public class ActiviteitTest {
 
     //Bus
     @Test(expected = IllegalArgumentException.class)
-    public void activiteit_SetBus_Null_ThrowsIllegalArgumentException() {
-        activiteit.setBus(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void activiteit_SetBus_Empty_ThrowsIllegalArgumentException() {
-        activiteit.setBus("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetBus_TeLang_ThrowsIllegalArgumentException() {
         activiteit.setBus("123456");
     }
@@ -292,11 +281,6 @@ public class ActiviteitTest {
     }
 
     //EindDatum
-    @Test(expected = IllegalArgumentException.class)
-    public void activiteit_SetEindDatum_Null_ThrowsIllegalArgumentException() {
-        activiteit.setEindDatum(null);
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetEindDatum_Empty_ThrowsIllegalArgumentException() {
         activiteit.setEindDatum(LocalDate.of(Integer.valueOf(""), Integer.valueOf(""), Integer.valueOf("")));
