@@ -9,10 +9,10 @@ import domein.Lid;
 import domein.Oefening;
 import domein.Raadpleging;
 import domein.enums.Functie;
-import exceptions.DatumIntervalException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -221,6 +221,15 @@ public class OverzichtController {
                             .collect(Collectors.summingInt(a -> a.getPuntenAantal())));
         }
         );
+    }
+    
+    public ObservableList<Aanwezigheid> geefAanwezighedenVoorLid(Lid lid){
+        List<Aanwezigheid> aanwezighedenVoorLid = dataController.geefAanwezigheden().stream()
+                .filter(aanwezigheid -> aanwezigheid
+                        .getLid().equals(lid))
+                .collect(Collectors.toList());
+        
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(aanwezighedenVoorLid));
     }
 
     //

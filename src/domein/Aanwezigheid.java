@@ -34,6 +34,7 @@ public class Aanwezigheid implements Serializable{
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
     private SimpleStringProperty sFormule = new SimpleStringProperty();
     private SimpleStringProperty sDatum = new SimpleStringProperty();
+    private SimpleStringProperty sPuntenAantal = new SimpleStringProperty();
 
     public Aanwezigheid() {
     }
@@ -68,6 +69,10 @@ public class Aanwezigheid implements Serializable{
 
     public SimpleStringProperty datumProperty() {
         return sDatum;
+    }
+    
+    public SimpleStringProperty puntenAantalProperty(){
+        return sPuntenAantal;
     }
 
     //Gewone getters en setters
@@ -137,24 +142,30 @@ public class Aanwezigheid implements Serializable{
             case "DI_ZA":
             case "WO_ZA":
                 this.puntenAantal = 5;
+                sPuntenAantal.set("5");
                 break;
             case "WO":
             case "ZA":
                 this.puntenAantal = 10;
+                sPuntenAantal.set("10");
                 break;
             case "ACTIVITEIT":
             case "UITSTAP":
                 this.puntenAantal = 75;
+                sPuntenAantal.set("75");
                 break;
             case "STAGE":
                 this.puntenAantal = 150;
+                sPuntenAantal.set("150");
                 break;
             case "EXAMEN":
             case "PROEF":
                 this.puntenAantal = 500;
+                sPuntenAantal.set("500");
                 break;
             default:
                 this.puntenAantal = 0;
+                sPuntenAantal.set("0");
         }
     }
 }

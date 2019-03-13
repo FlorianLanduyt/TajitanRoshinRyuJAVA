@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -64,9 +64,9 @@ public class Overzicht<T> extends BorderPane {
     }
 
     private void maakFilters() {
-        VBox filterBox = new VBox(5);
+        HBox filterBox = new HBox(5);
         comboboxen.stream().forEach(f -> {
-            f.setMinWidth(300);
+            f.setMinWidth(100);
             filterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
         });

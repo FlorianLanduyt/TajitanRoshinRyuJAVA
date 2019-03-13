@@ -7,7 +7,9 @@ package gui;
 
 import domein.controllers.AdminController;
 import gui.overzichten.ActiviteitenOverzicht;
+import gui.overzichten.Clubkampioenschap;
 import gui.overzichten.InschrijvingenOverzicht;
+import gui.overzichten.LesmateriaalOverzicht;
 import gui.overzichten.Overzicht;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -75,17 +77,18 @@ public class OverzichtMenuKnoppen extends MenuKnoppen {
         btnClubKampioenschap.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                parent.ToonOverzichtenScherm(new Clubkampioenschap(parent, ac, "Clubkampioenschap"));
             }
         });
+        
         super.addKnop(btnClubKampioenschap);
 
-        //BUTTON BEHEREN LESMATERIALEN 
-        Button btnOverzichtRaadplegingenLesmateriaal = new Button("Lesmaterialen  ");
+        //BUTTON RAADPLEGINGEN LESMATERIALEN 
+        Button btnOverzichtRaadplegingenLesmateriaal = new Button("Raadplegingen");
         btnOverzichtRaadplegingenLesmateriaal.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                parent.ToonOverzichtenScherm(new LesmateriaalOverzicht(parent, ac, "Overzicht raadplegingen"));
             }
         });
         super.addKnop(btnOverzichtRaadplegingenLesmateriaal);

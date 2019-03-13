@@ -60,6 +60,8 @@ public class ActiviteitenOverzicht extends Overzicht {
             filter();
         });
         
+        activiteitTabel.getSelectionModel().selectFirst();
+        
     }
 
     private void maakOverzicht() {
