@@ -48,6 +48,7 @@ public class OverzichtController {
     private Comparator<Raadpleging> byOefnnaam = (r1, r2) -> r1.getOefeningNaam().compareTo(r2.getOefeningNaam());
     
     private ObservableList<Oefening> oefeningen; 
+    private ObservableList<Formule> formulesVoorInschrijving;
 
     public OverzichtController() {
         dataController = new DataController();
@@ -71,6 +72,7 @@ public class OverzichtController {
         raadplegingenSortedList = new SortedList(raadplegingenFilteredList, byOefnnaam);
 
         this.oefeningen = FXCollections.observableArrayList(dataController.geefOefeningen());
+        
 
     }
 
@@ -327,5 +329,9 @@ public class OverzichtController {
                 .findAny()
                 .orElse(null);
         return oefening;
+    }
+    
+    public ObservableList<Formule> geefFormulesPerLid(Lid lid){
+        return FXCollections.observableArrayList(dataController.geefFormulesVanLid(lid));
     }
 }

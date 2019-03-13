@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import persistentie.DataInitializer;
 
 public class DataController {
@@ -105,5 +106,13 @@ public class DataController {
     public List<String> geefGeslachten() {
         List<String> geslachten = Arrays.asList("Man", "Vrouw");
         return geslachten;
+    }
+    
+    public List<Formule> geefFormulesVanLid(Lid lid){
+        return inschrijvingen.stream()
+                .filter(i->i.getLid().equals(lid))
+                .map(Inschrijving::getFormule)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

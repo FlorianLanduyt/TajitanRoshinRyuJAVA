@@ -63,7 +63,6 @@ public class ActiviteitenOverzicht extends Overzicht {
     }
 
     private void maakOverzicht() {
-        //parent.maakOverzichtTitle("Activiteit overzicht");
         maakFilters();
         maakTabel();
         maakDetailScherm();

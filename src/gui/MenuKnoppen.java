@@ -8,6 +8,7 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
@@ -33,8 +34,10 @@ public class MenuKnoppen extends VBox {
             b.setPrefHeight(20);
             b.setPrefWidth(200);
             b.setAlignment(Pos.BASELINE_LEFT);
+            b.setPadding(new Insets(50,5,50,5));
             this.getChildren().add(b);
             b.getStyleClass().add("btn");
+            b.setStyle("-fx-font-size: 18px");
             
             b.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override

@@ -43,7 +43,7 @@ public class LinksPane extends BorderPane implements PropertyChangeListener{
 
 
     private void buildGui() {
-        
+        //knoppen.setPrefWidth(300);
         this.setCenter(knoppen);
 
         Hyperlink terug = new Hyperlink();
@@ -61,7 +61,8 @@ public class LinksPane extends BorderPane implements PropertyChangeListener{
         //Opmaak
         this.setDisable(!ingelogd);
         this.getStyleClass().add("bgr");
-        terug.setStyle("-fx-font-size: 15px");
+        terug.setStyle("-fx-font-size: 30px");
+        
 
     }
 

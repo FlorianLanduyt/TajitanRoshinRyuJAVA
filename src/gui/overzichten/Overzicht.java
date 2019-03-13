@@ -14,6 +14,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
@@ -34,19 +35,19 @@ public class Overzicht<T> extends BorderPane {
 
     private TableView<T> tvTabel;
     private List<TableColumn<T, String>> kolommen;
-    private List<ComboBox> filters;
-    private List<Node> detailsNodes;
+    private List<ComboBox> comboboxen;
+    private List<DatePicker> datepickers;
     
-    private String titelOverzicht;
+    private final String titelOverzicht;
 
     public Overzicht(BeginSchermFlo parent, AdminController ac, String overzicht) {
         this.parent = parent;
         this.ac = ac;
         this.oc = new OverzichtController();
 
-        filters = new ArrayList<>();
+        comboboxen = new ArrayList<>();
         kolommen = new ArrayList<>();
-        detailsNodes = new ArrayList<>();
+        datepickers = new ArrayList<>();
         
         titelOverzicht = overzicht;
     }
@@ -64,7 +65,7 @@ public class Overzicht<T> extends BorderPane {
 
     private void maakFilters() {
         VBox filterBox = new VBox(5);
-        filters.stream().forEach(f -> {
+        comboboxen.stream().forEach(f -> {
             f.setMinWidth(300);
             filterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
@@ -110,7 +111,7 @@ public class Overzicht<T> extends BorderPane {
     }
 
     public void addCombobox(ComboBox cb) {
-        filters.add(cb);
+        comboboxen.add(cb);
     }
 
     public void addKolom(TableColumn<T, String> kol) {
@@ -125,4 +126,7 @@ public class Overzicht<T> extends BorderPane {
         this.detailScherm = detailScherm;
     }
 
+    public void addDatePicker (DatePicker picker){
+        datepickers.add(picker);
+    }
 }
