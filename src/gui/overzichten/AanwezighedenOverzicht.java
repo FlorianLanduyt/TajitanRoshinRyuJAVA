@@ -5,11 +5,9 @@
  */
 package gui.overzichten;
 
-import com.sun.javafx.scene.control.TableColumnComparatorBase;
 import domein.Aanwezigheid;
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
-import domein.enums.Formule;
 import gui.BeginSchermFlo;
 import java.util.Arrays;
 import java.util.List;
@@ -49,13 +47,14 @@ public class AanwezighedenOverzicht extends Overzicht {
     private Text txPuntenAantal;
     private Text txLid;
     private Text txFormule;
+    private Text txDatum;
 
     public AanwezighedenOverzicht(BeginSchermFlo parent, AdminController ac, String overzicht) {
         super(parent, ac, overzicht);
 
         this.parent = parent;
         this.ac = ac;
-        this.oc = oc;
+        this.oc = new OverzichtController();
 
         maakOverzicht();
     }
@@ -75,7 +74,6 @@ public class AanwezighedenOverzicht extends Overzicht {
 
         cbLid = new ComboBox<>();
         cbLid.setItems(oc.geefOverzichtLedenFilter());
-        super.addCombobox(cbLid);
         super.addCombobox(cbLid);
 
         lblDatum = new Label("Van: ");
@@ -106,12 +104,6 @@ public class AanwezighedenOverzicht extends Overzicht {
         super.setDetailScherm(detailScherm);
     }
 
-    private void vulDetailScherm(Aanwezigheid a) {
-        txFormule.setText(a.formuleProperty().getName());
-        txLid.setText(a.getAchternaam() + " " + a.getVoornaam());
-        txPuntenAantal.setText(Integer.toString(a.getPuntenAantal()));
-    }
-
     private void maakKolommenInTabel() {
         colFamilienaam = new TableColumn<>("Familienaam");
         colVoornaam = new TableColumn<>("Voornaam");
@@ -132,20 +124,24 @@ public class AanwezighedenOverzicht extends Overzicht {
 
     private void geefInformatieInschrijving() {
         Text lblLid = new Text("Lid:");
-        Text lblFormule = new Text("Datum:");
-        Text lblPuntenAantal = new Text("Formules:");
+        Text lblDatum = new Text("Datum:");
+        Text lblPuntenAantal = new Text("Puntenaantal:");
 
-        opmaakLabels(Arrays.asList(lblLid, lblFormule , lblPuntenAantal));
+        opmaakLabels(Arrays.asList(lblLid, lblDatum , lblPuntenAantal));
 
         txLid = new Text();
-        txFormule = new Text();
+        txDatum = new Text();
         txPuntenAantal = new Text();
 
         zetLabelEnInfoNaastElkaar(lblLid, txLid);
-        zetLabelEnInfoNaastElkaar(lblFormule, txFormule);
+        zetLabelEnInfoNaastElkaar(lblDatum, txDatum);
         zetLabelEnInfoNaastElkaar(lblPuntenAantal, txPuntenAantal);
-
-
+    }
+    
+    private void vulDetailScherm(Aanwezigheid a) {
+        txFormule.setText(a.formuleProperty().getName());
+        txLid.setText(a.getAchternaam() + " " + a.getVoornaam());
+        txPuntenAantal.setText(Integer.toString(a.getPuntenAantal()));
     }
 
     private void opmaakLabels(List<Text> labels) {
