@@ -61,21 +61,21 @@ public class InschrijvingenOverzicht extends Overzicht {
         this.ac = ac;
         this.parent = parent;
         maakOverzicht();
-        
+
         cbFormule.setOnAction((ActionEvent event) -> {
             filter();
         });
-        
+
         dpDatumVan.setOnAction((ActionEvent event) -> {
             filter();
         });
-        
+
         dpDatumTot.setOnAction((ActionEvent event) -> {
             filter();
         });
-        
+
         tvInschrijvingenTabel.getSelectionModel().selectFirst();
-        
+
     }
 
     private void maakOverzicht() {
@@ -110,7 +110,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         tvInschrijvingenTabel = new TableView<>();
 
         tvInschrijvingenTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            vulDetailScherm();
+            vulDetailScherm(newSelection);
         });
 
         maakKolommenInTabel();
@@ -129,7 +129,6 @@ public class InschrijvingenOverzicht extends Overzicht {
         colFormules.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
 
         
-        //Kolommen worden niet toegevoegd ??? 
         super.addKolom(colVoornaam);
         super.addKolom(colFamilienaam);
         super.addKolom(colFormules);
@@ -150,12 +149,16 @@ public class InschrijvingenOverzicht extends Overzicht {
         super.setDetailScherm(detailScherm);
     }
 
-    private void vulDetailScherm() {
-        Inschrijving i = tvInschrijvingenTabel.getSelectionModel().getSelectedItem();
-        txLid.setText(i.getAchternaam() + ", " + i.getVoornaam());
-        txDatum.setText(i.getTijdstip().toString());
+    private void vulDetailScherm(Inschrijving inschrijving) {
+        try {
+            txLid.setText(inschrijving.getAchternaam() + ", " + inschrijving.getVoornaam());
+            txDatum.setText(inschrijving.getTijdstip().toString());
 
-        tvFormules.setItems((oc.geefFormulesPerLid(i.getLid())));
+            tvFormules.setItems((oc.geefFormulesPerLid(inschrijving.getLid())));
+        }catch(NullPointerException e){
+            //wanneer er geen inschrijving is geselecteerd
+        }
+
     }
 
     private void geefInformatieInschrijving() {
@@ -195,8 +198,8 @@ public class InschrijvingenOverzicht extends Overzicht {
 
         detailScherm.getChildren().add(HNaam);
     }
-    
-    private void filter(){
+
+    private void filter() {
         Formule formule = cbFormule
                 .getSelectionModel()
                 .getSelectedIndex() == 0
@@ -206,7 +209,8 @@ public class InschrijvingenOverzicht extends Overzicht {
                         : Formule.valueOf(cbFormule.getSelectionModel().getSelectedItem());
         LocalDate van = dpDatumVan.getValue();
         LocalDate tot = dpDatumTot.getValue();
-        oc.veranderInschrijvingFilter(formule,van, tot);
+        oc.veranderInschrijvingFilter(formule, van, tot);
+        tvInschrijvingenTabel.getSelectionModel().selectFirst();
     }
 
 }

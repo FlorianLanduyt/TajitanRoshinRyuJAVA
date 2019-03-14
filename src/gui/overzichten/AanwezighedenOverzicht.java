@@ -161,10 +161,15 @@ public class AanwezighedenOverzicht extends Overzicht {
     }
     
     private void vulDetailScherm(Aanwezigheid a) {
-        txDatum.setText(a.getDatum().toString());
+        try{
+            txDatum.setText(a.getDatum().toString());
         txLid.setText(a.getAchternaam() + " " + a.getVoornaam());
         txPuntenAantal.setText((Integer.toString(a.getPuntenAantal())));
         txFormule.setText(a.formuleProperty().getValue());
+        }catch (NullPointerException e){
+            //wanneer er geen aanwezigheid is geselecteerd in de tabel
+        }
+        
     }
 
     private void opmaakLabels(List<Text> labels) {
@@ -195,6 +200,7 @@ public class AanwezighedenOverzicht extends Overzicht {
         LocalDate datum = dpDatum.getValue();
         
         oc.veranderAanwezigheidFilter(datum, slid, formule);
+        tvAanwezigheden.getSelectionModel().selectFirst();
     }
 
    
