@@ -137,6 +137,7 @@ public class Inschrijving implements Serializable {
     public void voegActiviteitToe(Activiteit activiteit) {
         activiteit.voegInschrijvingToe(this);
         this.activiteiten.add(activiteit);
+        
     }
 
     public void verwijderActiviteit(Activiteit activiteit) {

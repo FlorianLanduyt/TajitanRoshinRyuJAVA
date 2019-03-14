@@ -97,9 +97,18 @@ public class InschrijvingTest {
         ac.voegInschrijvingToe(activiteitStage, lid1);
         ac.voegInschrijvingToe(activiteitStage, lid2);
     }
-    
+
     //Inschrijving voor meermalige activiteit -- testen
-    
+    @Test
+    public void inschrijvenActiviteitenWo_1Inschrijving_Success() {
+        ac.voegInschrijvingToe(activiteitWo1, lid1);
+        ac.voegInschrijvingToe(activiteitWo2, lid1);
+        Assert.assertEquals(1, activiteitWo1.getInschrijvingen().size());
+        Assert.assertEquals(1, activiteitWo2.getInschrijvingen().size());
+        Inschrijving inschrijving1 = activiteitWo1.getInschrijvingen().get(0);
+        Inschrijving inschrijving2 = activiteitWo2.getInschrijvingen().get(0);
+        Assert.assertEquals(true, inschrijving1.equals(inschrijving2));
+    }
 
     //Verwijderen van een inschrijving 
     @Test
@@ -113,5 +122,17 @@ public class InschrijvingTest {
     @Test(expected = IllegalArgumentException.class)
     public void verwijderenInschrijving_ActiviteitStage_InschrijvingBestaatNiet_ThrowsIllegalArgumentException() {
         ac.verwijderInschrijving(activiteitStage, lid1);
+    }
+
+    @Test
+    public void verwijderenInschrijvingenWo_Success() {
+        ac.voegInschrijvingToe(activiteitWo1, lid1);
+        ac.voegInschrijvingToe(activiteitWo2, lid1);
+        Assert.assertEquals(1, activiteitWo1.getInschrijvingen().size());
+        Assert.assertEquals(1, activiteitWo2.getInschrijvingen().size());
+        ac.verwijderInschrijving(activiteitWo1, lid1);
+        ac.verwijderInschrijving(activiteitWo2, lid1);
+        Assert.assertEquals(0, activiteitWo1.getInschrijvingen().size());
+        Assert.assertEquals(0, activiteitWo2.getInschrijvingen().size());
     }
 }

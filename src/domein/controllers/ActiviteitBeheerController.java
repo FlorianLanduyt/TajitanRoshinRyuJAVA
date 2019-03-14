@@ -203,12 +203,14 @@ public class ActiviteitBeheerController {
                 case PROEF:
                 case EXAMEN:
                     inschrijving = new Inschrijving(activiteit.getFormule(), lid, LocalDate.now());
+                    dataController.geefInschrijvingen().add(inschrijving);
                     break;
                 default:
                     break;
             }
         } else {
             inschrijving = new Inschrijving(activiteit.getFormule(), lid, LocalDate.now());
+            dataController.geefInschrijvingen().add(inschrijving);
         }
         inschrijving.voegActiviteitToe(activiteit);
     }
@@ -218,6 +220,7 @@ public class ActiviteitBeheerController {
                 .filter(i -> i.getLid().equals(lid)).findAny().orElse(null);
         if (inschrijving != null) {
             inschrijving.verwijderActiviteit(activiteit);
+            dataController.geefInschrijvingen().remove(inschrijving);
         } else {
             throw new IllegalArgumentException("Inschrijving bestaat niet.");
         }
