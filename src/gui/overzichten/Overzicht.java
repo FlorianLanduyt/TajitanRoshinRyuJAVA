@@ -90,6 +90,8 @@ public class Overzicht<T> extends BorderPane {
 
         tabel.prefWidthProperty().bind(breedteScherm);
         kolommen.stream().forEach(k -> {
+            k.setResizable(false);
+            k.setSortable(true);
             k.prefWidthProperty().bind(breedteKolom);
             k.getStyleClass().add("titelLinks");
             tvTabel.getColumns().add(k);

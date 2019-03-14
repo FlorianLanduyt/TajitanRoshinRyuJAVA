@@ -11,7 +11,6 @@ import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
 import domein.enums.Formule;
 import gui.BeginSchermFlo;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
