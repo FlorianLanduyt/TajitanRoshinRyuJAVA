@@ -97,6 +97,9 @@ public class InschrijvingTest {
         ac.voegInschrijvingToe(activiteitStage, lid1);
         ac.voegInschrijvingToe(activiteitStage, lid2);
     }
+    
+    //Inschrijving voor meermalige activiteit -- testen
+    
 
     //Verwijderen van een inschrijving 
     @Test
