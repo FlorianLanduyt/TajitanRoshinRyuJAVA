@@ -74,6 +74,7 @@ public class InschrijvingenOverzicht extends Overzicht {
             filter();
         });
         
+        tvInschrijvingenTabel.getSelectionModel().selectFirst();
         
     }
 
@@ -82,7 +83,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui();
+        super.buildGui(80);
     }
 
     private void maakFilters() {

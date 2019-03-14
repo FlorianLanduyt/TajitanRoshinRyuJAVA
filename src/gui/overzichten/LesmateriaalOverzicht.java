@@ -75,7 +75,7 @@ public class LesmateriaalOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui();
+        super.buildGui(63);
     }
 
     private void maakFilters() {

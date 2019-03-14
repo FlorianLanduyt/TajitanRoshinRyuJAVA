@@ -64,7 +64,7 @@ public class Clubkampioenschap extends Overzicht{
         maakTabel();
         maakDetailScherm();
         
-        super.buildGui();
+        super.buildGui(38);
     }
 
     

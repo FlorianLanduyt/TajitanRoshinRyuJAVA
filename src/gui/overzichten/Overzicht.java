@@ -51,14 +51,14 @@ public class Overzicht<T> extends BorderPane {
         titelOverzicht = overzicht;
     }
 
-    public void buildGui() {
+    public void buildGui(int hoogteDetailScherm) {
         this.setPadding(new Insets(5, 30, 30, 10));
         filtersEnTabel = new VBox(20);
 
         parent.maakOverzichtTitle(titelOverzicht);
         maakFilters();
         maakTabel();
-        maakDetailScherm();
+        maakDetailScherm(hoogteDetailScherm);
         this.setLeft(filtersEnTabel);
     }
 
@@ -71,15 +71,16 @@ public class Overzicht<T> extends BorderPane {
         
         datePickerBox.setPadding(new Insets(-10,0,0,0));
         
-        HBox filterBox = new HBox(5);
+        HBox filterBox = new HBox(10);
         comboboxen.stream().forEach(f -> {
-            f.setMinWidth(100);
+            f.setMinWidth(150);
             filterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
         });
         
-        filtersEnTabel.getChildren().add(datePickerBox);
         filtersEnTabel.getChildren().add(filterBox);
+        filtersEnTabel.getChildren().add(datePickerBox);
+        
     }
 
     private void maakTabel() {
@@ -90,9 +91,12 @@ public class Overzicht<T> extends BorderPane {
         tabel.prefWidthProperty().bind(breedteScherm);
         kolommen.stream().forEach(k -> {
             k.prefWidthProperty().bind(breedteKolom);
+            k.getStyleClass().add("titelLinks");
             tvTabel.getColumns().add(k);
         });
         opmaakTabel();
+        
+        
 
         tabel.getChildren().add(tvTabel);
         filtersEnTabel.getChildren().add(tabel);
@@ -105,10 +109,11 @@ public class Overzicht<T> extends BorderPane {
         tvTabel.getSelectionModel().clearSelection();
     }
 
-    private void maakDetailScherm() {
+    private void maakDetailScherm(int hoogteDetailScherm) {
         detailScherm.setSpacing(10);
-        detailScherm.setPadding(new Insets(45, 10, 0, 30));
+        detailScherm.setPadding(new Insets(hoogteDetailScherm, 10, 0, 30));
         //detailScherm.setAlignment(Pos.CENTER_LEFT);
+        //detailScherm.getStyleClass().add("bgr");
 
         tvTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {

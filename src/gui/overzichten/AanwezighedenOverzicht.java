@@ -8,9 +8,13 @@ package gui.overzichten;
 import domein.Aanwezigheid;
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
+import domein.enums.Formule;
 import gui.BeginSchermFlo;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -57,6 +61,20 @@ public class AanwezighedenOverzicht extends Overzicht {
         this.oc = new OverzichtController();
 
         maakOverzicht();
+        
+        cbFormule.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
+        cbLid.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
+        dpDatum.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
+        tvAanwezigheden.getSelectionModel().selectFirst();
     }
 
     private void maakOverzicht() {
@@ -64,7 +82,7 @@ public class AanwezighedenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui();
+        super.buildGui(82);
     }
 
     private void maakFilters() {
@@ -100,6 +118,7 @@ public class AanwezighedenOverzicht extends Overzicht {
      private void maakDetailScherm() {
         detailScherm = new VBox();
         geefInformatieInschrijving();
+        //detailScherm.setPadding(new Insets(80,0,0,0));
 
         super.setDetailScherm(detailScherm);
     }
@@ -124,24 +143,28 @@ public class AanwezighedenOverzicht extends Overzicht {
 
     private void geefInformatieInschrijving() {
         Text lblLid = new Text("Lid:");
-        Text lblDatum = new Text("Datum:");
+        Text lblDatum2 = new Text("Datum:");
         Text lblPuntenAantal = new Text("Puntenaantal:");
+        Text lblFormule = new Text("Formule:");
 
-        opmaakLabels(Arrays.asList(lblLid, lblDatum , lblPuntenAantal));
+        opmaakLabels(Arrays.asList(lblLid, lblDatum2 , lblPuntenAantal, lblFormule));
 
         txLid = new Text();
         txDatum = new Text();
         txPuntenAantal = new Text();
+        txFormule = new Text();
 
         zetLabelEnInfoNaastElkaar(lblLid, txLid);
-        zetLabelEnInfoNaastElkaar(lblDatum, txDatum);
+        zetLabelEnInfoNaastElkaar(lblDatum2, txDatum);
         zetLabelEnInfoNaastElkaar(lblPuntenAantal, txPuntenAantal);
+        zetLabelEnInfoNaastElkaar(lblFormule, txFormule);
     }
     
     private void vulDetailScherm(Aanwezigheid a) {
-        txFormule.setText(a.formuleProperty().getName());
+        txDatum.setText(a.getDatum().toString());
         txLid.setText(a.getAchternaam() + " " + a.getVoornaam());
-        txPuntenAantal.setText(Integer.toString(a.getPuntenAantal()));
+        txPuntenAantal.setText((Integer.toString(a.getPuntenAantal())));
+        txFormule.setText(a.formuleProperty().getValue());
     }
 
     private void opmaakLabels(List<Text> labels) {
@@ -155,6 +178,23 @@ public class AanwezighedenOverzicht extends Overzicht {
         info.setStyle("-fx-font-size: 16px");
 
         detailScherm.getChildren().add(HNaam);
+    }
+
+    private void filter() {
+        Formule formule = cbFormule
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cbFormule.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Formule.valueOf(cbFormule.getSelectionModel().getSelectedItem());
+          
+        String slid = cbLid.getSelectionModel().getSelectedIndex() == 0 
+                ? null 
+                : cbLid.getSelectionModel().getSelectedItem();
+        LocalDate datum = dpDatum.getValue();
+        
+        oc.veranderAanwezigheidFilter(datum, slid, formule);
     }
 
    

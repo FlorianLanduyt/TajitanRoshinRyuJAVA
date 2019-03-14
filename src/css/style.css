@@ -25,6 +25,9 @@
 
 .label { 
     -fx-font-weight: bold ;
-    
+}
+
+.titelLinks .label {
+  -fx-alignment: CENTER_LEFT;
 }
 

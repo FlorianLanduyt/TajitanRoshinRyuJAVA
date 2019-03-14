@@ -34,7 +34,7 @@ public class ActiviteitenOverzicht extends Overzicht {
     private AdminController ac;
     private BeginSchermFlo parent;
 
-    private TableView<Activiteit> activiteitTabel;
+    private TableView<Activiteit> tvActiviteiten;
     private TableColumn<Activiteit, String> colVoornaam;
     private TableColumn<Activiteit, String> colStartdatum;
     private TableColumn<Activiteit, String> colEinddatum;
@@ -61,7 +61,7 @@ public class ActiviteitenOverzicht extends Overzicht {
             filter();
         });
 
-        activiteitTabel.getSelectionModel().selectFirst();
+        tvActiviteiten.getSelectionModel().selectFirst();
 
     }
 
@@ -70,7 +70,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui();
+        super.buildGui(63);
     }
 
     private void maakFilters() {
@@ -81,17 +81,17 @@ public class ActiviteitenOverzicht extends Overzicht {
     }
 
     private void maakTabel() {
-        activiteitTabel = new TableView<>();
+        tvActiviteiten = new TableView<>();
 
-        activiteitTabel.getSelectionModel().selectedItemProperty()
+        tvActiviteiten.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldSelection, newSelection) -> {
                     vulDetailScherm(newSelection);
                 });
 
         maakKolommenInTabel();
 
-        activiteitTabel.setItems((oc.geefOverzichtActiviteiten()));
-        super.setTvTabel(activiteitTabel);
+        tvActiviteiten.setItems((oc.geefOverzichtActiviteiten()));
+        super.setTvTabel(tvActiviteiten);
     }
 
     private void maakKolommenInTabel() {
@@ -200,6 +200,6 @@ public class ActiviteitenOverzicht extends Overzicht {
                         : Formule.valueOf(cbFormule.getSelectionModel().getSelectedItem());
 
         oc.veranderActiviteitenFilter(formule);
-        activiteitTabel.getSelectionModel().selectFirst();
+        tvActiviteiten.getSelectionModel().selectFirst();
     }
 }

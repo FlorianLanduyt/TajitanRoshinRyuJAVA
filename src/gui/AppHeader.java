@@ -55,7 +55,7 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     
     public void maakOverzichtTitle(String menu) {
         Label lblOverzicht = new Label(menu);
-        lblOverzicht.setPrefWidth(200);
+        lblOverzicht.setPrefWidth(300);
         lblOverzicht.setPrefHeight(45);
         lblOverzicht.setStyle("-fx-font-size: 16px");
         //lblOverzicht.getStyleClass().add("bgr");
