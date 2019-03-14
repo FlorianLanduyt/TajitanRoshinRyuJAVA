@@ -160,10 +160,12 @@ public class ActiviteitBeheerController {
         activiteit.setBus(bus);
 
         this.activiteitenList.add(activiteit);
+        dataController.geefActiviteiten().add(activiteit);
     }
 
     public void verwijderActiviteit(Activiteit activiteit) {
         this.activiteitenList.remove(activiteit);
+        dataController.geefActiviteiten().remove(activiteit);
     }
 
     //
@@ -212,14 +214,14 @@ public class ActiviteitBeheerController {
             inschrijving = new Inschrijving(activiteit.getFormule(), lid, LocalDate.now());
             dataController.geefInschrijvingen().add(inschrijving);
         }
-        inschrijving.voegActiviteitToe(activiteit);
+        activiteit.voegInschrijvingToe(inschrijving);
     }
 
     public void verwijderInschrijving(Activiteit activiteit, Lid lid) {
         Inschrijving inschrijving = activiteit.getInschrijvingen().stream()
                 .filter(i -> i.getLid().equals(lid)).findAny().orElse(null);
         if (inschrijving != null) {
-            inschrijving.verwijderActiviteit(activiteit);
+            activiteit.verwijderInschrijving(inschrijving);
             dataController.geefInschrijvingen().remove(inschrijving);
         } else {
             throw new IllegalArgumentException("Inschrijving bestaat niet.");

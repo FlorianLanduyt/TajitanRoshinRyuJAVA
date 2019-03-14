@@ -34,9 +34,6 @@ public class Inschrijving implements Serializable {
     @Temporal(TemporalType.DATE)
     private LocalDate tijdstip;
 
-    @ManyToMany(mappedBy = "inschrijvingen")
-    private List<Activiteit> activiteiten;
-
     //SimpleStringProperties
     private SimpleStringProperty sVoornaam = new SimpleStringProperty();
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
@@ -52,7 +49,6 @@ public class Inschrijving implements Serializable {
         setTijdstip(tijdstip);
         setVoornaam();
         setAchternaam();
-        activiteiten = new ArrayList<>();
     }
 
     //Getters voor SimpleStringProperties
@@ -128,20 +124,5 @@ public class Inschrijving implements Serializable {
 
     public void setAchternaam() {
         sAchternaam.set(getLid().getAchternaam());
-    }
-
-    public List<Activiteit> getActiviteiten() {
-        return activiteiten;
-    }
-
-    public void voegActiviteitToe(Activiteit activiteit) {
-        activiteit.voegInschrijvingToe(this);
-        this.activiteiten.add(activiteit);
-        
-    }
-
-    public void verwijderActiviteit(Activiteit activiteit) {
-        activiteit.verwijderInschrijving(this);
-        this.activiteiten.remove(activiteit);
     }
 }
