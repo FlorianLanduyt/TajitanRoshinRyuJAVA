@@ -11,9 +11,12 @@ import domein.controllers.DataController;
 import domein.controllers.OverzichtController;
 import domein.enums.Formule;
 import gui.BeginSchermFlo;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -42,7 +45,6 @@ public class InschrijvingenOverzicht extends Overzicht {
     private TableView<Inschrijving> tvInschrijvingenTabel;
     private TableColumn<Inschrijving, String> colVoornaam;
     private TableColumn<Inschrijving, String> colFamilienaam;
-    private TableColumn<Inschrijving, String> colDatum;
     private TableColumn<Inschrijving, String> colFormules;
 
     private DataController dc;
@@ -55,11 +57,24 @@ public class InschrijvingenOverzicht extends Overzicht {
     public InschrijvingenOverzicht(BeginSchermFlo parent, AdminController ac, String titelMenu) {
         super(parent, ac, titelMenu);
 
-        this.dc = new DataController();
         this.oc = new OverzichtController();
         this.ac = ac;
         this.parent = parent;
         maakOverzicht();
+        
+        cbFormule.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
+        dpDatumVan.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
+        dpDatumTot.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
+        
     }
 
     private void maakOverzicht() {
@@ -81,9 +96,12 @@ public class InschrijvingenOverzicht extends Overzicht {
         dpDatumVan = new DatePicker();
         dpDatumTot = new DatePicker();
         HBox HVan = new HBox(lblVan, dpDatumVan);
+        HVan.setAlignment(Pos.CENTER);
         HBox HTot = new HBox(lblTot, dpDatumTot);
-        super.addDatePicker(dpDatumVan);
-        super.addDatePicker(dpDatumTot);
+        HTot.setAlignment(Pos.CENTER);
+
+        super.addDatePicker(HVan);
+        super.addDatePicker(HTot);
 
     }
 
@@ -110,9 +128,9 @@ public class InschrijvingenOverzicht extends Overzicht {
         colFormules.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
 
         
-        //Kolommen worden niet toegevoegd
+        //Kolommen worden niet toegevoegd ??? 
         super.addKolom(colVoornaam);
-        super.addKolom(colDatum);
+        super.addKolom(colFamilienaam);
         super.addKolom(colFormules);
     }
 
@@ -133,7 +151,7 @@ public class InschrijvingenOverzicht extends Overzicht {
 
     private void vulDetailScherm() {
         Inschrijving i = tvInschrijvingenTabel.getSelectionModel().getSelectedItem();
-        txLid.setText(i.getAchternaam() + i.getVoornaam());
+        txLid.setText(i.getAchternaam() + ", " + i.getVoornaam());
         txDatum.setText(i.getTijdstip().toString());
 
         tvFormules.setItems((oc.geefFormulesPerLid(i.getLid())));
@@ -142,10 +160,9 @@ public class InschrijvingenOverzicht extends Overzicht {
     private void geefInformatieInschrijving() {
         Text lblLid = new Text("Lid:");
         Text lblDatum = new Text("Datum:");
-        Text lblAdres = new Text("Adres:");
-        Text lblDeelnemers = new Text("Deelnemers:");
+        Text lblDeelnemers = new Text("Formules:");
 
-        opmaakLabels(Arrays.asList(lblLid, lblDatum, lblAdres, lblDeelnemers));
+        opmaakLabels(Arrays.asList(lblLid, lblDatum, lblDeelnemers));
 
         txLid = new Text();
         txDatum = new Text();
@@ -176,6 +193,19 @@ public class InschrijvingenOverzicht extends Overzicht {
         info.setStyle("-fx-font-size: 16px");
 
         detailScherm.getChildren().add(HNaam);
+    }
+    
+    private void filter(){
+        Formule formule = cbFormule
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cbFormule.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Formule.valueOf(cbFormule.getSelectionModel().getSelectedItem());
+        LocalDate van = dpDatumVan.getValue();
+        LocalDate tot = dpDatumTot.getValue();
+        oc.veranderInschrijvingFilter(formule,van, tot);
     }
 
 }

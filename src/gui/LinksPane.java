@@ -47,21 +47,17 @@ public class LinksPane extends BorderPane implements PropertyChangeListener{
         this.setCenter(knoppen);
 
         Hyperlink terug = new Hyperlink();
-        terug.setText("Terug");
+        terug.setText("Hoofdmenu");
         this.setBottom(terug);
 
-        terug.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                terugNaarHoofdMenu();
-            }
-
+        terug.setOnAction((ActionEvent event) -> {
+            terugNaarHoofdMenu();
         });
 
         //Opmaak
         this.setDisable(!ingelogd);
         this.getStyleClass().add("bgr");
-        terug.setStyle("-fx-font-size: 30px");
+        terug.setStyle("-fx-font-size: 18px");
         
 
     }

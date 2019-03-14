@@ -13,7 +13,6 @@ import java.util.List;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
@@ -36,7 +35,7 @@ public class Overzicht<T> extends BorderPane {
     private TableView<T> tvTabel;
     private List<TableColumn<T, String>> kolommen;
     private List<ComboBox> comboboxen;
-    private List<DatePicker> datepickers;
+    private List<HBox> datepickers;
 
     private final String titelOverzicht;
 
@@ -64,13 +63,22 @@ public class Overzicht<T> extends BorderPane {
     }
 
     private void maakFilters() {
+        HBox datePickerBox = new HBox(5);
+        datepickers.stream().forEach(d-> {
+            d.setPadding(new Insets(0,15,0,0));
+            datePickerBox.getChildren().add(d);
+        });
+        
+        datePickerBox.setPadding(new Insets(-10,0,0,0));
+        
         HBox filterBox = new HBox(5);
         comboboxen.stream().forEach(f -> {
             f.setMinWidth(100);
             filterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
         });
-
+        
+        filtersEnTabel.getChildren().add(datePickerBox);
         filtersEnTabel.getChildren().add(filterBox);
     }
 
@@ -125,7 +133,7 @@ public class Overzicht<T> extends BorderPane {
         this.detailScherm = detailScherm;
     }
 
-    public void addDatePicker(DatePicker picker) {
+    public void addDatePicker(HBox picker) {
         datepickers.add(picker);
     }
 }

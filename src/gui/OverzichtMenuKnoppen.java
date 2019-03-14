@@ -6,6 +6,7 @@
 package gui;
 
 import domein.controllers.AdminController;
+import gui.overzichten.AanwezighedenOverzicht;
 import gui.overzichten.ActiviteitenOverzicht;
 import gui.overzichten.Clubkampioenschap;
 import gui.overzichten.InschrijvingenOverzicht;
@@ -67,7 +68,7 @@ public class OverzichtMenuKnoppen extends MenuKnoppen {
         btnAanwezigheden.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                parent.ToonOverzichtenScherm(new AanwezighedenOverzicht(parent, ac, "Aanwezigheden overzicht"));
             }
         });
         super.addKnop(btnAanwezigheden);
