@@ -117,6 +117,7 @@ public class InschrijvingenOverzicht extends Overzicht {
 
         tvInschrijvingenTabel.setItems((oc.geefOverzichtInschrijvingen()));
         super.setTvTabel(tvInschrijvingenTabel);
+        
     }
 
     private void maakKolommenInTabel() {
@@ -155,6 +156,7 @@ public class InschrijvingenOverzicht extends Overzicht {
             txDatum.setText(inschrijving.getTijdstip().toString());
 
             tvFormules.setItems((oc.geefFormulesPerLid(inschrijving.getLid())));
+            tvFormules.setVisible(false);
         }catch(NullPointerException e){
             //wanneer er geen inschrijving is geselecteerd
         }
@@ -174,7 +176,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         zetLabelEnInfoNaastElkaar(lblLid, txLid);
         zetLabelEnInfoNaastElkaar(lblDatum, txDatum);
 
-        detailScherm.getChildren().add(lblDeelnemers);
+        //detailScherm.getChildren().add(lblDeelnemers);
 
     }
 
