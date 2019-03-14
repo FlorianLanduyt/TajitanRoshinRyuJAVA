@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import persistentie.DataInitializer;
+import persistentie.DataInitializerForDemo;
 
 public class DataController {
 
@@ -40,12 +40,12 @@ public class DataController {
         this.admins = new ArrayList<>();
 
         //Calling initializeData
-        InitializeData();
+        InitializeDataForDemo();
     }
 
     //DataInitializer method (hardcoded data for the moment)
-    private void InitializeData() {
-        DataInitializer.initializeData(this.inschrijvingen, this.activiteiten,
+    private void InitializeDataForDemo() {
+        DataInitializerForDemo.InitializeDataForDemo(this.inschrijvingen, this.activiteiten,
                 this.aanwezigheden, this.leden, this.raadplegingen, this.oefeningen,
                 this.admins);
     }
@@ -84,7 +84,7 @@ public class DataController {
     public List<Admin> geefAdmins() {
         return this.admins;
     }
-    
+
     //
     //ENUMS
     //
@@ -107,10 +107,10 @@ public class DataController {
         List<String> geslachten = Arrays.asList("Man", "Vrouw");
         return geslachten;
     }
-    
-    public List<Formule> geefFormulesVanLid(Lid lid){
+
+    public List<Formule> geefFormulesVanLid(Lid lid) {
         return inschrijvingen.stream()
-                .filter(i->i.getLid().equals(lid))
+                .filter(i -> i.getLid().equals(lid))
                 .map(Inschrijving::getFormule)
                 .distinct()
                 .collect(Collectors.toList());
