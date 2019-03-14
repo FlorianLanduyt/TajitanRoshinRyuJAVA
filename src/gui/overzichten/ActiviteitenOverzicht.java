@@ -191,6 +191,7 @@ public class ActiviteitenOverzicht extends Overzicht {
 //        activiteitTabel.getColumns().stream().filter(p-> p.)
 //    }
     private void filter() {
+        tvActiviteiten.getSelectionModel().clearSelection();
         Formule formule = cbFormule
                 .getSelectionModel()
                 .getSelectedIndex() == 0
