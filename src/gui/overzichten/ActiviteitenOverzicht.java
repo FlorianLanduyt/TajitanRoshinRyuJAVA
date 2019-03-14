@@ -33,10 +33,11 @@ public class ActiviteitenOverzicht extends Overzicht {
     private OverzichtController oc;
     private AdminController ac;
     private BeginSchermFlo parent;
-    
+
     private TableView<Activiteit> activiteitTabel;
     private TableColumn<Activiteit, String> colVoornaam;
-    private TableColumn<Activiteit, String> colDatum;
+    private TableColumn<Activiteit, String> colStartdatum;
+    private TableColumn<Activiteit, String> colEinddatum;
     private TableColumn<Activiteit, String> colFormule;
     private TableView<Lid> deelnemers;
 
@@ -51,24 +52,24 @@ public class ActiviteitenOverzicht extends Overzicht {
         super(parent, ac, soortScherm);
         this.oc = new OverzichtController();
         this.ac = ac;
-        
+
         this.parent = parent;
 
         maakOverzicht();
-        
+
         cbFormule.setOnAction((ActionEvent event) -> {
             filter();
         });
-        
+
         activiteitTabel.getSelectionModel().selectFirst();
-        
+
     }
 
     private void maakOverzicht() {
         maakFilters();
         maakTabel();
         maakDetailScherm();
-        
+
         super.buildGui();
     }
 
@@ -82,9 +83,10 @@ public class ActiviteitenOverzicht extends Overzicht {
     private void maakTabel() {
         activiteitTabel = new TableView<>();
 
-        activiteitTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            vulDetailScherm();
-        });
+        activiteitTabel.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldSelection, newSelection) -> {
+                    vulDetailScherm(newSelection);
+                });
 
         maakKolommenInTabel();
 
@@ -94,15 +96,18 @@ public class ActiviteitenOverzicht extends Overzicht {
 
     private void maakKolommenInTabel() {
         colVoornaam = new TableColumn("Naam");
-        colDatum = new TableColumn("Datum");
+        colStartdatum = new TableColumn("Startdatum");
+        colEinddatum = new TableColumn("Einddatum");
         colFormule = new TableColumn("Formule");
-        
+
         colVoornaam.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
-        colDatum.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
+        colStartdatum.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
+        colEinddatum.setCellValueFactory(cellData -> cellData.getValue().eindDatumProperty());
         colFormule.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
-        
+
         super.addKolom(colVoornaam);
-        super.addKolom(colDatum);
+        super.addKolom(colStartdatum);
+        super.addKolom(colEinddatum);
         super.addKolom(colFormule);
     }
 
@@ -115,19 +120,18 @@ public class ActiviteitenOverzicht extends Overzicht {
         TableColumn<Lid, String> familienaam = new TableColumn("Familienaam");
         naam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         familienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
-        
+
         deelnemers.getColumns().add(naam);
         deelnemers.getColumns().add(familienaam);
-        
 
         VBox deelnemersBox = opmaaDeelnemersTabel(deelnemers);
 
         scherm.getChildren().add(deelnemersBox);
-        super.setDetailScherm(scherm); 
+        super.setDetailScherm(scherm);
 
     }
-    
-    private void geefInformatieActiviteit(){
+
+    private void geefInformatieActiviteit() {
         Text lblNaam = new Text("Naam activiteit:");
         Text lblDatum = new Text("Datum:");
         Text lblAdres = new Text("Adres:");
@@ -142,28 +146,34 @@ public class ActiviteitenOverzicht extends Overzicht {
         zetLabelEnInfoNaastElkaar(lblNaam, txNaam);
         zetLabelEnInfoNaastElkaar(lblDatum, txDatum);
         zetLabelEnInfoNaastElkaar(lblAdres, txAdres);
-        
+
         scherm.getChildren().add(lblDeelnemers);
     }
-    
+
     private void zetLabelEnInfoNaastElkaar(Text label, Text info) {
         HBox HNaam = new HBox(label, info);
         HNaam.setSpacing(10);
         info.setStyle("-fx-font-size: 16px");
-        
+
         scherm.getChildren().add(HNaam);
     }
 
-    
+    private void vulDetailScherm(Activiteit a) {
+        try {
+            txNaam.setText(a.getNaam());
+            txDatum.setText(String.format("%s %s", a.beginDatumProperty().getValue(),
+                   a.eindDatumProperty().getValue() == null ? "" : "tot " + a.eindDatumProperty().getValue()));
+            txAdres.setText(a.straatProperty().getValue() + " " + a.getHuisnummer() + ", " + a.getPostcode() + " " + a.getStad());
+            deelnemers.setItems(FXCollections.observableList(a.getInschrijvingen()
+                    .stream().
+                    map(i -> i.getLid())
+                    .collect(Collectors.toList())));
+        }catch(NullPointerException e){
+            //als er geen activiteit is aangeduid in de tabel!
+        }
 
-    private void vulDetailScherm() {
-        Activiteit a = activiteitTabel.getSelectionModel().getSelectedItem();
-        txNaam.setText(a.getNaam());
-        txDatum.setText(a.beginDatumProperty().getValue());
-        txAdres.setText(a.straatProperty().getValue() + " " + a.getHuisnummer() + ", " + a.getPostcode() + " " + a.getStad());
-        deelnemers.setItems(FXCollections.observableList(a.getInschrijvingen().stream().map(i -> i.getLid()).collect(Collectors.toList())));
     }
-    
+
     private <T> VBox opmaaDeelnemersTabel(TableView<T> tabel) {
         VBox tabelBox = new VBox();
         tabelBox.setMaxSize(250, 200);
@@ -180,7 +190,7 @@ public class ActiviteitenOverzicht extends Overzicht {
 //    private void veranderTable(Object value) {
 //        activiteitTabel.getColumns().stream().filter(p-> p.)
 //    }
-    private void filter(){
+    private void filter() {
         Formule formule = cbFormule
                 .getSelectionModel()
                 .getSelectedIndex() == 0
@@ -188,7 +198,8 @@ public class ActiviteitenOverzicht extends Overzicht {
                         : cbFormule.getSelectionModel().getSelectedItem() == null
                         ? null
                         : Formule.valueOf(cbFormule.getSelectionModel().getSelectedItem());
-        
+
         oc.veranderActiviteitenFilter(formule);
+        activiteitTabel.getSelectionModel().selectFirst();
     }
 }

@@ -117,7 +117,7 @@ public class Overzicht<T> extends BorderPane {
         kolommen.add(kol);
     }
 
-    public void setTvTabel(TableView<T> tvTabel) {
+    public void setTvTabel(TableView<T> tvTabel) { 
         this.tvTabel = tvTabel;
     }
 

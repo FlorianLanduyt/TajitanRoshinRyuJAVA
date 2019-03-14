@@ -40,6 +40,12 @@ public class ActiviteitBeheerController {
     public ObservableList<Activiteit> geefObservableListActiviteiten() {
         return FXCollections.unmodifiableObservableList(sortedActiviteitenList);
     }
+    
+    public ObservableList<Lid> geefDeelnemersVanActiviteit(Activiteit activiteit){
+        ObservableList<Lid> deelnemers = FXCollections.observableArrayList(activiteit.getInschrijvingen().stream().map(Inschrijving::getLid).sorted(Comparator.comparing(Lid::getVoornaam)).collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(deelnemers);
+    }
+    
 
     //
     //Filtering
