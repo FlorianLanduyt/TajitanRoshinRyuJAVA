@@ -34,10 +34,10 @@ public class MenuKnoppen extends VBox {
             b.setPrefHeight(20);
             b.setPrefWidth(200);
             b.setAlignment(Pos.BASELINE_LEFT);
-            b.setPadding(new Insets(50,5,50,5));
+            b.setPadding(new Insets(50,5,50,10));
             this.getChildren().add(b);
             b.getStyleClass().add("btn");
-            b.setStyle("-fx-font-size: 18px");
+            b.setStyle("-fx-font-size: 16px");
             
             b.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override

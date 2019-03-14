@@ -338,12 +338,12 @@ public class Activiteit implements Serializable {
         Boolean volzet = this.maxDeelnemers == getAantalDeelnemers();
         this.isVolzet = volzet;
         sIsVolzet.set(volzet == false ? "Nee" : "Ja"); //vooraf -> String.valueOf(volzet);
-        
+
     }
 
     public boolean isVolzet() {
         setVolzet();
-        return Boolean.valueOf(sIsVolzet.get());
+        return sIsVolzet.get().equals("Ja") ? true : false;
     }
 
     //
