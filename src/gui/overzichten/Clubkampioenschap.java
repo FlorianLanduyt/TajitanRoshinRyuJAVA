@@ -72,7 +72,8 @@ public class Clubkampioenschap extends Overzicht{
     private void maakTabel() {
         clubkampioenschapTabel = new TableView<>();
 
-        clubkampioenschapTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        clubkampioenschapTabel.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldSelection, newSelection) -> {
             vulDetailScherm(newSelection);
         });
 

@@ -93,9 +93,9 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     @FXML
     private TableView<Lid> tblDeelnemers;
     @FXML
-    private TableColumn<Lid, String> colDeelnemerNaam;
+    private TableColumn<Lid, String> colDeelnemerVoornaam;
     @FXML
-    private TableColumn<Button, Button> colVerwijderDeelnemer; // moet nog bijgewerkt worden!
+    private TableColumn<Lid, String> colDeelnemerFamilienaam;
     @FXML
     private Label lblFoutopvang;
 
@@ -115,6 +115,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     private AnchorPane AnchorPane;
     @FXML
     private Button btnVerwijderDeelnemer;
+    
 
     /**
      * Initializes the controller class.
@@ -154,9 +155,14 @@ public class BeherenActiviteitSchermController extends AnchorPane {
                     updateGedetaileerdeLijst(newValue);
                 });
         tblActiviteiten.getSelectionModel().selectFirst();
+        
         //comboboxen opvullen!
         cboFilterType.setItems(activiteitBeheerController.geefFormulesFilter());
         cboType.setItems(activiteitBeheerController.geefFormules());
+        
+        //deelnemerstabel opvullen
+        colDeelnemerVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
+        colDeelnemerFamilienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
 
         btnOpslaanNieuweActiviteit.setVisible(false);
 
@@ -180,7 +186,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             txtBus.setText(newValue.getBus());
             txtStad.setText(newValue.getStad());
             txtPostcode.setText(newValue.getPostcode());
-            //tblDeelnemers.setSelectionModel(newValue); --> UC3
+            tblDeelnemers.setItems(activiteitBeheerController.geefDeelnemersVanActiviteit(newValue));
         } catch (NullPointerException e) {
             //als de lijst leeg begint te kome 
         }

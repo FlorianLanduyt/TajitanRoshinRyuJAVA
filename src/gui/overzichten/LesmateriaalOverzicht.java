@@ -142,7 +142,7 @@ public class LesmateriaalOverzicht extends Overzicht {
         zetLabelEnInfoNaastElkaar(lblTitel, txTitel);
         zetLabelEnInfoNaastElkaar(lblAantalRaadplegingen, txTotaalAantalRaadplegingen);
         zetLabelEnInfoNaastElkaar(lblThema, txThemaOefn);
-
+        
     }
 
     private void zetLabelEnInfoNaastElkaar(Text label, Text info) {
