@@ -39,15 +39,15 @@ public class OverzichtController {
     private FilteredList<Aanwezigheid> aanwezighedenFilteredList;
     private SortedList<Aanwezigheid> aanwezighedenSortedList;
     private Comparator<Aanwezigheid> byDatum = (a1, a2) -> a1.getDatum().compareTo(a2.getDatum());
-    
+
     private ObservableList<Lid> leden; //nodig voor cbo's
-    
+
     private ObservableList<Raadpleging> raadplegingen;
     private FilteredList<Raadpleging> raadplegingenFilteredList;
     private SortedList<Raadpleging> raadplegingenSortedList;
     private Comparator<Raadpleging> byOefnnaam = (r1, r2) -> r1.getOefeningNaam().compareTo(r2.getOefeningNaam());
-    
-    private ObservableList<Oefening> oefeningen; 
+
+    private ObservableList<Oefening> oefeningen;
     private ObservableList<Formule> formulesVoorInschrijving;
 
     public OverzichtController() {
@@ -62,7 +62,7 @@ public class OverzichtController {
         activiteitenSortedList = new SortedList(activiteitenFilteredList, activiteitSortOrder);
 
         this.aanwezigheden = FXCollections.observableArrayList(dataController.geefAanwezigheden());
-        aanwezighedenFilteredList = new FilteredList(aanwezigheden,p -> true);
+        aanwezighedenFilteredList = new FilteredList(aanwezigheden, p -> true);
         aanwezighedenSortedList = new SortedList(aanwezighedenFilteredList, byDatum.reversed());
 
         this.leden = FXCollections.observableArrayList(dataController.geefLeden());
@@ -72,7 +72,6 @@ public class OverzichtController {
         raadplegingenSortedList = new SortedList(raadplegingenFilteredList, byOefnnaam);
 
         this.oefeningen = FXCollections.observableArrayList(dataController.geefOefeningen());
-        
 
     }
 
@@ -83,60 +82,59 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(aanwezighedenSortedList);
     }
 
-
-    public void veranderAanwezigheidFilter(LocalDate datum,String lid, Formule formule){
+    public void veranderAanwezigheidFilter(LocalDate datum, String lid, Formule formule) {
         aanwezighedenFilteredList.setPredicate(aanwezigheid -> {
             boolean datumEmpty = datum == null;
             boolean lidEmpty = lid == null;
             boolean formuleEmpty = formule == null;
-            
+
             boolean datumFilter = aanwezigheid.getDatum().equals(datum);
             boolean lidFilter = aanwezigheid.getLid().geefVolledigeNaam().equals(lid);
             boolean formuleFilter = aanwezigheid.getFormule().equals(formule);
-            
+
             //000
-            if (datumEmpty && lidEmpty && formuleEmpty){
+            if (datumEmpty && lidEmpty && formuleEmpty) {
                 return true;
             }
             //001
-            if (datumEmpty && lidEmpty && !formuleEmpty){
+            if (datumEmpty && lidEmpty && !formuleEmpty) {
                 return formuleFilter;
             }
             //010
-            if (datumEmpty && !lidEmpty && formuleEmpty){
+            if (datumEmpty && !lidEmpty && formuleEmpty) {
                 return lidFilter;
             }
             //011
-            if (datumEmpty && !lidEmpty && !formuleEmpty){
+            if (datumEmpty && !lidEmpty && !formuleEmpty) {
                 return lidFilter && formuleFilter;
             }
             //100
-            if (!datumEmpty && lidEmpty && formuleEmpty){
+            if (!datumEmpty && lidEmpty && formuleEmpty) {
                 return datumFilter;
             }
             //101
-            if (!datumEmpty && lidEmpty && !formuleEmpty){
+            if (!datumEmpty && lidEmpty && !formuleEmpty) {
                 return datumFilter && formuleFilter;
             }
             //110
-            if (!datumEmpty && !lidEmpty && formuleEmpty){
+            if (!datumEmpty && !lidEmpty && formuleEmpty) {
                 return datumFilter && lidFilter;
             }
             //111
-            if(!datumEmpty && !lidEmpty && !formuleEmpty){
+            if (!datumEmpty && !lidEmpty && !formuleEmpty) {
                 return datumFilter && lidFilter && formuleFilter;
             }
             return true;
         });
-        
+
     }
+
     //
     //INSCHRIJVINGEN
     //
     public ObservableList<Inschrijving> geefOverzichtInschrijvingen() {
         return FXCollections.unmodifiableObservableList(inschrijvingenSortedList);
     }
-
 
     public void veranderInschrijvingFilter(Formule formule, LocalDate van, LocalDate tot) {
         inschrijvingenFilteredList.setPredicate(inschrijving -> {
@@ -173,11 +171,11 @@ public class OverzichtController {
                 return formuleFilter && totFilter;
             }
             //110
-            if (!formuleEmpty && !vanEmpty && totEmpty){
+            if (!formuleEmpty && !vanEmpty && totEmpty) {
                 return formuleFilter && vanFilter;
             }
             //111
-            if (!formuleEmpty && !vanEmpty && !totEmpty){
+            if (!formuleEmpty && !vanEmpty && !totEmpty) {
                 return formuleFilter && vanFilter && totFilter;
             }
             return true;
@@ -222,52 +220,51 @@ public class OverzichtController {
         }
         );
     }
-    
-    public ObservableList<Aanwezigheid> geefAanwezighedenVoorLid(Lid lid){
+
+    public ObservableList<Aanwezigheid> geefAanwezighedenVoorLid(Lid lid) {
         List<Aanwezigheid> aanwezighedenVoorLid = dataController.geefAanwezigheden().stream()
                 .filter(aanwezigheid -> aanwezigheid
-                        .getLid().equals(lid))
+                .getLid().equals(lid))
+                .sorted(Comparator.comparing(Aanwezigheid::getPuntenAantal).reversed())
                 .collect(Collectors.toList());
-        
+
         return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(aanwezighedenVoorLid));
     }
 
     //
     //RAADPLEGINGEN
     //
-    
     public ObservableList<Raadpleging> geefOverzichtRaadplegingen() {
         return FXCollections.unmodifiableObservableList(raadplegingenSortedList);
     }
 
-    
-    public void veranderRaadplegingFilter(String lid , Oefening oefening){
+    public void veranderRaadplegingFilter(String lid, Oefening oefening) {
         raadplegingenFilteredList.setPredicate(raadpleging -> {
             boolean lidEmpty = lid == null;
             boolean oefeningEmpty = oefening == null;
             boolean lidFilter = raadpleging.getLid().geefVolledigeNaam().equals(lid);
             boolean oefeningFilter = raadpleging.getOefening().equals(oefening);
-            
+
             //00
-            if(lidEmpty && oefeningEmpty){
+            if (lidEmpty && oefeningEmpty) {
                 return true;
             }
             //01
-            if (lidEmpty && !oefeningEmpty){
+            if (lidEmpty && !oefeningEmpty) {
                 return oefeningFilter;
             }
             //10
-            if (!lidEmpty && oefeningEmpty){
+            if (!lidEmpty && oefeningEmpty) {
                 return lidFilter;
             }
             //11
-            if (!lidEmpty && !oefeningEmpty){
+            if (!lidEmpty && !oefeningEmpty) {
                 return lidFilter && oefeningFilter;
             }
-            
+
             return true;
         });
-        
+
     }
 
     //
@@ -277,15 +274,14 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(leden)
                 .sorted(Comparator.comparing(Lid::getVoornaam).thenComparing(Lid::getAchternaam));
     }
-    
-    public ObservableList<String> geefOverzichtLedenFilter(){
-         ObservableList<String> leden = FXCollections.observableArrayList(dataController
-                .geefLeden().stream().map(lid -> String.format("%s %s", lid.getVoornaam(),lid.getAchternaam()))
+
+    public ObservableList<String> geefOverzichtLedenFilter() {
+        ObservableList<String> leden = FXCollections.observableArrayList(dataController
+                .geefLeden().stream().map(lid -> String.format("%s %s", lid.getVoornaam(), lid.getAchternaam()))
                 .collect(Collectors.toList()));
         leden.add(0, "Alle leden");
         return leden;
     }
-
 
     //
     //ENUMS
@@ -294,7 +290,7 @@ public class OverzichtController {
         ObservableList<Formule> formules = FXCollections.observableArrayList(Arrays.asList(Formule.values()));
         return FXCollections.unmodifiableObservableList(formules);
     }
-    
+
     public ObservableList<String> geefFormulesFilter() {
         ObservableList<String> functies = FXCollections.observableArrayList(dataController
                 .geefFormules().stream().map(formule -> formule.name())
@@ -327,7 +323,7 @@ public class OverzichtController {
                 .distinct()
                 .sorted(Comparator.comparing(String::toString))
                 .collect(Collectors.toList()));
-        
+
         oefeningNamenSorted.add(0, "Alle oefeningen");
         return FXCollections.unmodifiableObservableList(oefeningNamenSorted);
     }
@@ -339,8 +335,8 @@ public class OverzichtController {
                 .orElse(null);
         return oefening;
     }
-    
-    public ObservableList<Formule> geefFormulesPerLid(Lid lid){
+
+    public ObservableList<Formule> geefFormulesPerLid(Lid lid) {
         return FXCollections.observableArrayList(dataController.geefFormulesVanLid(lid));
     }
 }

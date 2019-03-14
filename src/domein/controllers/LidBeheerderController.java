@@ -174,10 +174,12 @@ public class LidBeheerderController {
         lid.setBeroep(beroep);
 
         this.ledenList.add(lid);
+        dataController.geefLeden().add(lid);
     }
 
     public void verwijderLid(Lid lid) {
         this.ledenList.remove(lid);
+        dataController.geefLeden().remove(lid);
     }
 
     //
