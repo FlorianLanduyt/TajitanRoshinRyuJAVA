@@ -1,6 +1,7 @@
 package domein.controllers;
 
 import domein.Oefening;
+import domein.Thema;
 import domein.enums.Formule;
 import domein.enums.Graad;
 import java.time.LocalDate;
@@ -19,14 +20,6 @@ public class LesmateriaalBeheerController {
     private FilteredList<Oefening> filteredOefeningenList;
     private SortedList<Oefening> sortedOefeningenList;
 
-    /*Het overzicht van lesmateriaal kan op volgende manier worden gesorteerd en gefilterd
-
-Volgens graad
-Volgens aantal raadplegingen
-Volgens tijdstip laatste raadpleging
-
-Standaard is de waarde “Graad” gekozen
-     */
     private final Comparator<Oefening> byGraad = (p1, p2) -> p1.getGraad().compareTo(p2.getGraad());
     private final Comparator<Oefening> byName = (p1, p2) -> p1.getTitel().compareTo(p2.getTitel());
     private final Comparator<Oefening> sortOrder = byGraad.thenComparing(byName);
@@ -96,58 +89,42 @@ Standaard is de waarde “Graad” gekozen
             }
             return true;
         });
-        //
-        //CRUD-operaties
-        //
-    public void wijzigOefening(Oefening oefening, String naam, Formule formule, int maxDeelnemers,
-            LocalDate beginDatum, LocalDate eindDatum, LocalDate uitersteInschrijvingsDatum, String straat, String stad, String postcode,
-            String huisnummer, String bus) {
-        activiteit.setNaam(naam);
-        activiteit.setFormule(formule);
-        activiteit.setMaxDeelnemers(maxDeelnemers);
-        activiteit.setBeginDatum(beginDatum);
-        activiteit.setEindDatum(eindDatum);
-        activiteit.setUitersteInschrijvingsDatum(uitersteInschrijvingsDatum);
-        activiteit.setStraat(straat);
-        activiteit.setStad(stad);
-        activiteit.setPostcode(postcode);
-        activiteit.setHuisnummer(huisnummer);
-        activiteit.setBus(bus);
     }
 
-    public void voegOefeningToe(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum, LocalDate eindDatum,
-            LocalDate uitersteInschrijvingsDatum, String straat, String stad, String postcode, String huisnummer, String bus) {
-        Activiteit activiteit;
-        if (eindDatum == null) {
-            activiteit = new Activiteit(naam, formule, maxDeelnemers, beginDatum, uitersteInschrijvingsDatum);
-        } else {
-            activiteit = new Activiteit(naam, formule, maxDeelnemers, beginDatum, eindDatum, uitersteInschrijvingsDatum);
-        }
-        activiteit.setStraat(straat);
-        activiteit.setStad(stad);
-        activiteit.setPostcode(postcode);
-        activiteit.setHuisnummer(huisnummer);
-        activiteit.setBus(bus);
-
-        this.activiteitenList.add(activiteit);
-        dataController.geefActiviteiten().add(activiteit);
+    //
+    //CRUD-operaties
+    //
+    public void wijzigOefening(Oefening oefening, String titel, String urlVideo, String afbeelding, String tekst, Graad graad, Thema thema) {
+        oefening.setTitel(titel);
+        oefening.setUrlVideo(urlVideo);
+        oefening.setAfbeelding(afbeelding);
+        oefening.setTekst(tekst);
+        oefening.setGraad(graad);
+        oefening.setThema(thema);
     }
 
-    public void verwijderOefening(Activiteit activiteit) {
-        this.activiteitenList.remove(activiteit);
-        dataController.geefActiviteiten().remove(activiteit);
+    public void voegOefeningToe(String titel, String urlVideo, String afbeelding, String tekst, Graad graad, Thema thema) {
+        Oefening oefening = new Oefening(titel, urlVideo, afbeelding, tekst, graad, thema);
+        this.oefeningenList.add(oefening);
+        dataController.geefOefeningen().add(oefening);
     }
-    
+
+    public void verwijderOefening(Oefening oefening) {
+        this.oefeningenList.remove(oefening);
+        dataController.geefOefeningen().remove(oefening);
+    }
+
     //
     //ENUMS AND METHODS FOR COMBOBOX
     //
-        public ObservableList<String> geefGradenFilter() {
+    public ObservableList<String> geefGradenFilter() {
         ObservableList<String> graden = FXCollections.observableArrayList(dataController
                 .geefGraden().stream().map(functie -> functie.name())
                 .collect(Collectors.toList()));
         graden.add(0, "Alle graden");
         return graden;
     }
+
     //
     //Observer
     //
