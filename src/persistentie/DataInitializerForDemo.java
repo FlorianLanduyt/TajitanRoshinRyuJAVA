@@ -330,23 +330,23 @@ public class DataInitializerForDemo {
         //OEFENINGEN
         //
         Oefening oef1 = new Oefening("Schoppen", "www.youtube.com/schop", "schop.jpg",
-                "maak een snelle voorwaartse beweging met je voet", techniek);
+                "maak een snelle voorwaartse beweging met je voet", Graad.KYU1, techniek);
         Oefening oef2 = new Oefening("Slaan", "www.youtube.com/sla", "sla.jpg",
-                "maak een snelle voorwaartse beweging met je arm", techniek);
+                "maak een snelle voorwaartse beweging met je arm", Graad.KYU2, techniek);
         Oefening oef3 = new Oefening("Handsnelheid", "www.youtube.com/handsnelheid", "handsnelheid.jpg",
-                "sla 10x in 10 seconden", snelheid);
+                "sla 10x in 10 seconden", Graad.DAN5, snelheid);
         Oefening oef4 = new Oefening("Voetsnelheid", "www.youtube.com/voetsnelheid", "voetsnelheid.jpg",
-                "schop 10x in 10 seconden", snelheid);
+                "schop 10x in 10 seconden", Graad.KYU5, snelheid);
         Oefening oef5 = new Oefening("Draaisnelheid", "www.youtube.com/draaisnelheid", "draaisnelheid.jpg",
-                "draai 5x in 5 seconden", snelheid);
+                "draai 5x in 5 seconden", Graad.KYU1, snelheid);
         Oefening oef6 = new Oefening("Salto", "www.youtube.com/salto", "salto.jpg",
-                "land een salto perfect", finesse);
+                "land een salto perfect", Graad.KYU4, finesse);
         Oefening oef7 = new Oefening("Koprol", "www.youtube.com/koprol", "koprol.jpg",
-                "doe een perfecte koprol", finesse);
+                "doe een perfecte koprol", Graad.KYU5, finesse);
         Oefening oef8 = new Oefening("Afblokken", "www.youtube.com/afblokken", "afblokken.jpg",
-                "blok de aanval van uw tegenstander af", verdediging);
+                "blok de aanval van uw tegenstander af", Graad.DAN3, verdediging);
         Oefening oef9 = new Oefening("Lopen", "www.youtube.com/lopen", "lopen.jpg",
-                "loop 2km", algemeen);
+                "loop 2km", Graad.DAN4, algemeen);
 
         oefeningen.add(oef1);
         oefeningen.add(oef2);
