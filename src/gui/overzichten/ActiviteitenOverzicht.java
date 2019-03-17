@@ -43,9 +43,13 @@ public class ActiviteitenOverzicht extends Overzicht {
     private ComboBox<String> cbFormule;
     private VBox scherm;
 
+    private Text txNaamLocatie;
+    private Text txGsmnummerLocatie;
+    private Text txEmailLocatie;     
     private Text txNaam;
     private Text txDatum;
     private Text txAdres;
+    
 
     public ActiviteitenOverzicht(BeginSchermFlo parent, AdminController ac, String soortScherm) {
         super(parent, ac, soortScherm);
@@ -120,8 +124,8 @@ public class ActiviteitenOverzicht extends Overzicht {
         naam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         familienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
 
-        deelnemers.getColumns().add(naam);
         deelnemers.getColumns().add(familienaam);
+        deelnemers.getColumns().add(naam);
 
         VBox deelnemersBox = opmaaDeelnemersTabel(deelnemers);
 
@@ -133,17 +137,27 @@ public class ActiviteitenOverzicht extends Overzicht {
     private void geefInformatieActiviteit() {
         Text lblNaam = new Text("Naam activiteit:");
         Text lblDatum = new Text("Datum:");
-        Text lblAdres = new Text("Adres:");
+        Text lblNaamLocatie = new Text("Naam locatie:");
+        Text lblGsmnummer = new Text("GSM-nummer locatie:");
+        Text lblEmailLocatie = new Text("Emailadres locatie:");
+        Text lblAdres = new Text("Adres locatie:");
         Text lblDeelnemers = new Text("Deelnemers:");
 
-        opmaakLabels(Arrays.asList(lblNaam, lblDatum, lblAdres, lblDeelnemers));
+        opmaakLabels(Arrays.asList(lblNaam, lblDatum, lblAdres, lblDeelnemers,
+                lblNaamLocatie, lblGsmnummer, lblEmailLocatie));
 
+        txNaamLocatie = new Text();
+        txGsmnummerLocatie = new Text();
+        txEmailLocatie = new Text();
         txNaam = new Text();
         txDatum = new Text();
         txAdres = new Text();
 
         zetLabelEnInfoNaastElkaar(lblNaam, txNaam);
         zetLabelEnInfoNaastElkaar(lblDatum, txDatum);
+        zetLabelEnInfoNaastElkaar(lblNaamLocatie, txNaamLocatie);
+        zetLabelEnInfoNaastElkaar(lblGsmnummer, txGsmnummerLocatie);
+        zetLabelEnInfoNaastElkaar(lblEmailLocatie, txEmailLocatie);
         zetLabelEnInfoNaastElkaar(lblAdres, txAdres);
 
         scherm.getChildren().add(lblDeelnemers);
@@ -162,6 +176,9 @@ public class ActiviteitenOverzicht extends Overzicht {
             txNaam.setText(a.getNaam());
             txDatum.setText(String.format("%s %s", a.beginDatumProperty().getValue(),
                    a.eindDatumProperty().getValue() == null ? "" : "tot " + a.eindDatumProperty().getValue()));
+            txNaamLocatie.setText(a.getNaamLocatie());
+            txGsmnummerLocatie.setText(a.getGsmnummer());
+            txEmailLocatie.setText(a.getEmail());
             txAdres.setText(a.straatProperty().getValue() + " " + a.getHuisnummer() + ", " + a.getPostcode() + " " + a.getStad());
             deelnemers.setItems(FXCollections.observableList(a.getInschrijvingen()
                     .stream().

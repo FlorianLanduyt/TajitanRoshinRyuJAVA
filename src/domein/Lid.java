@@ -66,7 +66,7 @@ public class Lid implements Serializable {
     }
 
     public Lid(String voornaam, String achternaam, LocalDate geboortedatum,
-            String rijksregisterNr, LocalDate datumEersteTraining,
+            String rijksregisterNr,
             String gsmNr, String vasteTelefoonNr, String stad, String straat,
             String huisNr, String postcode, String email,
             String wachtwoord, String geboorteplaats, String geslacht,
@@ -76,7 +76,6 @@ public class Lid implements Serializable {
         setGeboortedatum(geboortedatum);
         setGeslacht(geslacht);
         setRijksregisterNr(rijksregisterNr);
-        setDatumEersteTraining(datumEersteTraining);
         setGsmNr(gsmNr);
         setVasteTelefoonNr(vasteTelefoonNr);
         setStad(stad);
@@ -241,17 +240,6 @@ public class Lid implements Serializable {
         }
     }
 
-    public LocalDate getDatumEersteTraining() {
-        return datumEersteTraining;
-    }
-
-    public void setDatumEersteTraining(LocalDate datumEersteTraining) {
-        if (datumEersteTraining == null) {
-            throw new IllegalArgumentException("Datum eerste training mag niet leeg zijn.");
-        } else {
-            this.datumEersteTraining = datumEersteTraining;
-        }
-    }
 
     public String getGsmNr() {
         return gsmNr;
@@ -273,14 +261,17 @@ public class Lid implements Serializable {
     }
 
     public void setVasteTelefoonNr(String vasteTelefoonNr) {
-        if (vasteTelefoonNr == null || vasteTelefoonNr.isEmpty()) {
-            throw new IllegalArgumentException("Telefoonnummer mag niet leeg zijn.");
+        if (vasteTelefoonNr != null) {
+            if(vasteTelefoonNr.isEmpty() || vasteTelefoonNr.equals("")){
+                this.vasteTelefoonNr = "";
+            }
+            else if (vasteTelefoonNr.matches("[0-9]{9}")) {
+                this.vasteTelefoonNr = vasteTelefoonNr;
+            } else {
+                throw new IllegalArgumentException("Telefoonnummer is niet correct.");
+            }
         }
-        if (vasteTelefoonNr.matches("[0-9]{9}")) {
-            this.vasteTelefoonNr = vasteTelefoonNr;
-        } else {
-            throw new IllegalArgumentException("Telefoonnummer is niet correct.");
-        }
+
     }
 
     public String getStad() {
@@ -394,16 +385,17 @@ public class Lid implements Serializable {
         if (emailVader != null) {
             if (emailVader.isEmpty() || emailVader.equals("")) {
                 this.emailVader = "";
-            } 
-            else {
+            } else {
                 if (emailVader.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
                     this.emailVader = emailVader;
-                } 
-                else {
+                } else {
                     throw new IllegalArgumentException("Emailadres vader is niet correct.");
                 }
             }
 
+        }
+        else{
+            this.emailVader = "";
         }
 
     }
@@ -424,6 +416,9 @@ public class Lid implements Serializable {
                 }
             }
 
+        }
+        else{
+            this.emailMoeder = "";
         }
 
     }

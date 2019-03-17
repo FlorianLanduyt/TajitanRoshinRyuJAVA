@@ -131,7 +131,7 @@ public class LidBeheerderController {
     //CRUD-operaties
     //
     public void wijzigLid(Lid lid, String voornaam, String achternaam, LocalDate geboorteDatum, String rijksregisterNr,
-            LocalDate datumEersteTraining, String gsmNr, String vasteTelefoonNr,
+            String gsmNr, String vasteTelefoonNr,
             String straat, String stad, String huisNr, String bus, String postcode, String email,
             String emailVader, String emailMoeder, String geboorteplaats, String wachtwoord, String nationaliteit,
             String beroep, Graad graad, Functie functie, String geslacht) {
@@ -140,7 +140,6 @@ public class LidBeheerderController {
         lid.setAchternaam(achternaam);
         lid.setGeboortedatum(geboorteDatum);
         lid.setRijksregisterNr(rijksregisterNr);
-        lid.setDatumEersteTraining(datumEersteTraining);
         lid.setGsmNr(gsmNr);
         lid.setVasteTelefoonNr(vasteTelefoonNr);
         lid.setStraat(straat);
@@ -161,12 +160,12 @@ public class LidBeheerderController {
     }
 
     public void voegLidToe(String voornaam, String achternaam, LocalDate geboorteDatum, String rijksregisterNr,
-            LocalDate datumEersteTraining, String gsmNr, String vasteTelefoonNr,
+            String gsmNr, String vasteTelefoonNr,
             String straat, String stad, String huisNr, String bus, String postcode, String email,
             String emailVader, String emailMoeder, String geboorteplaats, String wachtwoord, String nationaliteit,
             String beroep, Graad graad, Functie functie, String geslacht) {
 
-        Lid lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr, datumEersteTraining,
+        Lid lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr,
                 gsmNr, vasteTelefoonNr, stad, straat, huisNr, postcode, email, wachtwoord, geboorteplaats, geslacht, nationaliteit, graad, functie);
         lid.setEmailMoeder(emailMoeder);
         lid.setEmailVader(emailVader);

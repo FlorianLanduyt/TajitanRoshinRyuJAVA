@@ -104,19 +104,11 @@ public class BeherenLidSchermController extends AnchorPane {
     @FXML
     private ComboBox<Graad> cboGraad;
     @FXML
-    private Button btnTerug;
-    @FXML
     private ComboBox<String> cboGeslacht;
     @FXML
     private ComboBox<Functie> cboType_Functie;
     @FXML
     private AnchorPane AnchorPane;
-    @FXML
-    private Label lblAdminName;
-    @FXML
-    private Button btnSignOff;
-    @FXML
-    private DatePicker dpEersteTraining;
     @FXML
     private TextField txtWachtwoord;
     @FXML
@@ -202,7 +194,6 @@ public class BeherenLidSchermController extends AnchorPane {
             cboGraad.getSelectionModel().select(lid.getGraad());
             txtBeroep.setText(lid.getBeroep());
             cboType_Functie.getSelectionModel().select(lid.getFunctie());
-            dpEersteTraining.setValue(lid.getDatumEersteTraining());
             txtWachtwoord.setText(lid.getWachtwoord());
         } catch (NullPointerException e) {
             //als je de list veranderd vindt hij geen data meer
@@ -235,7 +226,6 @@ public class BeherenLidSchermController extends AnchorPane {
         cboGraad.getSelectionModel().clearSelection();
         txtBeroep.clear();
         cboType_Functie.getSelectionModel().clearSelection();
-        dpEersteTraining.setValue(null);
         txtWachtwoord.clear();
     }
 
@@ -307,7 +297,7 @@ public class BeherenLidSchermController extends AnchorPane {
     private void slaGegevensNieuwLidOp(ActionEvent event) {
         try {
             lidBeheerderController.voegLidToe(txtVoornaam.getText(), txtAchternaam.getText(), dpGeboorteDatum.getValue(),
-                    txtRijksregisternummer.getText(), dpEersteTraining.getValue(), txtGsmnummer.getText(), txtTelefoon.getText(),
+                    txtRijksregisternummer.getText(), txtGsmnummer.getText(), txtTelefoon.getText(),
                     txtStraat.getText(), txtStad.getText(), txtHuisnummer.getText(), txtBus.getText(), txtPostcode.getText(),
                     txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(), txtWachtwoord.getText(),
                     txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
@@ -339,7 +329,7 @@ public class BeherenLidSchermController extends AnchorPane {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     lidBeheerderController.wijzigLid(lid, txtVoornaam.getText(), txtAchternaam.getText(), dpGeboorteDatum.getValue(),
-                            txtRijksregisternummer.getText(), dpEersteTraining.getValue(), txtGsmnummer.getText(), txtTelefoon.getText(),
+                            txtRijksregisternummer.getText(), txtGsmnummer.getText(), txtTelefoon.getText(),
                             txtStraat.getText(), txtStad.getText(), txtHuisnummer.getText(), txtBus.getText(), txtPostcode.getText(),
                             txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(), txtWachtwoord.getText(),
                             txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
@@ -384,7 +374,6 @@ public class BeherenLidSchermController extends AnchorPane {
     //
     //andere methodes
     //
-    @FXML
     private void meldAf(ActionEvent event) {
         BeginScherm beginScherm = new BeginScherm();
         Scene scene = new Scene(beginScherm);

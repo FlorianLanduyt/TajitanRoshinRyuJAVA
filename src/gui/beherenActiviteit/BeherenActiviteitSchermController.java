@@ -14,6 +14,7 @@ import gui.BeginSchermFlo;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -79,6 +80,12 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     @FXML
     private CheckBox cbIsVolzet;
     @FXML
+    private TextField txtNaamLocatie;
+    @FXML
+    private TextField txtGsmnummerLocatie;
+    @FXML
+    private TextField txtEmailLocatie;
+    @FXML
     private TextField txtStraat;
     @FXML
     private TextField txtStad;
@@ -115,7 +122,6 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     private AnchorPane AnchorPane;
     @FXML
     private Button btnVerwijderDeelnemer;
-    
 
     /**
      * Initializes the controller class.
@@ -155,11 +161,11 @@ public class BeherenActiviteitSchermController extends AnchorPane {
                     updateGedetaileerdeLijst(newValue);
                 });
         tblActiviteiten.getSelectionModel().selectFirst();
-        
+
         //comboboxen opvullen!
         cboFilterType.setItems(activiteitBeheerController.geefFormulesFilter());
         cboType.setItems(activiteitBeheerController.geefFormules());
-        
+
         //deelnemerstabel opvullen
         colDeelnemerVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         colDeelnemerFamilienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
@@ -187,6 +193,9 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             txtStad.setText(newValue.getStad());
             txtPostcode.setText(newValue.getPostcode());
             tblDeelnemers.setItems(activiteitBeheerController.geefDeelnemersVanActiviteit(newValue));
+            txtNaamLocatie.setText(newValue.getNaamLocatie());
+            txtGsmnummerLocatie.setText(newValue.getGsmnummer());
+            txtEmailLocatie.setText(newValue.getEmail());
         } catch (NullPointerException e) {
             //als de lijst leeg begint te kome 
         }
@@ -212,6 +221,9 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         txtStad.clear();
         txtPostcode.clear();
         tblDeelnemers.setSelectionModel(null);
+        txtNaamLocatie.clear();
+        txtGsmnummerLocatie.clear();
+        txtEmailLocatie.clear();
     }
 
     //
@@ -231,7 +243,8 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             activiteitBeheerController.voegActiviteitToe(txtNaamActiviteit.getText(), cboType.getSelectionModel().getSelectedItem(),
                     Integer.parseInt(txtMaxAantalDeelnemers.getText()),
                     dpStartdatum.getValue(), dpEinddatum.getValue(), dpInschrijvingsDatum.getValue(),
-                    txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText());
+                    txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText(),
+                    txtNaamLocatie.getText(),txtGsmnummerLocatie.getText(),txtEmailLocatie.getText());
             lblFoutopvang.setText("");
             btnWijzigActiviteit.setDisable(false);
             btnVerwijderActiviteit.setDisable(false);
@@ -259,7 +272,8 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             if (result.get() == ButtonType.OK) {
                 activiteitBeheerController.wijzigActiviteit(activiteit, txtNaamActiviteit.getText(), cboType.getSelectionModel().getSelectedItem(),
                         Integer.parseInt(txtMaxAantalDeelnemers.getText()), dpStartdatum.getValue(), dpEinddatum.getValue(), dpInschrijvingsDatum.getValue(),
-                        txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText());
+                        txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText(),
+                        txtNaamLocatie.getText(),txtGsmnummerLocatie.getText(), txtEmailLocatie.getText());
             }
             lblFoutopvang.setText("");
         } catch (NumberFormatException ex) {
@@ -274,14 +288,22 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     @FXML
     private void verwijderActiviteit(ActionEvent event) {
         Activiteit activiteit = tblActiviteiten.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Bevestiging verwijderen");
-        alert.setHeaderText("Bevestiging");
-        alert.setContentText(String.format("Ben je zeker dat je activiteit %s wilt verwijderen?", activiteit.getNaam()));
+        if (activiteitBeheerController.geefDeelnemersVanActiviteit(activiteit).isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bevestiging verwijderen");
+            alert.setHeaderText("Bevestiging");
+            alert.setContentText(String.format("Ben je zeker dat je activiteit %s wilt verwijderen?", activiteit.getNaam()));
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            activiteitBeheerController.verwijderActiviteit(activiteit);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                activiteitBeheerController.verwijderActiviteit(activiteit);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FOUT!");
+            alert.setHeaderText("Verwijderen gaat niet!");
+            alert.setContentText(String.format("%s bevat nog deelnemers!", activiteit.getNaam()));
+            alert.showAndWait();
         }
 
     }

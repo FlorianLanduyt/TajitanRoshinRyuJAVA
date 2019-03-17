@@ -137,7 +137,7 @@ public class ActiviteitBeheerController {
     //
     public void wijzigActiviteit(Activiteit activiteit, String naam, Formule formule, int maxDeelnemers,
             LocalDate beginDatum, LocalDate eindDatum, LocalDate uitersteInschrijvingsDatum, String straat, String stad, String postcode,
-            String huisnummer, String bus) {
+            String huisnummer, String bus, String naamLocatie, String gsmnummer , String email) {
         activiteit.setNaam(naam);
         activiteit.setFormule(formule);
         activiteit.setMaxDeelnemers(maxDeelnemers);
@@ -149,11 +149,16 @@ public class ActiviteitBeheerController {
         activiteit.setPostcode(postcode);
         activiteit.setHuisnummer(huisnummer);
         activiteit.setBus(bus);
+        activiteit.setNaamLocatie(naamLocatie);
+        activiteit.setGsmnummer(gsmnummer);
+        activiteit.setEmail(email);
     }
 
     public void voegActiviteitToe(String naam, Formule formule, int maxDeelnemers, LocalDate beginDatum, LocalDate eindDatum,
-            LocalDate uitersteInschrijvingsDatum, String straat, String stad, String postcode, String huisnummer, String bus) {
+            LocalDate uitersteInschrijvingsDatum, String straat, String stad, String postcode, String huisnummer, String bus
+            , String naamLocatie, String gsmnummer, String email) {
         Activiteit activiteit;
+        
         if (eindDatum == null) {
             activiteit = new Activiteit(naam, formule, maxDeelnemers, beginDatum, uitersteInschrijvingsDatum);
         } else {
@@ -164,6 +169,9 @@ public class ActiviteitBeheerController {
         activiteit.setPostcode(postcode);
         activiteit.setHuisnummer(huisnummer);
         activiteit.setBus(bus);
+        activiteit.setNaamLocatie(naamLocatie);
+        activiteit.setGsmnummer(gsmnummer);
+        activiteit.setEmail(email);
 
         this.activiteitenList.add(activiteit);
         dataController.geefActiviteiten().add(activiteit);

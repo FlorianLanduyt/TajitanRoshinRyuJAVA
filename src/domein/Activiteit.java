@@ -41,11 +41,16 @@ public class Activiteit implements Serializable {
     @Temporal(TemporalType.DATE)
     private LocalDate uitersteInschrijvingsDatum;
 
+    //info locatie
+    private String naamLocatie;
+    private String gsmnummer;
+    private String email;
     private String straat;
     private String stad;
     private String postcode;
     private String huisnummer;
     private String bus;
+       
     private int maxDeelnemers;
     private int aantalDeelnemers;
     private boolean isVolzet;
@@ -65,6 +70,10 @@ public class Activiteit implements Serializable {
     private final SimpleStringProperty sMaxDeelnemers = new SimpleStringProperty();
     private final SimpleStringProperty sAantalDeelnemers = new SimpleStringProperty();
     private final SimpleStringProperty sIsVolzet = new SimpleStringProperty();
+    private final SimpleStringProperty sNaamLocatie = new SimpleStringProperty();
+    private final SimpleStringProperty sGsmnummer = new SimpleStringProperty();
+    private final SimpleStringProperty sEmail = new SimpleStringProperty();
+    
     @ManyToOne
     private Inschrijving inschrijving;
 
@@ -138,6 +147,18 @@ public class Activiteit implements Serializable {
 
     public SimpleStringProperty isVolzetProperty() {
         return sIsVolzet;
+    }
+    
+    public SimpleStringProperty naamLocatieProperty(){
+        return sNaamLocatie;
+    }
+    
+    public SimpleStringProperty gsmNummerLocatieProperty(){
+        return sGsmnummer;
+    }
+    
+    public SimpleStringProperty emailLocatieProperty(){
+        return sEmail;
     }
 
     //Gewone getters en setters
@@ -227,6 +248,55 @@ public class Activiteit implements Serializable {
             sUitersteInschrijvingsDatum.set(uitersteInschrijvingsDatum.toString());
         }
     }
+
+    public String getNaamLocatie() {
+        return sNaamLocatie.get();
+    }
+
+    public void setNaamLocatie(String naamLocatie) {
+        if (naamLocatie == null || naamLocatie.isEmpty()) {
+            throw new IllegalArgumentException("Naam locatie mag niet leeg zijn.");
+        }
+        if (naamLocatie.length() <= 50) {
+            this.naamLocatie = naamLocatie;
+            sNaamLocatie.set(naamLocatie);
+        } else {
+            throw new IllegalArgumentException("Naam locatie mag max. 50 karakters bevatten.");
+        }
+    }
+
+    public String getGsmnummer() {
+        return sGsmnummer.get();
+    }
+
+    public void setGsmnummer(String gsmNr) {
+        if (gsmNr == null || gsmNr.isEmpty()) {
+            throw new IllegalArgumentException("GSM-nummer mag niet leeg zijn.");
+        }
+        if (gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
+            this.gsmnummer = gsmNr;
+            sGsmnummer.set(gsmNr);
+        } else {
+            throw new IllegalArgumentException("GSM-nummer is niet correct.");
+        }
+    }
+
+    public String getEmail() {
+        return sEmail.get();
+    }
+
+    public void setEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
+        } else if (email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+            this.email = email;
+            sEmail.set(email);
+        } else {
+            throw new IllegalArgumentException("Emailadres is niet correct.");
+        }
+    }
+    
+    
 
     public String getStraat() {
         return sStraat.get();

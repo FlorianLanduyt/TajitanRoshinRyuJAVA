@@ -119,7 +119,7 @@ public class OverzichtLesmateriaalScherm extends AnchorPane {
                 ? null 
                 : cbLeden.getSelectionModel().getSelectedItem();
         Oefening oefening = overzichtController.geefOefeningOpTitel(cbLesmateriaal.getSelectionModel().getSelectedItem()); 
-        overzichtController.veranderRaadplegingFilter(lid, oefening);
+//        overzichtController.veranderRaadplegingFilter(lid, oefening);
     }
 
     @FXML
