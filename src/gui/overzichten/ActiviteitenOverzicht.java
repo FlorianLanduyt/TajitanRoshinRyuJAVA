@@ -170,7 +170,6 @@ public class ActiviteitenOverzicht extends Overzicht {
         }catch(NullPointerException e){
             //als er geen activiteit is aangeduid in de tabel!
         }
-
     }
 
     private <T> VBox opmaaDeelnemersTabel(TableView<T> tabel) {
