@@ -121,8 +121,8 @@ public class InschrijvingenOverzicht extends Overzicht {
     }
 
     private void maakKolommenInTabel() {
-        colVoornaam = new TableColumn("Familienaam");
-        colFamilienaam = new TableColumn("Voornaam");
+        colVoornaam = new TableColumn("Voornaam");
+        colFamilienaam = new TableColumn("Familienaam");
         colFormules = new TableColumn("Formules");
 
         colFamilienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
@@ -130,8 +130,8 @@ public class InschrijvingenOverzicht extends Overzicht {
         colFormules.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
 
         
-        super.addKolom(colVoornaam);
         super.addKolom(colFamilienaam);
+        super.addKolom(colVoornaam);
         super.addKolom(colFormules);
     }
 

@@ -94,8 +94,8 @@ public class Clubkampioenschap extends Overzicht{
         colFamilienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
         colPuntenaantal.setCellValueFactory(cellData -> cellData.getValue().puntenAantalProperty());
         
-        super.addKolom(colVoornaam);
         super.addKolom(colFamilienaam);
+        super.addKolom(colVoornaam);
         super.addKolom(colPuntenaantal);
     }
 

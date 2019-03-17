@@ -26,7 +26,7 @@ public class LidTest {
     public void setUp() {
 
         lid = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
-                "97.07.17-357.55", LocalDate.now().minusYears(18),
+                "97.07.17-357.55",
                 "0479330959", "051303050", "Izegem", "Winkelhoekstraat",
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
@@ -38,7 +38,7 @@ public class LidTest {
     public void reset() {
 
         lid = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
-                "97.07.17-357.55", LocalDate.now().minusYears(18),
+                "97.07.17-357.55", 
                 "0479330959", "051303050", "Izegem", "Winkelhoekstraat",
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
@@ -130,16 +130,16 @@ public class LidTest {
         Assert.assertEquals("97.07.17-001.23", lid.getRijksregisterNr());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void legeEersteTrainingsdatumWerptException() {
-        lid.setDatumEersteTraining(null);
-    }
-
-    @Test
-    public void stelNormaleDatumEersteTrainingIn() {
-        lid.setDatumEersteTraining(LocalDate.now().minusMonths(2));
-        Assert.assertEquals(LocalDate.now().minusMonths(2), lid.getDatumEersteTraining());
-    }
+//    @Test(expected = IllegalArgumentException.class)
+//    public void legeEersteTrainingsdatumWerptException() {
+//        lid.setDatumEersteTraining(null);
+//    }
+//
+//    @Test
+//    public void stelNormaleDatumEersteTrainingIn() {
+//        lid.setDatumEersteTraining(LocalDate.now().minusMonths(2));
+//        Assert.assertEquals(LocalDate.now().minusMonths(2), lid.getDatumEersteTraining());
+//    }
 
     @Test(expected = IllegalArgumentException.class)
     public void gsmNummerTeKortWerptException() {

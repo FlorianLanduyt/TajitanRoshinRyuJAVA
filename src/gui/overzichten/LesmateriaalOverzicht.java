@@ -5,22 +5,23 @@
  */
 package gui.overzichten;
 
-import domein.Activiteit;
-import domein.Lid;
 import domein.Oefening;
 import domein.Raadpleging;
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
-import domein.enums.Formule;
 import gui.BeginSchermFlo;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -39,15 +40,26 @@ public class LesmateriaalOverzicht extends Overzicht {
     private TableColumn<Raadpleging, String> colVoornaam;
     private TableColumn<Raadpleging, String> colFamilienaam;
     private TableColumn<Raadpleging, String> colNaamLesmateriaal;
+    private TableColumn<Raadpleging, String> colGraadLesmateriaal;
     private TableColumn<Raadpleging, String> colAantalRaadplegingen;
 
-    private ComboBox<String> cbLeden;
+    //filters
+    private TextField txtLedenVoornaam;
+    private TextField txtLedenFamilienaam;
     private ComboBox<String> cbLesmateriaal;
+    private Label lblVan;
+    private DatePicker dpVan;
+    private Label lblTot;
+    private DatePicker dpTot;
+    
+    
     private VBox scherm;
 
+    private Text txLid;
     private Text txTitel;
     private Text txTotaalAantalRaadplegingen;
     private Text txThemaOefn;
+    private Text txDatumLaatsteRaadpleging;
 
     public LesmateriaalOverzicht(BeginSchermFlo parent, AdminController ac, String soortScherm) {
         super(parent, ac, soortScherm);
@@ -58,7 +70,11 @@ public class LesmateriaalOverzicht extends Overzicht {
 
         maakOverzicht();
 
-        cbLeden.setOnAction((ActionEvent event) -> {
+        txtLedenVoornaam.setOnKeyReleased((KeyEvent e) -> {
+            filter();
+        });
+        
+        txtLedenFamilienaam.setOnKeyReleased((KeyEvent e) -> {
             filter();
         });
 
@@ -66,6 +82,14 @@ public class LesmateriaalOverzicht extends Overzicht {
             filter();
         });
         
+        dpVan.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
+        dpTot.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+ 
        raadplegingTabel.getSelectionModel().selectFirst();
 
     }
@@ -79,10 +103,24 @@ public class LesmateriaalOverzicht extends Overzicht {
     }
 
     private void maakFilters() {
-        cbLeden = new ComboBox();
-        cbLeden.setPromptText("Alle leden");
-        cbLeden.setItems(oc.geefOverzichtLedenFilter());
-        super.addCombobox(cbLeden);
+        txtLedenFamilienaam = new TextField();
+        txtLedenFamilienaam.setPromptText("Filter op familienaam");
+        super.addTextField(txtLedenFamilienaam);
+        
+        txtLedenVoornaam = new TextField();
+        txtLedenVoornaam.setPromptText("Filter op voornaam");
+        super.addTextField(txtLedenVoornaam);
+        
+        lblVan = new Label("Van: ");
+        lblTot = new Label("Tot: ");
+        dpVan = new DatePicker();
+        dpTot = new DatePicker();
+        HBox HVan = new HBox(lblVan, dpVan);
+        HVan.setAlignment(Pos.CENTER);
+        HBox HTot = new HBox(lblTot, dpTot);
+        HTot.setAlignment(Pos.CENTER);
+        super.addDatePicker(HVan);
+        super.addDatePicker(HTot);
 
         cbLesmateriaal = new ComboBox();
         cbLesmateriaal.setPromptText("Alle oefeningen");
@@ -108,15 +146,18 @@ public class LesmateriaalOverzicht extends Overzicht {
         colFamilienaam = new TableColumn("Familienaam");
         colNaamLesmateriaal = new TableColumn("Naam oefening");
         colAantalRaadplegingen = new TableColumn("Aantal raadplegingen");
+        colGraadLesmateriaal = new TableColumn("Graad oefening");
 
         colVoornaam.setCellValueFactory(cellData -> cellData.getValue().getLid().voornaamProperty());
         colFamilienaam.setCellValueFactory(cellData -> cellData.getValue().getLid().achternaamProperty());
         colNaamLesmateriaal.setCellValueFactory(cellData -> cellData.getValue().oefeningNaamProperty());
+        colGraadLesmateriaal.setCellValueFactory(cellData -> cellData.getValue().getOefening().graadProperty());
         colAantalRaadplegingen.setCellValueFactory(cellData -> cellData.getValue().aantalRaadplegingenProperty());
 
-        super.addKolom(colVoornaam);
         super.addKolom(colFamilienaam);
+        super.addKolom(colVoornaam);
         super.addKolom(colNaamLesmateriaal);
+        super.addKolom(colGraadLesmateriaal);
         super.addKolom(colAantalRaadplegingen);
     }
 
@@ -129,19 +170,25 @@ public class LesmateriaalOverzicht extends Overzicht {
     }
 
     private void geefInformatieRaadpleging() {
+        Text lblLid = new Text("Lid:");
         Text lblTitel = new Text("Titel oefening:");
         Text lblAantalRaadplegingen = new Text("Totaal aantal raadplegingen:");
         Text lblThema = new Text("Thema:");
+        Text lblDatumLaatsteRaadpleging = new Text("Datum laatste raadpleging:");
 
-        opmaakLabels(Arrays.asList(lblTitel, lblAantalRaadplegingen, lblThema));
+        opmaakLabels(Arrays.asList(lblTitel, lblAantalRaadplegingen, lblThema, lblLid, lblDatumLaatsteRaadpleging));
 
+        txLid = new Text();
         txTitel = new Text();
         txTotaalAantalRaadplegingen = new Text();
         txThemaOefn = new Text();
+        txDatumLaatsteRaadpleging = new Text();
 
+        zetLabelEnInfoNaastElkaar(lblLid, txLid);
         zetLabelEnInfoNaastElkaar(lblTitel, txTitel);
         zetLabelEnInfoNaastElkaar(lblAantalRaadplegingen, txTotaalAantalRaadplegingen);
         zetLabelEnInfoNaastElkaar(lblThema, txThemaOefn);
+        zetLabelEnInfoNaastElkaar(lblDatumLaatsteRaadpleging, txDatumLaatsteRaadpleging);
         
     }
 
@@ -155,9 +202,11 @@ public class LesmateriaalOverzicht extends Overzicht {
 
     private void vulDetailScherm(Raadpleging raadpleging) {
         try {
+            txLid.setText(raadpleging.getLid().geefVolledigeNaam());
             txTitel.setText(raadpleging.getOefening().getTitel());
             txThemaOefn.setText(raadpleging.getOefening().getThema().naam);
             txTotaalAantalRaadplegingen.setText(Integer.toString(raadpleging.getAantalRaadplegingen()));
+            txDatumLaatsteRaadpleging.setText(raadpleging.getTijdstippen().get(raadpleging.getTijdstippen().size() - 1).toString());
         }catch(NullPointerException e){
             //geen waarde geselecteerd in de tabel;
         }
@@ -169,11 +218,12 @@ public class LesmateriaalOverzicht extends Overzicht {
     }
 
     private void filter() {
-        String lid = cbLeden.getSelectionModel().getSelectedIndex() == 0
-                ? null
-                : cbLeden.getSelectionModel().getSelectedItem();
+        String lidVoornaam = txtLedenVoornaam.getText();
+        String lidFamilienaam = txtLedenFamilienaam.getText();
         Oefening oefening = oc.geefOefeningOpTitel(cbLesmateriaal.getSelectionModel().getSelectedItem());
-        oc.veranderRaadplegingFilter(lid, oefening);
+        LocalDate van = dpVan.getValue();
+        LocalDate tot = dpTot.getValue();
+        oc.veranderRaadplegingFilter(lidVoornaam, lidFamilienaam, oefening, van, tot);
         raadplegingTabel.getSelectionModel().selectFirst();
     }
 }

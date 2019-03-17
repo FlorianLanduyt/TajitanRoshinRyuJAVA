@@ -31,55 +31,55 @@ public class DataInitializerForDemo {
         //LEDEN
         //
         Lid lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
-                "97.07.17-001.23", LocalDate.now().minusYears(18),
+                "97.07.17-001.23",
                 "0479330959", "051303050", "Izegem", "Winkelhoekstraat",
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
                 "Belg", Graad.DAN5, Functie.BEHEERDER);
 
         Lid lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
-                "99.12.08.173.04", LocalDate.now().minusYears(18),
+                "99.12.08.173.04", 
                 "0479365887", "098556880", "Kortrijk", "Prinses Clementinalaan",
                 "11", "9980", "tybo.vanderstraeten@outlook.com",
                 "TomatoSoup", "Gent", "Man",
                 "Belg", Graad.KYU3, Functie.BEHEERDER);
 
         Lid lid3 = new Lid("Mark", "Witthaker", LocalDate.of(1975, Month.JUNE, 6),
-                "75.06.06-001.78", LocalDate.now().minusYears(18),
+                "75.06.06-001.78", 
                 "0478365887", "018556880", "Gent", "Prinses Mandarijnalaan",
                 "45", "9000", "mark.witthaker@outlook.com",
                 "MyMusicSucks4", "Gent", "Man",
                 "Belg", Graad.DAN1, Functie.LID);
 
         Lid lid4 = new Lid("Florian", "Landuyt", LocalDate.of(1995, Month.DECEMBER, 12),
-                "95.12.12-001.69", LocalDate.now().minusYears(18),
+                "95.12.12-001.69", 
                 "0479865887", "088556880", "Deinze", "Kerkstraat",
                 "141", "8770", "florian.landuyt@outlook.com",
                 "TurnenIsLeuk8", "Gent", "Man",
                 "Belg", Graad.KYU3, Functie.LID);
         Lid lid5 = new Lid("Rob", "De Putter", LocalDate.of(1999, Month.MARCH, 12),
-                "99.03.12-002.89", LocalDate.now().minusYears(18),
+                "99.03.12-002.89", 
                 "0478899964", "054556880", "Waregem", "Schoolstraat",
                 "110", "9600", "rob.deputter@hotmail.com",
                 "TurnenIsLeuk8", "Gent", "Vrouw",
                 "Belg", Graad.KYU5, Functie.LID);
 
         Lid lid6 = new Lid("Bert", "Janssens", LocalDate.of(1995, Month.MARCH, 20),
-                "95.03.20-001.57", LocalDate.now().minusYears(18),
+                "95.03.20-001.57", 
                 "0477452187", "056321478", "Kortrijk", "Briekstraat",
                 "2", "4500", "bert.janssens@outlook.com",
                 "MyPassword", "Gent", "Man",
                 "Belg", Graad.DAN5, Functie.TRAINER);
 
         Lid lid7 = new Lid("Piet", "Pieters", LocalDate.of(1990, Month.NOVEMBER, 18),
-                "90.11.18.001.68", LocalDate.now().minusYears(18),
+                "90.11.18.001.68", 
                 "0476214589", "091264853", "Waregem", "Aalbeeksesteenweg",
                 "58", "8740", "piet.pieters@skynet.be",
                 "Balletjessoep", "Sint-Amandsberg", "Man",
                 "Belg", Graad.KYU3, Functie.LID);
 
         Lid lid8 = new Lid("Keo", "Yunh", LocalDate.of(1998, Month.MAY, 16),
-                "98.05.16-001.60", LocalDate.now().minusYears(18),
+                "98.05.16-001.60",
                 "0471235698", "092156358", "Gent", "Overpoortstraat",
                 "5", "9000", "keo.yunh@outlook.com",
                 "senpai8", "Ho-Chi-Minh", "Man",
@@ -112,6 +112,9 @@ public class DataInitializerForDemo {
         //--Stages
         Activiteit s1 = new Activiteit("Hoogtestage Ardennen", Formule.STAGE, 50, LocalDate.of(2020, Month.MARCH, 12),
                 LocalDate.of(2020, Month.MARCH, 16), LocalDate.of(2020, Month.FEBRUARY, 20));
+        s1.setNaamLocatie("D'arde");
+        s1.setGsmnummer("0476456851");
+        s1.setEmail("darde@ardennes.be");
         s1.setStad("Houyet");
         s1.setPostcode("6500");
         s1.setStraat("Rue de la Foret");
@@ -119,6 +122,9 @@ public class DataInitializerForDemo {
 
         Activiteit s2 = new Activiteit("Hoogtestage Vogezen", Formule.STAGE, 50, LocalDate.of(2020, Month.AUGUST, 28),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
+        s2.setNaamLocatie("The Voge");
+        s2.setGsmnummer("0476456851");
+        s2.setEmail("thevoge@vogueze.fr");
         s2.setStad("Vogueze");
         s2.setPostcode("4400");
         s2.setStraat("Vogezenstraat");
@@ -126,6 +132,9 @@ public class DataInitializerForDemo {
 
         Activiteit s3 = new Activiteit("Driedaagse stage", Formule.STAGE, 100, LocalDate.of(2020, Month.SEPTEMBER, 3),
                 LocalDate.of(2020, Month.SEPTEMBER, 5), LocalDate.of(2020, Month.AUGUST, 1));
+        s3.setNaamLocatie("The Whale");
+        s3.setGsmnummer("0476456851");
+        s3.setEmail("thewhale@hotmail.be");
         s3.setStad("Gent");
         s3.setPostcode("9000");
         s3.setStraat("Sleepstraat");
@@ -134,6 +143,9 @@ public class DataInitializerForDemo {
         //--Examen
         Activiteit e1 = new Activiteit("Ingangsexamen", Formule.EXAMEN, 35, LocalDate.of(2020, Month.JUNE, 20),
                 LocalDate.of(2020, Month.JUNE, 19));
+        e1.setNaamLocatie("Examencentrum");
+        e1.setGsmnummer("0476456851");
+        e1.setEmail("examencentrum@gmail.be");
         e1.setStad("Gent");
         e1.setPostcode("9000");
         e1.setStraat("Drongensestraat");
@@ -142,6 +154,9 @@ public class DataInitializerForDemo {
         //--Proef
         Activiteit p1 = new Activiteit("Dan1-proef", Formule.PROEF, 15, LocalDate.of(2020, Month.JULY, 5),
                 LocalDate.of(2020, Month.JULY, 3));
+        p1.setNaamLocatie("Turnzaal D2");
+        p1.setGsmnummer("0476456851");
+        p1.setEmail("sporthaldrongen@gmail.be");
         p1.setStad("Gent");
         p1.setPostcode("9000");
         p1.setStraat("Drongensestraat");
@@ -150,6 +165,9 @@ public class DataInitializerForDemo {
         //--Uitstap
         Activiteit u1 = new Activiteit("Teambuilding", Formule.UITSTAP, 40, LocalDate.of(2020, Month.NOVEMBER, 10),
                 LocalDate.of(2020, Month.NOVEMBER, 13), LocalDate.of(2020, Month.NOVEMBER, 1));
+        u1.setNaamLocatie("Teambuilds");
+        u1.setGsmnummer("0476456851");
+        u1.setEmail("teambuilds@gmail.be");
         u1.setStad("Kortrijk");
         u1.setPostcode("8000");
         u1.setStraat("Stationstraat");
@@ -158,6 +176,9 @@ public class DataInitializerForDemo {
         //--Lessen
         Activiteit l1 = new Activiteit("Les 1", Formule.ZA, 20, LocalDate.of(2020, Month.MARCH, 23),
                 LocalDate.of(2020, Month.FEBRUARY, 13));
+        l1.setNaamLocatie("Turnzaal D2");
+        l1.setGsmnummer("0476456851");
+        l1.setEmail("sporthaldrongen@gmail.be");
         l1.setStad("Gent");
         l1.setPostcode("9000");
         l1.setStraat("Drongensestraat");
@@ -165,6 +186,9 @@ public class DataInitializerForDemo {
 
         Activiteit l2 = new Activiteit("Les 2", Formule.WO_ZA, 27, LocalDate.of(2020, Month.MARCH, 30),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
+        l2.setNaamLocatie("Turnzaal D2");
+        l2.setGsmnummer("0476456851");
+        l2.setEmail("sporthaldrongen@gmail.be");
         l2.setStad("Gent");
         l2.setPostcode("9000");
         l2.setStraat("Drongensestraat");
@@ -172,6 +196,9 @@ public class DataInitializerForDemo {
 
         Activiteit l3 = new Activiteit("Les 3", Formule.DI_ZA, 19, LocalDate.of(2020, Month.MARCH, 31),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
+        l3.setNaamLocatie("Turnzaal D2");
+        l3.setGsmnummer("0476456851");
+        l3.setEmail("sporthaldrongen@gmail.be");
         l3.setStad("Gent");
         l3.setPostcode("9000");
         l3.setStraat("Drongensestraat");

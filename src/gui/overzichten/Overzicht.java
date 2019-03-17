@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -36,6 +37,7 @@ public class Overzicht<T> extends BorderPane {
     private List<TableColumn<T, String>> kolommen;
     private List<ComboBox> comboboxen;
     private List<HBox> datepickers;
+    private List<TextField> textfields;
 
     private final String titelOverzicht;
 
@@ -47,6 +49,7 @@ public class Overzicht<T> extends BorderPane {
         comboboxen = new ArrayList<>();
         kolommen = new ArrayList<>();
         datepickers = new ArrayList<>();
+        textfields = new ArrayList<>();
 
         titelOverzicht = overzicht;
     }
@@ -71,15 +74,31 @@ public class Overzicht<T> extends BorderPane {
         
         datePickerBox.setPadding(new Insets(-10,0,0,0));
         
-        HBox filterBox = new HBox(10);
+        HBox cbFilterBox = new HBox(10);
         comboboxen.stream().forEach(f -> {
             f.setMinWidth(150);
-            filterBox.getChildren().add(f);
+            cbFilterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
         });
         
-        filtersEnTabel.getChildren().add(filterBox);
-        filtersEnTabel.getChildren().add(datePickerBox);
+        HBox txtFilterBox = new HBox(10);
+        textfields.stream().forEach(f -> {
+            f.setMinWidth(150);
+            txtFilterBox.getChildren().add(f);
+        
+        });
+         txtFilterBox.setPadding(new Insets(-10,0,0,0));
+        
+        if(!comboboxen.isEmpty()){
+            filtersEnTabel.getChildren().add(cbFilterBox);
+        }
+        if(!datepickers.isEmpty()){
+            filtersEnTabel.getChildren().add(datePickerBox);
+        }
+        if(!textfields.isEmpty()){
+             filtersEnTabel.getChildren().add(txtFilterBox);
+        }
+       
         
     }
 
@@ -142,5 +161,9 @@ public class Overzicht<T> extends BorderPane {
 
     public void addDatePicker(HBox picker) {
         datepickers.add(picker);
+    }
+    
+    public void addTextField(TextField txt){
+        textfields.add(txt);
     }
 }
