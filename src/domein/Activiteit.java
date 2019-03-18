@@ -14,17 +14,21 @@ import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Activiteit implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String naam;
@@ -32,13 +36,10 @@ public class Activiteit implements Serializable {
     @Enumerated(EnumType.STRING)
     private Formule formule;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate beginDatum;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate eindDatum;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate uitersteInschrijvingsDatum;
 
     //info locatie
@@ -50,32 +51,45 @@ public class Activiteit implements Serializable {
     private String postcode;
     private String huisnummer;
     private String bus;
-       
+
     private int maxDeelnemers;
     private int aantalDeelnemers;
     private boolean isVolzet;
     @ManyToMany
     private List<Inschrijving> inschrijvingen;
 
+    @Transient
     private final SimpleStringProperty sNaam = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sFormule = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sBeginDatum = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sEindDatum = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sUitersteInschrijvingsDatum = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sStraat = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sStad = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sPostcode = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sHuisnummer = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sBus = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sMaxDeelnemers = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sAantalDeelnemers = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sIsVolzet = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sNaamLocatie = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sGsmnummer = new SimpleStringProperty();
+    @Transient
     private final SimpleStringProperty sEmail = new SimpleStringProperty();
-    
-    @ManyToOne
-    private Inschrijving inschrijving;
 
     public Activiteit() {
     }
@@ -148,16 +162,16 @@ public class Activiteit implements Serializable {
     public SimpleStringProperty isVolzetProperty() {
         return sIsVolzet;
     }
-    
-    public SimpleStringProperty naamLocatieProperty(){
+
+    public SimpleStringProperty naamLocatieProperty() {
         return sNaamLocatie;
     }
-    
-    public SimpleStringProperty gsmNummerLocatieProperty(){
+
+    public SimpleStringProperty gsmNummerLocatieProperty() {
         return sGsmnummer;
     }
-    
-    public SimpleStringProperty emailLocatieProperty(){
+
+    public SimpleStringProperty emailLocatieProperty() {
         return sEmail;
     }
 
@@ -295,8 +309,6 @@ public class Activiteit implements Serializable {
             throw new IllegalArgumentException("Emailadres is niet correct.");
         }
     }
-    
-    
 
     public String getStraat() {
         return sStraat.get();

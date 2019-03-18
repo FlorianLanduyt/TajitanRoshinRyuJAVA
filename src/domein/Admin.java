@@ -3,6 +3,8 @@ package domein;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Entity
 public class Admin implements Serializable{
@@ -11,7 +13,7 @@ public class Admin implements Serializable{
       Op deze manier kunnen we dan bepaalde functionaliteiten enablen/disablen op basis of er een
       Admin is ingelogd of niet
      */
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String gebruikersnaam;
     private String wachtwoord;

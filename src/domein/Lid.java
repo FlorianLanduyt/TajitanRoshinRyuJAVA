@@ -14,23 +14,24 @@ import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Lid implements Serializable {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String voornaam;
     private String achternaam;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate geboortedatum;
     private String rijksregisterNr;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate datumEersteTraining;
     private String gsmNr;
     private String vasteTelefoonNr;
@@ -56,10 +57,15 @@ public class Lid implements Serializable {
     private Functie functie; // dit is hetzelfde als type!!!!
 
     //SimpleStringProperties voor TableView
-    private SimpleStringProperty sVoornaam = new SimpleStringProperty();
+        @Transient
+private SimpleStringProperty sVoornaam = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sPuntenAantal = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sGraad = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sType = new SimpleStringProperty();
 
     public Lid() {
