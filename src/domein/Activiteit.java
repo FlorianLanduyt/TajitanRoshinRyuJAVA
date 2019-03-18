@@ -35,7 +35,6 @@ public class Activiteit implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Formule formule;
-    @Temporal()
     private LocalDate beginDatum;
 
     private LocalDate eindDatum;
