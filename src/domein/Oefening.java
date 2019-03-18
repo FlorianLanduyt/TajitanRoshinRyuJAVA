@@ -16,9 +16,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -26,7 +29,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Oefening implements Serializable {
-
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
     private String titel;
@@ -40,9 +43,13 @@ public class Oefening implements Serializable {
     private Thema thema;
 
     //SimpleStringproperties voor tableview
+    @Transient
     private SimpleStringProperty sNaam = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sGraad = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sThema = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sAantalRaadplegingen = new SimpleStringProperty();
 
     public Oefening() {

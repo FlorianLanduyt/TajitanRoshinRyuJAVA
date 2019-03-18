@@ -7,6 +7,9 @@ package domein;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
@@ -14,6 +17,9 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Thema implements Serializable{
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @Id
+     private int id;
     public String naam;
 
     public Thema() {
