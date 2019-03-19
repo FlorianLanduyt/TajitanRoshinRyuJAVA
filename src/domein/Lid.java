@@ -17,6 +17,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -24,7 +26,8 @@ import javax.persistence.Transient;
 @Entity
 public class Lid implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String voornaam;
     private String achternaam;
@@ -57,8 +60,8 @@ public class Lid implements Serializable {
     private Functie functie; // dit is hetzelfde als type!!!!
 
     //SimpleStringProperties voor TableView
-        @Transient
-private SimpleStringProperty sVoornaam = new SimpleStringProperty();
+    @Transient
+    private SimpleStringProperty sVoornaam = new SimpleStringProperty();
     @Transient
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
     @Transient
@@ -246,7 +249,6 @@ private SimpleStringProperty sVoornaam = new SimpleStringProperty();
         }
     }
 
-
     public String getGsmNr() {
         return gsmNr;
     }
@@ -268,10 +270,9 @@ private SimpleStringProperty sVoornaam = new SimpleStringProperty();
 
     public void setVasteTelefoonNr(String vasteTelefoonNr) {
         if (vasteTelefoonNr != null) {
-            if(vasteTelefoonNr.isEmpty() || vasteTelefoonNr.equals("")){
+            if (vasteTelefoonNr.isEmpty() || vasteTelefoonNr.equals("")) {
                 this.vasteTelefoonNr = "";
-            }
-            else if (vasteTelefoonNr.matches("[0-9]{9}")) {
+            } else if (vasteTelefoonNr.matches("[0-9]{9}")) {
                 this.vasteTelefoonNr = vasteTelefoonNr;
             } else {
                 throw new IllegalArgumentException("Telefoonnummer is niet correct.");
@@ -399,8 +400,7 @@ private SimpleStringProperty sVoornaam = new SimpleStringProperty();
                 }
             }
 
-        }
-        else{
+        } else {
             this.emailVader = "";
         }
 
@@ -422,8 +422,7 @@ private SimpleStringProperty sVoornaam = new SimpleStringProperty();
                 }
             }
 
-        }
-        else{
+        } else {
             this.emailMoeder = "";
         }
 
