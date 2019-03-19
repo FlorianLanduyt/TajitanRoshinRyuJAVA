@@ -6,6 +6,7 @@
 package gui.beherenActiviteit;
 
 import domein.Activiteit;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.controllers.ActiviteitBeheerController;
 import domein.controllers.AdminController;
@@ -14,10 +15,10 @@ import gui.BeginSchermFlo;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -98,11 +100,11 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     @FXML
     private Button btnVoegDeelnemerToe;
     @FXML
-    private TableView<Lid> tblDeelnemers;
+    private TableView<Inschrijving> tblDeelnemers;
     @FXML
-    private TableColumn<Lid, String> colDeelnemerVoornaam;
+    private TableColumn<Inschrijving, String> colDeelnemerVoornaam;
     @FXML
-    private TableColumn<Lid, String> colDeelnemerFamilienaam;
+    private TableColumn<Inschrijving, String> colDeelnemerFamilienaam;
     @FXML
     private Label lblFoutopvang;
 
@@ -118,6 +120,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
 
     //algemeen
     private ActiviteitBeheerController activiteitBeheerController;
+    private InschrijvingToevoegenScherm inschrijvingToevoegenScherm;
     @FXML
     private AnchorPane AnchorPane;
     @FXML
@@ -140,12 +143,13 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         //Activiteitentabel opvullen
         colNaamActiviteit.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
         colFormuleActiviteit.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
-        colDeelnemers.setCellValueFactory(
-                cellData -> new SimpleObjectProperty<>(
-                        String.format("%s / %s", cellData.getValue().aantalDeelnemersProperty().get() == null
-                                ? 0
-                                : cellData.getValue().aantalDeelnemersProperty().get(),
-                                cellData.getValue().maxDeelnemersProperty().get())));
+//        colDeelnemers.setCellValueFactory(
+//                cellData -> new SimpleObjectProperty<>(
+//                        String.format("%s / %s", cellData.getValue().aantalDeelnemersProperty().get() == null
+//                                ? 0
+//                                : cellData.getValue().aantalDeelnemersProperty().get(),
+//                                cellData.getValue().maxDeelnemersProperty().get())));
+        colDeelnemers.setCellValueFactory(cellData -> cellData.getValue().aantalDeelnemersProperty());
 
         colStartdatum.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
 
@@ -192,7 +196,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             txtBus.setText(newValue.getBus());
             txtStad.setText(newValue.getStad());
             txtPostcode.setText(newValue.getPostcode());
-            tblDeelnemers.setItems(activiteitBeheerController.geefDeelnemersVanActiviteit(newValue));
+            tblDeelnemers.setItems(activiteitBeheerController.geefInschrijvingenVanActiviteit(newValue));
             txtNaamLocatie.setText(newValue.getNaamLocatie());
             txtGsmnummerLocatie.setText(newValue.getGsmnummer());
             txtEmailLocatie.setText(newValue.getEmail());
@@ -220,7 +224,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
         txtBus.clear();
         txtStad.clear();
         txtPostcode.clear();
-        tblDeelnemers.setSelectionModel(null);
+        tblDeelnemers.setItems(null);
         txtNaamLocatie.clear();
         txtGsmnummerLocatie.clear();
         txtEmailLocatie.clear();
@@ -244,7 +248,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
                     Integer.parseInt(txtMaxAantalDeelnemers.getText()),
                     dpStartdatum.getValue(), dpEinddatum.getValue(), dpInschrijvingsDatum.getValue(),
                     txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText(),
-                    txtNaamLocatie.getText(),txtGsmnummerLocatie.getText(),txtEmailLocatie.getText());
+                    txtNaamLocatie.getText(), txtGsmnummerLocatie.getText(), txtEmailLocatie.getText());
             lblFoutopvang.setText("");
             btnWijzigActiviteit.setDisable(false);
             btnVerwijderActiviteit.setDisable(false);
@@ -273,7 +277,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
                 activiteitBeheerController.wijzigActiviteit(activiteit, txtNaamActiviteit.getText(), cboType.getSelectionModel().getSelectedItem(),
                         Integer.parseInt(txtMaxAantalDeelnemers.getText()), dpStartdatum.getValue(), dpEinddatum.getValue(), dpInschrijvingsDatum.getValue(),
                         txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText(),
-                        txtNaamLocatie.getText(),txtGsmnummerLocatie.getText(), txtEmailLocatie.getText());
+                        txtNaamLocatie.getText(), txtGsmnummerLocatie.getText(), txtEmailLocatie.getText());
             }
             lblFoutopvang.setText("");
         } catch (NumberFormatException ex) {
@@ -288,7 +292,7 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     @FXML
     private void verwijderActiviteit(ActionEvent event) {
         Activiteit activiteit = tblActiviteiten.getSelectionModel().getSelectedItem();
-        if (activiteitBeheerController.geefDeelnemersVanActiviteit(activiteit).isEmpty()) {
+        if (activiteitBeheerController.geefInschrijvingenVanActiviteit(activiteit).isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Bevestiging verwijderen");
             alert.setHeaderText("Bevestiging");
@@ -314,11 +318,43 @@ public class BeherenActiviteitSchermController extends AnchorPane {
     @FXML
     private void voegDeelnemerToe(ActionEvent event) {
         //UC4 --> inschrijvingen
+        Activiteit activiteit = tblActiviteiten.getSelectionModel().getSelectedItem();
+        if (activiteit == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FOUT!");
+            alert.setHeaderText("Activiteit ongekend");
+            alert.setContentText("U moet eerst een activiteit selecteren");
+            alert.showAndWait();
+        } else {
+            inschrijvingToevoegenScherm = new InschrijvingToevoegenScherm(this,
+                    activiteitBeheerController, activiteit);
+
+            Scene scene = new Scene(inschrijvingToevoegenScherm, 400, 400);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Toevoegen lid");
+            stage.setResizable(true);
+            stage.showAndWait();
+        }
+
     }
 
     @FXML
     private void verwijderDeelnemer(ActionEvent event) {
         //UC4 --> inschrijvingen
+        Lid lid = tblDeelnemers.getSelectionModel().getSelectedItem() == null
+                ? null
+                : tblDeelnemers.getSelectionModel().getSelectedItem().getLid();
+        Activiteit activiteit = tblActiviteiten.getSelectionModel().getSelectedItem();
+        if (activiteit != null && lid != null) {
+            activiteitBeheerController.verwijderInschrijving(activiteit, lid);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FOUT!");
+            alert.setHeaderText("Ongekend lid");
+            alert.setContentText("U moet nog een lid selecteren!");
+            alert.showAndWait();
+        }
     }
 
     //
