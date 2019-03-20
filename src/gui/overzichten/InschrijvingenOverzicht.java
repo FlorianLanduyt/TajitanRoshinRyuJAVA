@@ -141,8 +141,9 @@ public class InschrijvingenOverzicht extends Overzicht {
 
         tvFormules = new TableView();
         TableColumn<Formule, String> formules = new TableColumn("Formules");
-        //formules.setCellValueFactory(cellData -> cellData.getValue());
+        formules.setCellValueFactory(cellData -> cellData.getValue().naamFormuleProperty());
         tvFormules.getColumns().add(formules);
+        
 
         VBox formulesBox = opmaakFormulesTabel(tvFormules);
 
@@ -156,7 +157,6 @@ public class InschrijvingenOverzicht extends Overzicht {
             txDatum.setText(inschrijving.getTijdstip().toString());
 
             tvFormules.setItems((oc.geefFormulesPerLid(inschrijving.getLid())));
-            tvFormules.setVisible(false);
         }catch(NullPointerException e){
             //wanneer er geen inschrijving is geselecteerd
         }
@@ -176,7 +176,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         zetLabelEnInfoNaastElkaar(lblLid, txLid);
         zetLabelEnInfoNaastElkaar(lblDatum, txDatum);
 
-        //detailScherm.getChildren().add(lblDeelnemers);
+        detailScherm.getChildren().add(lblDeelnemers);
 
     }
 
