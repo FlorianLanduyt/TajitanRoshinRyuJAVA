@@ -204,7 +204,7 @@ public class LesmateriaalOverzicht extends Overzicht {
         try {
             txLid.setText(raadpleging.getLid().geefVolledigeNaam());
             txTitel.setText(raadpleging.getOefening().getTitel());
-            txThemaOefn.setText(raadpleging.getOefening().getThema().naam);
+            txThemaOefn.setText(raadpleging.getOefening().getThema().getNaam());
             txTotaalAantalRaadplegingen.setText(Integer.toString(raadpleging.getAantalRaadplegingen()));
             txDatumLaatsteRaadpleging.setText(raadpleging.getTijdstippen().get(raadpleging.getTijdstippen().size() - 1).toString());
         }catch(NullPointerException e){

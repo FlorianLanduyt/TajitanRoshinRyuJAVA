@@ -16,17 +16,26 @@ import javax.persistence.Id;
  * @author Tim
  */
 @Entity
-public class Thema implements Serializable{
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @Id
-     private int id;
-    public String naam;
+public class Thema implements Serializable {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private int id;
+    private String naam;
 
     public Thema() {
     }
-    
-    public Thema(String naam){
+
+    public Thema(String naam) {
+        setNaam(naam);
+    }
+
+    public String getNaam() {
+        return this.naam;
+    }
+
+    public void setNaam(String naam) {
         this.naam = naam;
     }
-    
+
 }
