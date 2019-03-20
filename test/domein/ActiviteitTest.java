@@ -28,7 +28,7 @@ public class ActiviteitTest {
                 "Belg", Graad.DAN5, Functie.LID);
 
         lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
-                "99.12.08.173.04", 
+                "99.12.08.173.04",
                 "0479365887", "098556880", "Kortrijk", "Prinses Clementinalaan",
                 "11", "9980", "tybo.vanderstraeten@outlook.com",
                 "TomatoSoup", "Gent", "Man",
@@ -83,6 +83,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetNaam_Correct() {
         activiteit.setNaam("Meerdaagse hoogtebeproeving");
+        Assert.assertEquals("Meerdaagse hoogtebeproeving", activiteit.getNaam());
     }
 
     //Straat
@@ -108,6 +109,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetStraat_Correct() {
         activiteit.setStraat("Voskenslaan");
+        Assert.assertEquals("Voskenslaan", activiteit.getStraat());
     }
 
     //Stad
@@ -133,6 +135,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetStad_Correct() {
         activiteit.setStad("Gent");
+        Assert.assertEquals("Gent", activiteit.getStad());
     }
 
     //PostCode
@@ -154,6 +157,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetPC_Correct() {
         activiteit.setPostcode("9000");
+        Assert.assertEquals("9000", activiteit.getPostcode());
     }
 
     //HuisNummer
@@ -175,6 +179,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetHNR_Correct() {
         activiteit.setHuisnummer("13");
+        Assert.assertEquals("13", activiteit.getHuisnummer());
     }
 
     //Bus
@@ -186,6 +191,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetBus_Correct() {
         activiteit.setBus("81a");
+        Assert.assertEquals("81a", activiteit.getBus());
     }
 
     //Formule
@@ -207,6 +213,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetFormule_Correct() {
         activiteit.setFormule(Formule.WO_ZA);
+        Assert.assertEquals(Formule.WO_ZA, activiteit.getFormule());
     }
 
     //BeginDatum
@@ -223,6 +230,7 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetBeginDatum_Correct() {
         activiteit.setBeginDatum(LocalDate.now());
+        Assert.assertEquals(LocalDate.now(), activiteit.getBeginDatum());
     }
 
     //EindDatum
@@ -235,6 +243,7 @@ public class ActiviteitTest {
     public void activiteit_SetEindDatum_Correct() {
         activiteit.setBeginDatum(LocalDate.now());
         activiteit.setEindDatum(LocalDate.now().plusDays(10));
+        Assert.assertEquals(LocalDate.now().plusDays(10), activiteit.getEindDatum());
     }
 
     //Einddatum voor begindatum
@@ -276,6 +285,8 @@ public class ActiviteitTest {
     public void activiteit_SetUitersteInschrijvingsDatum_Correct() {
         activiteit.setBeginDatum(LocalDate.now().plusDays(5));
         activiteit.setUitersteInschrijvingsDatum(LocalDate.now());
+        Assert.assertEquals(LocalDate.now(), activiteit.getUitersteInschrijvingsDatum());
+
     }
 
     //MaxDeelnemers
@@ -292,5 +303,6 @@ public class ActiviteitTest {
     @Test
     public void activiteit_SetMaxDeelnemers_Correct() {
         activiteit.setMaxDeelnemers(25);
+        Assert.assertEquals(25, activiteit.getMaxDeelnemers());
     }
 }

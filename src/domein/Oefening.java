@@ -170,7 +170,7 @@ public class Oefening implements Serializable {
             throw new IllegalArgumentException("Thema mag niet leeg zijn.");
         } else {
             this.thema = thema;
-            sThema.set(thema.naam);
+            sThema.set(thema.getNaam());
         }
     }
 
