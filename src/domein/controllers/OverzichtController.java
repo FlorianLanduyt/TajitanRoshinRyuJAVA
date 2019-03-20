@@ -9,6 +9,7 @@ import domein.Lid;
 import domein.Oefening;
 import domein.Raadpleging;
 import domein.enums.Functie;
+import domein.enums.LeeftijdsCategorie;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -50,6 +51,9 @@ public class OverzichtController {
     private ObservableList<Oefening> oefeningen;
     private ObservableList<Formule> formulesVoorInschrijving;
 
+    private ObservableList<Lid> ledenClubkampioenschap;
+    private FilteredList<Lid> ledenClubkampioenschapFiltered;
+
     public OverzichtController() {
         dataController = new DataController();
 
@@ -72,6 +76,8 @@ public class OverzichtController {
         raadplegingenSortedList = new SortedList(raadplegingenFilteredList, byOefnnaam);
 
         this.oefeningen = FXCollections.observableArrayList(dataController.geefOefeningen());
+
+        ledenClubkampioenschap = FXCollections.observableArrayList();
 
     }
 
@@ -204,10 +210,28 @@ public class OverzichtController {
     //
     public ObservableList<Lid> geefOverzichtClubkampioenschap() {
         berekenPuntenLeden();
-        ObservableList<Lid> ledenSortedPunten = FXCollections.observableArrayList(leden.stream()
+        ledenClubkampioenschap = FXCollections.observableArrayList(leden.stream()
                 .sorted(Comparator.comparing(Lid::getPuntenAantal).reversed())
                 .collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(ledenSortedPunten);
+
+        ledenClubkampioenschapFiltered = new FilteredList(ledenClubkampioenschap, p -> true);
+        return FXCollections.unmodifiableObservableList(ledenClubkampioenschapFiltered);
+    }
+
+    public void veranderFilterClubkampioenschap(LeeftijdsCategorie leeftijdsCategorie) {
+        ledenClubkampioenschapFiltered.setPredicate((lid) -> {
+            boolean leeftijdsCategorieEmpty = leeftijdsCategorie == null;
+            boolean leeftijdCategorieFilter = lid
+                    .getLeeftijdsCategoriën()
+                    .stream()
+                    .anyMatch(leef -> leef.equals(leeftijdsCategorie));
+            
+            if (!leeftijdsCategorieEmpty) {
+                return leeftijdCategorieFilter;
+            }
+            return true;
+        });
+
     }
 
     private void berekenPuntenLeden() {
@@ -231,6 +255,14 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(aanwezighedenVoorLid));
     }
 
+    public ObservableList<String> geefLeeftijdsCategoriën() {
+        ObservableList<String> leeftijdsCategoriën = FXCollections.observableArrayList(dataController
+                .geefLeeftijdsCategoriën().stream().map(lc -> lc.getDisplayName())
+                .collect(Collectors.toList()));
+        leeftijdsCategoriën.add(0, "Alle leeftijdscategoriën");
+        return leeftijdsCategoriën;
+    }
+
     //
     //RAADPLEGINGEN
     //
@@ -249,8 +281,8 @@ public class OverzichtController {
             boolean voornaamFilter = raadpleging.getLid().getVoornaam().toLowerCase().equals(lidVoornaam.toLowerCase()) || raadpleging.getLid().getVoornaam().toLowerCase().startsWith(lidVoornaam.toLowerCase());
             boolean familieNaamFilter = raadpleging.getLid().getAchternaam().toLowerCase().equals(lidFamilienaam.toLowerCase()) || raadpleging.getLid().getAchternaam().toLowerCase().startsWith(lidFamilienaam.toLowerCase());
             boolean oefeningFilter = raadpleging.getOefening().equals(oefening);
-            boolean vanFilter = vanEmpty ? false : raadpleging.getTijdstippen().get(raadpleging.getTijdstippen().size()-1).compareTo(van) >= 0;
-            boolean totFilter = totEmpty ? false : raadpleging.getTijdstippen().get(raadpleging.getTijdstippen().size()-1).compareTo(tot) <= 0;
+            boolean vanFilter = vanEmpty ? false : raadpleging.getTijdstippen().get(raadpleging.getTijdstippen().size() - 1).compareTo(van) >= 0;
+            boolean totFilter = totEmpty ? false : raadpleging.getTijdstippen().get(raadpleging.getTijdstippen().size() - 1).compareTo(tot) <= 0;
 
             //00000
             if (vanEmpty && totEmpty && lidVoornaamEmpty && lidFamilienaamEmpty && oefeningEmpty) {

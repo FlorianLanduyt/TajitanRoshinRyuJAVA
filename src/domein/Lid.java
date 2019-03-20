@@ -2,12 +2,12 @@ package domein;
 
 import domein.enums.Functie;
 import domein.enums.Graad;
+import domein.enums.LeeftijdsCategorie;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,10 +17,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -52,6 +48,8 @@ public class Lid implements Serializable {
     private String nationaliteit;
     private String beroep;
     private int puntenAantal;
+
+    private List<LeeftijdsCategorie> leeftijdsCategoriën;
 
     @Enumerated(EnumType.STRING)
     private Graad graad;
@@ -97,6 +95,7 @@ public class Lid implements Serializable {
         setNationaliteit(nationaliteit);
         setGraad(graad);
         setFunctie(functie);
+        leeftijdsCategoriën = new ArrayList();
     }
 
     //Getters voor SimpleStringProperties
@@ -568,6 +567,28 @@ public class Lid implements Serializable {
 
     public String geefVolledigeNaam() {
         return voornaam + " " + achternaam;
+    }
+
+    public List<LeeftijdsCategorie> getLeeftijdsCategoriën() {
+        setLeeftijdsCategoriën();
+        return leeftijdsCategoriën;
+    }
+
+    public void setLeeftijdsCategoriën() {
+        leeftijdsCategoriën = new ArrayList(); // we willen dat  alles altijd up-to-date blijft!
+        int leeftijd = Period.between(geboortedatum, LocalDate.now()).getYears();
+        if (leeftijd <= 15) {
+            if(leeftijd < 10){
+                leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
+            }
+            else{
+                leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
+                leeftijdsCategoriën.add(LeeftijdsCategorie.L10_15);
+            }
+        }
+        else{
+            leeftijdsCategoriën.add(LeeftijdsCategorie.L15_PLUS);
+        }
     }
 
 }

@@ -11,6 +11,7 @@ import domein.Thema;
 import domein.enums.Formule;
 import domein.enums.Functie;
 import domein.enums.Graad;
+import domein.enums.LeeftijdsCategorie;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -106,6 +107,11 @@ public class DataController {
     public List<String> geefGeslachten() {
         List<String> geslachten = Arrays.asList("Man", "Vrouw");
         return geslachten;
+    }
+    
+    public List<LeeftijdsCategorie> geefLeeftijdsCategoriën(){
+        List<LeeftijdsCategorie> leeftijdsCategoriën = Arrays.asList(LeeftijdsCategorie.values());
+        return leeftijdsCategoriën;
     }
 
     public List<Formule> geefFormulesVanLid(Lid lid) {
