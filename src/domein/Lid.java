@@ -68,6 +68,8 @@ public class Lid implements Serializable {
     private SimpleStringProperty sGraad = new SimpleStringProperty();
     @Transient
     private SimpleStringProperty sType = new SimpleStringProperty();
+    @Transient
+    private SimpleStringProperty sGeboortedatum = new SimpleStringProperty();
 
     public Lid() {
     }
@@ -118,6 +120,10 @@ public class Lid implements Serializable {
     public SimpleStringProperty typeProperty() {
         return sType;
     }
+    
+    public SimpleStringProperty geboortedatumProperty(){
+        return sGeboortedatum;
+    }
 
     //Gewone getters en setters
     public int getId() {
@@ -166,6 +172,7 @@ public class Lid implements Serializable {
         }
         if (geboortedatum.compareTo(LocalDate.now()) < 0) {
             this.geboortedatum = geboortedatum;
+            sGeboortedatum.set(geboortedatum.toString());
         } else {
             throw new IllegalArgumentException("Geboortedatum moet in het verleden liggen!");
         }

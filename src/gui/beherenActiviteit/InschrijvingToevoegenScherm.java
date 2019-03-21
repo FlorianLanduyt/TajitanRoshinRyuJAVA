@@ -36,6 +36,7 @@ public class InschrijvingToevoegenScherm extends VBox {
     private TableView<Lid> tblLeden;
     private TableColumn<Lid, String> colFamilienaam;
     private TableColumn<Lid, String> colVoornaam;
+    private TableColumn<Lid, String> colGeboorteDatum;
 
     private Button btnVoegInschrijvingToe;
 
@@ -94,10 +95,11 @@ public class InschrijvingToevoegenScherm extends VBox {
         tabel.setPadding(new Insets(5,5,5,5));
         colFamilienaam = new TableColumn("Familienaam");
         colVoornaam = new TableColumn("Voornaam");
+        colGeboorteDatum = new TableColumn("Geboortedatum");
         tblLeden = new TableView();
         
         DoubleBinding breedteScherm = this.widthProperty().multiply(0.97);
-        DoubleBinding breedteKolom = breedteScherm.divide(2);
+        DoubleBinding breedteKolom = breedteScherm.divide(3);
 
         tabel.prefWidthProperty().bind(breedteScherm);
 
@@ -112,9 +114,15 @@ public class InschrijvingToevoegenScherm extends VBox {
         colVoornaam.setSortable(true);
         colVoornaam.prefWidthProperty().bind(breedteKolom);
         colVoornaam.getStyleClass().add("titelLinks");
+        
+        colGeboorteDatum.setCellValueFactory(cellData -> cellData.getValue().geboortedatumProperty());
+        colGeboorteDatum.setResizable(false);
+        colGeboorteDatum.setSortable(true);
+        colGeboorteDatum.prefWidthProperty().bind(breedteKolom);
+        colGeboorteDatum.getStyleClass().add("titelLinks");
 
         tblLeden.setItems(activiteitBeheerController.geefLedenNogNietIngeschreven(activiteit));
-        tblLeden.getColumns().addAll(colFamilienaam, colVoornaam);
+        tblLeden.getColumns().addAll(colFamilienaam, colVoornaam, colGeboorteDatum);
         tblLeden.setPrefHeight(300);
         tblLeden.setScaleShape(false);
         tblLeden.setId("table");

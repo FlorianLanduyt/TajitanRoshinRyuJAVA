@@ -20,8 +20,15 @@ public class ActiviteitBeheerController {
     private ObservableList<Activiteit> activiteitenList;
     private FilteredList<Activiteit> filteredActiviteitenList;
     private SortedList<Activiteit> sortedActiviteitenList;
+    private final Comparator<Activiteit> byDate = (p1, p2) -> p1.getBeginDatum().compareTo(p2.getBeginDatum());
+    private final Comparator<Activiteit> sortOrder = byDate.reversed();
     
     private ObservableList<Inschrijving> inschrijvingenActiviteit;
+    private SortedList<Inschrijving> inschrijvingenActiviteitSorted;
+    private Comparator<Inschrijving> byFamilienaamInschrijving = (l1, l2) -> l1.getLid().getAchternaam().compareTo(l2.getLid().getAchternaam());
+    private Comparator<Inschrijving> byVoornaamInschrijving = (l1, l2) -> l1.getLid().getVoornaam().compareTo(l2.getLid().getVoornaam());
+    private Comparator<Inschrijving> sortOrderInschrijving = byFamilienaamInschrijving.thenComparing(byVoornaamInschrijving);
+    
     
     private ObservableList<Lid> nogNietIngeschrevenLeden;
     private FilteredList<Lid> nogNietIngeschrevenLedenFiltered;
@@ -30,8 +37,7 @@ public class ActiviteitBeheerController {
     private final Comparator<Lid> byVoornaam = (l1, l2) -> l1.getVoornaam().compareTo(l2.getVoornaam());
     private final Comparator<Lid> sortOrderLeden = byFamilienaam.thenComparing(byVoornaam);
 
-    private final Comparator<Activiteit> byDate = (p1, p2) -> p1.getBeginDatum().compareTo(p2.getBeginDatum());
-    private final Comparator<Activiteit> sortOrder = byDate.reversed();
+    
 
     public ActiviteitBeheerController() {
         dataController = new DataController();
@@ -57,7 +63,8 @@ public class ActiviteitBeheerController {
     
     public ObservableList<Inschrijving> geefInschrijvingenVanActiviteit(Activiteit activiteit){
         inschrijvingenActiviteit = FXCollections.observableArrayList(activiteit.getInschrijvingen());
-        return FXCollections.unmodifiableObservableList(inschrijvingenActiviteit);
+        inschrijvingenActiviteitSorted = new SortedList(inschrijvingenActiviteit, sortOrderInschrijving);
+        return FXCollections.unmodifiableObservableList(inschrijvingenActiviteitSorted);
     }
     
     public ObservableList<Lid> geefLedenNogNietIngeschreven(Activiteit activiteit){
@@ -66,6 +73,7 @@ public class ActiviteitBeheerController {
                 .getInschrijvingen()
                 .stream()
                 .map(insch ->insch.getLid())
+                .sorted(Comparator.comparing(Lid::getAchternaam).thenComparing(Lid::getVoornaam))
                 .collect(Collectors.toList()));
         
         nogNietIngeschrevenLeden = FXCollections.unmodifiableObservableList(alleLeden);
