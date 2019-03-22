@@ -3,6 +3,7 @@ package gui;
 import domein.controllers.AdminController;
 import gui.beherenActiviteit.BeherenActiviteitSchermController;
 import gui.beherenLid.BeherenLidSchermController;
+import gui.beherenLid.LidBeherenScherm;
 import gui.overzichten.ActiviteitenOverzicht;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -70,7 +71,7 @@ public class BeginSchermFlo extends BorderPane {
     
     
     public void beheerLid(){
-        this.setCenter(new BeherenLidSchermController(this, ac));
+        this.setCenter(new LidBeherenScherm(this, ac, "Beheren Lid"));
     }
     
     public void beheerActiviteiten(){

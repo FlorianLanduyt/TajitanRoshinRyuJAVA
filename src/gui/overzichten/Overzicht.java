@@ -16,8 +16,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -38,6 +40,7 @@ public class Overzicht<T> extends BorderPane {
     private List<ComboBox> comboboxen;
     private List<HBox> datepickers;
     private List<TextField> textfields;
+    private List<TextField> textFilters; 
 
     private final String titelOverzicht;
 
@@ -66,17 +69,18 @@ public class Overzicht<T> extends BorderPane {
     }
 
     private void maakFilters() {
-        HBox datePickerBox = new HBox(5);
+        HBox datePickerBox = new HBox(10);
         datepickers.stream().forEach(d-> {
             d.setPadding(new Insets(0,15,0,0));
             datePickerBox.getChildren().add(d);
         });
         
-        datePickerBox.setPadding(new Insets(-10,0,0,0));
+        //datePickerBox.setPadding(new Insets(-10,0,0,0));
         
         HBox cbFilterBox = new HBox(10);
         comboboxen.stream().forEach(f -> {
             f.setMinWidth(150);
+            f.setMaxWidth(150);
             cbFilterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
         });
@@ -84,22 +88,25 @@ public class Overzicht<T> extends BorderPane {
         HBox txtFilterBox = new HBox(10);
         textfields.stream().forEach(f -> {
             f.setMinWidth(150);
+            f.setMaxWidth(150);
             txtFilterBox.getChildren().add(f);
-        
         });
-         txtFilterBox.setPadding(new Insets(-10,0,0,0));
         
+        // txtFilterBox.setPadding(new Insets(,0,0,0));
+        
+         HBox alleFilters = new HBox(10);
+         
         if(!comboboxen.isEmpty()){
-            filtersEnTabel.getChildren().add(cbFilterBox);
-        }
-        if(!datepickers.isEmpty()){
-            filtersEnTabel.getChildren().add(datePickerBox);
+            alleFilters.getChildren().add(cbFilterBox);
         }
         if(!textfields.isEmpty()){
-             filtersEnTabel.getChildren().add(txtFilterBox);
+             alleFilters.getChildren().add(txtFilterBox);
         }
-       
+        if(!datepickers.isEmpty()){
+            alleFilters.getChildren().add(datePickerBox);
+        }
         
+        filtersEnTabel.getChildren().add(alleFilters);
     }
 
     private void maakTabel() {
@@ -131,14 +138,31 @@ public class Overzicht<T> extends BorderPane {
     }
 
     private void maakDetailScherm(int hoogteDetailScherm) {
+        String cssLayout = "-fx-border-color: grey;\n" + //#dee8e2
+                   "-fx-border-insets: 5;\n" +
+                   "-fx-border-width: 1;\n" +
+                   "-fx-border-style: solid;\n";
+
+        Pane bovenPadding = new Pane();
+        bovenPadding.setMinHeight(hoogteDetailScherm);
+        
+        
+        
         detailScherm.setSpacing(10);
-        detailScherm.setPadding(new Insets(hoogteDetailScherm, 10, 0, 30));
-        //detailScherm.setAlignment(Pos.CENTER_LEFT);
-        //detailScherm.getStyleClass().add("bgr");
+        detailScherm.setPadding(new Insets(8, 20, 60, 20));
+        detailScherm.setStyle(cssLayout);
+        
+        Pane zijPadding = new Pane();
+        //zijPadding.setMinWidth(50);
+        
+        HBox zijPaddingBox = new HBox(detailScherm,zijPadding);
+        
+        VBox paddingBox  = new VBox(bovenPadding,zijPaddingBox);
+        paddingBox.setPadding(new Insets(0,0,0,30));
 
         tvTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                this.setCenter(detailScherm);
+                this.setCenter(paddingBox);
             }
         });
     }
