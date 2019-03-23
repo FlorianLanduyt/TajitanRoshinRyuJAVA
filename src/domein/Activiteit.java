@@ -325,7 +325,7 @@ public class Activiteit implements Serializable {
                     throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
                 }
             }
-            if (!gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
+            if (!tempGsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
                 throw new IllegalArgumentException("GSM-nummer is niet correct.");
             }
         } else {
@@ -343,7 +343,7 @@ public class Activiteit implements Serializable {
                 throw new IllegalArgumentException("GSM-nummer is niet correct.");
             }
         }
-        this.gsmnummer = gsmNr;
+        this.gsmnummer=gsmNr;
         sGsmnummer.set(gsmNr);
     }
 

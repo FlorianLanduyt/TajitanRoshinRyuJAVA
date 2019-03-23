@@ -139,12 +139,22 @@ public class Lid implements Serializable {
         if (voornaam == null || voornaam.isEmpty()) {
             throw new IllegalArgumentException("Voornaam mag niet leeg zijn.");
         }
-        if (voornaam.length() <= 25) {
-            this.voornaam = voornaam;
-            sVoornaam.set(voornaam);
-        } else {
+        voornaam = voornaam.trim();
+        if (voornaam.length() > 25) {
             throw new IllegalArgumentException("Voornaam mag max. 25 karakters bevatten.");
         }
+        if (voornaam.contains(" ")) {
+            String tempVoornaam = voornaam.replaceAll(" ", "");
+            if (tempVoornaam.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Voornaam mag enkel letters bevatten.");
+            }
+        } else {
+            if (voornaam.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Voornaam mag enkel letters bevatten.");
+            }
+        }
+        this.voornaam = voornaam;
+        sVoornaam.set(voornaam);
     }
 
     public String getAchternaam() {
@@ -153,14 +163,25 @@ public class Lid implements Serializable {
 
     public void setAchternaam(String achternaam) {
         if (achternaam == null || achternaam.isEmpty()) {
-            throw new IllegalArgumentException("Achternaam mag niet leeg zijn.");
+            throw new IllegalArgumentException("Familienaam mag niet leeg zijn.");
         }
-        if (achternaam.length() <= 50) {
-            this.achternaam = achternaam;
-            sAchternaam.set(achternaam);
-        } else {
+        achternaam = achternaam.trim();
+        if (achternaam.length() > 50) {
             throw new IllegalArgumentException("Familienaam mag max. 50 karakters bevatten.");
+
         }
+        if (achternaam.contains(" ")) {
+            String tempAchternaam = achternaam.replaceAll(" ", "");
+            if (tempAchternaam.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Familienaam mag enkel letters bevatten.");
+            }
+        } else {
+            if (achternaam.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Familienaam mag enkel letters bevatten.");
+            }
+        }
+        this.achternaam = achternaam;
+        sAchternaam.set(achternaam);
     }
 
     public LocalDate getGeboortedatum() {
@@ -171,12 +192,11 @@ public class Lid implements Serializable {
         if (geboortedatum == null) {
             throw new IllegalArgumentException("Geboortedatum mag niet leeg zijn.");
         }
-        if (geboortedatum.compareTo(LocalDate.now()) < 0) {
-            this.geboortedatum = geboortedatum;
-            sGeboortedatum.set(geboortedatum.toString());
-        } else {
-            throw new IllegalArgumentException("Geboortedatum moet in het verleden liggen!");
+        if ((LocalDate.now().minusYears(5)).compareTo(geboortedatum) < 0) {
+            throw new IllegalArgumentException("Lid moet minstens 5 jaar oud zijn.");
         }
+        this.geboortedatum = geboortedatum;
+        sGeboortedatum.set(geboortedatum.toString());
     }
 
     public String getRijksregisterNr() {
@@ -262,13 +282,40 @@ public class Lid implements Serializable {
 
     public void setGsmNr(String gsmNr) {
         if (gsmNr == null || gsmNr.isEmpty()) {
-            throw new IllegalArgumentException("Gsmnummer mag niet leeg zijn.");
+            throw new IllegalArgumentException("GSM-nummer mag niet leeg zijn.");
         }
-        if (gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
-            this.gsmNr = gsmNr;
+        gsmNr = gsmNr.trim();
+        if (gsmNr.contains(" ")) {
+            String tempGsmNr = gsmNr.replaceAll(" ", "");
+            if (gsmNr.charAt(0) == '+') {
+                String tempGsmNrWithoutSpaces = gsmNr.replace(" ", "");
+                if (tempGsmNrWithoutSpaces.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            } else {
+                if (tempGsmNr.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            }
+            if (!gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
+                throw new IllegalArgumentException("GSM-nummer is niet correct.");
+            }
         } else {
-            throw new IllegalArgumentException("Gsmnummer is niet correct.");
+            if (gsmNr.charAt(0) == '+') {
+                String tempGsmNr = gsmNr.replace("+", "");
+                if (tempGsmNr.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            } else {
+                if (gsmNr.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            }
+            if (!gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
+                throw new IllegalArgumentException("GSM-nummer is niet correct.");
+            }
         }
+        this.gsmNr = gsmNr;
     }
 
     public String getVasteTelefoonNr() {
@@ -285,7 +332,6 @@ public class Lid implements Serializable {
                 throw new IllegalArgumentException("Telefoonnummer is niet correct.");
             }
         }
-
     }
 
     public String getStad() {
@@ -393,11 +439,12 @@ public class Lid implements Serializable {
     public void setEmail(String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
-        } else if (email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
-            this.email = email;
-        } else {
+        }
+        email = email.trim();
+        if (!email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
             throw new IllegalArgumentException("Emailadres is niet correct.");
         }
+        this.email = email;
     }
 
     public String getWachtwoord() {
@@ -449,11 +496,9 @@ public class Lid implements Serializable {
                     throw new IllegalArgumentException("Emailadres moeder is niet correct.");
                 }
             }
-
         } else {
             this.emailMoeder = "";
         }
-
     }
 
     public String getGeboorteplaats() {
@@ -464,11 +509,32 @@ public class Lid implements Serializable {
         if (geboorteplaats == null || geboorteplaats.isEmpty()) {
             throw new IllegalArgumentException("Geboorteplaats mag niet leeg zijn.");
         }
-        if (geboorteplaats.length() <= 50) {
-            this.geboorteplaats = geboorteplaats;
-        } else {
+        geboorteplaats = geboorteplaats.trim();
+        if (geboorteplaats.length() > 50) {
             throw new IllegalArgumentException("Geboorteplaats mag max. 50 karakters bevatten.");
         }
+        if (geboorteplaats.contains(" ")) {
+            String tempGeboorteplaats = geboorteplaats.replaceAll(" ", "");
+            if (tempGeboorteplaats.contains("-")) {
+                tempGeboorteplaats = tempGeboorteplaats.replaceAll("-", "");
+                if (tempGeboorteplaats.matches(".*[\\d\\W].*")) {
+                    throw new InputMismatchException("Geboorteplaats mag enkel letters bevatten.");
+                }
+            }
+        } else {
+            if (geboorteplaats.contains("-")) {
+                String tempGeboorteplaats = geboorteplaats.replaceAll("-", "");
+                if (tempGeboorteplaats.matches(".*[\\d\\W].*")) {
+                    throw new InputMismatchException("Geboorteplaats mag enkel letters bevatten.");
+                }
+            } else {
+                if (geboorteplaats.matches(".*[\\d\\W].*")) {
+                    throw new InputMismatchException("Geboorteplaats mag enkel letters bevatten.");
+                }
+            }
+            this.geboorteplaats = geboorteplaats;
+        }
+
     }
 
     public String getGeslacht() {
@@ -494,11 +560,21 @@ public class Lid implements Serializable {
         if (nationaliteit == null || nationaliteit.isEmpty()) {
             throw new IllegalArgumentException("Nationaliteit mag niet leeg zijn.");
         }
-        if (nationaliteit.length() <= 50) {
-            this.nationaliteit = nationaliteit;
-        } else {
+        nationaliteit = nationaliteit.trim();
+        if (nationaliteit.length() > 50) {
             throw new IllegalArgumentException("Nationaliteit mag max. 50 karakters bevatten.");
         }
+        if (nationaliteit.contains(" ")) {
+            String tempNationaliteit = nationaliteit.replaceAll(" ", "");
+            if (tempNationaliteit.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Nationaliteit mag enkel letters bevatten.");
+            }
+        } else {
+            if (nationaliteit.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Nationaliteit mag enkel letters bevatten.");
+            }
+        }
+        this.nationaliteit = nationaliteit;
     }
 
     public String getBeroep() {
@@ -563,6 +639,30 @@ public class Lid implements Serializable {
         }
     }
 
+    public String geefVolledigeNaam() {
+        return voornaam + " " + achternaam;
+    }
+
+    public List<LeeftijdsCategorie> getLeeftijdsCategoriën() {
+        setLeeftijdsCategoriën();
+        return leeftijdsCategoriën;
+    }
+
+    public void setLeeftijdsCategoriën() {
+        leeftijdsCategoriën = new ArrayList(); // we willen dat  alles altijd up-to-date blijft!
+        int leeftijd = Period.between(geboortedatum, LocalDate.now()).getYears();
+        if (leeftijd <= 15) {
+            if (leeftijd < 10) {
+                leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
+            } else {
+                leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
+                leeftijdsCategoriën.add(LeeftijdsCategorie.L10_15);
+            }
+        } else {
+            leeftijdsCategoriën.add(LeeftijdsCategorie.L15_PLUS);
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("%s %s", getVoornaam(), getAchternaam());
@@ -592,30 +692,6 @@ public class Lid implements Serializable {
             return false;
         }
         return true;
-    }
-
-    public String geefVolledigeNaam() {
-        return voornaam + " " + achternaam;
-    }
-
-    public List<LeeftijdsCategorie> getLeeftijdsCategoriën() {
-        setLeeftijdsCategoriën();
-        return leeftijdsCategoriën;
-    }
-
-    public void setLeeftijdsCategoriën() {
-        leeftijdsCategoriën = new ArrayList(); // we willen dat  alles altijd up-to-date blijft!
-        int leeftijd = Period.between(geboortedatum, LocalDate.now()).getYears();
-        if (leeftijd <= 15) {
-            if (leeftijd < 10) {
-                leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
-            } else {
-                leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
-                leeftijdsCategoriën.add(LeeftijdsCategorie.L10_15);
-            }
-        } else {
-            leeftijdsCategoriën.add(LeeftijdsCategorie.L15_PLUS);
-        }
     }
 
 }

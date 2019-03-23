@@ -399,16 +399,6 @@ public class LidTest {
 
     //EmailVader
     @Test(expected = IllegalArgumentException.class)
-    public void lid_SetEmailVader_Null_ThrowsIllegalArgumentException() {
-        lid.setEmailVader(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void lid_SetEmailVader_Empty_ThrowsIllegalArgumentException() {
-        lid.setEmailVader("");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void lid_SetEmailVader_MetSpaties_ThrowsIllegalArgumentException() {
         lid.setEmailVader("tybo. vanderstraeten@student.hogent.be");
     }
@@ -435,16 +425,6 @@ public class LidTest {
     }
 
     //EmailMoeder
-    @Test(expected = IllegalArgumentException.class)
-    public void lid_SetEmailMoeder_Null_ThrowsIllegalArgumentException() {
-        lid.setEmailMoeder(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void lid_SetEmailMoeder_Empty_ThrowsIllegalArgumentException() {
-        lid.setEmailMoeder("");
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void lid_SetEmailMoeder_MetSpaties_ThrowsIllegalArgumentException() {
         lid.setEmailMoeder("tybo. vanderstraeten@student.hogent.be");
@@ -512,12 +492,6 @@ public class LidTest {
     }
 
     @Test
-    public void lid_SetGeboorteplaats_MetSpaties_Correct() {
-        lid.setGeboorteplaats("Gent Nieuw");
-        Assert.assertEquals("Gent Nieuw", lid.getGeboorteplaats());
-    }
-
-    @Test
     public void lid_SetGeboorteplaats_Correct() {
         lid.setGeboorteplaats("Gent");
         Assert.assertEquals("Gent", lid.getGeboorteplaats());
@@ -554,11 +528,6 @@ public class LidTest {
         lid.setGsmNr("@@@@@@@@@@");
     }
 
-    @Test(expected = InputMismatchException.class)
-    public void lid_SetGsmNummer_MetSpaties_ThrowsInputMismatchException() {
-        lid.setGsmNr("04 77441461");
-    }
-
     @Test
     public void lid_SetGsmNummer_Correct() {
         lid.setGsmNr("0477441462");
@@ -569,43 +538,6 @@ public class LidTest {
     public void lid_SetGsmNummer_32_Correct() {
         lid.setGsmNr("+32477441462");
         Assert.assertEquals("+32477441462", lid.getGsmNr());
-    }
-
-    //vasteTelefoonNr
-    @Test(expected = IllegalArgumentException.class)
-    public void lid_SetNummer_Empty_ThrowsIllegalArgumentException() {
-        lid.setVasteTelefoonNr("");
-    }
-
-    @Test(expected = InputMismatchException.class)
-    public void lid_SetNummer_MetLetters_ThrowsInputMismatchException() {
-        lid.setVasteTelefoonNr("aaaaa1235");
-    }
-
-    @Test(expected = InputMismatchException.class)
-    public void lid_SetNummer_EnkelLetters_ThrowsInputMismmatchException() {
-        lid.setVasteTelefoonNr("aaaaaaaaa");
-    }
-
-    @Test(expected = InputMismatchException.class)
-    public void lid_SetNummer_MetSymbolen_ThrowsInputMismatchException() {
-        lid.setVasteTelefoonNr("@@@@@1245");
-    }
-
-    @Test(expected = InputMismatchException.class)
-    public void lid_SetNummer_EnkelSymbolen_ThrowsInputMismatchException() {
-        lid.setVasteTelefoonNr("@@@@@@@@@");
-    }
-
-    @Test(expected = InputMismatchException.class)
-    public void lid_SetNummer_MetSpaties_ThrowsInputMismatchException() {
-        lid.setVasteTelefoonNr("04 7744146");
-    }
-
-    @Test
-    public void lid_SetNummer_Correct() {
-        lid.setVasteTelefoonNr("047744146");
-        Assert.assertEquals("047744146", lid.getVasteTelefoonNr());
     }
 
     //Nationaliteit

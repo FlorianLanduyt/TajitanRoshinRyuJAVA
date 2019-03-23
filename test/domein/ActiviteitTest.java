@@ -533,11 +533,6 @@ public class ActiviteitTest {
         activiteit.setGsmnummer("@@@@@@@@@@");
     }
 
-    @Test(expected = InputMismatchException.class)
-    public void activiteit_SetGsmNummer_MetSpaties_ThrowsInputMismatchException() {
-        activiteit.setGsmnummer("04 77441461");
-    }
-
     @Test
     public void activiteit_SetGsmNummer_Correct() {
         activiteit.setGsmnummer("0477441462");
