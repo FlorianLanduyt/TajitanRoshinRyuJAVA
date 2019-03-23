@@ -13,11 +13,14 @@ import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginSchermFlo;
 import gui.overzichten.Overzicht;
+import java.util.Optional;
 import javafx.event.ActionEvent;
-import javafx.geometry.HPos;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -49,9 +52,13 @@ public class LidBeherenScherm extends Overzicht {
     private TableColumn<Lid, String> colAchternaam;
     private TableColumn<Lid, String> colGraad;
     private TableColumn<Lid, String> colType;
+    
+    
     private Button btnNieuwLid;
     private Button btnWijzigingenOpslaan;
     private Button btnLidVerwijderen;
+    private Button btnCancel;
+    private Button btnSlaGegevensNieuwLidOp;
     
     
     //detailpane
@@ -77,6 +84,8 @@ public class LidBeherenScherm extends Overzicht {
     private ComboBox<Graad> cboGraad;
     private ComboBox<String> cboGeslacht;
     private ComboBox<Functie> cboType_Functie;
+    
+    private Label lblErrorlog = new Label("");
 
     
     public LidBeherenScherm(BeginSchermFlo parent, AdminController ac, String titel) {
@@ -106,21 +115,44 @@ public class LidBeherenScherm extends Overzicht {
             filterLedenTXT();
         });
         
+        btnCancel.setOnAction((ActionEvent action) -> {
+            cancelToevoegenNieuwLid();
+        });
+        
+        btnLidVerwijderen.setOnAction((ActionEvent event) -> {
+            verwijderenLid();
+        });
+        btnNieuwLid.setOnAction((ActionEvent event) -> {
+            toevoegenLid();
+        });
+        
+        btnWijzigingenOpslaan.setOnAction((ActionEvent event) -> {
+            opslaanWijzigingen();
+        });
+        
+        btnSlaGegevensNieuwLidOp.setOnAction((ActionEvent event)-> {
+            slaGegevensNieuwLidOp();
+        });
+        
+        tvOverzichtLeden.getSelectionModel().selectFirst();
     }
 
     private void maakOverzicht() {
         maakFilters();
         maakTabel();
         maakDetailScherm();
+        maakCrudknoppen();
 
-        super.buildGui(60);
+        super.buildGui(44);
     }
 
     private void maakFilters() {
         cboFilterGraad = new ComboBox<>();
         cboFilterGraad.setItems(lc.geefGradenFilter());
+        cboFilterGraad.getStyleClass().add("greenBtn");
         cboFilterType = new ComboBox<>();
         cboFilterType.setItems(lc.geefFunctiesFilter());
+        cboFilterType.getStyleClass().add("greenBtn");
         
         txtFilterVoornaam = new TextField();
         txtFilterVoornaam.setPromptText("Filter op voornaam");
@@ -140,6 +172,7 @@ public class LidBeherenScherm extends Overzicht {
 
         tvOverzichtLeden.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldSelection, newSelection) -> {
+                    btnNieuwLid.setDisable(false);
                     vulDetailScherm(newSelection);
                 });
 
@@ -173,7 +206,7 @@ public class LidBeherenScherm extends Overzicht {
             cboType_Functie.getSelectionModel().select(lid.getFunctie());
             txfWachtwoord.setText(lid.getWachtwoord());
         } catch (NullPointerException e) {
-            //als je de list veranderd vindt hij geen data meer
+            //als je de list verandert vindt hij geen data meer
         }
 
     }
@@ -216,16 +249,12 @@ public class LidBeherenScherm extends Overzicht {
         GridPane form = new GridPane();
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPercentWidth(25);
-        //col1.setHalignment(HPos.LEFT);
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setPercentWidth(25);
-        //col2.setHalignment(HPos.CENTER);
         ColumnConstraints col3 = new ColumnConstraints();
         col3.setPercentWidth(25);
-        //col3.setHalignment(HPos.CENTER);
         ColumnConstraints col4 = new ColumnConstraints();
         col4.setPercentWidth(25);
-        //col4.setHalignment(HPos.RIGHT);
         form.getColumnConstraints().addAll(col1,col2,col3, col4);
         
         Insets insetsLabel = new Insets(3,0,-5,0);
@@ -233,25 +262,31 @@ public class LidBeherenScherm extends Overzicht {
         form.setAlignment(Pos.CENTER);
         form.setHgap(4);
         form.setVgap(5);
-        form.setPadding(new Insets(25, 25, 25, 25));
+        //form.setPadding(new Insets(25, 25, 25, 25));
         
         //rij1
         lblType.setPadding(insetsLabel);
         cboType_Functie = new ComboBox<>();
         cboType_Functie.setItems(lc.geefFuncties());
-        cboType_Functie.setMinWidth(208);
+        cboType_Functie.setMinWidth(239);
+        cboType_Functie.getStyleClass().add("greyDropdown");
         
         //rij2
         lblNaam.setPadding(insetsLabel);
         txfAchternaam = new TextField();
+        txfAchternaam.setPromptText("Familienaam");
         txfVoornaam = new TextField();
+        txfVoornaam.setPromptText("Voornaam");
+        txfVoornaam.setStyle("-fx-background-color: #F3F2ED");
         
         //rij3
         lblGeboorteDatum.setPadding(insetsLabel);
         lblGeboortePlaats.setPadding(insetsLabel);
         dpGeboorteDatum = new DatePicker();
-        dpGeboorteDatum.setMinWidth(208);
+        dpGeboorteDatum.setMinWidth(239);
+        dpGeboorteDatum.setStyle("-fx-background-color: #F3F2ED");
         txfGeboorteplaats = new TextField();
+        txfGeboorteplaats.setPromptText("Stad");
         
         //rij4
         lblRijksregisternummer.setPadding(insetsLabel);
@@ -262,7 +297,8 @@ public class LidBeherenScherm extends Overzicht {
         cboGeslacht = new ComboBox<>();
         cboGeslacht.setItems(lc.geefGeslachten());
         txfNationaliteit = new TextField();
-        cboGeslacht.setMinWidth(103);
+        cboGeslacht.setMinWidth(118);
+        cboGeslacht.getStyleClass().add("greyDropdown");
         
         //rij5
         lblGsm.setPadding(insetsLabel);
@@ -273,10 +309,15 @@ public class LidBeherenScherm extends Overzicht {
         //rij6
         lblAdres.setPadding(insetsLabel);
         txfStraat = new TextField();
+        txfStraat.setPromptText("Straat");
         txfHuisnummer = new TextField();
+        txfHuisnummer.setPromptText("Nummer");
         txfBus = new TextField();
+        txfBus.setPromptText("Bus");
         txfStad = new TextField();
+        txfStad.setPromptText("Gemeente");
         txfPostcode = new TextField();
+        txfPostcode.setPromptText("Postcode");
         
         //rij7
         lblBeroep.setPadding(insetsLabel);
@@ -290,14 +331,14 @@ public class LidBeherenScherm extends Overzicht {
         txfEmailVader = new TextField();
         cboGraad = new ComboBox<>();
         cboGraad.setItems(lc.geefGraden());
-        
+        cboGraad.getStyleClass().add("greyDropdown");
+        cboGraad.setMinWidth(118);
         
         //rij9
         lblEmailMoeder.setPadding(insetsLabel);
         lblWachtwoord.setPadding(insetsLabel);
         txfEmailmoeder = new TextField();
         txfWachtwoord = new TextField();
-        
         
         //toevoegen elementen
         form.add(lblType, 0, 0);
@@ -338,9 +379,42 @@ public class LidBeherenScherm extends Overzicht {
         form.add(txfEmailVader, 0, 18,2,1);
         form.add(cboGraad, 2, 18,2,1);
         
+        form.getChildren().stream().forEach(c->c.getStyleClass().add("allButtons"));
         
         VBox box = new VBox(form);
         super.setDetailScherm(box);
+        
+        cboType_Functie.setOnAction((ActionEvent event) -> {
+            veranderForm();
+        }); 
+    }
+    
+    
+    private void maakCrudknoppen() {
+        btnLidVerwijderen = new Button("Lid verwijderen");
+        btnLidVerwijderen.getStyleClass().add("allButtons");
+        btnLidVerwijderen.getStyleClass().add("greyBtn");
+        
+        btnNieuwLid = new Button("Lid toevoegen");
+        btnNieuwLid.getStyleClass().add("allButtons");
+        btnNieuwLid.getStyleClass().add("orangeBtn");
+        
+        btnWijzigingenOpslaan = new Button("Wijzigingen opslaan");
+        btnWijzigingenOpslaan.getStyleClass().add("allButtons");
+        btnWijzigingenOpslaan.getStyleClass().add("orangeBtn");
+        
+        btnCancel = new Button("Cancel");
+        btnCancel.getStyleClass().add("greyBtn");
+        btnCancel.getStyleClass().add("allButtons");
+        
+        btnSlaGegevensNieuwLidOp = new Button("Lid toevoegen");
+        btnSlaGegevensNieuwLidOp.getStyleClass().add("orangeBtn");
+        btnSlaGegevensNieuwLidOp.getStyleClass().add("allButtons");
+        
+        
+        super.addCrudKnop(btnLidVerwijderen);
+        super.addExtraKnop(btnNieuwLid);
+        super.addCrudKnop(btnWijzigingenOpslaan);
         
     }
     
@@ -390,4 +464,160 @@ public class LidBeherenScherm extends Overzicht {
         lc.filterList(voornaam, familienaam, graad, functie);
         tvOverzichtLeden.getSelectionModel().selectFirst();
     }
+    
+    private void verwijderenLid() {
+        Lid lid = tvOverzichtLeden.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bevestiging verwijderen");
+        alert.setHeaderText("Bevestiging");
+        alert.setContentText(String.format("Ben je zeker dat je lid %s wil verwijderen?", lid.getVoornaam() + " " + lid.getAchternaam()));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            lc.verwijderLid(lid);
+        }
+        lc.verwijderLid(lid);
+
+    }
+    
+    private void opslaanWijzigingen() {
+        if (!tvOverzichtLeden.getSelectionModel().isEmpty()) {
+            Lid lid = tvOverzichtLeden.getSelectionModel().getSelectedItem();
+
+            //alles opvragen
+            //alle parameters mee te geven aan wijzigLid + het lid zelf!
+            try {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Bevestiging verwijderen");
+                alert.setHeaderText("Bevestiging");
+                alert.setContentText(String.format("Ben je zeker dat je lid %s wil wijzigen?", lid.getVoornaam() + " " + lid.getAchternaam()));
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    lc.wijzigLid(lid, txfVoornaam.getText(), txfAchternaam.getText(), dpGeboorteDatum.getValue(),
+                            txfRijksregisternummer.getText(), txfGsmnummer.getText(), txfTelefoon.getText(),
+                            txfStraat.getText(), txfStad.getText(), txfHuisnummer.getText(), txfBus.getText(), txfPostcode.getText(),
+                            txfEmail.getText(), txfEmailVader.getText(), txfEmailmoeder.getText(), txfGeboorteplaats.getText(), txfWachtwoord.getText(),
+                            txfNationaliteit.getText(), txfBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
+                            cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
+                    lblErrorlog.setText("");
+                    
+                }
+            } catch (IllegalArgumentException e) {
+                lblErrorlog.setText(e.getMessage());
+            
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fout");
+            alert.setHeaderText("U heeft geen lid geselecteerd!");
+            alert.setContentText("U moet een lid selecteren uit de lijst!");
+            alert.showAndWait();
+        }
+    }
+    private void toevoegenLid() {
+        super.emptyCrudKnoppenList();
+        super.addCrudKnop(btnCancel);
+        super.addCrudKnop(btnSlaGegevensNieuwLidOp);
+        super.maakCrudKnoppen();
+        super.disableFilters(true);
+        
+        clearAlleVelden();
+        tvOverzichtLeden.getSelectionModel().clearSelection();
+    }
+    
+    
+    private void cancelToevoegenNieuwLid() {
+        tvOverzichtLeden.getSelectionModel().selectFirst();
+        
+        super.emptyCrudKnoppenList();
+        super.addCrudKnop(btnLidVerwijderen);
+        super.addCrudKnop(btnWijzigingenOpslaan);
+        super.maakCrudKnoppen();
+        super.disableFilters(false);
+    }
+    
+    public void clearAlleVelden() {
+        lblErrorlog.setText("");
+        txfVoornaam.clear();
+        txfAchternaam.clear();
+        dpGeboorteDatum.setValue(null);
+        txfGeboorteplaats.clear();
+        txfRijksregisternummer.clear();
+        txfGsmnummer.clear();
+        txfTelefoon.clear();
+        txfStraat.clear();
+        txfHuisnummer.clear();
+        txfBus.clear();
+        txfStad.clear();
+        txfPostcode.clear();
+        txfEmail.clear();
+        txfEmailVader.clear();
+        txfEmailmoeder.clear();
+        txfNationaliteit.clear();
+        cboGeslacht.getSelectionModel().clearSelection();
+        cboGraad.getSelectionModel().clearSelection();
+        txfBeroep.clear();
+        cboType_Functie.getSelectionModel().clearSelection();
+        txfWachtwoord.clear();
+    }
+    
+    private void slaGegevensNieuwLidOp() {
+        try {
+            lc.voegLidToe(txfVoornaam.getText(), txfAchternaam.getText(), dpGeboorteDatum.getValue(),
+                            txfRijksregisternummer.getText(), txfGsmnummer.getText(), txfTelefoon.getText(),
+                            txfStraat.getText(), txfStad.getText(), txfHuisnummer.getText(), txfBus.getText(), txfPostcode.getText(),
+                            txfEmail.getText(), txfEmailVader.getText(), txfEmailmoeder.getText(), txfGeboorteplaats.getText(), txfWachtwoord.getText(),
+                            txfNationaliteit.getText(), txfBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
+                            cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
+            
+            lblErrorlog.setText("");
+            btnWijzigingenOpslaan.setText("Lid toevoegen");
+        } catch (IllegalArgumentException e) {
+            lblErrorlog.setText(e.getMessage());
+        }
+
+    }
+
+    private void veranderForm() {
+        Functie soortLid = cboType_Functie.getSelectionModel().getSelectedItem();
+        
+        if(soortLid == Functie.PROEFLID){
+            txfGsmnummer.setDisable(true);
+            txfStraat.setDisable(true);
+            txfHuisnummer.setDisable(true);
+            txfStad.setDisable(true);
+            txfPostcode.setDisable(true);
+            txfBus.setDisable(true);
+            txfTelefoon.setDisable(true);
+            txfEmail.setDisable(true);
+            txfEmailVader.setDisable(true);
+            txfEmailmoeder.setDisable(true);
+            txfGeboorteplaats.setDisable(true);
+            txfNationaliteit.setDisable(true);
+            txfBeroep.setDisable(true);
+            txfWachtwoord.setDisable(true);
+            cboGraad.setDisable(true);
+        } else {
+            
+            txfGsmnummer.setDisable(false);
+            txfStraat.setDisable(false);
+            txfHuisnummer.setDisable(false);
+            txfStad.setDisable(false);
+            txfPostcode.setDisable(false);
+            txfBus.setDisable(false);
+            txfTelefoon.setDisable(false);
+            txfEmail.setDisable(false);
+            txfEmailVader.setDisable(false);
+            txfEmailmoeder.setDisable(false);
+            txfGeboorteplaats.setDisable(false);
+            txfNationaliteit.setDisable(false);
+            txfBeroep.setDisable(false);
+            txfWachtwoord.setDisable(false);
+            cboGraad.setDisable(false);
+            
+        }
+    }
+
 }

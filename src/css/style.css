@@ -31,3 +31,72 @@
   -fx-alignment: CENTER_LEFT;
 }
 
+.allButtons{
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.orangeBtn {
+    -fx-background-color: #F3CAAA;
+    -fx-border-width: 2px;
+}
+
+.orangeBtn:hover{
+    -fx-background-color: white;
+    -fx-border-color: #F3CAAA;
+    
+}
+
+.greyBtn {
+    -fx-background-color: #D8D9D5;
+    -fx-border-width: 2px;
+}
+
+.greyBtn:hover {
+    -fx-background-color: white;
+    -fx-border-color: #D8D9D5;
+}
+
+.greenBtn {
+    -fx-background-color: #dee8e2;
+    -fx-border-width: 2px;
+}
+
+.greenBtn:hover {
+    -fx-background-color: #B5C9C3;
+}
+
+
+
+ 
+.table-view .column-header.name-column {
+    -fx-base: #C5C6C2; 
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+}
+
+
+.table-cell.name-column {
+}
+
+.greyDropdown {
+    -fx-background-color: #C5C6C2;
+}
+
+.greyDropdown:hover {
+    -fx-background-color: #9E9E9B;
+}
+
+TextField {
+    -fx-background-color: #F3F2ED;
+}
+
+.date-picker .text-field {
+    -fx-control-inner-background: #F3F2ED ;
+}
+
+ 
+
+
