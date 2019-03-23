@@ -435,7 +435,7 @@ public class Activiteit implements Serializable {
         return sHuisnummer.get();
     }
 
-    public void setHuisNr(String huisnummer) {
+    public void setHuisnummer(String huisnummer) {
         if (huisnummer == null || huisnummer.isEmpty()) {
             throw new IllegalArgumentException("Huisnummer mag niet leeg zijn.");
         }

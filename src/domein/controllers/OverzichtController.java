@@ -245,7 +245,7 @@ public class OverzichtController {
     private void berekenPuntenLeden() {
         int aantalPunten = 0;
         leden.stream().forEach(lid -> {
-            activiteit.setPuntenAantal(
+            lid.setPuntenAantal(
                     aanwezigheden.stream()
                             .filter(aanwezigheid -> aanwezigheid.getLid().equals(lid))
                             .collect(Collectors.summingInt(a -> a.getPuntenAantal())));
@@ -436,7 +436,7 @@ public class OverzichtController {
 
     public ObservableList<String> geefOverzichtLedenFilter() {
         ObservableList<String> leden = FXCollections.observableArrayList(dataController
-                .geefLeden().stream().map(lid -> String.format("%s %s", activiteit.getVoornaam(), activiteit.getAchternaam()))
+                .geefLeden().stream().map(lid -> String.format("%s %s", lid.getVoornaam(), lid.getAchternaam()))
                 .collect(Collectors.toList()));
         leden.add(0, "Alle leden");
         return leden;

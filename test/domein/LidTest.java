@@ -48,262 +48,262 @@ public class LidTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void legeAchternaamWerptException() {
-        activiteit.setAchternaam("");
+        lid.setAchternaam("");
     }
 
     @Test
     public void stelNormaleAchternaamIn() {
-        activiteit.setAchternaam("Geldhof");
-        Assert.assertEquals("Geldhof", activiteit.getAchternaam());
+        lid.setAchternaam("Geldhof");
+        Assert.assertEquals("Geldhof", lid.getAchternaam());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullAlsAchternaamWerptException() {
-        activiteit.setAchternaam(null);
+        lid.setAchternaam(null);
     }
 
     @Test
     public void stelNormalevoornaamIn() {
-        activiteit.setVoornaam("Tom");
-        Assert.assertEquals("Tom", activiteit.getVoornaam());
+        lid.setVoornaam("Tom");
+        Assert.assertEquals("Tom", lid.getVoornaam());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullAlsVoornaamWerptException() {
-        activiteit.setVoornaam(null);
+        lid.setVoornaam(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void legeStringAlsVoornaamWerptException() {
-        activiteit.setVoornaam("");
+        lid.setVoornaam("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangeVoornaamWerptException() {
-        activiteit.setVoornaam("fqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldk");
+        lid.setVoornaam("fqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldk");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangeAchternaamWerptException() {
-        activiteit.setAchternaam("fqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldkfqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldkfqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldk");
+        lid.setAchternaam("fqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldkfqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldkfqdfqskjjdfdqfsjkmqmfljskmfsjqsdmfkjkdfsqmklqfsldk");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setToekomstigeGeboorteDatumWerptException() {
-        activiteit.setGeboortedatum(LocalDate.MAX);
+        lid.setGeboortedatum(LocalDate.MAX);
     }
 
     @Test
     public void stelNormaleGeboorteDatumIn() {
-        activiteit.setGeboortedatum(LocalDate.now().minusYears(21));
-        Assert.assertEquals(LocalDate.now().minusYears(21), activiteit.getGeboortedatum());
+        lid.setGeboortedatum(LocalDate.now().minusYears(21));
+        Assert.assertEquals(LocalDate.now().minusYears(21), lid.getGeboortedatum());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setNullAlsGeboorteDatumWerptException() {
-        activiteit.setGeboortedatum(null);
+        lid.setGeboortedatum(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setFoutRijksregisternummerMetVerkeerdeTellerWerptException() {
-        activiteit.setRijksregisterNr("97.07.17-358.55");
+        lid.setRijksregisterNr("97.07.17-358.55");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setNullRijksregisternummer() {
-        activiteit.setRijksregisterNr(null);
+        lid.setRijksregisterNr(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setLeegRijksregisternummer() {
-        activiteit.setRijksregisterNr("");
+        lid.setRijksregisterNr("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void rijksRegisternummerKomtNietOvereenMetGeboorteDatumWerptException() {
-        activiteit.setRijksregisterNr("98.12.07-001.88");
+        lid.setRijksregisterNr("98.12.07-001.88");
     }
 
     @Test
     public void stelNormaalRijksregisterIn() {
-        activiteit.setRijksregisterNr("97.07.17-001.23");
-        Assert.assertEquals("97.07.17-001.23", activiteit.getRijksregisterNr());
+        lid.setRijksregisterNr("97.07.17-001.23");
+        Assert.assertEquals("97.07.17-001.23", lid.getRijksregisterNr());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void gsmNummerTeKortWerptException() {
-        activiteit.setGsmNr("047933095");
+        lid.setGsmNr("047933095");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void gsmNummerTeLangWerptException() {
-        activiteit.setGsmNr("04793309597");
+        lid.setGsmNr("04793309597");
     }
 
     @Test
     public void stelNormaalGsmNummerIn() {
-        activiteit.setGsmNr("0494511001");
-        Assert.assertEquals("0494511001", activiteit.getGsmNr());
+        lid.setGsmNr("0494511001");
+        Assert.assertEquals("0494511001", lid.getGsmNr());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verkeerdeTekensGsmNrWerptException() {
-        activiteit.setGsmNr("0479a30959");
+        lid.setGsmNr("0479a30959");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void leegHuisnummerWerptException() {
-        activiteit.setHuisNr("");
+        lid.setHuisNr("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangHuisnummerWerptException() {
-        activiteit.setHuisNr("123456");
+        lid.setHuisNr("123456");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangBusnummerWerptException() {
-        activiteit.setBus("123456");
+        lid.setBus("123456");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void legePostCodeWerptException() {
-        activiteit.setPostcode("");
+        lid.setPostcode("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullAlsPostCodeWerptException() {
-        activiteit.setPostcode(null);
+        lid.setPostcode(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangePostcodeWerptException() {
-        activiteit.setPostcode("12345");
+        lid.setPostcode("12345");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teKortePostcodeWerptException() {
-        activiteit.setPostcode("123");
+        lid.setPostcode("123");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verkeerdFormaatPostcodeWerptException() {
-        activiteit.setPostcode("123A");
+        lid.setPostcode("123A");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void legeEmailWerptException() {
-        activiteit.setEmail("");
+        lid.setEmail("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullEmailWerptException() {
-        activiteit.setEmail(null);
+        lid.setEmail(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void geenApestaartjeInMailWerptException() {
-        activiteit.setEmail("robdeputtergmail.com");
+        lid.setEmail("robdeputtergmail.com");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void geenPuntNaApestaartjeInMailWerptException() {
-        activiteit.setEmail("robdeputter@gmailcom");
+        lid.setEmail("robdeputter@gmailcom");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void legeGebruikersnaamWerptException() {
-        activiteit.setEmail("@gmailcom");
+        lid.setEmail("@gmailcom");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void leegDomeinWerptException() {
-        activiteit.setEmail("robdeputter@.com");
+        lid.setEmail("robdeputter@.com");
     }
 
     //email setter gelijk bij setter v. mail vader en moeder
     @Test(expected = IllegalArgumentException.class)
     public void leegGeslachtWerptException() {
-        activiteit.setGeslacht("");
+        lid.setGeslacht("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullGeslachtWerptException() {
-        activiteit.setGeslacht(null);
+        lid.setGeslacht(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void verzonnenGeslachtWerptException() {
-        activiteit.setGeslacht("Appel");
+        lid.setGeslacht("Appel");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void legeGeboorteplaatsWerptException() {
-        activiteit.setGeboorteplaats("");
+        lid.setGeboorteplaats("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullAlsGeboorteplaatsWerptException() {
-        activiteit.setGeboorteplaats(null);
+        lid.setGeboorteplaats(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangeGeboorteplaatsWerptException() {
-        activiteit.setGeboorteplaats("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        lid.setGeboorteplaats("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void legeNationaliteitWerptException() {
-        activiteit.setNationaliteit("");
+        lid.setNationaliteit("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullAlsNationaliteitWerptException() {
-        activiteit.setNationaliteit(null);
+        lid.setNationaliteit(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangeNationaliteitWerptException() {
-        activiteit.setNationaliteit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        lid.setNationaliteit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void teLangBeroepWerptException() {
-        activiteit.setNationaliteit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        lid.setNationaliteit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void leegBeroepWerptException() {
-        activiteit.setNationaliteit("");
+        lid.setNationaliteit("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullAlsBeroepWerptException() {
-        activiteit.setNationaliteit(null);
+        lid.setNationaliteit(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void negatiefPuntenaantalWerptException() {
-        activiteit.setPuntenAantal(-1);
+        lid.setPuntenAantal(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void legeGraadWerptException() {
-        activiteit.setGraad(null);
+        lid.setGraad(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void fouteGraadWerptException() {
-        activiteit.setGraad(Graad.valueOf("Soep"));
+        lid.setGraad(Graad.valueOf("Soep"));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullAlsFunctieWerptException() {
-        activiteit.setFunctie(null);
+        lid.setFunctie(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void fouteFunctieWerptException() {
-        activiteit.setFunctie(Functie.valueOf("Tomaat"));
+        lid.setFunctie(Functie.valueOf("Tomaat"));
     }
 }

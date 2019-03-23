@@ -52,10 +52,10 @@ public class LidBeheerderController {
             boolean graadEmpty = graad == null || graad.name().equals("");
             boolean functieEmpty = functie == null || functie.name().equals("");
 
-            boolean voornaamFilter = activiteit.getVoornaam().toLowerCase().equals(voornaam.toLowerCase()) || activiteit.getVoornaam().toLowerCase().startsWith(voornaam.toLowerCase());
-            boolean familieNaamFilter = activiteit.getAchternaam().toLowerCase().equals(familienaam.toLowerCase()) || activiteit.getAchternaam().toLowerCase().startsWith(familienaam.toLowerCase());
-            boolean graadFilter = activiteit.getGraad().equals(graad);
-            boolean functieFilter = activiteit.getFunctie().equals(functie);
+            boolean voornaamFilter = lid.getVoornaam().toLowerCase().equals(voornaam.toLowerCase()) || lid.getVoornaam().toLowerCase().startsWith(voornaam.toLowerCase());
+            boolean familieNaamFilter = lid.getAchternaam().toLowerCase().equals(familienaam.toLowerCase()) || lid.getAchternaam().toLowerCase().startsWith(familienaam.toLowerCase());
+            boolean graadFilter = lid.getGraad().equals(graad);
+            boolean functieFilter = lid.getFunctie().equals(functie);
 
             //0000
             if (voornaamEmpty && familienaamEmpty && graadEmpty && functieEmpty) {
@@ -136,27 +136,27 @@ public class LidBeheerderController {
             String emailVader, String emailMoeder, String geboorteplaats, String wachtwoord, String nationaliteit,
             String beroep, Graad graad, Functie functie, String geslacht) {
 
-        activiteit.setVoornaam(voornaam);
-        activiteit.setAchternaam(achternaam);
-        activiteit.setGeboortedatum(geboorteDatum);
-        activiteit.setRijksregisterNr(rijksregisterNr);
-        activiteit.setGsmNr(gsmNr);
-        activiteit.setVasteTelefoonNr(vasteTelefoonNr);
-        activiteit.setStraat(straat);
-        activiteit.setStad(stad);
-        activiteit.setHuisNr(huisNr);
-        activiteit.setBus(bus);
-        activiteit.setPostcode(postcode);
-        activiteit.setEmail(email);
-        activiteit.setEmailVader(emailVader);
-        activiteit.setEmailMoeder(emailMoeder);
-        activiteit.setGeboorteplaats(geboorteplaats);
-        activiteit.setWachtwoord(wachtwoord);
-        activiteit.setNationaliteit(nationaliteit);
-        activiteit.setBeroep(beroep);
-        activiteit.setGraad(graad);
-        activiteit.setFunctie(functie);
-        activiteit.setGeslacht(geslacht);
+        lid.setVoornaam(voornaam);
+        lid.setAchternaam(achternaam);
+        lid.setGeboortedatum(geboorteDatum);
+        lid.setRijksregisterNr(rijksregisterNr);
+        lid.setGsmNr(gsmNr);
+        lid.setVasteTelefoonNr(vasteTelefoonNr);
+        lid.setStraat(straat);
+        lid.setStad(stad);
+        lid.setHuisNr(huisNr);
+        lid.setBus(bus);
+        lid.setPostcode(postcode);
+        lid.setEmail(email);
+        lid.setEmailVader(emailVader);
+        lid.setEmailMoeder(emailMoeder);
+        lid.setGeboorteplaats(geboorteplaats);
+        lid.setWachtwoord(wachtwoord);
+        lid.setNationaliteit(nationaliteit);
+        lid.setBeroep(beroep);
+        lid.setGraad(graad);
+        lid.setFunctie(functie);
+        lid.setGeslacht(geslacht);
     }
 
     public void voegLidToe(String voornaam, String achternaam, LocalDate geboorteDatum, String rijksregisterNr,
@@ -167,10 +167,10 @@ public class LidBeheerderController {
 
         Lid lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr,
                 gsmNr, vasteTelefoonNr, stad, straat, huisNr, postcode, email, wachtwoord, geboorteplaats, geslacht, nationaliteit, graad, functie);
-        activiteit.setEmailMoeder(emailMoeder);
-        activiteit.setEmailVader(emailVader);
-        activiteit.setBus(bus);
-        activiteit.setBeroep(beroep);
+        lid.setEmailMoeder(emailMoeder);
+        lid.setEmailVader(emailVader);
+        lid.setBus(bus);
+        lid.setBeroep(beroep);
 
         this.ledenList.add(lid);
         dataController.geefLeden().add(lid);

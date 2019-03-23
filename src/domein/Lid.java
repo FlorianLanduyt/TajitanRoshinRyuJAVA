@@ -27,8 +27,11 @@ public class Lid implements Serializable {
     private int id;
     private String voornaam;
     private String achternaam;
+
     private LocalDate geboortedatum;
     private String rijksregisterNr;
+
+    private LocalDate datumEersteTraining;
     private String gsmNr;
     private String vasteTelefoonNr;
     private String stad;
@@ -117,8 +120,8 @@ public class Lid implements Serializable {
     public SimpleStringProperty typeProperty() {
         return sType;
     }
-
-    public SimpleStringProperty geboortedatumProperty() {
+    
+    public SimpleStringProperty geboortedatumProperty(){
         return sGeboortedatum;
     }
 
@@ -582,13 +585,15 @@ public class Lid implements Serializable {
         leeftijdsCategoriën = new ArrayList(); // we willen dat  alles altijd up-to-date blijft!
         int leeftijd = Period.between(geboortedatum, LocalDate.now()).getYears();
         if (leeftijd <= 15) {
-            if (leeftijd < 10) {
+            if(leeftijd < 10){
                 leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
-            } else {
+            }
+            else{
                 leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
                 leeftijdsCategoriën.add(LeeftijdsCategorie.L10_15);
             }
-        } else {
+        }
+        else{
             leeftijdsCategoriën.add(LeeftijdsCategorie.L15_PLUS);
         }
     }
