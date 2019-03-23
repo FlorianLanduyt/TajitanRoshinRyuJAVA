@@ -23,7 +23,7 @@ public class RaadplegingTest {
     public void setUp() {
         thema1 = new Thema("Testthema");
 
-        oef1 = new Oefening("Test1", "www.test1.com", "test1.jpg",
+        oef1 = new Oefening("Test", "www.test1.com", "test1.jpg",
                 "De eerste test", Graad.DAN1, thema1);
 
         lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
@@ -40,7 +40,7 @@ public class RaadplegingTest {
     public void reset() {
         thema1 = new Thema("Testthema");
 
-        oef1 = new Oefening("Test1", "www.test1.com", "test1.jpg",
+        oef1 = new Oefening("Test", "www.test1.com", "test1.jpg",
                 "De eerste test", Graad.DAN1, thema1);
 
         lid1 = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),

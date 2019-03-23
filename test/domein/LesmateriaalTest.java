@@ -1,6 +1,7 @@
 package domein;
 
 import domein.enums.Graad;
+import java.util.InputMismatchException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,22 +17,22 @@ public class LesmateriaalTest {
     @Before
     public void setUp() {
         thema1 = new Thema("Testthema");
-        oef1 = new Oefening("Test1", "www.test1.com", "test1.jpg",
+        oef1 = new Oefening("Test", "www.test1.com", "test1.jpg",
                 "De eerste test", Graad.DAN1, thema1);
-        oef2 = new Oefening("Test2", "www.test2.com", "test2.jpg",
+        oef2 = new Oefening("Test", "www.test2.com", "test2.jpg",
                 "De tweede test", Graad.DAN1, thema1);
-        oef3 = new Oefening("Test3", "www.test3.com", "test3.jpg",
+        oef3 = new Oefening("Test", "www.test3.com", "test3.jpg",
                 "De derde test", Graad.DAN1, thema1);
     }
 
     @After
     public void reset() {
         thema1 = new Thema("Testthema");
-        oef1 = new Oefening("Test1", "www.test1.com", "test1.jpg",
+        oef1 = new Oefening("Test", "www.test1.com", "test1.jpg",
                 "De eerste test", Graad.DAN1, thema1);
-        oef2 = new Oefening("Test2", "www.test2.com", "test2.jpg",
+        oef2 = new Oefening("Test", "www.test2.com", "test2.jpg",
                 "De tweede test", Graad.DAN1, thema1);
-        oef3 = new Oefening("Test3", "www.test3.com", "test3.jpg",
+        oef3 = new Oefening("Test", "www.test3.com", "test3.jpg",
                 "De derde test", Graad.DAN1, thema1);
     }
 
@@ -56,6 +57,31 @@ public class LesmateriaalTest {
             output.concat("a");
         }
         oef1.setTitel(output);
+    }
+    @Test(expected = InputMismatchException.class)
+    public void oefening_SetTitel_MetNummers_ThrowsInputMismatchException() {
+        oef1.setTitel("azezae12345");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void oefening_SetTitel_EnkelNummers_ThrowsInputMismmatchException() {
+        oef1.setTitel("15515");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void oefening_SetTitel_MetSymbolen_ThrowsInputMismatchException() {
+        oef1.setTitel("aze@ze-*/151");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void oefening_SetTitel_EnkelSymbolen_ThrowsInputMismatchException() {
+        oef1.setTitel("@@/*-+$^");
+    }
+
+    @Test
+    public void oefening_SetTitel_MetSpaties_Correct() {
+        oef1.setTitel("De Stage");
+        Assert.assertEquals("De Stage", oef1.getTitel());
     }
 
     @Test

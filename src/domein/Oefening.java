@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
@@ -29,7 +30,8 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Oefening implements Serializable {
- @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
     private String titel;
@@ -94,12 +96,22 @@ public class Oefening implements Serializable {
         if (titel == null || titel.isEmpty()) {
             throw new IllegalArgumentException("Titel mag niet leeg zijn.");
         }
-        if (titel.length() <= 25) {
-            this.titel = titel;
-            sNaam.setValue(titel);
-        } else {
+        titel = titel.trim();
+        if (titel.length() > 25) {
             throw new IllegalArgumentException("Titel mag max. 25 karakters bevatten.");
         }
+        if (titel.contains(" ")) {
+            String tempTitel = titel.replaceAll(" ", "");
+            if (tempTitel.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Titel mag enkel letters bevatten.");
+            }
+        } else {
+            if (titel.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Titel mag enkel letters bevatten.");
+            }
+        }
+        this.titel = titel;
+        sNaam.setValue(titel);
     }
 
     public String getUrlVideo() {
