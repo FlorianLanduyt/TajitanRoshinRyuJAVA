@@ -563,7 +563,7 @@ public class ActiviteitTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetEmail_MetSpaties_ThrowsIllegalArgumentException() {
-        activiteit.setNaam("tybo. vanderstraeten@student.hogent.be");
+        activiteit.setEmail("tybo. vanderstraeten@student.hogent.be");
     }
 
     @Test
