@@ -174,27 +174,27 @@ public class BeherenLidSchermController extends AnchorPane {
         //alle tekstvelden clearen
         try {
             clearAlleVelden();
-            txtVoornaam.setText(lid.getVoornaam());
-            txtAchternaam.setText(lid.getAchternaam());
-            dpGeboorteDatum.setValue(lid.getGeboortedatum());
-            txtGeboorteplaats.setText(lid.getGeboorteplaats());
-            txtRijksregisternummer.setText(lid.getRijksregisterNr());
-            txtGsmnummer.setText(lid.getGsmNr());
-            txtTelefoon.setText(lid.getVasteTelefoonNr());
-            txtStraat.setText(lid.getStraat());
-            txtHuisnummer.setText(lid.getHuisNr());
-            txtBus.setText(lid.getBus());
-            txtStad.setText(lid.getStad());
-            txtPostcode.setText(lid.getPostcode());
-            txtEmail.setText(lid.getEmail());
-            txtEmailVader.setText(lid.getEmail());
-            txtEmailmoeder.setText(lid.getEmailMoeder());
-            txtNationaliteit.setText(lid.getNationaliteit());
-            cboGeslacht.getSelectionModel().select(lid.getGeslacht());
-            cboGraad.getSelectionModel().select(lid.getGraad());
-            txtBeroep.setText(lid.getBeroep());
-            cboType_Functie.getSelectionModel().select(lid.getFunctie());
-            txtWachtwoord.setText(lid.getWachtwoord());
+            txtVoornaam.setText(activiteit.getVoornaam());
+            txtAchternaam.setText(activiteit.getAchternaam());
+            dpGeboorteDatum.setValue(activiteit.getGeboortedatum());
+            txtGeboorteplaats.setText(activiteit.getGeboorteplaats());
+            txtRijksregisternummer.setText(activiteit.getRijksregisterNr());
+            txtGsmnummer.setText(activiteit.getGsmNr());
+            txtTelefoon.setText(activiteit.getVasteTelefoonNr());
+            txtStraat.setText(activiteit.getStraat());
+            txtHuisnummer.setText(activiteit.getHuisNr());
+            txtBus.setText(activiteit.getBus());
+            txtStad.setText(activiteit.getStad());
+            txtPostcode.setText(activiteit.getPostcode());
+            txtEmail.setText(activiteit.getEmail());
+            txtEmailVader.setText(activiteit.getEmail());
+            txtEmailmoeder.setText(activiteit.getEmailMoeder());
+            txtNationaliteit.setText(activiteit.getNationaliteit());
+            cboGeslacht.getSelectionModel().select(activiteit.getGeslacht());
+            cboGraad.getSelectionModel().select(activiteit.getGraad());
+            txtBeroep.setText(activiteit.getBeroep());
+            cboType_Functie.getSelectionModel().select(activiteit.getFunctie());
+            txtWachtwoord.setText(activiteit.getWachtwoord());
         } catch (NullPointerException e) {
             //als je de list veranderd vindt hij geen data meer
         }
@@ -324,7 +324,7 @@ public class BeherenLidSchermController extends AnchorPane {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Bevestiging verwijderen");
                 alert.setHeaderText("Bevestiging");
-                alert.setContentText(String.format("Ben je zeker dat je lid %s wil wijzigen?", lid.getVoornaam() + " " + lid.getAchternaam()));
+                alert.setContentText(String.format("Ben je zeker dat je lid %s wil wijzigen?", activiteit.getVoornaam() + " " + activiteit.getAchternaam()));
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
@@ -361,7 +361,7 @@ public class BeherenLidSchermController extends AnchorPane {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Bevestiging verwijderen");
         alert.setHeaderText("Bevestiging");
-        alert.setContentText(String.format("Ben je zeker dat je lid %s wil verwijderen?", lid.getVoornaam() + " " + lid.getAchternaam()));
+        alert.setContentText(String.format("Ben je zeker dat je lid %s wil verwijderen?", activiteit.getVoornaam() + " " + activiteit.getAchternaam()));
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

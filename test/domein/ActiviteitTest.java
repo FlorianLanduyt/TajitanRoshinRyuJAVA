@@ -4,7 +4,6 @@ import domein.enums.Formule;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import exceptions.DatumIntervalException;
-import exceptions.VolzetException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.InputMismatchException;
@@ -262,42 +261,42 @@ public class ActiviteitTest {
     //HuisNummer
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetHNR_Null_ThrowsIllegalArgumentException() {
-        activiteit.setHuisnummer(null);
+        activiteit.setHuisNr(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetHNR_Empty_ThrowsIllegalArgumentException() {
-        activiteit.setHuisnummer("");
+        activiteit.setHuisNr("");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetHNR_TeLang_ThrowsIllegalArgumentException() {
-        activiteit.setHuisnummer("123456");
+        activiteit.setHuisNr("123456");
     }
 
     @Test(expected = InputMismatchException.class)
     public void activiteit_SetHNR_MetLetters_ThrowsIllegalArgumentException() {
-        activiteit.setHuisnummer("74aa");
+        activiteit.setHuisNr("74aa");
     }
 
     @Test(expected = InputMismatchException.class)
     public void activiteit_SetHNR_EnkelLetters_ThrowsIllegalArgumentException() {
-        activiteit.setHuisnummer("aaaa");
+        activiteit.setHuisNr("aaaa");
     }
 
     @Test(expected = InputMismatchException.class)
     public void activiteit_SetHNR_MetSymbolen_ThrowsIllegalArgumentException() {
-        activiteit.setHuisnummer("74@-");
+        activiteit.setHuisNr("74@-");
     }
 
     @Test(expected = InputMismatchException.class)
     public void activiteit_SetHNR_EnkelSymbolen_ThrowsIllegalArgumentException() {
-        activiteit.setHuisnummer("/*@-");
+        activiteit.setHuisNr("/*@-");
     }
 
     @Test
     public void activiteit_SetHNR_Correct() {
-        activiteit.setHuisnummer("13");
+        activiteit.setHuisNr("13");
         Assert.assertEquals("13", activiteit.getHuisnummer());
     }
 

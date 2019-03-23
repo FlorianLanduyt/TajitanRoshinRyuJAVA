@@ -87,8 +87,8 @@ public class ActiviteitBeheerController {
             boolean voornaamEmpty = voornaam.isEmpty() || voornaam.equals("");
             boolean familienaamEmpty = familienaam.isEmpty() || familienaam.equals("");
             
-            boolean voornaamFilter = lid.getVoornaam().toLowerCase().equals(voornaam.toLowerCase()) || lid.getVoornaam().toLowerCase().startsWith(voornaam.toLowerCase());
-            boolean familieNaamFilter = lid.getAchternaam().toLowerCase().equals(familienaam.toLowerCase()) || lid.getAchternaam().toLowerCase().startsWith(familienaam.toLowerCase());
+            boolean voornaamFilter = activiteit.getVoornaam().toLowerCase().equals(voornaam.toLowerCase()) || activiteit.getVoornaam().toLowerCase().startsWith(voornaam.toLowerCase());
+            boolean familieNaamFilter = activiteit.getAchternaam().toLowerCase().equals(familienaam.toLowerCase()) || activiteit.getAchternaam().toLowerCase().startsWith(familienaam.toLowerCase());
             
             //00
             if(voornaamEmpty && familienaamEmpty){
@@ -212,7 +212,7 @@ public class ActiviteitBeheerController {
         activiteit.setStraat(straat);
         activiteit.setStad(stad);
         activiteit.setPostcode(postcode);
-        activiteit.setHuisnummer(huisnummer);
+        activiteit.setHuisNr(huisnummer);
         activiteit.setBus(bus);
         activiteit.setNaamLocatie(naamLocatie);
         activiteit.setGsmnummer(gsmnummer);
@@ -232,7 +232,7 @@ public class ActiviteitBeheerController {
         activiteit.setStraat(straat);
         activiteit.setStad(stad);
         activiteit.setPostcode(postcode);
-        activiteit.setHuisnummer(huisnummer);
+        activiteit.setHuisNr(huisnummer);
         activiteit.setBus(bus);
         activiteit.setNaamLocatie(naamLocatie);
         activiteit.setGsmnummer(gsmnummer);

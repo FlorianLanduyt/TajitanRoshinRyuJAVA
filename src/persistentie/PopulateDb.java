@@ -116,7 +116,7 @@ public class PopulateDb {
         s1.setStad("Houyet");
         s1.setPostcode("6500");
         s1.setStraat("Rue de la Foret");
-        s1.setHuisnummer("1");
+        s1.setHuisNr("1");
 
         Activiteit s2 = new Activiteit("Hoogtestage Vogezen", Formule.STAGE, 50, LocalDate.of(2020, Month.AUGUST, 28),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
@@ -126,7 +126,7 @@ public class PopulateDb {
         s2.setStad("Vogueze");
         s2.setPostcode("4400");
         s2.setStraat("Vogezenstraat");
-        s2.setHuisnummer("8");
+        s2.setHuisNr("8");
 
         Activiteit s3 = new Activiteit("Driedaagse stage", Formule.STAGE, 100, LocalDate.of(2020, Month.SEPTEMBER, 3),
                 LocalDate.of(2020, Month.SEPTEMBER, 5), LocalDate.of(2020, Month.AUGUST, 1));
@@ -136,7 +136,7 @@ public class PopulateDb {
         s3.setStad("Gent");
         s3.setPostcode("9000");
         s3.setStraat("Sleepstraat");
-        s3.setHuisnummer("18");
+        s3.setHuisNr("18");
 
         //--Examen
         Activiteit e1 = new Activiteit("Ingangsexamen", Formule.EXAMEN, 35, LocalDate.of(2020, Month.JUNE, 20),
@@ -147,7 +147,7 @@ public class PopulateDb {
         e1.setStad("Gent");
         e1.setPostcode("9000");
         e1.setStraat("Drongensestraat");
-        e1.setHuisnummer("13");
+        e1.setHuisNr("13");
 
         //--Proef
         Activiteit p1 = new Activiteit("Dan1-proef", Formule.PROEF, 15, LocalDate.of(2020, Month.JULY, 5),
@@ -158,7 +158,7 @@ public class PopulateDb {
         p1.setStad("Gent");
         p1.setPostcode("9000");
         p1.setStraat("Drongensestraat");
-        p1.setHuisnummer("13");
+        p1.setHuisNr("13");
 
         //--Uitstap
         Activiteit u1 = new Activiteit("Teambuilding", Formule.UITSTAP, 40, LocalDate.of(2020, Month.NOVEMBER, 10),
@@ -169,7 +169,7 @@ public class PopulateDb {
         u1.setStad("Kortrijk");
         u1.setPostcode("8000");
         u1.setStraat("Stationstraat");
-        u1.setHuisnummer("72");
+        u1.setHuisNr("72");
 
         //--Lessen
         Activiteit l1 = new Activiteit("Les 1", Formule.ZA, 20, LocalDate.of(2020, Month.MARCH, 23),
@@ -180,7 +180,7 @@ public class PopulateDb {
         l1.setStad("Gent");
         l1.setPostcode("9000");
         l1.setStraat("Drongensestraat");
-        l1.setHuisnummer("13");
+        l1.setHuisNr("13");
 
         Activiteit l2 = new Activiteit("Les 2", Formule.WO_ZA, 27, LocalDate.of(2020, Month.MARCH, 30),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
@@ -190,7 +190,7 @@ public class PopulateDb {
         l2.setStad("Gent");
         l2.setPostcode("9000");
         l2.setStraat("Drongensestraat");
-        l2.setHuisnummer("13");
+        l2.setHuisNr("13");
 
         Activiteit l3 = new Activiteit("Les 3", Formule.DI_ZA, 19, LocalDate.of(2020, Month.MARCH, 31),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
@@ -200,7 +200,7 @@ public class PopulateDb {
         l3.setStad("Gent");
         l3.setPostcode("9000");
         l3.setStraat("Drongensestraat");
-        l3.setHuisnummer("13");
+        l3.setHuisNr("13");
 
         em.persist(s1);
         em.persist(s2);

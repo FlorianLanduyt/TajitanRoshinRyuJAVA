@@ -159,7 +159,7 @@ public class Clubkampioenschap extends Overzicht{
 
     private void vulDetailScherm(Lid lid) {
         try{
-           txNaam.setText(lid.geefVolledigeNaam());
+           txNaam.setText(activiteit.geefVolledigeNaam());
         aanwezighedenTabel.setItems(oc
                 .geefAanwezighedenVoorLid(clubkampioenschapTabel
                         .getSelectionModel()
