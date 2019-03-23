@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
     domein.InschrijvingTest.class,
     domein.LidTest.class,
     domein.LesmateriaalTest.class,
-    domein.RaadplegingTest.class})
+    domein.RaadplegingTest.class,
+    domein.ThemaTest.class})
 public class RunAllTests {
 
 }
