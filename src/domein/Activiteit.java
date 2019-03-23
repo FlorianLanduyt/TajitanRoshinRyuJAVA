@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
@@ -175,6 +176,14 @@ public class Activiteit implements Serializable {
     }
 
     //Gewone getters en setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNaam() {
         return sNaam.get();
     }
@@ -183,9 +192,19 @@ public class Activiteit implements Serializable {
         if (naam == null || naam.isEmpty()) {
             throw new IllegalArgumentException("Naam mag niet leeg zijn.");
         }
+        naam = naam.trim();
         if (naam.length() > 35) {
             throw new IllegalArgumentException("Naam mag max. 35 karakters bevatten.");
-
+        }
+        if (naam.contains(" ")) {
+            String tempNaam = naam.replaceAll(" ", "");
+            if (tempNaam.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Naam mag enkel letters bevatten.");
+            }
+        } else {
+            if (naam.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Naam mag enkel letters bevatten.");
+            }
         }
         this.naam = naam;
         sNaam.set(naam);
@@ -267,12 +286,14 @@ public class Activiteit implements Serializable {
         if (naamLocatie == null || naamLocatie.isEmpty()) {
             throw new IllegalArgumentException("Naam locatie mag niet leeg zijn.");
         }
-        if (naamLocatie.length() <= 50) {
-            this.naamLocatie = naamLocatie;
-            sNaamLocatie.set(naamLocatie);
-        } else {
+        if (naamLocatie.length() > 50) {
             throw new IllegalArgumentException("Naam locatie mag max. 50 karakters bevatten.");
         }
+        if (naamLocatie.matches(".*[\\d\\W].*")) {
+            throw new InputMismatchException("Naam locatie mag geen cijfers/symbolen bevatten.");
+        }
+        this.naamLocatie = naamLocatie;
+        sNaamLocatie.set(naamLocatie);
     }
 
     public String getGsmnummer() {
@@ -283,12 +304,39 @@ public class Activiteit implements Serializable {
         if (gsmNr == null || gsmNr.isEmpty()) {
             throw new IllegalArgumentException("GSM-nummer mag niet leeg zijn.");
         }
-        if (gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
-            this.gsmnummer = gsmNr;
-            sGsmnummer.set(gsmNr);
+        gsmNr = gsmNr.trim();
+        if (gsmNr.contains(" ")) {
+            String tempGsmNr = gsmNr.replaceAll(" ", "");
+            if (gsmNr.charAt(0) == '+') {
+                String tempGsmNrWithoutSpaces = gsmNr.replace(" ", "");
+                if (tempGsmNrWithoutSpaces.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            } else {
+                if (tempGsmNr.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            }
+            if (!gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
+                throw new IllegalArgumentException("GSM-nummer is niet correct.");
+            }
         } else {
-            throw new IllegalArgumentException("GSM-nummer is niet correct.");
+            if (gsmNr.charAt(0) == '+') {
+                String tempGsmNr = gsmNr.replace("+", "");
+                if (tempGsmNr.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            } else {
+                if (gsmNr.matches(".*[a-zA-Z\\W].*")) {
+                    throw new InputMismatchException("GSM-nummer mag enkel cijfers of +32 gevolgd door cijfers bevatten");
+                }
+            }
+            if (!gsmNr.matches("(([+]32){1}[0-9]{9})|([0-9]{10})")) {
+                throw new IllegalArgumentException("GSM-nummer is niet correct.");
+            }
         }
+        this.gsmnummer = gsmNr;
+        sGsmnummer.set(gsmNr);
     }
 
     public String getEmail() {
@@ -298,12 +346,11 @@ public class Activiteit implements Serializable {
     public void setEmail(String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
-        } else if (email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
-            this.email = email;
-            sEmail.set(email);
-        } else {
+        } else if (!email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
             throw new IllegalArgumentException("Emailadres is niet correct.");
         }
+        this.email = email;
+        sEmail.set(email);
     }
 
     public String getStraat() {
@@ -314,12 +361,22 @@ public class Activiteit implements Serializable {
         if (straat == null || straat.isEmpty()) {
             throw new IllegalArgumentException("Straat mag niet leeg zijn.");
         }
-        if (straat.length() <= 50) {
-            this.straat = straat;
-            sStraat.set(straat);
-        } else {
+        straat = straat.trim();
+        if (straat.length() > 50) {
             throw new IllegalArgumentException("Straat mag max. 50 karakters bevatten.");
         }
+        if (straat.contains(" ")) {
+            String tempStraat = straat.replaceAll(" ", "");
+            if (tempStraat.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Straat mag geen cijfers/symbolen bevatten.");
+            }
+        } else {
+            if (straat.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Straat mag geen cijfers/symbolen bevatten.");
+            }
+        }
+        this.straat = straat;
+        sStraat.set(straat);
     }
 
     public String getStad() {
@@ -330,12 +387,22 @@ public class Activiteit implements Serializable {
         if (stad == null || stad.isEmpty()) {
             throw new IllegalArgumentException("Stad mag niet leeg zijn.");
         }
-        if (stad.length() <= 50) {
-            this.stad = stad;
-            sStad.set(stad);
-        } else {
+        stad = stad.trim();
+        if (stad.length() > 50) {
             throw new IllegalArgumentException("Stad mag max. 50 karakters bevatten.");
         }
+        if (stad.contains(" ")) {
+            String tempStad = stad.replaceAll(" ", "");
+            if (tempStad.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Stad mag geen cijfers/symbolen bevatten.");
+            }
+        } else {
+            if (stad.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Stad mag geen cijfers/symbolen bevatten.");
+            }
+        }
+        this.stad = stad;
+        sStad.set(stad);
     }
 
     public String getPostcode() {
@@ -346,12 +413,11 @@ public class Activiteit implements Serializable {
         if (postcode == null || postcode.isEmpty()) {
             throw new IllegalArgumentException("Postcode mag niet leeg zijn.");
         }
-        if (postcode.matches("[0-9]{4}")) {
-            this.postcode = postcode;
-            sPostcode.set(postcode);
-        } else {
+        if (!postcode.matches("[0-9]{4}")) {
             throw new IllegalArgumentException("Postcode moet 4 karakters bevatten.");
         }
+        this.postcode = postcode;
+        sPostcode.set(postcode);
     }
 
     public String getHuisnummer() {
@@ -362,12 +428,14 @@ public class Activiteit implements Serializable {
         if (huisnummer == null || huisnummer.isEmpty()) {
             throw new IllegalArgumentException("Huisnummer mag niet leeg zijn.");
         }
-        if (huisnummer.length() <= 5) {
-            this.huisnummer = huisnummer;
-            sHuisnummer.set(huisnummer);
-        } else {
+        if (huisnummer.length() > 5) {
             throw new IllegalArgumentException("Huisnummer mag max. 5 karakters bevatten.");
         }
+        if (!huisnummer.matches("\\d{1,5}")) {
+            throw new InputMismatchException("Huisnummer mag geen letters/symbolen bevatten.");
+        }
+        this.huisnummer = huisnummer;
+        sHuisnummer.set(huisnummer);
     }
 
     public String getBus() {
@@ -395,10 +463,12 @@ public class Activiteit implements Serializable {
     public void setMaxDeelnemers(int maxDeelnemers) {
         if (String.valueOf(maxDeelnemers).isEmpty() || String.valueOf(maxDeelnemers).equals("")) {
             throw new IllegalArgumentException("Max. aantal deelnemers mag niet leeg zijn.");
-        } else {
-            this.maxDeelnemers = maxDeelnemers;
-            sMaxDeelnemers.set(String.valueOf(maxDeelnemers));
         }
+        if (!String.valueOf(maxDeelnemers).matches("\\d+")) {
+            throw new NumberFormatException("Max. aantal deelnemers mag enkel cijfers bevatten.");
+        }
+        this.maxDeelnemers = maxDeelnemers;
+        sMaxDeelnemers.set(String.valueOf(maxDeelnemers));
     }
 
     public int getAantalDeelnemers() {
@@ -446,13 +516,4 @@ public class Activiteit implements Serializable {
         this.inschrijvingen.remove(inschrijving);
         setAantalDeelnemers();
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 }

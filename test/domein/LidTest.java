@@ -130,17 +130,6 @@ public class LidTest {
         Assert.assertEquals("97.07.17-001.23", lid.getRijksregisterNr());
     }
 
-//    @Test(expected = IllegalArgumentException.class)
-//    public void legeEersteTrainingsdatumWerptException() {
-//        lid.setDatumEersteTraining(null);
-//    }
-//
-//    @Test
-//    public void stelNormaleDatumEersteTrainingIn() {
-//        lid.setDatumEersteTraining(LocalDate.now().minusMonths(2));
-//        Assert.assertEquals(LocalDate.now().minusMonths(2), lid.getDatumEersteTraining());
-//    }
-
     @Test(expected = IllegalArgumentException.class)
     public void gsmNummerTeKortWerptException() {
         lid.setGsmNr("047933095");
