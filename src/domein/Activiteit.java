@@ -286,11 +286,19 @@ public class Activiteit implements Serializable {
         if (naamLocatie == null || naamLocatie.isEmpty()) {
             throw new IllegalArgumentException("Naam locatie mag niet leeg zijn.");
         }
+        naamLocatie = naamLocatie.trim();
         if (naamLocatie.length() > 50) {
             throw new IllegalArgumentException("Naam locatie mag max. 50 karakters bevatten.");
         }
-        if (naamLocatie.matches(".*[\\d\\W].*")) {
-            throw new InputMismatchException("Naam locatie mag geen cijfers/symbolen bevatten.");
+        if (naamLocatie.contains(" ")) {
+            String tempNaamLocatie = naamLocatie.replaceAll(" ", "");
+            if (tempNaamLocatie.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Naam locatie mag enkel letters bevatten.");
+            }
+        } else {
+            if (naamLocatie.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Naam locatie mag enkel letters bevatten.");
+            }
         }
         this.naamLocatie = naamLocatie;
         sNaamLocatie.set(naamLocatie);
@@ -346,7 +354,9 @@ public class Activiteit implements Serializable {
     public void setEmail(String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Emailadres mag niet leeg zijn.");
-        } else if (!email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
+        }
+        email = email.trim();
+        if (!email.matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b")) {
             throw new IllegalArgumentException("Emailadres is niet correct.");
         }
         this.email = email;
@@ -368,11 +378,11 @@ public class Activiteit implements Serializable {
         if (straat.contains(" ")) {
             String tempStraat = straat.replaceAll(" ", "");
             if (tempStraat.matches(".*[\\d\\W].*")) {
-                throw new InputMismatchException("Straat mag geen cijfers/symbolen bevatten.");
+                throw new InputMismatchException("Straat mag enkel letters bevatten.");
             }
         } else {
             if (straat.matches(".*[\\d\\W].*")) {
-                throw new InputMismatchException("Straat mag geen cijfers/symbolen bevatten.");
+                throw new InputMismatchException("Straat mag enkel letters bevatten.");
             }
         }
         this.straat = straat;
@@ -394,11 +404,11 @@ public class Activiteit implements Serializable {
         if (stad.contains(" ")) {
             String tempStad = stad.replaceAll(" ", "");
             if (tempStad.matches(".*[\\d\\W].*")) {
-                throw new InputMismatchException("Stad mag geen cijfers/symbolen bevatten.");
+                throw new InputMismatchException("Stad mag enkel letters bevatten.");
             }
         } else {
             if (stad.matches(".*[\\d\\W].*")) {
-                throw new InputMismatchException("Stad mag geen cijfers/symbolen bevatten.");
+                throw new InputMismatchException("Stad mag enkel letters bevatten.");
             }
         }
         this.stad = stad;
@@ -413,8 +423,9 @@ public class Activiteit implements Serializable {
         if (postcode == null || postcode.isEmpty()) {
             throw new IllegalArgumentException("Postcode mag niet leeg zijn.");
         }
+        postcode = postcode.trim();
         if (!postcode.matches("[0-9]{4}")) {
-            throw new IllegalArgumentException("Postcode moet 4 karakters bevatten.");
+            throw new IllegalArgumentException("Postcode moet 4 cijfers bevatten.");
         }
         this.postcode = postcode;
         sPostcode.set(postcode);
@@ -428,6 +439,7 @@ public class Activiteit implements Serializable {
         if (huisnummer == null || huisnummer.isEmpty()) {
             throw new IllegalArgumentException("Huisnummer mag niet leeg zijn.");
         }
+        huisnummer = huisnummer.trim();
         if (huisnummer.length() > 5) {
             throw new IllegalArgumentException("Huisnummer mag max. 5 karakters bevatten.");
         }
@@ -444,16 +456,14 @@ public class Activiteit implements Serializable {
 
     public void setBus(String bus) {
         if (bus != null) {
-            if (bus.length() <= 5) {
-                this.bus = bus;
-                sBus.set(bus);
-            } else {
+            if (bus.length() > 5) {
                 throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
             }
+            this.bus = bus;
+            sBus.set(bus);
         } else {
             this.bus = null;
         }
-
     }
 
     public int getMaxDeelnemers() {

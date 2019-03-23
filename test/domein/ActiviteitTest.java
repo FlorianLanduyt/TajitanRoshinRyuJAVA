@@ -492,8 +492,8 @@ public class ActiviteitTest {
 
     @Test
     public void activiteit_SetLocatie_MetSpaties_Correct() {
-        activiteit.setNaam("De Stage");
-        Assert.assertEquals("De Stage", activiteit.getNaam());
+        activiteit.setNaamLocatie("De Stage");
+        Assert.assertEquals("De Stage", activiteit.getNaamLocatie());
     }
 
     @Test
@@ -534,7 +534,7 @@ public class ActiviteitTest {
     }
 
     @Test(expected = InputMismatchException.class)
-    public void activiteit_SetGsmNummer_MetSpaties_Correct() {
+    public void activiteit_SetGsmNummer_MetSpaties_ThrowsInputMismatchException() {
         activiteit.setNaam("04 77441461");
     }
 
@@ -559,6 +559,11 @@ public class ActiviteitTest {
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetEmail_Empty_ThrowsIllegalArgumentException() {
         activiteit.setEmail("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void activiteit_SetEmail_MetSpaties_ThrowsIllegalArgumentException() {
+        activiteit.setNaam("tybo. vanderstraeten@student.hogent.be");
     }
 
     @Test
