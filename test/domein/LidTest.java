@@ -472,10 +472,199 @@ public class LidTest {
     }
 
     //Geboorteplaats
-    //Geslacht
-    //Nationaliteit
-    //Beroep
-    //RijksregisterNummer
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetGeboorteplaats_Null_ThrowsIllegalArgumentException() {
+        lid.setGeboorteplaats(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetGeboorteplaats_Empty_ThrowsIllegalArgumentException() {
+        lid.setGeboorteplaats("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetGeboorteplaats_TeLang_ThrowsIllegalArgumentException() {
+        String output = "";
+        for (int i = 0; i < 51; i++) {
+            output.concat("a");
+        }
+        lid.setGeboorteplaats(output);
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGeboorteplaats_MetNummers_ThrowsInputMismatchException() {
+        lid.setGeboorteplaats("azezae12345");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGeboorteplaats_EnkelNummers_ThrowsInputMismmatchException() {
+        lid.setGeboorteplaats("15515");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGeboorteplaats_MetSymbolen_ThrowsInputMismatchException() {
+        lid.setGeboorteplaats("aze@ze-*/151");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGeboorteplaats_EnkelSymbolen_ThrowsInputMismatchException() {
+        lid.setGeboorteplaats("@@/*-+$^");
+    }
+
+    @Test
+    public void lid_SetGeboorteplaats_MetSpaties_Correct() {
+        lid.setGeboorteplaats("Gent Nieuw");
+        Assert.assertEquals("Gent Nieuw", lid.getGeboorteplaats());
+    }
+
+    @Test
+    public void lid_SetGeboorteplaats_Correct() {
+        lid.setGeboorteplaats("Gent");
+        Assert.assertEquals("Gent", lid.getGeboorteplaats());
+    }
+
     //gsmNr
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetGsmNummer_Null_ThrowsIllegalArgumentException() {
+        lid.setGsmNr(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetGsmNummer_Empty_ThrowsIllegalArgumentException() {
+        lid.setGsmNr("");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGsmNummer_MetLetters_ThrowsInputMismatchException() {
+        lid.setGsmNr("aaaaa12345");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGsmNummer_EnkelLetters_ThrowsInputMismmatchException() {
+        lid.setGsmNr("aaaaaaaaaa");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGsmNummer_MetSymbolen_ThrowsInputMismatchException() {
+        lid.setGsmNr("@@@@@12345");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGsmNummer_EnkelSymbolen_ThrowsInputMismatchException() {
+        lid.setGsmNr("@@@@@@@@@@");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetGsmNummer_MetSpaties_ThrowsInputMismatchException() {
+        lid.setGsmNr("04 77441461");
+    }
+
+    @Test
+    public void lid_SetGsmNummer_Correct() {
+        lid.setGsmNr("0477441462");
+        Assert.assertEquals("0477441462", lid.getGsmNr());
+    }
+
+    @Test
+    public void lid_SetGsmNummer_32_Correct() {
+        lid.setGsmNr("+32477441462");
+        Assert.assertEquals("+32477441462", lid.getGsmNr());
+    }
+
     //vasteTelefoonNr
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetNummer_Empty_ThrowsIllegalArgumentException() {
+        lid.setVasteTelefoonNr("");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNummer_MetLetters_ThrowsInputMismatchException() {
+        lid.setVasteTelefoonNr("aaaaa1235");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNummer_EnkelLetters_ThrowsInputMismmatchException() {
+        lid.setVasteTelefoonNr("aaaaaaaaa");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNummer_MetSymbolen_ThrowsInputMismatchException() {
+        lid.setVasteTelefoonNr("@@@@@1245");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNummer_EnkelSymbolen_ThrowsInputMismatchException() {
+        lid.setVasteTelefoonNr("@@@@@@@@@");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNummer_MetSpaties_ThrowsInputMismatchException() {
+        lid.setVasteTelefoonNr("04 7744146");
+    }
+
+    @Test
+    public void lid_SetNummer_Correct() {
+        lid.setVasteTelefoonNr("047744146");
+        Assert.assertEquals("047744146", lid.getVasteTelefoonNr());
+    }
+
+    //Nationaliteit
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetNationaliteit_Null_ThrowsIllegalArgumentException() {
+        lid.setNationaliteit(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetNationaliteit_Empty_ThrowsIllegalArgumentException() {
+        lid.setNationaliteit("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetNationaliteit_TeLang_ThrowsIllegalArgumentException() {
+        String output = "";
+        for (int i = 0; i < 51; i++) {
+            output.concat("a");
+        }
+        lid.setNationaliteit(output);
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNationaliteit_MetNummers_ThrowsInputMismatchException() {
+        lid.setNationaliteit("azezae12345");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNationaliteit_EnkelNummers_ThrowsInputMismmatchException() {
+        lid.setNationaliteit("15515");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNationaliteit_MetSymbolen_ThrowsInputMismatchException() {
+        lid.setNationaliteit("aze@ze-*/151");
+    }
+
+    @Test(expected = InputMismatchException.class)
+    public void lid_SetNationaliteit_EnkelSymbolen_ThrowsInputMismatchException() {
+        lid.setNationaliteit("@@/*-+$^");
+    }
+
+    @Test
+    public void lid_SetNationaliteit_MetSpaties_Correct() {
+        lid.setNationaliteit("Vietna mees");
+        Assert.assertEquals("Vietna mees", lid.getNationaliteit());
+    }
+
+    @Test
+    public void lid_SetNationaliteit_Correct() {
+        lid.setNationaliteit("Belg");
+        Assert.assertEquals("Belg", lid.getNationaliteit());
+    }
+
+    //-------------------------
+    //-------------------------
+    //-------------------------
+    //-------------------------
+    //Geslacht
+    //RijksregisterNummer
+    //Beroep (zoals bus, bus moet nog aangepast worden! alsook in activiteit!)
 }
