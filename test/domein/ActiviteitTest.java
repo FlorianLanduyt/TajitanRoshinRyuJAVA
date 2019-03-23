@@ -7,17 +7,18 @@ import exceptions.DatumIntervalException;
 import exceptions.VolzetException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.InputMismatchException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ActiviteitTest {
-
+    
     Lid lid;
     Lid lid2;
     Activiteit activiteit;
-
+    
     @Before
     public void setUp() {
         lid = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
@@ -26,19 +27,19 @@ public class ActiviteitTest {
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
                 "Belg", Graad.DAN5, Functie.LID);
-
+        
         lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
                 "99.12.08.173.04",
                 "0479365887", "098556880", "Kortrijk", "Prinses Clementinalaan",
                 "11", "9980", "tybo.vanderstraeten@outlook.com",
                 "TomatoSoup", "Gent", "Man",
                 "Belg", Graad.KYU3, Functie.LID);
-
+        
         activiteit = new Activiteit("Testactiviteit", Formule.ACTIVITEIT,
                 1, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.MARCH, 10));
-
+        
     }
-
+    
     @After
     public void reset() {
         lid = new Lid("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
@@ -47,14 +48,14 @@ public class ActiviteitTest {
                 "52", "8870", "tim.geldof@outlook.com",
                 "Wachtwoord", "Izegem", "Man",
                 "Belg", Graad.DAN5, Functie.LID);
-
+        
         lid2 = new Lid("Tybo", "Vanderstraeten", LocalDate.of(1999, Month.DECEMBER, 8),
                 "99.12.08.173.04",
                 "0479365887", "098556880", "Kortrijk", "Prinses Clementinalaan",
                 "11", "9980", "tybo.vanderstraeten@outlook.com",
                 "TomatoSoup", "Gent", "Man",
                 "Belg", Graad.KYU3, Functie.LID);
-
+        
         activiteit = new Activiteit("Testactiviteit", Formule.ACTIVITEIT,
                 1, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.MARCH, 10));
     }
@@ -65,12 +66,12 @@ public class ActiviteitTest {
     public void activiteit_SetNaam_Null_ThrowsIllegalArgumentException() {
         activiteit.setNaam(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetNaam_Empty_ThrowsIllegalArgumentException() {
         activiteit.setNaam("");
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetNaam_TeLang_ThrowsIllegalArgumentException() {
         String output = "";
@@ -79,7 +80,7 @@ public class ActiviteitTest {
         }
         activiteit.setNaam(output);
     }
-
+    
     @Test
     public void activiteit_SetNaam_Correct() {
         activiteit.setNaam("Meerdaagse hoogtebeproeving");
@@ -91,12 +92,12 @@ public class ActiviteitTest {
     public void activiteit_SetStraat_Null_ThrowsIllegalArgumentException() {
         activiteit.setStraat(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetStraat_Empty_ThrowsIllegalArgumentException() {
         activiteit.setStraat("");
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetStraat_TeLang_ThrowsIllegalArgumentException() {
         String output = "";
@@ -105,7 +106,12 @@ public class ActiviteitTest {
         }
         activiteit.setStraat(output);
     }
-
+    
+    @Test(expected = InputMismatchException.class)
+    public void activiteit_SetStraat_MetNummers_ThrowsInputMismatchException() {
+        activiteit.setStraat("12345");
+    }
+    
     @Test
     public void activiteit_SetStraat_Correct() {
         activiteit.setStraat("Voskenslaan");
@@ -117,12 +123,12 @@ public class ActiviteitTest {
     public void activiteit_SetStad_Null_ThrowsIllegalArgumentException() {
         activiteit.setStad(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetStad_Empty_ThrowsIllegalArgumentException() {
         activiteit.setStad("");
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetStad_TeLang_ThrowsIllegalArgumentException() {
         String output = "";
@@ -131,7 +137,7 @@ public class ActiviteitTest {
         }
         activiteit.setStad(output);
     }
-
+    
     @Test
     public void activiteit_SetStad_Correct() {
         activiteit.setStad("Gent");
@@ -143,17 +149,17 @@ public class ActiviteitTest {
     public void activiteit_SetPC_Null_ThrowsIllegalArgumentException() {
         activiteit.setPostcode(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetPC_Empty_ThrowsIllegalArgumentException() {
         activiteit.setPostcode("");
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetPC_TeLang_ThrowsIllegalArgumentException() {
         activiteit.setPostcode("55555");
     }
-
+    
     @Test
     public void activiteit_SetPC_Correct() {
         activiteit.setPostcode("9000");
@@ -165,17 +171,17 @@ public class ActiviteitTest {
     public void activiteit_SetHNR_Null_ThrowsIllegalArgumentException() {
         activiteit.setHuisnummer(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetHNR_Empty_ThrowsIllegalArgumentException() {
         activiteit.setHuisnummer("");
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetHNR_TeLang_ThrowsIllegalArgumentException() {
         activiteit.setHuisnummer("123456");
     }
-
+    
     @Test
     public void activiteit_SetHNR_Correct() {
         activiteit.setHuisnummer("13");
@@ -187,7 +193,7 @@ public class ActiviteitTest {
     public void activiteit_SetBus_TeLang_ThrowsIllegalArgumentException() {
         activiteit.setBus("123456");
     }
-
+    
     @Test
     public void activiteit_SetBus_Correct() {
         activiteit.setBus("81a");
@@ -199,17 +205,17 @@ public class ActiviteitTest {
     public void activiteit_SetFormule_Null_ThrowsIllegalArgumentException() {
         activiteit.setFormule(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetFormule_Empty_ThrowsIllegalArgumentException() {
         activiteit.setFormule(Formule.valueOf(""));
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetFormule_NotExisting_ThrowsIllegalArgumentException() {
         activiteit.setFormule(Formule.valueOf("BESTAATNIET"));
     }
-
+    
     @Test
     public void activiteit_SetFormule_Correct() {
         activiteit.setFormule(Formule.WO_ZA);
@@ -221,12 +227,12 @@ public class ActiviteitTest {
     public void activiteit_SetBeginDatum_Null_ThrowsIllegalArgumentException() {
         activiteit.setBeginDatum(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetBeginDatum_Empty_ThrowsIllegalArgumentException() {
         activiteit.setBeginDatum(LocalDate.of(Integer.valueOf(""), Integer.valueOf(""), Integer.valueOf("")));
     }
-
+    
     @Test
     public void activiteit_SetBeginDatum_Correct() {
         activiteit.setBeginDatum(LocalDate.now());
@@ -238,7 +244,7 @@ public class ActiviteitTest {
     public void activiteit_SetEindDatum_Empty_ThrowsIllegalArgumentException() {
         activiteit.setEindDatum(LocalDate.of(Integer.valueOf(""), Integer.valueOf(""), Integer.valueOf("")));
     }
-
+    
     @Test
     public void activiteit_SetEindDatum_Correct() {
         activiteit.setBeginDatum(LocalDate.now());
@@ -252,7 +258,7 @@ public class ActiviteitTest {
         activiteit.setBeginDatum(LocalDate.now());
         activiteit.setEindDatum(LocalDate.now().minusDays(1));
     }
-
+    
     @Test(expected = DatumIntervalException.class)
     public void activiteit_SetBeginDatum_SetEindDatum_BeginKomtVoorEinde_ThrowsDatumIntervalException() {
         activiteit.setEindDatum(LocalDate.now().plusDays(10));
@@ -264,29 +270,29 @@ public class ActiviteitTest {
     public void activiteit_SetUitersteInschrijvingsDatum_Null_ThrowsIllegalArgumentException() {
         activiteit.setUitersteInschrijvingsDatum(null);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetUitersteInschrijvingsDatum_Empty_ThrowsIllegalArgumentException() {
         activiteit.setUitersteInschrijvingsDatum(LocalDate.of(Integer.valueOf(""), Integer.valueOf(""), Integer.valueOf("")));
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetUitersteInschrijvingsDatum_InVerleden_ThrowsIllegalArgumentException() {
         activiteit.setUitersteInschrijvingsDatum(LocalDate.now().minusDays(1));
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetUitersteInschrijvingsDatum_NaBeginDatum_ThrowsIllegalArgumentException() {
         activiteit.setBeginDatum(LocalDate.now().plusDays(10));
         activiteit.setUitersteInschrijvingsDatum(LocalDate.now().plusDays(15));
     }
-
+    
     @Test
     public void activiteit_SetUitersteInschrijvingsDatum_Correct() {
         activiteit.setBeginDatum(LocalDate.now().plusDays(5));
         activiteit.setUitersteInschrijvingsDatum(LocalDate.now());
         Assert.assertEquals(LocalDate.now(), activiteit.getUitersteInschrijvingsDatum());
-
+        
     }
 
     //MaxDeelnemers
@@ -294,12 +300,12 @@ public class ActiviteitTest {
     public void activiteit_SetMaxDeelnemers_Null_ThrowsIllegalArgumentException() {
         activiteit.setMaxDeelnemers(Integer.valueOf(null));
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void activiteit_SetMaxDeelnemers_Empty_ThrowsIllegalArgumentException() {
         activiteit.setMaxDeelnemers(Integer.valueOf(""));
     }
-
+    
     @Test
     public void activiteit_SetMaxDeelnemers_Correct() {
         activiteit.setMaxDeelnemers(25);

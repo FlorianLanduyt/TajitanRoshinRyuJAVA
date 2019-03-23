@@ -7,7 +7,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({domein.ActiviteitTest.class,
     domein.InschrijvingTest.class,
     domein.LidTest.class,
-    domein.LesmateriaalTest.class})
+    domein.LesmateriaalTest.class,
+    domein.RaadplegingTest.class})
 public class RunAllTests {
 
 }

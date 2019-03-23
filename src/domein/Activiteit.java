@@ -183,12 +183,12 @@ public class Activiteit implements Serializable {
         if (naam == null || naam.isEmpty()) {
             throw new IllegalArgumentException("Naam mag niet leeg zijn.");
         }
-        if (naam.length() <= 35) {
-            this.naam = naam;
-            sNaam.set(naam);
-        } else {
+        if (naam.length() > 35) {
             throw new IllegalArgumentException("Naam mag max. 35 karakters bevatten.");
+
         }
+        this.naam = naam;
+        sNaam.set(naam);
     }
 
     public Formule getFormule() {
@@ -199,12 +199,11 @@ public class Activiteit implements Serializable {
         if (formule == null) {
             throw new IllegalArgumentException("Formule mag niet leeg zijn.");
         }
-        if (Arrays.asList(Formule.values()).contains(formule)) {
-            this.formule = formule;
-            sFormule.set(formule.name());
-        } else {
+        if (!Arrays.asList(Formule.values()).contains(formule)) {
             throw new IllegalArgumentException("Formule bestaat niet.");
         }
+        this.formule = formule;
+        sFormule.set(formule.name());
     }
 
     public LocalDate getBeginDatum() {
@@ -218,10 +217,9 @@ public class Activiteit implements Serializable {
             if (beginDatum.compareTo(this.eindDatum) > 0) {
                 throw new DatumIntervalException("Begindatum mag niet na einddatum liggen.");
             }
-        } else {
-            this.beginDatum = beginDatum;
-            sBeginDatum.set(beginDatum.toString());
         }
+        this.beginDatum = beginDatum;
+        sBeginDatum.set(beginDatum.toString());
     }
 
     public LocalDate getEindDatum() {
@@ -256,10 +254,9 @@ public class Activiteit implements Serializable {
             throw new IllegalArgumentException("Uiterste inschrijvingsdatum mag niet in het verleden liggen.");
         } else if (this.beginDatum.compareTo(uitersteInschrijvingsDatum) < 0) {
             throw new IllegalArgumentException("Uiterste inschrijvingsdatum mag niet na begindatum liggen.");
-        } else {
-            this.uitersteInschrijvingsDatum = uitersteInschrijvingsDatum;
-            sUitersteInschrijvingsDatum.set(uitersteInschrijvingsDatum.toString());
         }
+        this.uitersteInschrijvingsDatum = uitersteInschrijvingsDatum;
+        sUitersteInschrijvingsDatum.set(uitersteInschrijvingsDatum.toString());
     }
 
     public String getNaamLocatie() {
