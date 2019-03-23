@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
@@ -120,8 +121,8 @@ public class Lid implements Serializable {
     public SimpleStringProperty typeProperty() {
         return sType;
     }
-    
-    public SimpleStringProperty geboortedatumProperty(){
+
+    public SimpleStringProperty geboortedatumProperty() {
         return sGeboortedatum;
     }
 
@@ -295,11 +296,21 @@ public class Lid implements Serializable {
         if (stad == null || stad.isEmpty()) {
             throw new IllegalArgumentException("Stad mag niet leeg zijn.");
         }
-        if (stad.length() <= 50) {
-            this.stad = stad;
-        } else {
+        stad = stad.trim();
+        if (stad.length() > 50) {
             throw new IllegalArgumentException("Stad mag max. 50 karakters bevatten.");
         }
+        if (stad.contains(" ")) {
+            String tempStad = stad.replaceAll(" ", "");
+            if (tempStad.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Stad mag enkel letters bevatten.");
+            }
+        } else {
+            if (stad.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Stad mag enkel letters bevatten.");
+            }
+        }
+        this.stad = stad;
     }
 
     public String getStraat() {
@@ -310,11 +321,21 @@ public class Lid implements Serializable {
         if (straat == null || straat.isEmpty()) {
             throw new IllegalArgumentException("Straat mag niet leeg zijn.");
         }
-        if (straat.length() <= 50) {
-            this.straat = straat;
-        } else {
+        straat = straat.trim();
+        if (straat.length() > 50) {
             throw new IllegalArgumentException("Straat mag max. 50 karakters bevatten.");
         }
+        if (straat.contains(" ")) {
+            String tempStraat = straat.replaceAll(" ", "");
+            if (tempStraat.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Straat mag enkel letters bevatten.");
+            }
+        } else {
+            if (straat.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Straat mag enkel letters bevatten.");
+            }
+        }
+        this.straat = straat;
     }
 
     public String getHuisNr() {
@@ -325,11 +346,14 @@ public class Lid implements Serializable {
         if (huisNr == null || huisNr.isEmpty()) {
             throw new IllegalArgumentException("Huisnummer mag niet leeg zijn.");
         }
-        if (huisNr.length() <= 5) {
-            this.huisNr = huisNr;
-        } else {
+        huisNr = huisNr.trim();
+        if (huisNr.length() > 5) {
             throw new IllegalArgumentException("Huisnummer mag max. 5 karakters bevatten.");
         }
+        if (!huisNr.matches("\\d{1,5}")) {
+            throw new InputMismatchException("Huisnummer mag geen letters/symbolen bevatten.");
+        }
+        this.huisNr = huisNr;
     }
 
     public String getBus() {
@@ -338,15 +362,13 @@ public class Lid implements Serializable {
 
     public void setBus(String bus) {
         if (bus != null) {
-            if (bus.length() <= 5) {
-                this.bus = bus;
-            } else {
+            if (bus.length() > 5) {
                 throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
             }
+            this.bus = bus;
         } else {
             this.bus = null;
         }
-
     }
 
     public String getPostcode() {
@@ -357,11 +379,11 @@ public class Lid implements Serializable {
         if (postcode == null || postcode.isEmpty()) {
             throw new IllegalArgumentException("Postcode mag niet leeg zijn.");
         }
-        if (postcode.matches("[0-9]{4}")) {
-            this.postcode = postcode;
-        } else {
-            throw new IllegalArgumentException("Postcode moet 4 karakters bevatten.");
+        postcode = postcode.trim();
+        if (!postcode.matches("[0-9]{4}")) {
+            throw new IllegalArgumentException("Postcode moet 4 cijfers bevatten.");
         }
+        this.postcode = postcode;
     }
 
     public String getEmail() {
@@ -585,15 +607,13 @@ public class Lid implements Serializable {
         leeftijdsCategoriën = new ArrayList(); // we willen dat  alles altijd up-to-date blijft!
         int leeftijd = Period.between(geboortedatum, LocalDate.now()).getYears();
         if (leeftijd <= 15) {
-            if(leeftijd < 10){
+            if (leeftijd < 10) {
                 leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
-            }
-            else{
+            } else {
                 leeftijdsCategoriën.add(LeeftijdsCategorie.L6_15);
                 leeftijdsCategoriën.add(LeeftijdsCategorie.L10_15);
             }
-        }
-        else{
+        } else {
             leeftijdsCategoriën.add(LeeftijdsCategorie.L15_PLUS);
         }
     }
