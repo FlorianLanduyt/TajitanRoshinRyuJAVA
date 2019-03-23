@@ -112,12 +112,12 @@ public class DataInitializerForDemo {
         //--Stages
         Activiteit s1 = new Activiteit("Hoogtestage Ardennen", Formule.STAGE, 50, LocalDate.of(2020, Month.MARCH, 12),
                 LocalDate.of(2020, Month.MARCH, 16), LocalDate.of(2020, Month.FEBRUARY, 20));
-        s1.setNaamLocatie("D'arde");
+        s1.setNaamLocatie("Darde");
         s1.setGsmnummer("0476456851");
         s1.setEmail("darde@ardennes.be");
         s1.setStad("Houyet");
         s1.setPostcode("6500");
-        s1.setStraat("Rue de la Foret");
+        s1.setStraat("RuedelaForet");
         s1.setHuisnummer("1");
 
         Activiteit s2 = new Activiteit("Hoogtestage Vogezen", Formule.STAGE, 50, LocalDate.of(2020, Month.AUGUST, 28),
@@ -152,9 +152,9 @@ public class DataInitializerForDemo {
         e1.setHuisnummer("13");
 
         //--Proef
-        Activiteit p1 = new Activiteit("Dan1-proef", Formule.PROEF, 15, LocalDate.of(2020, Month.JULY, 5),
+        Activiteit p1 = new Activiteit("Danproef", Formule.PROEF, 15, LocalDate.of(2020, Month.JULY, 5),
                 LocalDate.of(2020, Month.JULY, 3));
-        p1.setNaamLocatie("Turnzaal D2");
+        p1.setNaamLocatie("Turnzaal D");
         p1.setGsmnummer("0476456851");
         p1.setEmail("sporthaldrongen@gmail.be");
         p1.setStad("Gent");
@@ -174,9 +174,9 @@ public class DataInitializerForDemo {
         u1.setHuisnummer("72");
 
         //--Lessen
-        Activiteit l1 = new Activiteit("Les 1", Formule.ZA, 20, LocalDate.of(2020, Month.MARCH, 23),
+        Activiteit l1 = new Activiteit("Les", Formule.ZA, 20, LocalDate.of(2020, Month.MARCH, 23),
                 LocalDate.of(2020, Month.FEBRUARY, 13));
-        l1.setNaamLocatie("Turnzaal D2");
+        l1.setNaamLocatie("Turnzaal D");
         l1.setGsmnummer("0476456851");
         l1.setEmail("sporthaldrongen@gmail.be");
         l1.setStad("Gent");
@@ -184,9 +184,9 @@ public class DataInitializerForDemo {
         l1.setStraat("Drongensestraat");
         l1.setHuisnummer("13");
 
-        Activiteit l2 = new Activiteit("Les 2", Formule.WO_ZA, 27, LocalDate.of(2020, Month.MARCH, 30),
+        Activiteit l2 = new Activiteit("Les", Formule.WO_ZA, 27, LocalDate.of(2020, Month.MARCH, 30),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
-        l2.setNaamLocatie("Turnzaal D2");
+        l2.setNaamLocatie("Turnzaal D");
         l2.setGsmnummer("0476456851");
         l2.setEmail("sporthaldrongen@gmail.be");
         l2.setStad("Gent");
@@ -194,9 +194,9 @@ public class DataInitializerForDemo {
         l2.setStraat("Drongensestraat");
         l2.setHuisnummer("13");
 
-        Activiteit l3 = new Activiteit("Les 3", Formule.DI_ZA, 19, LocalDate.of(2020, Month.MARCH, 31),
+        Activiteit l3 = new Activiteit("Les", Formule.DI_ZA, 19, LocalDate.of(2020, Month.MARCH, 31),
                 LocalDate.of(2020, Month.FEBRUARY, 20));
-        l3.setNaamLocatie("Turnzaal D2");
+        l3.setNaamLocatie("Turnzaal D");
         l3.setGsmnummer("0476456851");
         l3.setEmail("sporthaldrongen@gmail.be");
         l3.setStad("Gent");

@@ -40,8 +40,8 @@ public class InschrijvingTest {
         activiteitStage = new Activiteit("Testactiviteit", Formule.STAGE,
                 15, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.DECEMBER, 15));
 
-        activiteitWo1 = new Activiteit("Woensdag1", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.DECEMBER, 15));
-        activiteitWo2 = new Activiteit("Woensdag2", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 27), LocalDate.of(2020, Month.DECEMBER, 22));
+        activiteitWo1 = new Activiteit("Woensdag", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.DECEMBER, 15));
+        activiteitWo2 = new Activiteit("Woensdag", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 27), LocalDate.of(2020, Month.DECEMBER, 22));
 
         ac = new ActiviteitBeheerController();
     }
@@ -65,8 +65,8 @@ public class InschrijvingTest {
         activiteitStage = new Activiteit("Testactiviteit", Formule.STAGE,
                 15, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.DECEMBER, 15));
 
-        activiteitWo1 = new Activiteit("Woensdag1", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.DECEMBER, 15));
-        activiteitWo2 = new Activiteit("Woensdag2", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 27), LocalDate.of(2020, Month.DECEMBER, 22));
+        activiteitWo1 = new Activiteit("Woensdag", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.of(2020, Month.DECEMBER, 15));
+        activiteitWo2 = new Activiteit("Woensdag", Formule.WO, 15, LocalDate.of(2020, Month.DECEMBER, 27), LocalDate.of(2020, Month.DECEMBER, 22));
 
         ac = new ActiviteitBeheerController();
     }

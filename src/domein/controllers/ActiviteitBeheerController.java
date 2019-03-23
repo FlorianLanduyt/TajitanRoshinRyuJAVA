@@ -7,6 +7,7 @@ import domein.Lid;
 import domein.enums.Formule;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -19,15 +20,34 @@ public class ActiviteitBeheerController {
     private ObservableList<Activiteit> activiteitenList;
     private FilteredList<Activiteit> filteredActiviteitenList;
     private SortedList<Activiteit> sortedActiviteitenList;
-
     private final Comparator<Activiteit> byDate = (p1, p2) -> p1.getBeginDatum().compareTo(p2.getBeginDatum());
     private final Comparator<Activiteit> sortOrder = byDate.reversed();
+    
+    private ObservableList<Inschrijving> inschrijvingenActiviteit;
+    private SortedList<Inschrijving> inschrijvingenActiviteitSorted;
+    private Comparator<Inschrijving> byFamilienaamInschrijving = (l1, l2) -> l1.getLid().getAchternaam().compareTo(l2.getLid().getAchternaam());
+    private Comparator<Inschrijving> byVoornaamInschrijving = (l1, l2) -> l1.getLid().getVoornaam().compareTo(l2.getLid().getVoornaam());
+    private Comparator<Inschrijving> sortOrderInschrijving = byFamilienaamInschrijving.thenComparing(byVoornaamInschrijving);
+    
+    
+    private ObservableList<Lid> nogNietIngeschrevenLeden;
+    private FilteredList<Lid> nogNietIngeschrevenLedenFiltered;
+    private SortedList<Lid> nogNietIngeschrevenLedenSorted;
+    private final Comparator<Lid> byFamilienaam = (l1, l2) -> l1.getAchternaam().compareTo(l2.getAchternaam());
+    private final Comparator<Lid> byVoornaam = (l1, l2) -> l1.getVoornaam().compareTo(l2.getVoornaam());
+    private final Comparator<Lid> sortOrderLeden = byFamilienaam.thenComparing(byVoornaam);
+
+    
 
     public ActiviteitBeheerController() {
         dataController = new DataController();
         activiteitenList = FXCollections.observableArrayList(dataController.geefActiviteiten());
         filteredActiviteitenList = new FilteredList(activiteitenList, p -> true);
         sortedActiviteitenList = new SortedList(filteredActiviteitenList, sortOrder);
+        
+        inschrijvingenActiviteit = FXCollections.observableArrayList();
+        nogNietIngeschrevenLeden = FXCollections.observableArrayList();
+        
     }
 
     //
@@ -41,9 +61,54 @@ public class ActiviteitBeheerController {
         return FXCollections.unmodifiableObservableList(sortedActiviteitenList);
     }
     
-    public ObservableList<Lid> geefDeelnemersVanActiviteit(Activiteit activiteit){
-        ObservableList<Lid> deelnemers = FXCollections.observableArrayList(activiteit.getInschrijvingen().stream().map(Inschrijving::getLid).sorted(Comparator.comparing(Lid::getVoornaam)).collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(deelnemers);
+    public ObservableList<Inschrijving> geefInschrijvingenVanActiviteit(Activiteit activiteit){
+        inschrijvingenActiviteit = FXCollections.observableArrayList(activiteit.getInschrijvingen());
+        inschrijvingenActiviteitSorted = new SortedList(inschrijvingenActiviteit, sortOrderInschrijving);
+        return FXCollections.unmodifiableObservableList(inschrijvingenActiviteitSorted);
+    }
+    
+    public ObservableList<Lid> geefLedenNogNietIngeschreven(Activiteit activiteit){
+        ObservableList<Lid> alleLeden = FXCollections.observableArrayList(dataController.geefLeden());
+        alleLeden.removeAll(activiteit
+                .getInschrijvingen()
+                .stream()
+                .map(insch ->insch.getLid())
+                .sorted(Comparator.comparing(Lid::getAchternaam).thenComparing(Lid::getVoornaam))
+                .collect(Collectors.toList()));
+        
+        nogNietIngeschrevenLeden = FXCollections.unmodifiableObservableList(alleLeden);
+        nogNietIngeschrevenLedenFiltered = new FilteredList(nogNietIngeschrevenLeden, p -> true);
+        nogNietIngeschrevenLedenSorted = new SortedList(nogNietIngeschrevenLedenFiltered, sortOrderLeden);
+        return FXCollections.unmodifiableObservableList(nogNietIngeschrevenLedenSorted);
+    }
+    
+    public void veranderFilterNogNietIngeschrevenLeden(String familienaam, String voornaam){
+        nogNietIngeschrevenLedenFiltered.setPredicate((lid) -> {
+            boolean voornaamEmpty = voornaam.isEmpty() || voornaam.equals("");
+            boolean familienaamEmpty = familienaam.isEmpty() || familienaam.equals("");
+            
+            boolean voornaamFilter = lid.getVoornaam().toLowerCase().equals(voornaam.toLowerCase()) || lid.getVoornaam().toLowerCase().startsWith(voornaam.toLowerCase());
+            boolean familieNaamFilter = lid.getAchternaam().toLowerCase().equals(familienaam.toLowerCase()) || lid.getAchternaam().toLowerCase().startsWith(familienaam.toLowerCase());
+            
+            //00
+            if(voornaamEmpty && familienaamEmpty){
+                return true;
+            }
+            //01
+            if(voornaamEmpty && !familienaamEmpty){
+                return familieNaamFilter;
+            }
+            //10
+            if(!voornaamEmpty && familienaamEmpty){
+                return voornaamFilter;
+            }
+            //11
+            if(!voornaamEmpty && !familienaamEmpty){
+                return voornaamFilter && familieNaamFilter;
+            }
+            return true;
+        });
+        
     }
     
 
@@ -220,6 +285,8 @@ public class ActiviteitBeheerController {
                 case EXAMEN:
                     inschrijving = new Inschrijving(activiteit.getFormule(), lid, LocalDate.now());
                     dataController.geefInschrijvingen().add(inschrijving);
+                    inschrijvingenActiviteit.add(inschrijving);
+                    activiteit.setAantalDeelnemers();
                     break;
                 default:
                     break;
@@ -227,8 +294,11 @@ public class ActiviteitBeheerController {
         } else {
             inschrijving = new Inschrijving(activiteit.getFormule(), lid, LocalDate.now());
             dataController.geefInschrijvingen().add(inschrijving);
+            inschrijvingenActiviteit.add(inschrijving);
+            activiteit.setAantalDeelnemers();
         }
         activiteit.voegInschrijvingToe(inschrijving);
+        //
     }
 
     public void verwijderInschrijving(Activiteit activiteit, Lid lid) {
@@ -237,6 +307,7 @@ public class ActiviteitBeheerController {
         if (inschrijving != null) {
             activiteit.verwijderInschrijving(inschrijving);
             dataController.geefInschrijvingen().remove(inschrijving);
+            inschrijvingenActiviteit.remove(inschrijving);
         } else {
             throw new IllegalArgumentException("Inschrijving bestaat niet.");
         }

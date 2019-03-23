@@ -134,9 +134,10 @@ public class AanwezighedenOverzicht extends Overzicht {
         colDatum.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
         colNaamActiviteit.setCellValueFactory(cellData -> cellData.getValue().activiteitNaamProperty());
 
-        super.addKolom(colNaamActiviteit);
+        
         super.addKolom(colFamilienaam);
         super.addKolom(colVoornaam);
+        super.addKolom(colNaamActiviteit);
         super.addKolom(colDatum);
 
     }

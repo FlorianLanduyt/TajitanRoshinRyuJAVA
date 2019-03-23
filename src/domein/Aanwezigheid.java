@@ -10,17 +10,22 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
  * @author Tim
  */
 @Entity
-public class Aanwezigheid implements Serializable{
+public class Aanwezigheid implements Serializable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
     private Lid lid;
@@ -29,11 +34,17 @@ public class Aanwezigheid implements Serializable{
     private int puntenAantal;
 
     //SimpleStringProperties
+    @Transient
     private SimpleStringProperty sActiviteitNaam = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sVoornaam = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sFormule = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sDatum = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sPuntenAantal = new SimpleStringProperty();
 
     public Aanwezigheid() {
@@ -70,8 +81,8 @@ public class Aanwezigheid implements Serializable{
     public SimpleStringProperty datumProperty() {
         return sDatum;
     }
-    
-    public SimpleStringProperty puntenAantalProperty(){
+
+    public SimpleStringProperty puntenAantalProperty() {
         return sPuntenAantal;
     }
 

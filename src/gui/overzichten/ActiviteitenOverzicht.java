@@ -12,6 +12,7 @@ import domein.controllers.OverzichtController;
 import domein.enums.Formule;
 import gui.BeginSchermFlo;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -183,6 +184,7 @@ public class ActiviteitenOverzicht extends Overzicht {
             deelnemers.setItems(FXCollections.observableList(a.getInschrijvingen()
                     .stream().
                     map(i -> i.getLid())
+                    .sorted(Comparator.comparing(Lid::getAchternaam).thenComparing(Lid::getVoornaam))
                     .collect(Collectors.toList())));
         }catch(NullPointerException e){
             //als er geen activiteit is aangeduid in de tabel!

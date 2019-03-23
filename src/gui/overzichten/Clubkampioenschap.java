@@ -6,16 +6,14 @@
 package gui.overzichten;
 
 import domein.Aanwezigheid;
-import domein.Activiteit;
 import domein.Lid;
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
 import domein.enums.Formule;
+import domein.enums.LeeftijdsCategorie;
 import gui.BeginSchermFlo;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -43,6 +41,8 @@ public class Clubkampioenschap extends Overzicht{
     private TableColumn<Aanwezigheid, String> colNaamActiviteit;
     private TableColumn<Aanwezigheid, String> colPuntenActiviteit;
     
+    private ComboBox<String> cboLeeftijdsCategorie;
+    
     private VBox scherm;
 
     private Text txNaam;
@@ -58,15 +58,26 @@ public class Clubkampioenschap extends Overzicht{
         maakOverzicht();
         clubkampioenschapTabel.getSelectionModel().selectFirst();
         
+        cboLeeftijdsCategorie.setOnAction((ActionEvent event) -> {
+            filter();
+        });
+        
     }
 
     private void maakOverzicht() {
         maakTabel();
         maakDetailScherm();
+        maakFilter();
         
         super.buildGui(38);
     }
 
+    public void maakFilter(){
+        cboLeeftijdsCategorie = new ComboBox();
+        cboLeeftijdsCategorie.setPromptText("Alle leeftijdscategoriën");
+        cboLeeftijdsCategorie.setItems(oc.geefLeeftijdsCategoriën());
+        super.addCombobox(cboLeeftijdsCategorie);
+    }
     
 
     private void maakTabel() {
@@ -171,9 +182,22 @@ public class Clubkampioenschap extends Overzicht{
     private void opmaakLabels(List<Text> labels) {
         labels.stream().forEach(l -> l.setStyle("-fx-font-weight: bold; -fx-underline: true; -fx-font-size: 16px"));
     }
+    
+    private void filter(){
+        LeeftijdsCategorie leeftijdsCategorie = cboLeeftijdsCategorie
+                .getSelectionModel()
+                .getSelectedIndex() == 0
+                        ? null
+                        : cboLeeftijdsCategorie.getSelectionModel().getSelectedItem() == null
+                        ? null
+                        : Arrays.asList(LeeftijdsCategorie.values())
+                                .stream()
+                                .filter(leef -> leef.getDisplayName().equals(cboLeeftijdsCategorie.getSelectionModel().getSelectedItem()))
+                                .findFirst()
+                                .orElse(null);
 
-//    private void veranderTable(Object value) {
-//        activiteitTabel.getColumns().stream().filter(p-> p.)
-//    }
+        oc.veranderFilterClubkampioenschap(leeftijdsCategorie);
+    }
+    
 }
 

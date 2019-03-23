@@ -1,5 +1,7 @@
 package domein.enums;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public enum Formule {
     DI_DO,
     DI_ZA,
@@ -10,5 +12,10 @@ public enum Formule {
     STAGE,
     EXAMEN,
     PROEF,
-    UITSTAP
+    UITSTAP;
+    
+    private SimpleStringProperty sNaamFormule = new SimpleStringProperty(this.name());
+    public SimpleStringProperty naamFormuleProperty(){
+        return sNaamFormule;
+    }
 }

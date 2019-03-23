@@ -11,14 +11,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -27,6 +31,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Oefening implements Serializable {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
     private String titel;
@@ -40,9 +45,13 @@ public class Oefening implements Serializable {
     private Thema thema;
 
     //SimpleStringproperties voor tableview
+    @Transient
     private SimpleStringProperty sNaam = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sGraad = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sThema = new SimpleStringProperty();
+    @Transient
     private SimpleStringProperty sAantalRaadplegingen = new SimpleStringProperty();
 
     public Oefening() {
@@ -87,12 +96,22 @@ public class Oefening implements Serializable {
         if (titel == null || titel.isEmpty()) {
             throw new IllegalArgumentException("Titel mag niet leeg zijn.");
         }
-        if (titel.length() <= 25) {
-            this.titel = titel;
-            sNaam.setValue(titel);
-        } else {
+        titel = titel.trim();
+        if (titel.length() > 25) {
             throw new IllegalArgumentException("Titel mag max. 25 karakters bevatten.");
         }
+        if (titel.contains(" ")) {
+            String tempTitel = titel.replaceAll(" ", "");
+            if (tempTitel.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Titel mag enkel letters bevatten.");
+            }
+        } else {
+            if (titel.matches(".*[\\d\\W].*")) {
+                throw new InputMismatchException("Titel mag enkel letters bevatten.");
+            }
+        }
+        this.titel = titel;
+        sNaam.setValue(titel);
     }
 
     public String getUrlVideo() {
@@ -163,7 +182,7 @@ public class Oefening implements Serializable {
             throw new IllegalArgumentException("Thema mag niet leeg zijn.");
         } else {
             this.thema = thema;
-            sThema.set(thema.naam);
+            sThema.set(thema.getNaam());
         }
     }
 
