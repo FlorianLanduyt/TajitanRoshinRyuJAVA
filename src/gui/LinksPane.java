@@ -59,6 +59,9 @@ public class LinksPane extends BorderPane implements PropertyChangeListener{
         parent.setLeft(null);
         parent.setLeft(new LinksPane(new HoofdmenuKnoppen(parent), ac, parent, ingelogd));
         parent.setMenuTitle("Hoofdmenu");
+        parent.maakCenterPane();
+        
+        
 //        parent.maakOverzichtTitle("");
         
     }

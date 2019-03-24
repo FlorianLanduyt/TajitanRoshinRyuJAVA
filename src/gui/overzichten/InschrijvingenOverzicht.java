@@ -150,8 +150,15 @@ public class InschrijvingenOverzicht extends Overzicht {
         detailScherm.getChildren().add(formulesBox);
         super.setDetailScherm(detailScherm);
     }
+    
+    private void clearAlleVelden(){
+        txLid.setText("");
+        txDatum.setText("");
+        tvFormules.setItems(null);
+    }
 
     private void vulDetailScherm(Inschrijving inschrijving) {
+        clearAlleVelden();
         try {
             txLid.setText(inschrijving.getAchternaam() + ", " + inschrijving.getVoornaam());
             txDatum.setText(inschrijving.getTijdstip().toString());

@@ -49,7 +49,7 @@ public class BeginSchermFlo extends BorderPane {
 
     }
 
-    private void maakCenterPane() {
+    public void maakCenterPane() {
         VBox center = new VBox();
         center.setAlignment(Pos.CENTER);
         ImageView imgBeginScherm = new ImageView("images/BeginSchermImage.png");

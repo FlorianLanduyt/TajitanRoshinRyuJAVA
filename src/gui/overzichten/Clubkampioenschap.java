@@ -155,9 +155,13 @@ public class Clubkampioenschap extends Overzicht{
         scherm.getChildren().add(HNaam);
     }
 
-    
+    private void clearAlleVelden(){
+        txNaam.setText("");
+        aanwezighedenTabel.setItems(null);
+    }
 
     private void vulDetailScherm(Lid lid) {
+        clearAlleVelden();
         try{
            txNaam.setText(lid.geefVolledigeNaam());
         aanwezighedenTabel.setItems(oc
@@ -197,6 +201,7 @@ public class Clubkampioenschap extends Overzicht{
                                 .orElse(null);
 
         oc.veranderFilterClubkampioenschap(leeftijdsCategorie);
+        clubkampioenschapTabel.getSelectionModel().selectFirst();
     }
     
 }
