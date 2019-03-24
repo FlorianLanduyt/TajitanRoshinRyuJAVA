@@ -146,9 +146,8 @@ public class LidBeherenScherm extends Overzicht {
         
         super.addTextField(txtFilterFamilienaam);
         super.addTextField(txtFilterVoornaam);
-        
-        super.addCombobox(cboFilterType);
         super.addCombobox(cboFilterGraad);
+        super.addCombobox(cboFilterType);
     }
 
     private void maakTabel() {
