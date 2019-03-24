@@ -31,6 +31,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -48,44 +49,28 @@ public class LidBeherenScherm extends Overzicht {
     private TextField txtFilterVoornaam;
     private TextField txtFilterFamilienaam;
     private TableView<Lid> tvOverzichtLeden;
-    private TableColumn<Lid, String> colVoornaam;
-    private TableColumn<Lid, String> colAchternaam;
-    private TableColumn<Lid, String> colGraad;
-    private TableColumn<Lid, String> colType;
+    private TableColumn<Lid, String> colVoornaam, colAchternaam, colGraad, colType;
     
-    
-    private Button btnNieuwLid;
-    private Button btnWijzigingenOpslaan;
-    private Button btnLidVerwijderen;
-    private Button btnCancel;
-    private Button btnSlaGegevensNieuwLidOp;
-    
+    private Button btnNieuwLid, btnWijzigingenOpslaan, btnLidVerwijderen, btnCancel, btnSlaGegevensNieuwLidOp;
     
     //detailpane
-    private TextField txfVoornaam;
-    private TextField txfAchternaam;
+    private TextField txfVoornaam, txfAchternaam, txfRijksregisternummer,txfGsmnummer,txfStraat; 
+    private TextField txfStad,txfPostcode,txfBus,txfTelefoon,txfEmail,txfEmailVader,txfEmailmoeder;
+    private TextField txfNationaliteit,txfBeroep, txfWachtwoord, txfHuisnummer,txfGeboorteplaats;
+//    
+//    
+    private Label lblNaam, lblRijksregisternummer,lblGsmnummer,lblAdres, lblGeslacht; 
+    private Label lblTelefoon,lblEmail,lblEmailVader,lblEmailmoeder, lblType, lblGeboorteDatum;
+    private Label lblNationaliteit,lblBeroep, lblWachtwoord, lblGeboortePlaats, lblGraad;
+    
+    
     private DatePicker dpGeboorteDatum;
-    private TextField txfRijksregisternummer;
-    private TextField txfGsmnummer;
-    private TextField txfStraat;
-    private TextField txfHuisnummer;
-    private TextField txfStad;
-    private TextField txfPostcode;
-    private TextField txfBus;
-    private TextField txfTelefoon;
-    private TextField txfEmail;
-    private TextField txfEmailVader;
-    private TextField txfEmailmoeder;
-    private TextField txfGeboorteplaats;
-    private TextField txfNationaliteit;
-    private TextField txfBeroep;
-    private TextField txfWachtwoord;
     
     private ComboBox<Graad> cboGraad;
     private ComboBox<String> cboGeslacht;
     private ComboBox<Functie> cboType_Functie;
     
-    private Label lblErrorlog = new Label("");
+    private Label lblErrorlog;
 
     
     public LidBeherenScherm(BeginSchermFlo parent, AdminController ac, String titel) {
@@ -144,6 +129,7 @@ public class LidBeherenScherm extends Overzicht {
         maakCrudknoppen();
 
         super.buildGui(44);
+        setErrorLabel();
     }
 
     private void maakFilters() {
@@ -229,22 +215,22 @@ public class LidBeherenScherm extends Overzicht {
     }
 
     private void maakDetailScherm() {
-        Label lblNaam = new Label("Naam en voornaam *");
-        Label lblGeboorteDatum = new Label("Geboortedatum *");
-        Label lblGeboortePlaats = new Label("Geboorteplaats *");
-        Label lblRijksregisternummer = new Label("Rijksregisternummer *");
-        Label lblGeslacht = new Label("Geslacht *");
-        Label lblNationaliteit = new Label("Nationaliteit *");
-        Label lblGsm = new Label("GSM-nummer *");
-        Label lblTelefoon = new Label("Telefoonnummer");
-        Label lblAdres = new Label("Adres*");
-        Label lblBeroep = new Label("Beroep");
-        Label lblEmail = new Label("Email *");
-        Label lblEmailVader = new Label("Email vader");
-        Label lblEmailMoeder = new Label("Email moeder");
-        Label lblGraad = new Label("Graad *");
-        Label lblType = new Label("Type *");
-        Label lblWachtwoord = new Label("Wachtwoord *");
+        lblNaam = new Label("Naam en voornaam *");
+        lblGeboorteDatum = new Label("Geboortedatum *");
+        lblGeboortePlaats = new Label("Geboorteplaats *");
+        lblRijksregisternummer = new Label("Rijksregisternummer *");
+        lblGeslacht = new Label("Geslacht *");
+        lblNationaliteit = new Label("Nationaliteit *");
+        lblGsmnummer = new Label("GSM-nummer *");
+        lblTelefoon = new Label("Telefoonnummer");
+        lblAdres = new Label("Adres*");
+        lblBeroep = new Label("Beroep");
+        lblEmail = new Label("Email *");
+        lblEmailVader = new Label("Email vader");
+        lblEmailmoeder = new Label("Email moeder");
+        lblGraad = new Label("Graad *");
+        lblType = new Label("Type *");
+        lblWachtwoord = new Label("Wachtwoord *");
         
         GridPane form = new GridPane();
         ColumnConstraints col1 = new ColumnConstraints();
@@ -301,7 +287,7 @@ public class LidBeherenScherm extends Overzicht {
         cboGeslacht.getStyleClass().add("greyDropdown");
         
         //rij5
-        lblGsm.setPadding(insetsLabel);
+        lblGsmnummer.setPadding(insetsLabel);
         lblTelefoon.setPadding(insetsLabel);
         txfGsmnummer = new TextField();
         txfTelefoon = new TextField();
@@ -335,7 +321,7 @@ public class LidBeherenScherm extends Overzicht {
         cboGraad.setMinWidth(118);
         
         //rij9
-        lblEmailMoeder.setPadding(insetsLabel);
+        lblEmailmoeder.setPadding(insetsLabel);
         lblWachtwoord.setPadding(insetsLabel);
         txfEmailmoeder = new TextField();
         txfWachtwoord = new TextField();
@@ -347,16 +333,16 @@ public class LidBeherenScherm extends Overzicht {
         form.add(txfAchternaam, 0,3,2,1);
         form.add(txfVoornaam, 2,3,2,1);
         form.add(lblGeboorteDatum, 0, 4,2,1);
-        form.add(lblGeboortePlaats, 2,4,2,1);
+        form.add(lblGeboortePlaats, 2,6,2,1);
         form.add(dpGeboorteDatum, 0, 5,2,1);
-        form.add(txfGeboorteplaats, 2, 5,2,1);
-        form.add(lblRijksregisternummer, 0, 6,2,1);
-        form.add(lblGeslacht, 3, 6);
-        form.add(lblNationaliteit, 2, 6);
-        form.add(txfRijksregisternummer,0, 7,2,1);
-        form.add(cboGeslacht,3, 7);
-        form.add(txfNationaliteit,2, 7);
-        form.add(lblGsm, 0, 8,2,1);
+        form.add(txfGeboorteplaats, 2, 7,2,1);
+        form.add(lblRijksregisternummer, 2, 4,2,1);
+        form.add(lblGeslacht, 0, 6);
+        form.add(lblNationaliteit, 1, 6);
+        form.add(txfRijksregisternummer,2, 5,2,1);
+        form.add(cboGeslacht,0, 7);
+        form.add(txfNationaliteit,1, 7);
+        form.add(lblGsmnummer, 0, 8,2,1);
         form.add(lblTelefoon, 2, 8,2,1);
         form.add(txfGsmnummer, 0, 9,2,1);
         form.add(txfTelefoon, 2, 9,2,1);
@@ -370,7 +356,7 @@ public class LidBeherenScherm extends Overzicht {
         form.add(lblBeroep, 2,13,2,1);
         form.add(txfEmail, 0,14,2,1);
         form.add(txfBeroep, 2,14,2,1);
-        form.add(lblEmailMoeder, 0, 15,2,1);
+        form.add(lblEmailmoeder, 0, 15,2,1);
         form.add(lblWachtwoord, 2, 15,2,1);
         form.add(txfEmailmoeder, 0, 16,2,1);
         form.add(txfWachtwoord, 2, 16,2,1);
@@ -387,6 +373,13 @@ public class LidBeherenScherm extends Overzicht {
         cboType_Functie.setOnAction((ActionEvent event) -> {
             veranderForm();
         }); 
+    }
+
+    private void setErrorLabel() {
+        lblErrorlog = new Label("hallo");
+        lblErrorlog.setTextFill(Color.web("#B14643"));
+        lblErrorlog.setStyle("-fx-font-size: 20px");
+        //super.setFoutmelding(lblErrorlog);
     }
     
     
@@ -599,6 +592,20 @@ public class LidBeherenScherm extends Overzicht {
             txfBeroep.setDisable(true);
             txfWachtwoord.setDisable(true);
             cboGraad.setDisable(true);
+            
+            lblGsmnummer.setDisable(true);
+            lblAdres.setDisable(true);
+            lblTelefoon.setDisable(true);
+            lblEmail.setDisable(true);
+            lblEmailVader.setDisable(true);
+            lblEmailmoeder.setDisable(true);
+            lblGeboortePlaats.setDisable(true);
+            lblNationaliteit.setDisable(true);
+            lblBeroep.setDisable(true);
+            lblWachtwoord.setDisable(true);
+            lblGraad.setDisable(true);
+            
+            
         } else {
             
             txfGsmnummer.setDisable(false);
@@ -617,6 +624,18 @@ public class LidBeherenScherm extends Overzicht {
             txfWachtwoord.setDisable(false);
             cboGraad.setDisable(false);
             
+            
+            lblGsmnummer.setDisable(false);
+            lblAdres.setDisable(false);
+            lblTelefoon.setDisable(false);
+            lblEmail.setDisable(false);
+            lblEmailVader.setDisable(false);
+            lblEmailmoeder.setDisable(false);
+            lblGeboortePlaats.setDisable(false);
+            lblNationaliteit.setDisable(false);
+            lblBeroep.setDisable(false);
+            lblWachtwoord.setDisable(false);
+            lblGraad.setDisable(false);
         }
     }
 

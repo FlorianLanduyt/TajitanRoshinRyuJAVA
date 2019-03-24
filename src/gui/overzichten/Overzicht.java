@@ -15,6 +15,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -223,7 +224,7 @@ public class Overzicht<T> extends BorderPane {
             Region r1 = new Region();
             HBox.setHgrow(r1, Priority.ALWAYS);
 
-            crudKnoppenBox.setPadding(new Insets(10, 4, 0, 4));
+            crudKnoppenBox.setPadding(new Insets(10, 0, 15, 0));
             crudKnoppenBox.getChildren().addAll(this.crudKnoppen.get(0), r1, this.crudKnoppen.get(1));
             paddingBox.getChildren().add(crudKnoppenBox);
 
@@ -271,5 +272,9 @@ public class Overzicht<T> extends BorderPane {
     public void disableFilters(boolean b) {
         this.filtersEnTabel.setDisable(b);
     }
+
+//    public void setFoutmelding(Label lblErrorlog) {
+//        this.paddingBox.getChildren().add(lblErrorlog);
+//    }
 
 }
