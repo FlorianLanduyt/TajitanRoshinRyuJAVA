@@ -171,8 +171,19 @@ public class ActiviteitenOverzicht extends Overzicht {
 
         scherm.getChildren().add(HNaam);
     }
+    
+    private void clearAlleVelden(){
+        txNaam.setText("");
+        txDatum.setText("");
+        txNaamLocatie.setText("");;
+        txGsmnummerLocatie.setText("");
+        txEmailLocatie.setText("");
+        txAdres.setText("");
+        deelnemers.setItems(null);
+    }
 
     private void vulDetailScherm(Activiteit a) {
+        clearAlleVelden();
         try {
             txNaam.setText(a.getNaam());
             txDatum.setText(String.format("%s %s", a.beginDatumProperty().getValue(),

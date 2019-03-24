@@ -161,7 +161,14 @@ public class AanwezighedenOverzicht extends Overzicht {
         zetLabelEnInfoNaastElkaar(lblFormule, txFormule);
     }
     
+    private void clearAlleVelden(){
+        txDatum.setText("");
+        txLid.setText("");
+        txFormule.setText("");
+        txPuntenAantal.setText("");
+    }
     private void vulDetailScherm(Aanwezigheid a) {
+        clearAlleVelden();
         try{
             txDatum.setText(a.getDatum().toString());
         txLid.setText(a.getAchternaam() + " " + a.getVoornaam());

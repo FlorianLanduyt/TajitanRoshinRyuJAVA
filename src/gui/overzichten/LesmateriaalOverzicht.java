@@ -203,8 +203,17 @@ public class LesmateriaalOverzicht extends Overzicht {
 
         scherm.getChildren().add(HNaam);
     }
+    
+    private void clearAlleVelden(){
+        txLid.setText("");
+        txTitel.setText("");
+        txThemaOefn.setText("");
+        txTotaalAantalRaadplegingen.setText("");
+        txDatumLaatsteRaadpleging.setText("");
+    }
 
     private void vulDetailScherm(Raadpleging raadpleging) {
+        clearAlleVelden();
         try {
             txLid.setText(raadpleging.getLid().geefVolledigeNaam());
             txTitel.setText(raadpleging.getOefening().getTitel());

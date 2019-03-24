@@ -108,7 +108,7 @@ public class BeherenLesMateriaal extends Overzicht {
         btnSlaNieuweGegevensLesmateriaalOp.setOnAction((ActionEvent event) -> {
             slaGegevensNieuwLesMateriaalOp();
         });
-        
+
         tblOefeningen.getSelectionModel().selectedItemProperty()
                 .addListener((observer, oldValue, newValue) -> {
                     vulDetailScherm(newValue);
@@ -330,16 +330,25 @@ public class BeherenLesMateriaal extends Overzicht {
     }
 
     private void verwijderenLesmateriaal() {
-        Oefening oefening = tblOefeningen.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Bevestiging verwijderen");
-        alert.setHeaderText("Bevestiging");
-        alert.setContentText(String.format("Ben je zeker dat je oefening %s wil verwijderen?", oefening.getTitel()));
+        
+        if (tblOefeningen.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("FOUT");
+            alert.setHeaderText("Oefening niet gevonden!");
+            alert.setContentText(String.format("Er is geen oefening geselecteerd in de lijst!"));
+        } else {
+            Oefening oefening = tblOefeningen.getSelectionModel().getSelectedItem();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bevestiging verwijderen");
+            alert.setHeaderText("Bevestiging");
+            alert.setContentText(String.format("Ben je zeker dat je oefening %s wil verwijderen?", oefening.getTitel()));
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            lesmateriaalBeheerController.verwijderOefening(oefening);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                lesmateriaalBeheerController.verwijderOefening(oefening);
+            }
         }
+
     }
 
     private void toevoegenLesmateriaal() {
@@ -396,7 +405,7 @@ public class BeherenLesMateriaal extends Overzicht {
     private void slaGegevensNieuwLesMateriaalOp() {
         try {
             lesmateriaalBeheerController.voegOefeningToe(txtTitelDetail.getText(), txtUrlVideo.getText(),
-                     txtUrlAfbeelding.getText(), txaTekst.getText(), cboGraadDetail.getSelectionModel().getSelectedItem(),
+                    txtUrlAfbeelding.getText(), txaTekst.getText(), cboGraadDetail.getSelectionModel().getSelectedItem(),
                     lesmateriaalBeheerController.geefThemas()
                             .stream()
                             .filter(thema -> thema.getNaam().equals(cboThemaDetail.getSelectionModel().getSelectedItem()))
@@ -404,7 +413,8 @@ public class BeherenLesMateriaal extends Overzicht {
                             .orElse(null));
 
             super.setErrorLabelText("");
-            btnSlaNieuweGegevensLesmateriaalOp.setText("Lid toevoegen");
+            btnSlaNieuweGegevensLesmateriaalOp.setText("Lesmateriaal toevoegen");
+            cancelToevoegenNieuwLesmateriaal();
         } catch (IllegalArgumentException e) {
             super.setErrorLabelText(e.getMessage());
         }
