@@ -94,6 +94,7 @@ public class Overzicht<T> extends BorderPane {
             f.setMaxWidth(150);
             cbFilterBox.getChildren().add(f);
             f.getSelectionModel().select(0);
+            f.getStyleClass().add("greenBtn");
         });
 
         HBox txtFilterBox = new HBox(10);
