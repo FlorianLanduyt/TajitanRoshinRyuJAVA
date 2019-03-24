@@ -91,11 +91,11 @@ public class LidBeherenScherm extends Overzicht {
             filterLedenCBO();
         });
         
-        txtFilterFamilienaam.setOnKeyPressed((KeyEvent event) -> {
+        txtFilterFamilienaam.setOnKeyReleased((KeyEvent event) -> {
             filterLedenTXT();
         });
         
-        txtFilterVoornaam.setOnKeyPressed((KeyEvent event) -> {
+        txtFilterVoornaam.setOnKeyReleased((KeyEvent event) -> {
             filterLedenTXT();
         });
         
@@ -161,7 +161,7 @@ public class LidBeherenScherm extends Overzicht {
 
         maakKolommenInTabel();
 
-        tvOverzichtLeden.setItems((lc.geefAlleLeden()));
+        tvOverzichtLeden.setItems((lc.geefObservableListLeden()));
         super.setTvTabel(tvOverzichtLeden);
     }
 

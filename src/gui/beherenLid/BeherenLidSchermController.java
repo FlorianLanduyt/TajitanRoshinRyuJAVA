@@ -367,7 +367,7 @@ public class BeherenLidSchermController extends AnchorPane {
         if (result.get() == ButtonType.OK) {
             lidBeheerderController.verwijderLid(lid);
         }
-        lidBeheerderController.verwijderLid(lid);
+      
 
     }
 

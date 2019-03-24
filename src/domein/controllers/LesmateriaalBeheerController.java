@@ -45,47 +45,49 @@ public class LesmateriaalBeheerController {
     //
     //Filtering
     //
-    public void filterList(Graad graad, int aantalRaadplegingen, LocalDate laatsteRaadpleging) {
+    public void filterList(Graad graad, Thema thema, String titel) {
         filteredOefeningenList.setPredicate(oefening -> {
+            boolean titelEmpty = titel == null;
+            boolean themaEmpty = thema == null;
             boolean graadEmpty = graad == null || graad.name().equals("");
-            boolean aantalRaadplegingenEmpty = String.valueOf(aantalRaadplegingen).isEmpty() || String.valueOf(aantalRaadplegingen).equals("");
-            boolean laatsteRaadplegingEmpty = laatsteRaadpleging == null;
+            //boolean laatsteRaadplegingEmpty = laatsteRaadpleging == null;
 
             boolean graadFilter = oefening.getGraad().equals(graad);
-            boolean aantalRaadplegingenFilter = oefening.getAantalRaadplegingen() == aantalRaadplegingen;
-            boolean laatsteRaadplegingFilter = oefening.getLaatsteRaadpleging().equals(laatsteRaadpleging);
+            boolean titelFilter = oefening.getTitel().toLowerCase().equals(titel.toLowerCase()) || oefening.getTitel().toLowerCase().startsWith(titel.toLowerCase());
+            boolean themaFilter = oefening.getThema().equals(thema);
+            //boolean laatsteRaadplegingFilter = oefening.getLaatsteRaadpleging().equals(laatsteRaadpleging);
 
             //000
-            if (graadEmpty && aantalRaadplegingenEmpty && laatsteRaadplegingEmpty) {
+            if (titelEmpty && themaEmpty && graadEmpty) {
                 return true;
             }
             //001
-            if (graadEmpty && aantalRaadplegingenEmpty && !laatsteRaadplegingEmpty) {
-                return laatsteRaadplegingFilter;
-            }
-            //010
-            if (graadEmpty && !aantalRaadplegingenEmpty && laatsteRaadplegingEmpty) {
-                return aantalRaadplegingenFilter;
-            }
-            //011
-            if (graadEmpty && !aantalRaadplegingenEmpty && !laatsteRaadplegingEmpty) {
-                return aantalRaadplegingenFilter && laatsteRaadplegingFilter;
-            }
-            //100
-            if (!graadEmpty && aantalRaadplegingenEmpty && laatsteRaadplegingEmpty) {
+            if (titelEmpty && themaEmpty && !graadEmpty) {
                 return graadFilter;
             }
+            //010
+            if (titelEmpty && !themaEmpty && graadEmpty) {
+                return themaFilter;
+            }
+            //011
+            if (titelEmpty && !themaEmpty && !graadEmpty) {
+                return themaFilter && graadFilter;
+            }
+            //100
+            if (!titelEmpty && themaEmpty && graadEmpty) {
+                return titelFilter;
+            }
             //101
-            if (!graadEmpty && aantalRaadplegingenEmpty && !laatsteRaadplegingEmpty) {
-                return graadFilter && laatsteRaadplegingFilter;
+            if (!titelEmpty && themaEmpty && !graadEmpty) {
+                return titelFilter && graadFilter;
             }
             //110
-            if (!graadEmpty && !aantalRaadplegingenEmpty && laatsteRaadplegingEmpty) {
-                return graadFilter && aantalRaadplegingenFilter;
+            if (!titelEmpty && !themaEmpty && graadEmpty) {
+                return titelFilter && themaFilter;
             }
             //111
-            if (!graadEmpty && !aantalRaadplegingenEmpty && !laatsteRaadplegingEmpty) {
-                return graadFilter && aantalRaadplegingenFilter && laatsteRaadplegingFilter;
+            if (!titelEmpty && !themaEmpty && !graadEmpty) {
+                return titelFilter && themaFilter && graadFilter;
             }
             return true;
         });
@@ -124,6 +126,18 @@ public class LesmateriaalBeheerController {
         graden.add(0, "Alle graden");
         return graden;
     }
+    
+     public ObservableList<String> geefThemasFilter() {
+        ObservableList<String> themas = FXCollections.observableArrayList(dataController
+                .geefThemas().stream().map(thema -> thema.getNaam())
+                .collect(Collectors.toList()));
+        themas.add(0, "Alle thema's");
+        return themas;
+    }
+     
+     public ObservableList<Thema> geefThemas(){
+         return FXCollections.observableArrayList(dataController.geefThemas());
+     }
 
     //
     //Observer
@@ -135,5 +149,7 @@ public class LesmateriaalBeheerController {
     public void removeObserver(ListChangeListener<Oefening> listener) {
         oefeningenList.removeListener(listener);
     }
+
+   
 
 }
