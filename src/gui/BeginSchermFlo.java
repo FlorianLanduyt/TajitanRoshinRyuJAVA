@@ -2,6 +2,7 @@ package gui;
 
 import domein.controllers.AdminController;
 import gui.BeherenLesmateriaal.BeherenLesMateriaal;
+import gui.beherenActiviteit.ActiviteitenBeherenScherm;
 import gui.beherenActiviteit.BeherenActiviteitSchermController;
 import gui.beherenLid.BeherenLidSchermController;
 import gui.beherenLid.LidBeherenScherm;
@@ -76,7 +77,7 @@ public class BeginSchermFlo extends BorderPane {
     }
     
     public void beheerActiviteiten(){
-        this.setCenter(new BeherenActiviteitSchermController(this, ac));
+        this.setCenter(new ActiviteitenBeherenScherm(this, ac, "Beheren Activiteit"));
     }
     
     public void beheerLesmateriaal(){

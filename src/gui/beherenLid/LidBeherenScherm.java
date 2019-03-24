@@ -38,11 +38,7 @@ import javafx.scene.paint.Color;
  * @author florianlanduyt
  */
 public class LidBeherenScherm extends Overzicht {
-    private BeginSchermFlo parent;
-    private AdminController ac;
-    private OverzichtController oc;
-    private final String titel;
-    private LidBeheerderController lc;
+    private final LidBeheerderController lc;
     
     private ComboBox<String> cboFilterGraad;
     private ComboBox<String> cboFilterType;
@@ -57,8 +53,7 @@ public class LidBeherenScherm extends Overzicht {
     private TextField txfVoornaam, txfAchternaam, txfRijksregisternummer,txfGsmnummer,txfStraat; 
     private TextField txfStad,txfPostcode,txfBus,txfTelefoon,txfEmail,txfEmailVader,txfEmailmoeder;
     private TextField txfNationaliteit,txfBeroep, txfWachtwoord, txfHuisnummer,txfGeboorteplaats;
-//    
-//    
+
     private Label lblVoornaam, lblFamilienaam, lblRijksregisternummer,lblGsmnummer,lblAdres, lblGeslacht; 
     private Label lblTelefoon,lblEmail,lblEmailVader,lblEmailmoeder, lblType, lblGeboorteDatum;
     private Label lblNationaliteit,lblBeroep, lblWachtwoord, lblGeboortePlaats, lblGraad;
@@ -75,10 +70,6 @@ public class LidBeherenScherm extends Overzicht {
     public LidBeherenScherm(BeginSchermFlo parent, AdminController ac, String titel) {
         super(parent, ac, titel);
         
-        this.parent = parent;
-        this.ac = ac;
-        this.oc = new OverzichtController();
-        this.titel = titel;
         this.lc = new LidBeheerderController();
         
         maakOverzicht();
@@ -191,7 +182,6 @@ public class LidBeherenScherm extends Overzicht {
         } catch (NullPointerException e) {
             //als je de list verandert vindt hij geen data meer
         }
-
     }
 
     private void maakKolommenInTabel() {
@@ -600,7 +590,6 @@ public class LidBeherenScherm extends Overzicht {
             
             
         } else {
-            
             txfGsmnummer.setDisable(false);
             txfStraat.setDisable(false);
             txfHuisnummer.setDisable(false);

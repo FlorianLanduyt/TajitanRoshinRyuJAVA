@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -48,9 +50,9 @@ public class Overzicht<T> extends BorderPane {
     private List<ComboBox> comboboxen;
     private List<HBox> datepickers;
     private List<TextField> textfields;
-    private List<TextField> textFilters;
     private List<Button> crudKnoppen;
     private List<Button> knoppenOnderTabel;
+    private List<CheckBox> checkboxen;
     private Label lblError;
 
     private final String titelOverzicht;
@@ -67,6 +69,7 @@ public class Overzicht<T> extends BorderPane {
         textfields = new ArrayList<>();
         crudKnoppen = new ArrayList<>();
         knoppenOnderTabel = new ArrayList<>();
+        checkboxen = new ArrayList<>();
         lblError = new Label();
 
         titelOverzicht = overzicht;
@@ -112,6 +115,11 @@ public class Overzicht<T> extends BorderPane {
             f.getStyleClass().add("greenBtn");
         });
 
+        HBox checkBoxFilter = new HBox(10);
+        checkBoxFilter.setAlignment(Pos.CENTER);
+        checkboxen.stream().forEach(c -> {
+            checkBoxFilter.getChildren().add(c);
+        });
         
 
         // txtFilterBox.setPadding(new Insets(,0,0,0));
@@ -126,6 +134,9 @@ public class Overzicht<T> extends BorderPane {
         }
         if (!datepickers.isEmpty()) {
             alleFilters.getChildren().add(datePickerBox);
+        }
+        if (!checkboxen.isEmpty()) {
+            alleFilters.getChildren().add(checkBoxFilter);
         }
 
         filtersEnTabel.getChildren().add(alleFilters);
@@ -254,6 +265,10 @@ public class Overzicht<T> extends BorderPane {
 
     public void addExtraKnop(Button b) {
         knoppenOnderTabel.add(b);
+    }
+    
+    public void addCheckBox(CheckBox c){
+        checkboxen.add(c);
     }
 
     public void emptyCrudKnoppenList() {

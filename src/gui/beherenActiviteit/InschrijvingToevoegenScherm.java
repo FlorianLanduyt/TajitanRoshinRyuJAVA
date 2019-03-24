@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  */
 public class InschrijvingToevoegenScherm extends VBox {
 
-    private final BeherenActiviteitSchermController beherenActiviteitSchermController;
+    private final ActiviteitenBeherenScherm beherenActiviteitSchermController;
     private final ActiviteitBeheerController activiteitBeheerController;
     private final Activiteit activiteit;
 
@@ -40,7 +40,7 @@ public class InschrijvingToevoegenScherm extends VBox {
 
     private Button btnVoegInschrijvingToe;
 
-    public InschrijvingToevoegenScherm(BeherenActiviteitSchermController beherenActiviteitSchermController, ActiviteitBeheerController activiteitBeheerController, Activiteit activiteit) {
+    public InschrijvingToevoegenScherm(ActiviteitenBeherenScherm beherenActiviteitSchermController, ActiviteitBeheerController activiteitBeheerController, Activiteit activiteit) {
         this.beherenActiviteitSchermController = beherenActiviteitSchermController;
         this.activiteitBeheerController = activiteitBeheerController;
         this.activiteit = activiteit;
