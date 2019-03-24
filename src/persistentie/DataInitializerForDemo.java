@@ -25,7 +25,8 @@ public class DataInitializerForDemo {
             List<Lid> leden,
             List<Raadpleging> raadplegingen,
             List<Oefening> oefeningen,
-            List<Admin> admins) {
+            List<Admin> admins,
+            List<Thema> themas) {
 
         //
         //LEDEN
@@ -353,6 +354,11 @@ public class DataInitializerForDemo {
         Thema finesse = new Thema("Finesse");
         Thema verdediging = new Thema("Verdediging");
         Thema algemeen = new Thema("Algemeen");
+        themas.add(techniek);
+        themas.add(snelheid);
+        themas.add(finesse);
+        themas.add(verdediging);
+        themas.add(algemeen);
         //
         //OEFENINGEN
         //

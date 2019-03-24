@@ -14,16 +14,16 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 public class LesmateriaalBeheerController {
-
+    
     private DataController dataController;
     private ObservableList<Oefening> oefeningenList;
     private FilteredList<Oefening> filteredOefeningenList;
     private SortedList<Oefening> sortedOefeningenList;
-
+    
     private final Comparator<Oefening> byGraad = (p1, p2) -> p1.getGraad().compareTo(p2.getGraad());
     private final Comparator<Oefening> byName = (p1, p2) -> p1.getTitel().compareTo(p2.getTitel());
     private final Comparator<Oefening> sortOrder = byGraad.thenComparing(byName);
-
+    
     public LesmateriaalBeheerController() {
         dataController = new DataController();
         oefeningenList = FXCollections.observableArrayList(dataController.geefOefeningen());
@@ -37,7 +37,7 @@ public class LesmateriaalBeheerController {
     public ObservableList<Oefening> geefAlleOefeningen() {
         return FXCollections.unmodifiableObservableList(oefeningenList);
     }
-
+    
     public ObservableList<Oefening> geefObservableListOefeningen() {
         return FXCollections.unmodifiableObservableList(sortedOefeningenList);
     }
@@ -104,13 +104,13 @@ public class LesmateriaalBeheerController {
         oefening.setGraad(graad);
         oefening.setThema(thema);
     }
-
+    
     public void voegOefeningToe(String titel, String urlVideo, String afbeelding, String tekst, Graad graad, Thema thema) {
         Oefening oefening = new Oefening(titel, urlVideo, afbeelding, tekst, graad, thema);
         this.oefeningenList.add(oefening);
         dataController.geefOefeningen().add(oefening);
     }
-
+    
     public void verwijderOefening(Oefening oefening) {
         this.oefeningenList.remove(oefening);
         dataController.geefOefeningen().remove(oefening);
@@ -127,17 +127,34 @@ public class LesmateriaalBeheerController {
         return graden;
     }
     
-     public ObservableList<String> geefThemasFilter() {
+    public ObservableList<String> geefThemasFilter() {
         ObservableList<String> themas = FXCollections.observableArrayList(dataController
-                .geefThemas().stream().map(thema -> thema.getNaam())
+                .geefThemas().stream()
+                .sorted(Comparator.comparing(Thema::getNaam))
+                .map(thema -> thema.getNaam())
                 .collect(Collectors.toList()));
         themas.add(0, "Alle thema's");
         return themas;
     }
-     
-     public ObservableList<Thema> geefThemas(){
-         return FXCollections.observableArrayList(dataController.geefThemas());
-     }
+    
+    public ObservableList<String> geefThemasDetaillijst() {
+        return FXCollections.observableArrayList(dataController.geefThemas()
+                .stream()
+                .sorted(Comparator.comparing(Thema::getNaam))
+                .map(thema -> thema.getNaam())
+                .collect(Collectors.toList()));
+    }
+    
+    public ObservableList<Thema> geefThemas() {
+        return FXCollections.observableArrayList(dataController.geefThemas())
+                .sorted(Comparator.comparing(Thema::getNaam));
+    }
+    
+    
+    public ObservableList<Graad> geefGraden() {
+        return FXCollections.observableArrayList(dataController.geefGraden())
+                .sorted(Comparator.comparing(Graad::name));
+    }
 
     //
     //Observer
@@ -145,11 +162,9 @@ public class LesmateriaalBeheerController {
     public void addObserver(ListChangeListener<Oefening> listener) {
         oefeningenList.addListener(listener);
     }
-
+    
     public void removeObserver(ListChangeListener<Oefening> listener) {
         oefeningenList.removeListener(listener);
     }
-
-   
-
+    
 }

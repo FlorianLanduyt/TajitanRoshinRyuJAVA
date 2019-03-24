@@ -40,7 +40,6 @@ import javafx.scene.paint.Color;
 public class LidBeherenScherm extends Overzicht {
     private BeginSchermFlo parent;
     private AdminController ac;
-    private OverzichtController oc;
     private final String titel;
     private LidBeheerderController lc;
     
@@ -77,7 +76,6 @@ public class LidBeherenScherm extends Overzicht {
         
         this.parent = parent;
         this.ac = ac;
-        this.oc = new OverzichtController();
         this.titel = titel;
         this.lc = new LidBeheerderController();
         
@@ -295,15 +293,15 @@ public class LidBeherenScherm extends Overzicht {
         //rij6
         lblAdres.setPadding(insetsLabel);
         txfStraat = new TextField();
-        txfStraat.setPromptText("Straat");
+        txfStraat.setPromptText("Straat *");
         txfHuisnummer = new TextField();
-        txfHuisnummer.setPromptText("Nummer");
+        txfHuisnummer.setPromptText("Nummer *");
         txfBus = new TextField();
         txfBus.setPromptText("Bus");
         txfStad = new TextField();
-        txfStad.setPromptText("Gemeente");
+        txfStad.setPromptText("Gemeente *");
         txfPostcode = new TextField();
-        txfPostcode.setPromptText("Postcode");
+        txfPostcode.setPromptText("Postcode *");
         
         //rij7
         lblBeroep.setPadding(insetsLabel);
@@ -463,7 +461,6 @@ public class LidBeherenScherm extends Overzicht {
         if (result.get() == ButtonType.OK) {
             lc.verwijderLid(lid);
         }
-        lc.verwijderLid(lid);
 
     }
     

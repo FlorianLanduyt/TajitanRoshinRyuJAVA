@@ -48,7 +48,7 @@ public class DataController {
     private void InitializeDataForDemo() {
         DataInitializerForDemo.InitializeDataForDemo(this.inschrijvingen, this.activiteiten,
                 this.aanwezigheden, this.leden, this.raadplegingen, this.oefeningen,
-                this.admins);
+                this.admins, this.themas);
     }
 
     //
