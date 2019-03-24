@@ -5,7 +5,6 @@
  */
 package gui.overzichten;
 
-
 import domein.controllers.AdminController;
 import domein.controllers.OverzichtController;
 import gui.BeginSchermFlo;
@@ -27,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -50,6 +50,7 @@ public class Overzicht<T> extends BorderPane {
     private List<TextField> textFilters;
     private List<Button> crudKnoppen;
     private List<Button> knoppenOnderTabel;
+    private Label lblError;
 
     private final String titelOverzicht;
     private VBox paddingBox;
@@ -65,6 +66,7 @@ public class Overzicht<T> extends BorderPane {
         textfields = new ArrayList<>();
         crudKnoppen = new ArrayList<>();
         knoppenOnderTabel = new ArrayList<>();
+        lblError = new Label();
 
         titelOverzicht = overzicht;
     }
@@ -78,6 +80,7 @@ public class Overzicht<T> extends BorderPane {
         maakTabel();
         maakDetailScherm(hoogteDetailScherm);
         maakCrudKnoppen();
+        maakErrorLabel();
         this.setLeft(filtersEnTabel);
     }
 
@@ -134,7 +137,7 @@ public class Overzicht<T> extends BorderPane {
             k.prefWidthProperty().bind(breedteKolom);
             k.getStyleClass().add("titelLinks");
             k.getStyleClass().add("name-column");
-            
+
             tvTabel.getColumns().add(k);
         });
         opmaakTabel();
@@ -146,7 +149,6 @@ public class Overzicht<T> extends BorderPane {
         if (!knoppenOnderTabel.isEmpty()) {
             tvTabel.setMinHeight(800);
             tvTabel.setMaxHeight(800);
-            
 
             Region r = new Region();
             HBox.setHgrow(r, Priority.ALWAYS);
@@ -167,7 +169,7 @@ public class Overzicht<T> extends BorderPane {
         tvTabel.setScaleShape(false);
         tvTabel.setId("table");
         tvTabel.getSelectionModel().clearSelection();
-        
+
         tvTabel.getStyleClass().add("table-row-cell");
     }
 
@@ -195,7 +197,6 @@ public class Overzicht<T> extends BorderPane {
         paddingBox = new VBox(bovenPadding, zijPaddingBox);
         paddingBox.setPadding(new Insets(0, 0, 0, 30));
 
-
         tvTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 this.setCenter(paddingBox);
@@ -205,18 +206,7 @@ public class Overzicht<T> extends BorderPane {
 
     public void maakCrudKnoppen() {
         crudKnoppenBox = new HBox();
-        //crudKnoppenBox.setPadding(new Insets(15,0,0,0));
         if (!this.crudKnoppen.isEmpty()) {
-//            Button vorigeButton;
-//            for(Button b : extraKnoppen){
-//                b.setMinWidth(150);
-//                crudKnoppen.getChildren().add(b);
-//                if(vorigeButton != null){
-//                    Region r = new Region();
-//                    HBox.setHgrow(r, Priority.ALWAYS);
-//                    crudKnoppen.getChildren().add(r);
-//                }
-//                vorigeButton = b;
             this.crudKnoppen.stream().forEach(b -> {
                 b.setMinWidth(150);
             });
@@ -227,8 +217,9 @@ public class Overzicht<T> extends BorderPane {
             crudKnoppenBox.setPadding(new Insets(10, 0, 15, 0));
             crudKnoppenBox.getChildren().addAll(this.crudKnoppen.get(0), r1, this.crudKnoppen.get(1));
             paddingBox.getChildren().add(crudKnoppenBox);
-
         }
+        
+        paddingBox.getChildren().remove(lblError);
     }
 
     public void addCombobox(ComboBox cb) {
@@ -266,15 +257,27 @@ public class Overzicht<T> extends BorderPane {
     public void emptyCrudKnoppenList() {
         paddingBox.getChildren().remove(crudKnoppenBox);
         this.crudKnoppen = new ArrayList<>();
-        
+
     }
 
     public void disableFilters(boolean b) {
         this.filtersEnTabel.setDisable(b);
     }
 
-//    public void setFoutmelding(Label lblErrorlog) {
-//        this.paddingBox.getChildren().add(lblErrorlog);
-//    }
+    private void maakErrorLabel() {
+        lblError.setTextFill(Color.web("#B14643"));
+        lblError.setStyle("-fx-font-size: 20px");
+        this.paddingBox.getChildren().add(lblError);
+    }
+    
+    public void setErrorLabelText(String text){
+        lblError.setText(text);
+    }
+    
+    public void resetLabel(){
+        this.paddingBox.getChildren().remove(lblError);
+        lblError = new Label();
+        maakErrorLabel();
+    }
 
 }
