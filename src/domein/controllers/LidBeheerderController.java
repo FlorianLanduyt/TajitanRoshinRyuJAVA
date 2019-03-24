@@ -139,24 +139,24 @@ public class LidBeheerderController {
         lid.setVoornaam(voornaam);
         lid.setAchternaam(achternaam);
         lid.setGeboortedatum(geboorteDatum);
+        lid.setGeboorteplaats(geboorteplaats);
         lid.setRijksregisterNr(rijksregisterNr);
+        lid.setGeslacht(geslacht);
+        lid.setNationaliteit(nationaliteit);
         lid.setGsmNr(gsmNr);
         lid.setVasteTelefoonNr(vasteTelefoonNr);
         lid.setStraat(straat);
-        lid.setStad(stad);
         lid.setHuisNr(huisNr);
         lid.setBus(bus);
+        lid.setStad(stad);
         lid.setPostcode(postcode);
+        lid.setBeroep(beroep);
         lid.setEmail(email);
         lid.setEmailVader(emailVader);
         lid.setEmailMoeder(emailMoeder);
-        lid.setGeboorteplaats(geboorteplaats);
-        lid.setWachtwoord(wachtwoord);
-        lid.setNationaliteit(nationaliteit);
-        lid.setBeroep(beroep);
         lid.setGraad(graad);
         lid.setFunctie(functie);
-        lid.setGeslacht(geslacht);
+        lid.setWachtwoord(wachtwoord);
     }
 
     public void voegLidToe(String voornaam, String achternaam, LocalDate geboorteDatum, String rijksregisterNr,

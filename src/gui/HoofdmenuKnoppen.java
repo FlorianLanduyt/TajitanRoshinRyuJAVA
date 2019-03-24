@@ -83,7 +83,7 @@ public class HoofdmenuKnoppen  extends MenuKnoppen {
         btnBeherenLesmaterialen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                parent.beheerLesmateriaal();
             }
         });
         super.addKnop(btnBeherenLesmaterialen);
