@@ -14,6 +14,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -81,10 +82,20 @@ public class Overzicht<T> extends BorderPane {
         maakDetailScherm(hoogteDetailScherm);
         maakCrudKnoppen();
         maakErrorLabel();
+        
+        
         this.setLeft(filtersEnTabel);
     }
 
     private void maakFilters() {
+        HBox txtFilterBox = new HBox(10);
+        textfields.stream().forEach(f -> {
+            f.setMinWidth(150);
+            f.setMaxWidth(150);
+            f.setStyle("-fx-background-color:white");
+            txtFilterBox.getChildren().add(f);
+        });
+        
         HBox datePickerBox = new HBox(10);
         datepickers.stream().forEach(d -> {
             d.setPadding(new Insets(0, 15, 0, 0));
@@ -101,22 +112,17 @@ public class Overzicht<T> extends BorderPane {
             f.getStyleClass().add("greenBtn");
         });
 
-        HBox txtFilterBox = new HBox(10);
-        textfields.stream().forEach(f -> {
-            f.setMinWidth(150);
-            f.setMaxWidth(150);
-            f.setStyle("-fx-background-color:white");
-            txtFilterBox.getChildren().add(f);
-        });
+        
 
         // txtFilterBox.setPadding(new Insets(,0,0,0));
         HBox alleFilters = new HBox(10);
 
-        if (!comboboxen.isEmpty()) {
-            alleFilters.getChildren().add(cbFilterBox);
-        }
+        
         if (!textfields.isEmpty()) {
             alleFilters.getChildren().add(txtFilterBox);
+        }
+        if (!comboboxen.isEmpty()) {
+            alleFilters.getChildren().add(cbFilterBox);
         }
         if (!datepickers.isEmpty()) {
             alleFilters.getChildren().add(datePickerBox);
@@ -131,6 +137,8 @@ public class Overzicht<T> extends BorderPane {
         DoubleBinding breedteKolom = breedteScherm.divide(kolommen.size());
 
         tabel.prefWidthProperty().bind(breedteScherm);
+        
+        
         kolommen.stream().forEach(k -> {
             k.setResizable(false);
             k.setSortable(true);
@@ -174,12 +182,6 @@ public class Overzicht<T> extends BorderPane {
     }
 
     private void maakDetailScherm(int hoogteDetailScherm) {
-//        String cssLayout = "-fx-border-color: grey;\n"
-//                + //#dee8e2
-//                "-fx-border-insets: 5;\n"
-//                + "-fx-border-width: 1;\n"
-//                + "-fx-border-radius: 15px;\n"
-//                + "-fx-border-style: solid;\n";
 
         String cssLayout = "-fx-background-color: #F3CAAA; -fx-background-radius:15px;";
         Pane bovenPadding = new Pane();

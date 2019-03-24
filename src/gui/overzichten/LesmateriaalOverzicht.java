@@ -114,7 +114,11 @@ public class LesmateriaalOverzicht extends Overzicht {
         lblVan = new Label("Van: ");
         lblTot = new Label("Tot: ");
         dpVan = new DatePicker();
+        dpVan.setMaxWidth(150);
+        dpVan.setMinWidth(150);
         dpTot = new DatePicker();
+        dpTot.setMaxWidth(150);
+        dpTot.setMinWidth(150);
         HBox HVan = new HBox(lblVan, dpVan);
         HVan.setAlignment(Pos.CENTER);
         HBox HTot = new HBox(lblTot, dpTot);
