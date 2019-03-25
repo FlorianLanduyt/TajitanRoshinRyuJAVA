@@ -326,15 +326,15 @@ public class BeherenActiviteitSchermController extends AnchorPane {
             alert.setContentText("U moet eerst een activiteit selecteren");
             alert.showAndWait();
         } else {
-            inschrijvingToevoegenScherm = new InschrijvingToevoegenScherm(this,
-                    activiteitBeheerController, activiteit);
-
-            Scene scene = new Scene(inschrijvingToevoegenScherm, 400, 400);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Toevoegen lid");
-            stage.setResizable(true);
-            stage.showAndWait();
+//            inschrijvingToevoegenScherm = new InschrijvingToevoegenScherm(this,
+//                    activiteitBeheerController, activiteit);
+//
+//            Scene scene = new Scene(inschrijvingToevoegenScherm, 400, 400);
+//            Stage stage = new Stage();
+//            stage.setScene(scene);
+//            stage.setTitle("Toevoegen lid");
+//            stage.setResizable(true);
+//            stage.showAndWait();
         }
 
     }

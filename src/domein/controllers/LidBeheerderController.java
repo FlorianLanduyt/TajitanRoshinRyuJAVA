@@ -1,11 +1,14 @@
 package domein.controllers;
 
+import domein.Activiteit;
+import domein.Inschrijving;
 import domein.Lid;
 import domein.enums.Formule;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -163,7 +166,7 @@ public class LidBeheerderController {
             String gsmNr, String vasteTelefoonNr,
             String straat, String stad, String huisNr, String bus, String postcode, String email,
             String emailVader, String emailMoeder, String geboorteplaats, String wachtwoord, String nationaliteit,
-            String beroep, Graad graad, Functie functie, String geslacht) {
+            String beroep, Graad graad, Functie functie, String geslacht, Formule les) {
 
         Lid lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr,
                 gsmNr, vasteTelefoonNr, stad, straat, huisNr, postcode, email, wachtwoord, geboorteplaats, geslacht, nationaliteit, graad, functie);
@@ -171,6 +174,25 @@ public class LidBeheerderController {
         lid.setEmailVader(emailVader);
         lid.setBus(bus);
         lid.setBeroep(beroep);
+        
+        //lid toevoegen aan lessenactiviteit
+        if(les == null){
+            throw new IllegalArgumentException("Inschrijving les mag niet leeg zijn!");
+        }
+        else{
+            Inschrijving inschrijving = new Inschrijving(les, lid, LocalDate.now());
+            dataController.geefInschrijvingen().add(inschrijving);
+            List<Activiteit> activiteiten = dataController
+                    .geefActiviteiten()
+                    .stream()
+                    .filter(activiteit -> activiteit.getFormule().equals(les))
+                    .collect(Collectors.toList());
+            
+            activiteiten.stream().forEach(activiteit -> {
+                activiteit.voegInschrijvingToe(inschrijving);
+                activiteit.setAantalDeelnemers();
+            });
+        }
 
         this.ledenList.add(lid);
         dataController.geefLeden().add(lid);
@@ -220,14 +242,26 @@ public class LidBeheerderController {
         return geslachten;
     }
 
+    public ObservableList<Formule> geefLessen() {
+        ObservableList<Formule> lessen
+                = FXCollections.observableArrayList(
+                        dataController
+                                .geefFormules()
+                                .stream()
+                        .filter(formule -> formule.isLes())
+                        .collect(Collectors.toList()));
+        return lessen;
+                
+    }
+
     //
     //Observer
     //
     public void addObserver(ListChangeListener<Lid> listener) {
         ledenList.addListener(listener);
     }
-    
-    public void removeObserver(ListChangeListener<Lid> listener){
+
+    public void removeObserver(ListChangeListener<Lid> listener) {
         ledenList.removeListener(listener);
     }
 

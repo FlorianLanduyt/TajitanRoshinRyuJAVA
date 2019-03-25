@@ -8,6 +8,7 @@ package gui.beherenLid;
 import domein.Lid;
 import domein.controllers.AdminController;
 import domein.controllers.LidBeheerderController;
+import domein.enums.Formule;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginSchermFlo;
@@ -52,6 +53,8 @@ public class LidBeherenScherm extends Overzicht {
     private Button btnNieuwLid, btnWijzigingenOpslaan, btnLidVerwijderen, btnCancel, btnSlaGegevensNieuwLidOp;
 
     //detailpane
+    private GridPane form;
+    
     private TextField txfVoornaam, txfAchternaam, txfRijksregisternummer, txfGsmnummer, txfStraat;
     private TextField txfStad, txfPostcode, txfBus, txfTelefoon, txfEmail, txfEmailVader, txfEmailmoeder;
     private TextField txfNationaliteit, txfBeroep, txfWachtwoord, txfHuisnummer, txfGeboorteplaats;
@@ -60,12 +63,15 @@ public class LidBeherenScherm extends Overzicht {
     private Label lblVoornaam, lblFamilienaam, lblRijksregisternummer, lblGsmnummer, lblAdres, lblGeslacht;
     private Label lblTelefoon, lblEmail, lblEmailVader, lblEmailmoeder, lblType, lblGeboorteDatum;
     private Label lblNationaliteit, lblBeroep, lblWachtwoord, lblGeboortePlaats, lblGraad;
+    
+    private Label lblInschrijvingLes;
 
     private DatePicker dpGeboorteDatum;
 
     private ComboBox<Graad> cboGraad;
     private ComboBox<String> cboGeslacht;
     private ComboBox<Functie> cboType_Functie;
+    private ComboBox<Formule> cboInschrijvingLes;
 
     public LidBeherenScherm(BeginSchermFlo parent, AdminController ac, String titel) {
         super(parent, ac, titel);
@@ -224,7 +230,7 @@ public class LidBeherenScherm extends Overzicht {
         lblType = new Label("Type *");
         lblWachtwoord = new Label("Wachtwoord *");
 
-        GridPane form = new GridPane();
+        form = new GridPane();
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPercentWidth(25);
         ColumnConstraints col2 = new ColumnConstraints();
@@ -318,6 +324,12 @@ public class LidBeherenScherm extends Overzicht {
         lblWachtwoord.setPadding(insetsLabel);
         txfEmailmoeder = new TextField();
         txfWachtwoord = new TextField();
+        
+        //extra voor inschrijving les
+        lblInschrijvingLes = new Label("Inschrijving les");
+        cboInschrijvingLes = new ComboBox();
+        cboInschrijvingLes.setPromptText("Les");
+        
 
         //toevoegen elementen
         form.add(lblType, 0, 0);
@@ -481,7 +493,7 @@ public class LidBeherenScherm extends Overzicht {
                     super.setErrorLabelText("");
 
                 }
-            } catch (IllegalArgumentException e) {
+            } catch (Exception e) {
                 super.setErrorLabelText(e.getMessage());
             }
         } else {
@@ -495,6 +507,12 @@ public class LidBeherenScherm extends Overzicht {
     }
 
     private void toevoegenLid() {
+        //form.add(cboGraad, 2, 18, 2, 1);
+        cboInschrijvingLes.setItems(lc.geefLessen());
+        form.add(lblInschrijvingLes, 3, 17);
+        form.add(cboInschrijvingLes, 3, 18);
+        
+        
         super.emptyCrudKnoppenList();
         super.addCrudKnop(btnCancel);
         super.addCrudKnop(btnSlaGegevensNieuwLidOp);
@@ -508,7 +526,10 @@ public class LidBeherenScherm extends Overzicht {
 
     private void cancelToevoegenNieuwLid() {
         tvOverzichtLeden.getSelectionModel().selectFirst();
-
+        
+        form.getChildren().remove(lblInschrijvingLes);
+        form.getChildren().remove(cboInschrijvingLes);
+        
         super.emptyCrudKnoppenList();
         super.addCrudKnop(btnLidVerwijderen);
         super.addCrudKnop(btnWijzigingenOpslaan);
@@ -548,12 +569,12 @@ public class LidBeherenScherm extends Overzicht {
                     txfStraat.getText(), txfStad.getText(), txfHuisnummer.getText(), txfBus.getText(), txfPostcode.getText(),
                     txfEmail.getText(), txfEmailVader.getText(), txfEmailmoeder.getText(), txfGeboorteplaats.getText(), txfWachtwoord.getText(),
                     txfNationaliteit.getText(), txfBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
-                    cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
+                    cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem(), cboInschrijvingLes.getSelectionModel().getSelectedItem());
 
             super.setErrorLabelText("");
             btnWijzigingenOpslaan.setText("Lid toevoegen");
             cancelToevoegenNieuwLid();
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             super.setErrorLabelText(e.getMessage());
         }
     }
