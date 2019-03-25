@@ -19,6 +19,7 @@ public class BeginSchermFlo extends BorderPane {
     private AdminController ac;
     private MenuKnoppen mk;
     private AppHeader header;
+    private LinksPane links;
     
     
     private boolean ingelogd;//voor de menubar te disabelen
@@ -44,7 +45,7 @@ public class BeginSchermFlo extends BorderPane {
     }
 
     private void maakLinkerPane() {
-        LinksPane links = new LinksPane(mk, ac, this, ingelogd);
+        links = new LinksPane(mk, ac, this, ingelogd);
         this.setLeft(links);
 
     }
@@ -60,6 +61,8 @@ public class BeginSchermFlo extends BorderPane {
         Label titel = new Label("Taijitan Yoshin Ryu");
         titel.getStyleClass().add("titel");
         center.getChildren().add(titel);
+        
+        header.maakOverzichtTitle("");
         
         this.setCenter(center);
     }
@@ -101,5 +104,6 @@ public class BeginSchermFlo extends BorderPane {
     public void setMenuTitle(String menuTitle){
         header.setMenuTitle(menuTitle);
     }
+    
 
 }

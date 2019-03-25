@@ -26,13 +26,11 @@ public class StartUpGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Declaring guiController instance
        // primaryStage.setFullScreen(true);
         primaryStage.setMaximized(true);
         BeginSchermFlo beginScherm = new BeginSchermFlo(new AdminController(), false, "Hoofdmenu");
         //Settings for GUI
         Scene scene = new Scene(beginScherm, 1250, 750);
-        //String css = this.getClass().getResource("/css/style.css").toExternalForm();
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
         

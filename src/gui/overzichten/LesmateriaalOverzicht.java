@@ -99,7 +99,7 @@ public class LesmateriaalOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(43);
+        super.buildGui(44);
     }
 
     private void maakFilters() {
@@ -138,7 +138,11 @@ public class LesmateriaalOverzicht extends Overzicht {
         raadplegingTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             vulDetailScherm(newSelection);
         });
-
+        
+        Label tabelPlaceholder = new Label("Geen raadplegingen beschikbaar");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        raadplegingTabel.setPlaceholder(tabelPlaceholder);
+        
         maakKolommenInTabel();
 
         raadplegingTabel.setItems((oc.geefOverzichtRaadplegingen()));

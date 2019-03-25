@@ -83,7 +83,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(43);
+        super.buildGui(44);
     }
 
     private void maakFilters() {
@@ -114,6 +114,9 @@ public class InschrijvingenOverzicht extends Overzicht {
         });
 
         maakKolommenInTabel();
+        Label tabelPlaceholder = new Label("Geen inschrijvingen beschikbaar");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        tvInschrijvingenTabel.setPlaceholder(tabelPlaceholder);
 
         tvInschrijvingenTabel.setItems((oc.geefOverzichtInschrijvingen()));
         super.setTvTabel(tvInschrijvingenTabel);

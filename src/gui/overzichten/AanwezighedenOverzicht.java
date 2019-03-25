@@ -21,8 +21,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -82,7 +86,7 @@ public class AanwezighedenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(82);
+        super.buildGui(44);
     }
 
     private void maakFilters() {
@@ -110,6 +114,10 @@ public class AanwezighedenOverzicht extends Overzicht {
         });
 
         maakKolommenInTabel();
+        
+        Label tabelPlaceholder = new Label("Geen aanwezigheden beschikbaar");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        tvAanwezigheden.setPlaceholder(tabelPlaceholder);
 
         tvAanwezigheden.setItems((oc.geefOverzichtAanwezigheden()));
         super.setTvTabel(tvAanwezigheden);

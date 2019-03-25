@@ -48,15 +48,6 @@ public class LoginForm extends AnchorPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        
-//        this.setOnKeyPressed(new EventHandler<KeyEvent>(){
-//            @Override
-//            public void handle(KeyEvent event) {
-//                if (event.getCode().equals(KeyCode.ENTER)){
-//                    meldAan(event);
-//                    }
-//                }
-//        });
     }
 
     @FXML

@@ -9,7 +9,11 @@ import domein.controllers.AdminController;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -36,23 +40,40 @@ public class LinksPane extends BorderPane implements PropertyChangeListener{
 
 
     private void buildGui() {
-        //knoppen.setPrefWidth(300);
+        this.setMaxWidth(220);
+        this.setMinWidth(220);
         this.setCenter(knoppen);
 
-        Hyperlink terug = new Hyperlink();
+        Button terug = new Button();
         terug.setText("Hoofdmenu");
         this.setBottom(terug);
+        
+        ImageView afb = new ImageView(new Image("/images/home.png"));
+        afb.setFitHeight(28);
+        afb.setFitWidth(28);
+        
+        terug.setGraphic(afb);
+        
+        this.setPadding(new Insets(5));
+        
+        terug.getStyleClass().add("terugBtn");
 
         terug.setOnAction((ActionEvent event) -> {
             terugNaarHoofdMenu();
         });
+        
+        if(knoppen instanceof HoofdmenuKnoppen){
+            terug.setDisable(true);
+            terug.setVisible(false);
+        } else {
+            terug.setDisable(false);
+            terug.setVisible(true);
+        }
 
         //Opmaak
         this.setDisable(!ingelogd);
         this.getStyleClass().add("bgr");
         terug.setStyle("-fx-font-size: 18px");
-        
-
     }
 
     public void terugNaarHoofdMenu() {
@@ -60,10 +81,6 @@ public class LinksPane extends BorderPane implements PropertyChangeListener{
         parent.setLeft(new LinksPane(new HoofdmenuKnoppen(parent), ac, parent, ingelogd));
         parent.setMenuTitle("Hoofdmenu");
         parent.maakCenterPane();
-        
-        
-//        parent.maakOverzichtTitle("");
-        
     }
 
     @Override

@@ -45,7 +45,8 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
 
     private void maakMenuTitle() {
         Label lblMenu = new Label(menuTitle);
-        lblMenu.setPrefWidth(200);
+        lblMenu.setMinWidth(220);
+        lblMenu.setMaxWidth(200);
         lblMenu.setPrefHeight(45);
         lblMenu.setStyle("-fx-font-size: 25px");
         lblMenu.getStyleClass().add("bgr");
@@ -129,11 +130,14 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     }
     
     private void afmelden() {
+        Stage stage = (Stage) (getScene().getWindow());
+        double hoogteScherm = stage.getHeight();
+        double breedteScherm = stage.getWidth();
+        stage.setMaximized(true);
         BeginSchermFlo beginScherm = new BeginSchermFlo(ac, false, "HoofdMenu");
-        Scene scene = new Scene(beginScherm, 1250, 750);
+        Scene scene = new Scene(beginScherm, breedteScherm, hoogteScherm);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         
-        Stage stage = (Stage) (getScene().getWindow());
         stage.setScene(scene);
         stage.show();
     }

@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
@@ -69,7 +70,7 @@ public class Clubkampioenschap extends Overzicht{
         maakDetailScherm();
         maakFilter();
         
-        super.buildGui(38);
+        super.buildGui(44);
     }
 
     public void maakFilter(){
@@ -89,6 +90,10 @@ public class Clubkampioenschap extends Overzicht{
         });
 
         maakKolommenInTabel();
+        
+        Label tabelPlaceholder = new Label("Geen leden beschikbaar voor deze leedtijdscategorie");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        clubkampioenschapTabel.setPlaceholder(tabelPlaceholder);
 
         clubkampioenschapTabel.setItems((oc.geefOverzichtClubkampioenschap()));
         super.setTvTabel(clubkampioenschapTabel);

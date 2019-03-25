@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
@@ -74,7 +75,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(43);
+        super.buildGui(44);
     }
 
     private void maakFilters() {
@@ -93,6 +94,10 @@ public class ActiviteitenOverzicht extends Overzicht {
                 });
 
         maakKolommenInTabel();
+        
+        Label tabelPlaceholder = new Label("Geen activiteiten beschikbaar");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        tvActiviteiten.setPlaceholder(tabelPlaceholder);
 
         tvActiviteiten.setItems((oc.geefOverzichtActiviteiten()));
         super.setTvTabel(tvActiviteiten);

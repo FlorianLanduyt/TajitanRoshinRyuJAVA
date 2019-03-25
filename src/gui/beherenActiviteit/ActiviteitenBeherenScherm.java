@@ -31,6 +31,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -253,6 +254,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         cboType.setItems(abc.geefFormules());
         cboType.getStyleClass().add("greyDropdown");
         
+        
         //rij2
         lbldatum.setPadding(insetsLabel);
         dpStartdatum = new DatePicker();
@@ -264,7 +266,6 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         txtMaxAantalDeelnemers = new TextField();
         txtMaxAantalDeelnemers.setMaxWidth(50);
         cbIsVolzet = new CheckBox("Volzet");
-        //cbIsVolzet.setPadding(new Insets(0,0,0,-50));
         dpInschrijvingsDatum = new DatePicker();
         
         //rij4
@@ -309,20 +310,24 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         tvDeelnemers.getStyleClass().add("titelLinks");
         tvDeelnemers.getStyleClass().add("table-row-cell");
         
+        BorderPane volzetPane = new BorderPane();
+        volzetPane.setLeft(txtMaxAantalDeelnemers);
+        volzetPane.setRight(cbIsVolzet);
         
         
         //toevoegen elementen
         form.add(lblNaamActiviteit, 0, 0, 2,1);
         form.add(lblCboType, 2, 0, 2,1);
         form.add(txtNaamActiviteit, 0, 1, 2,1);
+        //form.add(cbIsVolzet, 2, 1);
         form.add(cboType, 2, 1);
         form.add(lbldatum, 0, 2, 2,1);
         form.add(dpStartdatum, 0, 3);
         form.add(dpEinddatum, 1, 3);
         form.add(lblMaxAantalDeelnemers, 3, 0, 2,1);
         form.add(lblInschrijvingsDatum, 2, 2, 2,1);
-        form.add(txtMaxAantalDeelnemers, 3, 1);
-        
+        //form.add(txtMaxAantalDeelnemers, 3, 1);
+        form.add(volzetPane, 3, 1);
         form.add(dpInschrijvingsDatum, 2, 3, 2,1);
         form.add(lblNaamLocatie, 0, 4, 2,1);
         form.add(lblGsmnummerLocatie, 2, 4, 2,1);
@@ -494,7 +499,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                     dpStartdatum.getValue(), dpEinddatum.getValue(), dpInschrijvingsDatum.getValue(),
                     txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText(),
                     txtNaamLocatie.getText(), txtGsmnummerLocatie.getText(), txtEmailLocatie.getText());
-            lblFoutopvang.setText("");
+            super.setErrorLabelText("");
             btnWijzigActiviteit.setDisable(false);
             btnActiviteitVerwijderen.setDisable(false);
             btnSlaGegevensNieuweActiviteitOp.setVisible(false);

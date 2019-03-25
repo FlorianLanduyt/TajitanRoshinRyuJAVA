@@ -47,6 +47,21 @@
     
 }
 
+.terugBtn {
+    -fx-background-color: #F3CAAA;
+    -fx-border-color: #F3CAAA;
+}
+
+.terugBtn:hover {
+    -fx-background-color: #dee8e2;
+    -fx-border-width: 2px;
+    -fx-border-color: #F3CAAA;
+}
+
+.placeholder {
+    -fx-font-size: 20;
+}
+
 .greyBtn {
     -fx-background-color: #D8D9D5;
     -fx-border-width: 2px;

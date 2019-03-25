@@ -8,14 +8,12 @@ package gui.beherenLid;
 import domein.Lid;
 import domein.controllers.AdminController;
 import domein.controllers.LidBeheerderController;
-import domein.controllers.OverzichtController;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import gui.BeginSchermFlo;
 import gui.overzichten.Overzicht;
 import java.util.Optional;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -31,7 +29,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  *
