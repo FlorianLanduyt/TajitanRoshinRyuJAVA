@@ -147,12 +147,6 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         maakMenuTitle();
     }
     
-//    public void setOverzichtTitle(String overzichtTitle){
-//        this.overzichtTitle = overzichtTitle;
-//        maakOverzichtTitle();
-//    }
-    
-    
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
