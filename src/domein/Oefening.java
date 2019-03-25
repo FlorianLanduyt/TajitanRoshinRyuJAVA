@@ -86,10 +86,15 @@ public class Oefening implements Serializable {
     public SimpleStringProperty aantalRaadplegingenProperty() {
         return sAantalRaadplegingen;
     }
-
+    public void setSimpleStringProperties() {
+        sNaam.set(titel);
+        sGraad.set(getGraad().name());
+        sThema.set(getThema().getNaam());
+        sAantalRaadplegingen.set(String.valueOf(aantalRaadplegingen));
+    }
     //Gewone getters en setters
     public String getTitel() {
-        return sNaam.get();
+        return this.titel;
     }
 
     public void setTitel(String titel) {
@@ -157,7 +162,7 @@ public class Oefening implements Serializable {
     }
 
     public Graad getGraad() {
-        return Graad.valueOf(sGraad.get());
+        return this.graad;
     }
 
     public void setGraad(Graad graad) {
@@ -187,7 +192,7 @@ public class Oefening implements Serializable {
     }
 
     public int getAantalRaadplegingen() {
-        return Integer.valueOf(sAantalRaadplegingen.get());
+        return aantalRaadplegingen;
     }
 
     public void setAantalRaadplegingen(int aantalRaadplegingen) {

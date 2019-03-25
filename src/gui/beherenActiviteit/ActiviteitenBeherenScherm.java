@@ -90,15 +90,15 @@ public class ActiviteitenBeherenScherm extends Overzicht {
             filter();
         });
         
-        cboFilterType.setOnKeyReleased((KeyEvent event) -> {
+        cboFilterType.setOnAction((ActionEvent event) -> {
             filter();
         });
         
-        txtFilterNaam.setOnAction((ActionEvent event) -> {
+        txtFilterNaam.setOnKeyReleased((KeyEvent event) -> {
             filter();
         });
         
-        txtFilterAantalDeelnemers.setOnAction((ActionEvent event) -> {
+        txtFilterAantalDeelnemers.setOnKeyReleased((KeyEvent event) -> {
             filter();
         });
         
@@ -161,7 +161,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                 });
         
         maakKolommenInTabel();
-        tvActiviteiten.setItems((abc.geefAlleActiviteiten()));
+        tvActiviteiten.setItems((abc.geefObservableListActiviteiten()));
         super.setTvTabel(tvActiviteiten);
 
     }

@@ -86,6 +86,15 @@ public class Aanwezigheid implements Serializable {
         return sPuntenAantal;
     }
 
+    public void setSimpleStringProperties() {
+        sActiviteitNaam.set(getActiviteitNaam());
+        sVoornaam.set(getVoornaam());
+        sAchternaam.set(getAchternaam());
+        sFormule.set(getFormule().name());
+        sDatum.set(getDatum().toString());
+        sPuntenAantal.set(String.valueOf(puntenAantal));
+    }
+
     //Gewone getters en setters
     public Lid getLid() {
         return lid;
@@ -108,7 +117,7 @@ public class Aanwezigheid implements Serializable {
     }
 
     public String getActiviteitNaam() {
-        return sActiviteitNaam.get();
+        return this.activiteit.getNaam();
     }
 
     private void setActiviteitNaam() {
@@ -132,7 +141,7 @@ public class Aanwezigheid implements Serializable {
     }
 
     public String getVoornaam() {
-        return sVoornaam.get();
+        return getLid().getVoornaam();
     }
 
     public void setVoornaam() {
@@ -140,7 +149,7 @@ public class Aanwezigheid implements Serializable {
     }
 
     public String getAchternaam() {
-        return sAchternaam.get();
+        return getLid().getAchternaam();
     }
 
     public void setAchternaam() {

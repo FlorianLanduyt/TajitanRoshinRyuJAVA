@@ -14,19 +14,16 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -39,8 +36,11 @@ public class AanwezighedenOverzicht extends Overzicht {
     private AdminController ac;
     private OverzichtController oc;
 
+    
+    private TextField txtFamilienaamFilter;
+    private TextField txtVoornaamFilter;
     private ComboBox<String> cbFormule;
-    private ComboBox<String> cbLid;
+//    private ComboBox<String> cbLid;
     private DatePicker dpDatum;
 
     private VBox detailScherm;
@@ -70,7 +70,11 @@ public class AanwezighedenOverzicht extends Overzicht {
             filter();
         });
         
-        cbLid.setOnAction((ActionEvent event) -> {
+        txtFamilienaamFilter.setOnKeyReleased((KeyEvent event) -> {
+            filter();
+        });
+        
+        txtVoornaamFilter.setOnKeyReleased((KeyEvent event) -> {
             filter();
         });
         
@@ -94,9 +98,13 @@ public class AanwezighedenOverzicht extends Overzicht {
         cbFormule.setItems(oc.geefFormulesFilter());
         super.addCombobox(cbFormule);
 
-        cbLid = new ComboBox<>();
-        cbLid.setItems(oc.geefOverzichtLedenFilter());
-        super.addCombobox(cbLid);
+        txtFamilienaamFilter = new TextField();
+        txtFamilienaamFilter.setPromptText("Filter op familienaam");
+        super.addTextField(txtFamilienaamFilter);
+        
+        txtVoornaamFilter = new TextField();
+        txtVoornaamFilter.setPromptText("Filter op voornaam");
+        super.addTextField(txtVoornaamFilter);
 
         lblDatum = new Label("Van: ");
         dpDatum = new DatePicker();
@@ -209,13 +217,14 @@ public class AanwezighedenOverzicht extends Overzicht {
                         : cbFormule.getSelectionModel().getSelectedItem() == null
                         ? null
                         : Formule.valueOf(cbFormule.getSelectionModel().getSelectedItem());
+        
+        String lidVoornaam = txtVoornaamFilter.getText();
+        String lidFamilienaam = txtFamilienaamFilter.getText();
           
-        String slid = cbLid.getSelectionModel().getSelectedIndex() == 0 
-                ? null 
-                : cbLid.getSelectionModel().getSelectedItem();
+
         LocalDate datum = dpDatum.getValue();
         
-        oc.veranderAanwezigheidFilter(datum, slid, formule);
+        oc.veranderAanwezigheidFilter(datum, lidFamilienaam, lidVoornaam, formule);
         tvAanwezigheden.getSelectionModel().selectFirst();
     }
 

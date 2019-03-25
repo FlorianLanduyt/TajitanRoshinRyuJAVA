@@ -69,9 +69,8 @@ public class HoofdmenuKnoppen  extends MenuKnoppen {
         super.addKnop(btnBeheerActiviteiten);
         
         
-        
         //BUTTON BEHEREN LESMATERIALEN 
-        Button btnBeherenLesmaterialen = new Button("Beheren Lesmaterialen ");
+        Button btnBeherenLesmaterialen = new Button("Beheer Lesmaterialen ");
         btnBeherenLesmaterialen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

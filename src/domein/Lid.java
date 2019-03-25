@@ -72,6 +72,15 @@ public class Lid implements Serializable {
     @Transient
     private SimpleStringProperty sGeboortedatum = new SimpleStringProperty();
 
+    public void setSimpleStringProperties() {
+        sVoornaam.set(getVoornaam());
+        sAchternaam.set(getAchternaam());
+        sPuntenAantal.set(String.valueOf(getPuntenAantal()));
+        sGraad.set(getGraad().name());
+        sType.set(getFunctie().name());
+        sGeboortedatum.set(getGeboortedatum().toString());
+    }
+    
     public Lid() {
     }
 
@@ -132,7 +141,7 @@ public class Lid implements Serializable {
     }
 
     public String getVoornaam() {
-        return sVoornaam.get();
+        return this.voornaam;
     }
 
     public void setVoornaam(String voornaam) {
@@ -158,7 +167,7 @@ public class Lid implements Serializable {
     }
 
     public String getAchternaam() {
-        return sAchternaam.get();
+        return this.achternaam;
     }
 
     public void setAchternaam(String achternaam) {
