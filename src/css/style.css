@@ -103,8 +103,6 @@
 }
 
 
-
- 
 .table-view .column-header.name-column {
     -fx-base: #C5C6C2; 
 }
@@ -133,6 +131,23 @@ TextField {
     -fx-control-inner-background: #F3F2ED ;
 }
 
+.addBtn {
+    -fx-background-color: #dee8e2;
+    -fx-border-width: 2px;
+}
+
+.addBtn:hover {
+    -fx-background-color: #B5C9C3;
+}
+
+.removeBtn {
+    -fx-background-color: #F3F2ED;
+    -fx-border-width: 2px;
+}
+
+.removeBtn:hover {
+    -fx-background-color: #B14643;
+}
  
 
 

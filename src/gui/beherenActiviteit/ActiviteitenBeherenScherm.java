@@ -30,6 +30,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -61,6 +63,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     private DatePicker dpStartdatum, dpEinddatum, dpInschrijvingsDatum;
     private CheckBox cbIsVolzet;
     private Button btnVoegDeelnemerToe;
+    private Button btnVerwijderDeelnemer;
     
     private TableView<Inschrijving> tvDeelnemers;
     private TableColumn<Inschrijving, String> colDeelnemerVoornaam, colDeelnemerFamilienaam;
@@ -69,7 +72,6 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     private Label lblAdresLocatie,lblMaxAantalDeelnemers,lblCboType,lbldatum, lblInschrijvingsDatum;
     private Label lblDeelnemers;
     
-    private Label lblFoutopvang;
     private Button btnActiviteitVerwijderen;
     private Button btnNieuwActiviteit;
     private Button btnWijzigActiviteit;
@@ -122,6 +124,14 @@ public class ActiviteitenBeherenScherm extends Overzicht {
             opslaanNieuweActiviteit();
         });
         
+        btnVoegDeelnemerToe.setOnAction((ActionEvent event) -> {
+            voegDeelnemerToe();
+        });
+        
+        btnVerwijderDeelnemer.setOnAction((ActionEvent event) -> {
+            verwijderDeelnemer();
+        });
+        
         tvActiviteiten.getSelectionModel().selectFirst();
     }
 
@@ -159,6 +169,10 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                 .addListener((obs, oldSelection, newSelection) -> {
                     vulDetailScherm(newSelection);
                 });
+        
+        Label tabelPlaceholder = new Label("Geen activiteiten beschikbaar");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        tvActiviteiten.setPlaceholder(tabelPlaceholder);
         
         maakKolommenInTabel();
         tvActiviteiten.setItems((abc.geefObservableListActiviteiten()));
@@ -310,6 +324,25 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         tvDeelnemers.getStyleClass().add("titelLinks");
         tvDeelnemers.getStyleClass().add("table-row-cell");
         
+        btnVoegDeelnemerToe = new Button();
+        btnVoegDeelnemerToe.getStyleClass().add("addBtn");
+        ImageView afbVoegToe = new ImageView(new Image("/images/AddDeelnemer.png"));
+        afbVoegToe.setFitHeight(28);
+        afbVoegToe.setFitWidth(28);
+        btnVoegDeelnemerToe.setGraphic(afbVoegToe);
+        
+        btnVerwijderDeelnemer = new Button();
+        btnVerwijderDeelnemer.getStyleClass().add("removeBtn");
+        ImageView afbVerwijder = new ImageView(new Image("/images/RemoveDeelnemer.png"));
+        afbVerwijder.setFitHeight(28);
+        afbVerwijder.setFitWidth(28);
+        btnVerwijderDeelnemer.setGraphic(afbVerwijder);
+        
+        Label tabelPlaceholder = new Label("Geen deelnemers");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        tvDeelnemers.setPlaceholder(tabelPlaceholder);
+        
+        
         BorderPane volzetPane = new BorderPane();
         volzetPane.setLeft(txtMaxAantalDeelnemers);
         volzetPane.setRight(cbIsVolzet);
@@ -341,9 +374,10 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         form.add(txtBus, 3,9);
         form.add(txtPostcode, 0,10);
         form.add(txtStad, 1,10,2,1);
-        
         form.add(lblDeelnemers, 0, 11);
         form.add(tvDeelnemers, 0,12,2,2);
+        form.add(btnVoegDeelnemerToe, 2,12);
+        form.add(btnVerwijderDeelnemer, 2,13);
         
         form.getChildren().stream().forEach(c-> {
             c.getStyleClass().add("allButtons");
@@ -452,7 +486,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     //
     //CRUD - inschrijvingen
     //
-    private void voegDeelnemerToe(ActionEvent event) {
+    private void voegDeelnemerToe() {
         //UC4 --> inschrijvingen
         Activiteit activiteit = tvActiviteiten.getSelectionModel().getSelectedItem();
         if (activiteit == null) {
@@ -475,7 +509,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
 
     }
 
-    private void verwijderDeelnemer(ActionEvent event) {
+    private void verwijderDeelnemer() {
         //UC4 --> inschrijvingen
         Lid lid = tvDeelnemers.getSelectionModel().getSelectedItem() == null
                 ? null
@@ -570,6 +604,5 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         super.resetLabel();
         super.disableFilters(false);
     }
-    
     
 }
