@@ -96,47 +96,81 @@ public class OverzichtController {
         return FXCollections.unmodifiableObservableList(aanwezighedenSortedList);
     }
 
-    public void veranderAanwezigheidFilter(LocalDate datum, String lid, Formule formule) {
+    public void veranderAanwezigheidFilter(LocalDate datum, String familienaam, String voornaam, Formule formule) {
         aanwezighedenFilteredList.setPredicate(aanwezigheid -> {
             boolean datumEmpty = datum == null;
-            boolean lidEmpty = lid == null;
+            boolean voornaamEmpty = voornaam == null;
+            boolean familienaamEmpty = familienaam == null;
             boolean formuleEmpty = formule == null;
 
             boolean datumFilter = aanwezigheid.getDatum().equals(datum);
-            boolean lidFilter = aanwezigheid.getLid().geefVolledigeNaam().equals(lid);
+            boolean voornaamFilter = aanwezigheid.getLid().getVoornaam().toLowerCase().equals(voornaam.toLowerCase()) || aanwezigheid.getLid().getVoornaam().toLowerCase().startsWith(voornaam.toLowerCase());
+            boolean familieNaamFilter = aanwezigheid.getLid().getAchternaam().toLowerCase().equals(familienaam.toLowerCase()) || aanwezigheid.getLid().getAchternaam().toLowerCase().startsWith(familienaam.toLowerCase());
             boolean formuleFilter = aanwezigheid.getFormule().equals(formule);
 
-            //000
-            if (datumEmpty && lidEmpty && formuleEmpty) {
+            //0000
+            if (datumEmpty && formuleEmpty && familienaamEmpty && voornaamEmpty) {
                 return true;
             }
-            //001
-            if (datumEmpty && lidEmpty && !formuleEmpty) {
+            //0001
+            if (datumEmpty && formuleEmpty && familienaamEmpty && !voornaamEmpty) {
+                return voornaamFilter;
+            }
+            //0010
+            if (datumEmpty && formuleEmpty && !familienaamEmpty && voornaamEmpty) {
+                return familieNaamFilter;
+            }
+            //0011
+            if (datumEmpty && formuleEmpty && !familienaamEmpty && !voornaamEmpty) {
+                return familieNaamFilter && voornaamFilter;
+            }
+            //0100
+            if (datumEmpty && !formuleEmpty && familienaamEmpty && voornaamEmpty) {
                 return formuleFilter;
             }
-            //010
-            if (datumEmpty && !lidEmpty && formuleEmpty) {
-                return lidFilter;
+            //0101
+            if (datumEmpty && !formuleEmpty && familienaamEmpty && !voornaamEmpty) {
+                return formuleFilter && voornaamFilter;
             }
-            //011
-            if (datumEmpty && !lidEmpty && !formuleEmpty) {
-                return lidFilter && formuleFilter;
+            //0110
+            if (datumEmpty && !formuleEmpty && !familienaamEmpty && voornaamEmpty) {
+                return formuleFilter && familieNaamFilter;
             }
-            //100
-            if (!datumEmpty && lidEmpty && formuleEmpty) {
+            //0111
+            if (datumEmpty && !formuleEmpty && !familienaamEmpty && !voornaamEmpty) {
+                return formuleFilter && familieNaamFilter && voornaamFilter;
+            }
+            //1000
+            if (!datumEmpty && formuleEmpty && familienaamEmpty && voornaamEmpty) {
                 return datumFilter;
             }
-            //101
-            if (!datumEmpty && lidEmpty && !formuleEmpty) {
+            //1001
+            if (!datumEmpty && formuleEmpty && familienaamEmpty && !voornaamEmpty) {
+                return datumFilter && voornaamFilter;
+            }
+            //1010
+            if (!datumEmpty && formuleEmpty && !familienaamEmpty && voornaamEmpty) {
+                return datumFilter && familieNaamFilter;
+            }
+            //1011
+            if (!datumEmpty && formuleEmpty && !familienaamEmpty && !voornaamEmpty) {
+                return datumFilter && familieNaamFilter && voornaamFilter;
+            }
+            //1100
+            if (!datumEmpty && !formuleEmpty && familienaamEmpty && voornaamEmpty) {
                 return datumFilter && formuleFilter;
             }
-            //110
-            if (!datumEmpty && !lidEmpty && formuleEmpty) {
-                return datumFilter && lidFilter;
+            //1101
+            if (!datumEmpty && !formuleEmpty && familienaamEmpty && !voornaamEmpty) {
+                return datumFilter && formuleFilter && voornaamFilter;
             }
-            //111
-            if (!datumEmpty && !lidEmpty && !formuleEmpty) {
-                return datumFilter && lidFilter && formuleFilter;
+            //1110
+            if (!datumEmpty && !formuleEmpty && !familienaamEmpty && voornaamEmpty) {
+                return datumFilter && formuleFilter && familieNaamFilter;
+            }
+            //1111
+            if (!datumEmpty && !formuleEmpty && !familienaamEmpty && !voornaamEmpty) {
+                return datumFilter && formuleFilter && familieNaamFilter && voornaamFilter;
             }
             return true;
         });

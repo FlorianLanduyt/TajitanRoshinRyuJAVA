@@ -183,7 +183,7 @@ public class OverzichtAanwezighedenScherm extends AnchorPane {
                 : cbLeden.getSelectionModel().getSelectedItem();
         LocalDate datum = dpDatum.getValue();
         
-        overzichtController.veranderAanwezigheidFilter(datum, slid, formule);
+//        overzichtController.veranderAanwezigheidFilter(datum, slid, formule);
     }
 
     @FXML

@@ -149,7 +149,7 @@ public class Aanwezigheid implements Serializable {
     }
 
     public String getAchternaam() {
-        return getLid().getVoornaam();
+        return getLid().getAchternaam();
     }
 
     public void setAchternaam() {
