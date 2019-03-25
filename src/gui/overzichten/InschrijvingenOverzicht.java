@@ -147,6 +147,9 @@ public class InschrijvingenOverzicht extends Overzicht {
         formules.setCellValueFactory(cellData -> cellData.getValue().naamFormuleProperty());
         tvFormules.getColumns().add(formules);
         
+        formules.getStyleClass().add("titelLinks");
+        formules.getStyleClass().add("name-column");
+        
 
         VBox formulesBox = opmaakFormulesTabel(tvFormules);
 

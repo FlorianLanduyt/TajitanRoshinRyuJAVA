@@ -124,10 +124,14 @@ public class Clubkampioenschap extends Overzicht{
         colPuntenActiviteit = new TableColumn("Aantal punten");
         colNaamActiviteit.setCellValueFactory(cellData -> cellData.getValue().activiteitNaamProperty());
         colPuntenActiviteit.setCellValueFactory(cellData -> cellData.getValue().puntenAantalProperty());
-        
-        
+        colNaamActiviteit.getStyleClass().add("titelLinks");
+        colNaamActiviteit.getStyleClass().add("name-column");
+        colPuntenActiviteit.getStyleClass().add("titelLinks");
+        colPuntenActiviteit.getStyleClass().add("name-column");
         aanwezighedenTabel.getColumns().add(colNaamActiviteit);
         aanwezighedenTabel.getColumns().add(colPuntenActiviteit);
+        
+        aanwezighedenTabel.getStyleClass().add("kleineTabel");
         
 
         VBox raadplegingBox = opmaakAanwezigheidsTabel(aanwezighedenTabel);

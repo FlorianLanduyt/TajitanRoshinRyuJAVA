@@ -133,7 +133,7 @@ public class BeherenLesMateriaal extends Overzicht {
         maakDetailScherm();
         maakCrudknoppen();
 
-        super.buildGui(82);
+        super.buildGui(47);
     }
 
     private void maakFilters() {
@@ -167,7 +167,7 @@ public class BeherenLesMateriaal extends Overzicht {
     private void maakDetailScherm() {
         Label lblTitel = new Label("Titel *");
         Label lblThema = new Label("Thema *");
-        Label lblGraad = new Label("Graad *:");
+        Label lblGraad = new Label("Graad *");
         Label lblAfbeelding = new Label("URL afbeelding *");
         Label lblTekst = new Label("Tekst *");
         Label lblVideo = new Label("URL video *");
@@ -202,27 +202,38 @@ public class BeherenLesMateriaal extends Overzicht {
         form.setAlignment(Pos.CENTER);
         form.setHgap(4);
         form.setVgap(5);
+        
+        lblTitel.setPadding(insetsLabel);
+        lblThema.setPadding(insetsLabel);
+        lblGraad.setPadding(insetsLabel);
+        lblTekst.setPadding(insetsLabel);
+        lblAfbeelding.setPadding(insetsLabel);
+        lblVideo.setPadding(insetsLabel);
+        
+        cboGraadDetail.setMaxWidth(300);
+        
+        txaTekst.getStyleClass().add("txa");
+        cboGraadDetail.getStyleClass().add("greyDropdown");
+        cboThemaDetail.getStyleClass().add("greyDropdown");
 
         //rij1
         form.add(lblTitel, 0, 0);
         form.add(txtTitelDetail, 0, 1, 2, 1);
 
         form.add(lblThema, 2, 0);
-        form.add(cboThemaDetail, 2, 1, 2, 1);
+        form.add(cboThemaDetail, 2, 1);
+        form.add(lblGraad, 3, 0);
+        form.add(cboGraadDetail, 3, 1);
 
         //rij2
-        form.add(lblGraad, 0, 2);
-        form.add(cboGraadDetail, 1, 2, 3, 1);
-
-        //rij3
         form.add(lblAfbeelding, 0, 3, 2, 1);
         form.add(txtUrlAfbeelding, 0, 4, 4, 1);
 
-        //rij4
+        //rij3
         form.add(lblVideo, 0, 5, 2, 1);
         form.add(txtUrlVideo, 0, 6, 4, 1);
 
-        //rij5
+        //rij4
         form.add(lblTekst, 0, 7);
         form.add(txaTekst, 0, 8, 4, 4);
         txaTekst.getStylesheets().add("allButtons");
