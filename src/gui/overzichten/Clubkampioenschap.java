@@ -70,7 +70,7 @@ public class Clubkampioenschap extends Overzicht{
         maakDetailScherm();
         maakFilter();
         
-        super.buildGui(44);
+        super.buildGui(47);
     }
 
     public void maakFilter(){
