@@ -10,6 +10,7 @@ import domein.Oefening;
 import domein.Raadpleging;
 import domein.enums.Functie;
 import domein.enums.LeeftijdsCategorie;
+import gui.overzichten.ActiviteitenOverzicht;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -28,9 +29,9 @@ public class OverzichtController {
     private FilteredList<Inschrijving> inschrijvingenFilteredList;
     private SortedList<Inschrijving> inschrijvingenSortedList;
     private Comparator<Inschrijving> byTijdstip = (i1, i2) -> i1.getTijdstip().compareTo(i2.getTijdstip());
-    private Comparator<Inschrijving> byFamilienaamInschrijving = (i1, i2) -> i1.getLid().getAchternaam().compareTo(i2.getLid().getAchternaam()); 
-    private Comparator<Inschrijving> byVoornaamInschrijving = (i1, i2) -> i1.getLid().getVoornaam().compareTo(i2.getLid().getVoornaam()); 
-    private Comparator<Inschrijving> inschrijvingsSortOrder = byFamilienaamInschrijving.thenComparing(byVoornaamInschrijving).thenComparing(byTijdstip.reversed()) ;
+    private Comparator<Inschrijving> byFamilienaamInschrijving = (i1, i2) -> i1.getLid().getAchternaam().compareTo(i2.getLid().getAchternaam());
+    private Comparator<Inschrijving> byVoornaamInschrijving = (i1, i2) -> i1.getLid().getVoornaam().compareTo(i2.getLid().getVoornaam());
+    private Comparator<Inschrijving> inschrijvingsSortOrder = byFamilienaamInschrijving.thenComparing(byVoornaamInschrijving).thenComparing(byTijdstip.reversed());
 
     private ObservableList<Activiteit> activiteiten;
     private FilteredList<Activiteit> activiteitenFilteredList;
@@ -52,8 +53,8 @@ public class OverzichtController {
     private FilteredList<Raadpleging> raadplegingenFilteredList;
     private SortedList<Raadpleging> raadplegingenSortedList;
     private Comparator<Raadpleging> byOefnnaam = (r1, r2) -> r1.getOefeningNaam().compareTo(r2.getOefeningNaam());
-    private Comparator<Raadpleging> byFamilienaamRaadpleging = (i1, i2) -> i1.getLid().getAchternaam().compareTo(i2.getLid().getAchternaam()); 
-    private Comparator<Raadpleging> byVoornaamRaadpleging = (i1, i2) -> i1.getLid().getVoornaam().compareTo(i2.getLid().getVoornaam()); 
+    private Comparator<Raadpleging> byFamilienaamRaadpleging = (i1, i2) -> i1.getLid().getAchternaam().compareTo(i2.getLid().getAchternaam());
+    private Comparator<Raadpleging> byVoornaamRaadpleging = (i1, i2) -> i1.getLid().getVoornaam().compareTo(i2.getLid().getVoornaam());
     private Comparator<Raadpleging> sortOrderRaadpleging = byFamilienaamRaadpleging.thenComparing(byVoornaamRaadpleging).thenComparing(byOefnnaam);
 
     private ObservableList<Oefening> oefeningen;
@@ -267,7 +268,7 @@ public class OverzichtController {
                     .getLeeftijdsCategoriën()
                     .stream()
                     .anyMatch(leef -> leef.equals(leeftijdsCategorie));
-            
+
             if (!leeftijdsCategorieEmpty) {
                 return leeftijdCategorieFilter;
             }
@@ -531,5 +532,14 @@ public class OverzichtController {
 
     public ObservableList<Formule> geefFormulesPerLid(Lid lid) {
         return FXCollections.observableArrayList(dataController.geefFormulesVanLid(lid));
+    }
+
+    public ObservableList<Activiteit> geefActiviteitenVoorInschrijving(Inschrijving inschrijving) {
+       List<Activiteit> activiteitenVoorInschrijving = dataController.geefActiviteiten().stream()
+               .filter(a -> a.getInschrijvingen().contains(inschrijving))
+               .collect(Collectors.toList());
+            
+
+        return FXCollections.observableArrayList(activiteitenVoorInschrijving);
     }
 }
