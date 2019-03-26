@@ -6,10 +6,7 @@
 package main;
 
 import domein.controllers.AdminController;
-import gui.BeginScherm;
 import gui.BeginSchermFlo;
-import gui.MenuKnoppen;
-import java.io.File;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

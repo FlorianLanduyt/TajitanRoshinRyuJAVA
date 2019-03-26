@@ -167,19 +167,23 @@ public class LidBeheerderController {
             String straat, String stad, String huisNr, String bus, String postcode, String email,
             String emailVader, String emailMoeder, String geboorteplaats, String wachtwoord, String nationaliteit,
             String beroep, Graad graad, Functie functie, String geslacht, Formule les) {
-
-        Lid lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr,
-                gsmNr, vasteTelefoonNr, stad, straat, huisNr, postcode, email, wachtwoord, geboorteplaats, geslacht, nationaliteit, graad, functie);
+        Lid lid;
+        if (functie.equals(Functie.PROEFLID)) {
+            lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr, geslacht, functie);
+        } else {
+            lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr,
+                    gsmNr, vasteTelefoonNr, stad, straat, huisNr, postcode, email, wachtwoord,
+                    geboorteplaats, geslacht, nationaliteit, graad, functie);
+        }
         lid.setEmailMoeder(emailMoeder);
         lid.setEmailVader(emailVader);
         lid.setBus(bus);
         lid.setBeroep(beroep);
-        
+
         //lid toevoegen aan lessenactiviteit
-        if(les == null){
+        if (les == null) {
             throw new IllegalArgumentException("Inschrijving les mag niet leeg zijn!");
-        }
-        else{
+        } else {
             Inschrijving inschrijving = new Inschrijving(les, lid, LocalDate.now());
             dataController.geefInschrijvingen().add(inschrijving);
             List<Activiteit> activiteiten = dataController
@@ -187,7 +191,7 @@ public class LidBeheerderController {
                     .stream()
                     .filter(activiteit -> activiteit.getFormule().equals(les))
                     .collect(Collectors.toList());
-            
+
             activiteiten.stream().forEach(activiteit -> {
                 activiteit.voegInschrijvingToe(inschrijving);
                 activiteit.setAantalDeelnemers();
@@ -248,10 +252,10 @@ public class LidBeheerderController {
                         dataController
                                 .geefFormules()
                                 .stream()
-                        .filter(formule -> formule.isLes())
-                        .collect(Collectors.toList()));
+                                .filter(formule -> formule.isLes())
+                                .collect(Collectors.toList()));
         return lessen;
-                
+
     }
 
     //
