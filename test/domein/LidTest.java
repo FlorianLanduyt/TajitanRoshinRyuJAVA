@@ -592,11 +592,12 @@ public class LidTest {
         Assert.assertEquals("Belg", lid.getNationaliteit());
     }
 
+    //RijksregisterNummer
+    
     //-------------------------
     //-------------------------
     //-------------------------
     //-------------------------
     //Geslacht
-    //RijksregisterNummer
     //Beroep (zoals bus, bus moet nog aangepast worden! alsook in activiteit!)
 }
