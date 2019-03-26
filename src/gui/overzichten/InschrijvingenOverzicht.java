@@ -154,6 +154,9 @@ public class InschrijvingenOverzicht extends Overzicht {
         colEinddatumActiviteit.setCellValueFactory(cellData -> cellData.getValue().eindDatumProperty());
         tvActiviteiten.getColumns().addAll(colNaamActiviteit,colStartdatumActiviteit, colEinddatumActiviteit);
         
+        formules.getStyleClass().add("titelLinks");
+        formules.getStyleClass().add("name-column");
+        
 
         VBox formulesBox = opmaakActiviteitenTabel(tvActiviteiten);
 

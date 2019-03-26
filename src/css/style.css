@@ -111,6 +111,10 @@
     -fx-font-weight: bold;
 }
 
+.table-row-cell .kleineTabel {
+    -fx-background-color: #FAEBE0;
+}
+
 
 .table-cell.name-column {
 }
@@ -147,6 +151,20 @@ TextField {
 
 .removeBtn:hover {
     -fx-background-color: #B14643;
+}
+
+.txa {
+    -fx-background-color: #F3F2ED;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-control-inner-background: #F3F2ED ;
+    -fx-focus-color: transparent;
+    -fx-border-color: #F3CAAA;
+}
+
+.txa .content {
+    -fx-background-radius: 10 ;
+    -fx-border-radius: 10;
 }
  
 

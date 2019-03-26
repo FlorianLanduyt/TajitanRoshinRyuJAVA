@@ -269,6 +269,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         cboType.getStyleClass().add("greyDropdown");
         
         
+        
         //rij2
         lbldatum.setPadding(insetsLabel);
         dpStartdatum = new DatePicker();
@@ -319,10 +320,18 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         colDeelnemerVoornaam.prefWidthProperty().bind(tvDeelnemers.widthProperty().divide(2));
         tvDeelnemers.setMaxHeight(200);
         
+        colDeelnemerFamilienaam.getStyleClass().add("titelLinks");
+        colDeelnemerFamilienaam.getStyleClass().add("name-column");
+        
+        colDeelnemerVoornaam.getStyleClass().add("titelLinks");
+        colDeelnemerVoornaam.getStyleClass().add("name-column");
+        
+        
         tvDeelnemers.getColumns().addAll(colDeelnemerFamilienaam, colDeelnemerVoornaam);
         tvDeelnemers.getStyleClass().add("name-column");
         tvDeelnemers.getStyleClass().add("titelLinks");
         tvDeelnemers.getStyleClass().add("table-row-cell");
+        
         
         btnVoegDeelnemerToe = new Button();
         btnVoegDeelnemerToe.getStyleClass().add("addBtn");
@@ -338,12 +347,15 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         afbVerwijder.setFitWidth(28);
         btnVerwijderDeelnemer.setGraphic(afbVerwijder);
         
+        VBox crudDeelnemers = new VBox(5, btnVoegDeelnemerToe, btnVerwijderDeelnemer);
+        
         Label tabelPlaceholder = new Label("Geen deelnemers");
         tabelPlaceholder.getStyleClass().add("placeholder");
         tvDeelnemers.setPlaceholder(tabelPlaceholder);
         
         
         BorderPane volzetPane = new BorderPane();
+        BorderPane.setAlignment(cbIsVolzet, Pos.CENTER);
         volzetPane.setLeft(txtMaxAantalDeelnemers);
         volzetPane.setRight(cbIsVolzet);
         
@@ -352,14 +364,12 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         form.add(lblNaamActiviteit, 0, 0, 2,1);
         form.add(lblCboType, 2, 0, 2,1);
         form.add(txtNaamActiviteit, 0, 1, 2,1);
-        //form.add(cbIsVolzet, 2, 1);
         form.add(cboType, 2, 1);
         form.add(lbldatum, 0, 2, 2,1);
         form.add(dpStartdatum, 0, 3);
         form.add(dpEinddatum, 1, 3);
         form.add(lblMaxAantalDeelnemers, 3, 0, 2,1);
         form.add(lblInschrijvingsDatum, 2, 2, 2,1);
-        //form.add(txtMaxAantalDeelnemers, 3, 1);
         form.add(volzetPane, 3, 1);
         form.add(dpInschrijvingsDatum, 2, 3, 2,1);
         form.add(lblNaamLocatie, 0, 4, 2,1);
@@ -376,8 +386,8 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         form.add(txtStad, 1,10,2,1);
         form.add(lblDeelnemers, 0, 11);
         form.add(tvDeelnemers, 0,12,2,2);
-        form.add(btnVoegDeelnemerToe, 2,12);
-        form.add(btnVerwijderDeelnemer, 2,13);
+        form.add(crudDeelnemers, 2,12);
+        //form.add(btnVerwijderDeelnemer, 2,13);
         
         form.getChildren().stream().forEach(c-> {
             c.getStyleClass().add("allButtons");

@@ -299,7 +299,6 @@ public class ActiviteitBeheerController {
             activiteit.setAantalDeelnemers();
         }
         activiteit.voegInschrijvingToe(inschrijving);
-        //
     }
 
     public void verwijderInschrijving(Activiteit activiteit, Lid lid) {
