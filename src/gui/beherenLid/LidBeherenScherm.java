@@ -127,7 +127,7 @@ public class LidBeherenScherm extends Overzicht {
         maakDetailScherm();
         maakCrudknoppen();
 
-        super.buildGui(44);
+        super.buildGui(49);
     }
 
     private void maakFilters() {
@@ -254,6 +254,7 @@ public class LidBeherenScherm extends Overzicht {
         cboType_Functie.setItems(lc.geefFuncties());
         cboType_Functie.setMinWidth(239);
         cboType_Functie.getStyleClass().add("greyDropdown");
+        cboType_Functie.setPromptText("Type van de gebruiker");
 
         //rij2
         lblVoornaam.setPadding(insetsLabel);
@@ -268,7 +269,7 @@ public class LidBeherenScherm extends Overzicht {
         lblGeboorteDatum.setPadding(insetsLabel);
         lblGeboortePlaats.setPadding(insetsLabel);
         dpGeboorteDatum = new DatePicker();
-        dpGeboorteDatum.setMinWidth(239);
+        dpGeboorteDatum.setMaxWidth(300);
         dpGeboorteDatum.setStyle("-fx-background-color: #F3F2ED");
         txfGeboorteplaats = new TextField();
         txfGeboorteplaats.setPromptText("Stad");
@@ -281,6 +282,7 @@ public class LidBeherenScherm extends Overzicht {
         txfRijksregisternummer = new TextField();
         cboGeslacht = new ComboBox<>();
         cboGeslacht.setItems(lc.geefGeslachten());
+        cboGeslacht.setPromptText("Geslacht");
         txfNationaliteit = new TextField();
         cboGeslacht.setMinWidth(118);
         cboGeslacht.getStyleClass().add("greyDropdown");
@@ -317,7 +319,8 @@ public class LidBeherenScherm extends Overzicht {
         cboGraad = new ComboBox<>();
         cboGraad.setItems(lc.geefGraden());
         cboGraad.getStyleClass().add("greyDropdown");
-        cboGraad.setMinWidth(118);
+        cboGraad.setMaxWidth(300);
+        cboGraad.setPromptText("Geslacht");
 
         //rij9
         lblEmailmoeder.setPadding(insetsLabel);
@@ -327,8 +330,11 @@ public class LidBeherenScherm extends Overzicht {
         
         //extra voor inschrijving les
         lblInschrijvingLes = new Label("Inschrijving les");
+        lblInschrijvingLes.setPadding(insetsLabel);
         cboInschrijvingLes = new ComboBox();
         cboInschrijvingLes.setPromptText("Les");
+        cboInschrijvingLes.getStyleClass().add("greyDropdown");
+        cboInschrijvingLes.setMaxWidth(300);
         
 
         //toevoegen elementen
@@ -369,7 +375,7 @@ public class LidBeherenScherm extends Overzicht {
         form.add(lblEmailVader, 0, 17, 2, 1);
         form.add(lblGraad, 2, 17, 2, 1);
         form.add(txfEmailVader, 0, 18, 2, 1);
-        form.add(cboGraad, 2, 18, 2, 1);
+        form.add(cboGraad, 2, 18);
 
         form.getChildren().stream().forEach(c -> c.getStyleClass().add("allButtons"));
 
@@ -572,7 +578,6 @@ public class LidBeherenScherm extends Overzicht {
                     cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem(), cboInschrijvingLes.getSelectionModel().getSelectedItem());
 
             super.setErrorLabelText("");
-            btnWijzigingenOpslaan.setText("Lid toevoegen");
             cancelToevoegenNieuwLid();
         } catch (Exception e) {
             super.setErrorLabelText(e.getMessage());

@@ -48,6 +48,8 @@ public class LoginForm extends AnchorPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        
+        
     }
 
     @FXML

@@ -50,10 +50,12 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     private void maakMenuTitle() {
         Label lblMenu = new Label(menuTitle);
         lblMenu.setMinWidth(220);
-        lblMenu.setMaxWidth(200);
+        lblMenu.setMaxWidth(220);
         lblMenu.setPrefHeight(45);
         lblMenu.setStyle("-fx-font-size: 25px");
         lblMenu.getStyleClass().add("bgr");
+        
+        
         lblMenu.setAlignment(Pos.BASELINE_CENTER);
         this.setLeft(lblMenu);
     }

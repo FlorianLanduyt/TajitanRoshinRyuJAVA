@@ -83,7 +83,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(47);
+        super.buildGui(49);
     }
 
     private void maakFilters() {

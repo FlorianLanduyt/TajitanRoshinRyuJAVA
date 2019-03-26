@@ -16,11 +16,11 @@
 .root {
     -fx-font-family: "Avenir";
     -fx-font-color: black;
+    -fx-focus-color: transparent;
 }
 
 
 .btn {
-    -fx-background-color: transparent;
 }
 
 .btn:active {
@@ -150,7 +150,7 @@ TextField {
 }
 
 .removeBtn:hover {
-    -fx-background-color: #B14643;
+    -fx-background-color: #E2BBBA;
 }
 
 .txa {
@@ -165,6 +165,17 @@ TextField {
 .txa .content {
     -fx-background-radius: 10 ;
     -fx-border-radius: 10;
+}
+
+.mk{
+    -fx-background-color: #F3CAAA;
+    
+}
+
+
+.mk:hover{
+    -fx-background-color: #C7A68C;
+    
 }
  
 
