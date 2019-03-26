@@ -80,8 +80,18 @@ public class Lid implements Serializable {
         sType.set(getFunctie().name());
         sGeboortedatum.set(getGeboortedatum().toString());
     }
-    
+
     public Lid() {
+    }
+
+    public Lid(String voornaam, String achternaam, LocalDate geboortedatum, String rijksregisterNr, String geslacht, Functie functie) {
+        setVoornaam(voornaam);
+        setAchternaam(achternaam);
+        setGeslacht(geslacht);
+        setGeboortedatum(geboortedatum);
+        setRijksregisterNr(rijksregisterNr);
+        setFunctie(functie);
+        leeftijdsCategoriën = new ArrayList();
     }
 
     public Lid(String voornaam, String achternaam, LocalDate geboortedatum,
@@ -90,11 +100,7 @@ public class Lid implements Serializable {
             String huisNr, String postcode, String email,
             String wachtwoord, String geboorteplaats, String geslacht,
             String nationaliteit, Graad graad, Functie functie) {
-        setVoornaam(voornaam);
-        setAchternaam(achternaam);
-        setGeboortedatum(geboortedatum);
-        setGeslacht(geslacht);
-        setRijksregisterNr(rijksregisterNr);
+        this(voornaam, achternaam, geboortedatum, rijksregisterNr, geslacht, functie);
         setGsmNr(gsmNr);
         setVasteTelefoonNr(vasteTelefoonNr);
         setStad(stad);
@@ -106,8 +112,6 @@ public class Lid implements Serializable {
         setGeboorteplaats(geboorteplaats);
         setNationaliteit(nationaliteit);
         setGraad(graad);
-        setFunctie(functie);
-        leeftijdsCategoriën = new ArrayList();
     }
 
     //Getters voor SimpleStringProperties
