@@ -517,6 +517,7 @@ public class Activiteit implements Serializable {
     }
 
     public boolean isVolzet() {
+        setVolzet();
         return this.isVolzet;
     }
 
