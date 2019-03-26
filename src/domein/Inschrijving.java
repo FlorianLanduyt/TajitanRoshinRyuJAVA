@@ -39,7 +39,6 @@ public class Inschrijving implements Serializable {
 
     //SimpleStringProperties
     @Transient
-
     private SimpleStringProperty sVoornaam = new SimpleStringProperty();
     @Transient
     private SimpleStringProperty sAchternaam = new SimpleStringProperty();
@@ -76,9 +75,16 @@ public class Inschrijving implements Serializable {
         return sTijdstip;
     }
 
+    public void setSimpleStringProperties() {
+        sVoornaam.set(getVoornaam());
+        sAchternaam.set(getAchternaam());
+        sFormule.set(getFormule().name());
+        sTijdstip.set(getTijdstip().toString());
+    }
+
     //Gewone getters en setters
     public Formule getFormule() {
-        return Formule.valueOf(sFormule.get());
+        return this.formule;
     }
 
     private void setFormule(Formule formule) {
@@ -106,7 +112,7 @@ public class Inschrijving implements Serializable {
     }
 
     public LocalDate getTijdstip() {
-        return LocalDate.parse(sTijdstip.get());
+        return this.tijdstip;
     }
 
     private void setTijdstip(LocalDate tijdstip) {
@@ -119,7 +125,7 @@ public class Inschrijving implements Serializable {
     }
 
     public String getVoornaam() {
-        return sVoornaam.get();
+        return getLid().getVoornaam();
     }
 
     public void setVoornaam() {
@@ -127,7 +133,7 @@ public class Inschrijving implements Serializable {
     }
 
     public String getAchternaam() {
-        return sAchternaam.get();
+        return getLid().getAchternaam();
     }
 
     public void setAchternaam() {

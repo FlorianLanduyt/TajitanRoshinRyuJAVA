@@ -70,7 +70,7 @@ public class Clubkampioenschap extends Overzicht{
         maakDetailScherm();
         maakFilter();
         
-        super.buildGui(44);
+        super.buildGui(47);
     }
 
     public void maakFilter(){
@@ -124,10 +124,14 @@ public class Clubkampioenschap extends Overzicht{
         colPuntenActiviteit = new TableColumn("Aantal punten");
         colNaamActiviteit.setCellValueFactory(cellData -> cellData.getValue().activiteitNaamProperty());
         colPuntenActiviteit.setCellValueFactory(cellData -> cellData.getValue().puntenAantalProperty());
-        
-        
+        colNaamActiviteit.getStyleClass().add("titelLinks");
+        colNaamActiviteit.getStyleClass().add("name-column");
+        colPuntenActiviteit.getStyleClass().add("titelLinks");
+        colPuntenActiviteit.getStyleClass().add("name-column");
         aanwezighedenTabel.getColumns().add(colNaamActiviteit);
         aanwezighedenTabel.getColumns().add(colPuntenActiviteit);
+        
+        aanwezighedenTabel.getStyleClass().add("kleineTabel");
         
 
         VBox raadplegingBox = opmaakAanwezigheidsTabel(aanwezighedenTabel);
@@ -189,7 +193,7 @@ public class Clubkampioenschap extends Overzicht{
     }
 
     private void opmaakLabels(List<Text> labels) {
-        labels.stream().forEach(l -> l.setStyle("-fx-font-weight: bold; -fx-underline: true; -fx-font-size: 16px"));
+        labels.stream().forEach(l -> l.setStyle("-fx-font-weight: bold; -fx-font-size: 16px"));
     }
     
     private void filter(){

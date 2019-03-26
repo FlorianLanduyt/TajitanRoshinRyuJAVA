@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url('AvenirNextLTPro-Regular.otf');
+}
+
+.root {
+    -fx-font-family: "Avenir";
+    -fx-font-color: black;
+}
+
+
 .btn {
     -fx-background-color: transparent;
 }
@@ -82,14 +103,16 @@
 }
 
 
-
- 
 .table-view .column-header.name-column {
     -fx-base: #C5C6C2; 
 }
 
 .table-view .column-header .label {
     -fx-font-weight: bold;
+}
+
+.table-row-cell .kleineTabel {
+    -fx-background-color: #FAEBE0;
 }
 
 
@@ -112,6 +135,37 @@ TextField {
     -fx-control-inner-background: #F3F2ED ;
 }
 
+.addBtn {
+    -fx-background-color: #dee8e2;
+    -fx-border-width: 2px;
+}
+
+.addBtn:hover {
+    -fx-background-color: #B5C9C3;
+}
+
+.removeBtn {
+    -fx-background-color: #F3F2ED;
+    -fx-border-width: 2px;
+}
+
+.removeBtn:hover {
+    -fx-background-color: #B14643;
+}
+
+.txa {
+    -fx-background-color: #F3F2ED;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-control-inner-background: #F3F2ED ;
+    -fx-focus-color: transparent;
+    -fx-border-color: #F3CAAA;
+}
+
+.txa .content {
+    -fx-background-radius: 10 ;
+    -fx-border-radius: 10;
+}
  
 
 

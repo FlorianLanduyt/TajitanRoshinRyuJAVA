@@ -21,7 +21,8 @@ public class ActiviteitBeheerController {
     private FilteredList<Activiteit> filteredActiviteitenList;
     private SortedList<Activiteit> sortedActiviteitenList;
     private final Comparator<Activiteit> byDate = (p1, p2) -> p1.getBeginDatum().compareTo(p2.getBeginDatum());
-    private final Comparator<Activiteit> sortOrder = byDate.reversed();
+    private final Comparator<Activiteit> byNaam = (p1, p2) -> p1.getNaam().compareTo(p2.getNaam());
+    private final Comparator<Activiteit> sortOrder = byDate.reversed().thenComparing(byNaam);
     
     private ObservableList<Inschrijving> inschrijvingenActiviteit;
     private SortedList<Inschrijving> inschrijvingenActiviteitSorted;
@@ -124,7 +125,7 @@ public class ActiviteitBeheerController {
 
             boolean naamFilter = activiteit.getNaam().equalsIgnoreCase(naam) || activiteit.getNaam().toLowerCase().startsWith(naam.toLowerCase());
             boolean formuleFilter = activiteit.getFormule().equals(formule);
-            boolean aantalDeelnemersFilter = activiteit.getMaxDeelnemers() == aantalDeelnemers || activiteit.getMaxDeelnemers() <= aantalDeelnemers;
+            boolean aantalDeelnemersFilter = activiteit.getAantalDeelnemers() == aantalDeelnemers || activiteit.getAantalDeelnemers()<= aantalDeelnemers;
             boolean volzetFilter = activiteit.isVolzet() == volzet;
 
             //0000

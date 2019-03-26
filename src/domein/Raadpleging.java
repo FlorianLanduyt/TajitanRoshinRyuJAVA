@@ -73,7 +73,13 @@ public class Raadpleging implements Serializable {
     public SimpleStringProperty aantalRaadplegingenProperty() {
         return sAantalRaadplegingen;
     }
-
+    public void setSimpleStringProperties() {
+        sVoornaam.set(getLid().getVoornaam());
+        sAchternaam.set(getLid().getAchternaam());
+        sOefeningNaam.set(getOefening().getTitel());
+        sAantalRaadplegingen.set(String.valueOf(aantalRaadplegingen));
+    }
+    
     //Gewone getters en setters
     public Lid getLid() {
         return lid;
@@ -92,7 +98,7 @@ public class Raadpleging implements Serializable {
     }
 
     public String getVoornaam() {
-        return sVoornaam.get();
+        return getLid().getVoornaam();
     }
 
     public void setVoornaam() {
@@ -100,7 +106,7 @@ public class Raadpleging implements Serializable {
     }
 
     public String getAchternaam() {
-        return sAchternaam.get();
+        return getLid().getAchternaam();
     }
 
     public void setAchternaam() {
@@ -108,7 +114,7 @@ public class Raadpleging implements Serializable {
     }
 
     public String getOefeningNaam() {
-        return sOefeningNaam.get();
+        return getOefening().getTitel();
     }
 
     private void setOefeningNaam() {
@@ -124,7 +130,7 @@ public class Raadpleging implements Serializable {
     }
 
     public int getAantalRaadplegingen() {
-        return Integer.valueOf(sAantalRaadplegingen.get());
+        return this.aantalRaadplegingen;
     }
 
     public void verhoogAantalRaadplegingen() {

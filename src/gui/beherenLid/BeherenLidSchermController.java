@@ -295,20 +295,20 @@ public class BeherenLidSchermController extends AnchorPane {
 
     @FXML
     private void slaGegevensNieuwLidOp(ActionEvent event) {
-        try {
-            lidBeheerderController.voegLidToe(txtVoornaam.getText(), txtAchternaam.getText(), dpGeboorteDatum.getValue(),
-                    txtRijksregisternummer.getText(), txtGsmnummer.getText(), txtTelefoon.getText(),
-                    txtStraat.getText(), txtStad.getText(), txtHuisnummer.getText(), txtBus.getText(), txtPostcode.getText(),
-                    txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(), txtWachtwoord.getText(),
-                    txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
-                    cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
-            btnSlaGegevensNieuwLidOp.setVisible(false);//tijdelijk
-            btnWijzigingenOpslaan.setDisable(false);// tijdelijk
-            btnLidVerwijderen.setDisable(false);//tijdelijk
-            lblErrorlog.setText("");
-        } catch (IllegalArgumentException e) {
-            lblErrorlog.setText(e.getMessage());
-        }
+//        try {
+//            lidBeheerderController.voegLidToe(txtVoornaam.getText(), txtAchternaam.getText(), dpGeboorteDatum.getValue(),
+//                    txtRijksregisternummer.getText(), txtGsmnummer.getText(), txtTelefoon.getText(),
+//                    txtStraat.getText(), txtStad.getText(), txtHuisnummer.getText(), txtBus.getText(), txtPostcode.getText(),
+//                    txtEmail.getText(), txtEmailVader.getText(), txtEmailmoeder.getText(), txtGeboorteplaats.getText(), txtWachtwoord.getText(),
+//                    txtNationaliteit.getText(), txtBeroep.getText(), cboGraad.getSelectionModel().getSelectedItem(),
+//                    cboType_Functie.getSelectionModel().getSelectedItem(), cboGeslacht.getSelectionModel().getSelectedItem());
+//            btnSlaGegevensNieuwLidOp.setVisible(false);//tijdelijk
+//            btnWijzigingenOpslaan.setDisable(false);// tijdelijk
+//            btnLidVerwijderen.setDisable(false);//tijdelijk
+//            lblErrorlog.setText("");
+//        } catch (IllegalArgumentException e) {
+//            lblErrorlog.setText(e.getMessage());
+//        }
 
     }
 

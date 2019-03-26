@@ -167,8 +167,8 @@ public class Overzicht<T> extends BorderPane {
         HBox box = new HBox();
         box.setPadding(new Insets(-10, 0, 0, 0));
         if (!knoppenOnderTabel.isEmpty()) {
-            tvTabel.setMinHeight(800);
-            tvTabel.setMaxHeight(800);
+            tvTabel.setMinHeight(600);
+            tvTabel.setMaxHeight(600);
 
             Region r = new Region();
             HBox.setHgrow(r, Priority.ALWAYS);

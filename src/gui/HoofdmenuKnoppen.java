@@ -68,18 +68,9 @@ public class HoofdmenuKnoppen  extends MenuKnoppen {
         });
         super.addKnop(btnBeheerActiviteiten);
         
-        //BUTTON INSCHRIJVEN
-        Button btnInschrijvenActiviteit = new Button("Inschrijven Activiteit");
-        btnInschrijvenActiviteit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-        super.addKnop(btnInschrijvenActiviteit);
         
         //BUTTON BEHEREN LESMATERIALEN 
-        Button btnBeherenLesmaterialen = new Button("Beheren Lesmaterialen ");
+        Button btnBeherenLesmaterialen = new Button("Beheer Lesmaterialen ");
         btnBeherenLesmaterialen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

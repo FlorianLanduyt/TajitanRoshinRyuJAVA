@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -75,7 +76,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(44);
+        super.buildGui(47);
     }
 
     private void maakFilters() {
@@ -113,6 +114,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         colStartdatum.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
         colEinddatum.setCellValueFactory(cellData -> cellData.getValue().eindDatumProperty());
         colFormule.setCellValueFactory(cellData -> cellData.getValue().formuleProperty());
+        
 
         super.addKolom(colVoornaam);
         super.addKolom(colStartdatum);
@@ -129,11 +131,17 @@ public class ActiviteitenOverzicht extends Overzicht {
         TableColumn<Lid, String> familienaam = new TableColumn("Familienaam");
         naam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         familienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
+        
+        naam.getStyleClass().add("titelLinks");
+        naam.getStyleClass().add("name-column");
+        familienaam.getStyleClass().add("titelLinks");
+        familienaam.getStyleClass().add("name-column");
 
         deelnemers.getColumns().add(familienaam);
         deelnemers.getColumns().add(naam);
 
         VBox deelnemersBox = opmaaDeelnemersTabel(deelnemers);
+        deelnemersBox.setPadding(new Insets(-10,0,0,0));
 
         scherm.getChildren().add(deelnemersBox);
         super.setDetailScherm(scherm);
@@ -204,6 +212,7 @@ public class ActiviteitenOverzicht extends Overzicht {
                     .collect(Collectors.toList())));
         }catch(NullPointerException e){
             //als er geen activiteit is aangeduid in de tabel!
+            
         }
     }
 
@@ -217,7 +226,7 @@ public class ActiviteitenOverzicht extends Overzicht {
     }
 
     private void opmaakLabels(List<Text> labels) {
-        labels.stream().forEach(l -> l.setStyle("-fx-font-weight: bold; -fx-underline: true; -fx-font-size: 16px"));
+        labels.stream().forEach(l -> l.setStyle("-fx-font-weight: bold; -fx-font-size: 16px"));
     }
 
 //    private void veranderTable(Object value) {

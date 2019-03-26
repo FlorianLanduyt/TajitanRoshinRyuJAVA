@@ -39,6 +39,10 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     }
 
     private void buildGui() {
+        this.setMaxHeight(45);
+        this.setMinHeight(45);
+        this.setPrefHeight(45);
+        
         maakAanmeldBox();
         maakMenuTitle();
     }
@@ -67,6 +71,9 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
 
     private void maakAanmeldBox() {
         aanmeldenBox = new GridPane();
+        BorderPane.setMargin(aanmeldenBox, new Insets(5));
+        aanmeldenBox.getStyleClass().add("greenBtn");
+        aanmeldenBox.getStyleClass().add("allButtons");
         setLabel();
         setAfbeelding();
         
@@ -90,14 +97,12 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     }
 
     private void setAfbeelding() {
-        //if(!isIngelogd)
-            afbeelding = new ImageView("images/Login.png");
-//        else 
-//            afbeelding = new ImageView("images/Logoff.png");
+        afbeelding = new ImageView("images/Login.png");
         
         afbeelding.setFitHeight(40);
         afbeelding.setFitWidth(40);
         afbeelding.setStyle("-fx-padding: 5px");
+        GridPane.setMargin(afbeelding, new Insets(0,5,0,5));
         
         aanmeldenBox.add(afbeelding, 1, 0);
     }
@@ -146,12 +151,6 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         this.menuTitle = menuTitle;
         maakMenuTitle();
     }
-    
-//    public void setOverzichtTitle(String overzichtTitle){
-//        this.overzichtTitle = overzichtTitle;
-//        maakOverzichtTitle();
-//    }
-    
     
 
     @Override

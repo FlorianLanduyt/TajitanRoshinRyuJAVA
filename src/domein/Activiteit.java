@@ -175,6 +175,27 @@ public class Activiteit implements Serializable {
         return sEmail;
     }
 
+    public void setSimpleStringProperties() {
+        sNaam.set(getNaam());
+        sFormule.set(getFormule().name());
+        sBeginDatum.set(getBeginDatum().toString());
+        if (eindDatum != null) {
+            sEindDatum.set(getEindDatum().toString());
+        }
+        sUitersteInschrijvingsDatum.set(getUitersteInschrijvingsDatum().toString());
+        sStraat.set(getStraat());
+        sStad.set(getStad());
+        sPostcode.set(getPostcode());
+        sHuisnummer.set(getHuisnummer());
+        sBus.set(getBus());
+        sMaxDeelnemers.set(String.valueOf(getMaxDeelnemers()));
+        sAantalDeelnemers.set(String.valueOf(getAantalDeelnemers()));
+        sIsVolzet.set(this.isVolzet == false ? "Nee" : "Ja");
+        sNaamLocatie.set(getNaamLocatie());
+        sGsmnummer.set(getGsmnummer());
+        sEmail.set(getEmail());
+    }
+
     //Gewone getters en setters
     public int getId() {
         return id;
@@ -185,7 +206,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getNaam() {
-        return sNaam.get();
+        return this.naam;
     }
 
     public void setNaam(String naam) {
@@ -211,7 +232,7 @@ public class Activiteit implements Serializable {
     }
 
     public Formule getFormule() {
-        return Formule.valueOf(sFormule.get());
+        return this.formule;
     }
 
     public void setFormule(Formule formule) {
@@ -226,7 +247,7 @@ public class Activiteit implements Serializable {
     }
 
     public LocalDate getBeginDatum() {
-        return LocalDate.parse(sBeginDatum.get());
+        return this.beginDatum;
     }
 
     public void setBeginDatum(LocalDate beginDatum) {
@@ -242,11 +263,7 @@ public class Activiteit implements Serializable {
     }
 
     public LocalDate getEindDatum() {
-        if (sEindDatum.get() != null) {
-            return LocalDate.parse(sEindDatum.get());
-        }
-        return null;
-
+        return this.eindDatum;
     }
 
     public void setEindDatum(LocalDate eindDatum) {
@@ -263,7 +280,7 @@ public class Activiteit implements Serializable {
     }
 
     public LocalDate getUitersteInschrijvingsDatum() {
-        return LocalDate.parse(sUitersteInschrijvingsDatum.get());
+        return this.uitersteInschrijvingsDatum;
     }
 
     public void setUitersteInschrijvingsDatum(LocalDate uitersteInschrijvingsDatum) {
@@ -279,7 +296,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getNaamLocatie() {
-        return sNaamLocatie.get();
+        return this.naamLocatie;
     }
 
     public void setNaamLocatie(String naamLocatie) {
@@ -305,7 +322,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getGsmnummer() {
-        return sGsmnummer.get();
+        return this.gsmnummer;
     }
 
     public void setGsmnummer(String gsmNr) {
@@ -343,12 +360,12 @@ public class Activiteit implements Serializable {
                 throw new IllegalArgumentException("GSM-nummer is niet correct.");
             }
         }
-        this.gsmnummer=gsmNr;
+        this.gsmnummer = gsmNr;
         sGsmnummer.set(gsmNr);
     }
 
     public String getEmail() {
-        return sEmail.get();
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -364,7 +381,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getStraat() {
-        return sStraat.get();
+        return this.straat;
     }
 
     public void setStraat(String straat) {
@@ -390,7 +407,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getStad() {
-        return sStad.get();
+        return this.stad;
     }
 
     public void setStad(String stad) {
@@ -416,7 +433,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getPostcode() {
-        return sPostcode.get();
+        return this.postcode;
     }
 
     public void setPostcode(String postcode) {
@@ -432,7 +449,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getHuisnummer() {
-        return sHuisnummer.get();
+        return this.huisnummer;
     }
 
     public void setHuisnummer(String huisnummer) {
@@ -451,7 +468,7 @@ public class Activiteit implements Serializable {
     }
 
     public String getBus() {
-        return sBus.get();
+        return this.bus;
     }
 
     public void setBus(String bus) {
@@ -467,7 +484,7 @@ public class Activiteit implements Serializable {
     }
 
     public int getMaxDeelnemers() {
-        return Integer.valueOf(sMaxDeelnemers.get());
+        return this.maxDeelnemers;
     }
 
     public void setMaxDeelnemers(int maxDeelnemers) {
@@ -483,7 +500,7 @@ public class Activiteit implements Serializable {
 
     public int getAantalDeelnemers() {
         setAantalDeelnemers();
-        return Integer.valueOf(sAantalDeelnemers.get());
+        return this.aantalDeelnemers;
     }
 
     public void setAantalDeelnemers() {
@@ -500,8 +517,7 @@ public class Activiteit implements Serializable {
     }
 
     public boolean isVolzet() {
-        setVolzet();
-        return sIsVolzet.get().equals("Ja") ? true : false;
+        return this.isVolzet;
     }
 
     //

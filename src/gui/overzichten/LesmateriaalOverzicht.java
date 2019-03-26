@@ -99,7 +99,7 @@ public class LesmateriaalOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(44);
+        super.buildGui(47);
     }
 
     private void maakFilters() {
@@ -231,7 +231,7 @@ public class LesmateriaalOverzicht extends Overzicht {
     }
 
     private void opmaakLabels(List<Text> labels) {
-        labels.stream().forEach(l -> l.setStyle("-fx-font-weight: bold; -fx-underline: true; -fx-font-size: 16px"));
+        labels.stream().forEach(l -> l.setStyle("-fx-font-weight: bold; -fx-font-size: 16px"));
     }
 
     private void filter() {

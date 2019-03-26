@@ -51,7 +51,6 @@ public class LinksPane extends BorderPane implements PropertyChangeListener{
         ImageView afb = new ImageView(new Image("/images/home.png"));
         afb.setFitHeight(28);
         afb.setFitWidth(28);
-        
         terug.setGraphic(afb);
         
         this.setPadding(new Insets(5));

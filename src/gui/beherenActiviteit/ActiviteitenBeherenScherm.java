@@ -30,6 +30,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -61,6 +63,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     private DatePicker dpStartdatum, dpEinddatum, dpInschrijvingsDatum;
     private CheckBox cbIsVolzet;
     private Button btnVoegDeelnemerToe;
+    private Button btnVerwijderDeelnemer;
     
     private TableView<Inschrijving> tvDeelnemers;
     private TableColumn<Inschrijving, String> colDeelnemerVoornaam, colDeelnemerFamilienaam;
@@ -69,7 +72,6 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     private Label lblAdresLocatie,lblMaxAantalDeelnemers,lblCboType,lbldatum, lblInschrijvingsDatum;
     private Label lblDeelnemers;
     
-    private Label lblFoutopvang;
     private Button btnActiviteitVerwijderen;
     private Button btnNieuwActiviteit;
     private Button btnWijzigActiviteit;
@@ -90,15 +92,15 @@ public class ActiviteitenBeherenScherm extends Overzicht {
             filter();
         });
         
-        cboFilterType.setOnKeyReleased((KeyEvent event) -> {
+        cboFilterType.setOnAction((ActionEvent event) -> {
             filter();
         });
         
-        txtFilterNaam.setOnAction((ActionEvent event) -> {
+        txtFilterNaam.setOnKeyReleased((KeyEvent event) -> {
             filter();
         });
         
-        txtFilterAantalDeelnemers.setOnAction((ActionEvent event) -> {
+        txtFilterAantalDeelnemers.setOnKeyReleased((KeyEvent event) -> {
             filter();
         });
         
@@ -120,6 +122,14 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         
         btnSlaGegevensNieuweActiviteitOp.setOnAction((ActionEvent event)-> {
             opslaanNieuweActiviteit();
+        });
+        
+        btnVoegDeelnemerToe.setOnAction((ActionEvent event) -> {
+            voegDeelnemerToe();
+        });
+        
+        btnVerwijderDeelnemer.setOnAction((ActionEvent event) -> {
+            verwijderDeelnemer();
         });
         
         tvActiviteiten.getSelectionModel().selectFirst();
@@ -160,8 +170,12 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                     vulDetailScherm(newSelection);
                 });
         
+        Label tabelPlaceholder = new Label("Geen activiteiten beschikbaar");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        tvActiviteiten.setPlaceholder(tabelPlaceholder);
+        
         maakKolommenInTabel();
-        tvActiviteiten.setItems((abc.geefAlleActiviteiten()));
+        tvActiviteiten.setItems((abc.geefObservableListActiviteiten()));
         super.setTvTabel(tvActiviteiten);
 
     }
@@ -255,6 +269,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         cboType.getStyleClass().add("greyDropdown");
         
         
+        
         //rij2
         lbldatum.setPadding(insetsLabel);
         dpStartdatum = new DatePicker();
@@ -305,12 +320,42 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         colDeelnemerVoornaam.prefWidthProperty().bind(tvDeelnemers.widthProperty().divide(2));
         tvDeelnemers.setMaxHeight(200);
         
+        colDeelnemerFamilienaam.getStyleClass().add("titelLinks");
+        colDeelnemerFamilienaam.getStyleClass().add("name-column");
+        
+        colDeelnemerVoornaam.getStyleClass().add("titelLinks");
+        colDeelnemerVoornaam.getStyleClass().add("name-column");
+        
+        
         tvDeelnemers.getColumns().addAll(colDeelnemerFamilienaam, colDeelnemerVoornaam);
         tvDeelnemers.getStyleClass().add("name-column");
         tvDeelnemers.getStyleClass().add("titelLinks");
         tvDeelnemers.getStyleClass().add("table-row-cell");
         
+        
+        btnVoegDeelnemerToe = new Button();
+        btnVoegDeelnemerToe.getStyleClass().add("addBtn");
+        ImageView afbVoegToe = new ImageView(new Image("/images/AddDeelnemer.png"));
+        afbVoegToe.setFitHeight(28);
+        afbVoegToe.setFitWidth(28);
+        btnVoegDeelnemerToe.setGraphic(afbVoegToe);
+        
+        btnVerwijderDeelnemer = new Button();
+        btnVerwijderDeelnemer.getStyleClass().add("removeBtn");
+        ImageView afbVerwijder = new ImageView(new Image("/images/RemoveDeelnemer.png"));
+        afbVerwijder.setFitHeight(28);
+        afbVerwijder.setFitWidth(28);
+        btnVerwijderDeelnemer.setGraphic(afbVerwijder);
+        
+        VBox crudDeelnemers = new VBox(5, btnVoegDeelnemerToe, btnVerwijderDeelnemer);
+        
+        Label tabelPlaceholder = new Label("Geen deelnemers");
+        tabelPlaceholder.getStyleClass().add("placeholder");
+        tvDeelnemers.setPlaceholder(tabelPlaceholder);
+        
+        
         BorderPane volzetPane = new BorderPane();
+        BorderPane.setAlignment(cbIsVolzet, Pos.CENTER);
         volzetPane.setLeft(txtMaxAantalDeelnemers);
         volzetPane.setRight(cbIsVolzet);
         
@@ -319,14 +364,12 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         form.add(lblNaamActiviteit, 0, 0, 2,1);
         form.add(lblCboType, 2, 0, 2,1);
         form.add(txtNaamActiviteit, 0, 1, 2,1);
-        //form.add(cbIsVolzet, 2, 1);
         form.add(cboType, 2, 1);
         form.add(lbldatum, 0, 2, 2,1);
         form.add(dpStartdatum, 0, 3);
         form.add(dpEinddatum, 1, 3);
         form.add(lblMaxAantalDeelnemers, 3, 0, 2,1);
         form.add(lblInschrijvingsDatum, 2, 2, 2,1);
-        //form.add(txtMaxAantalDeelnemers, 3, 1);
         form.add(volzetPane, 3, 1);
         form.add(dpInschrijvingsDatum, 2, 3, 2,1);
         form.add(lblNaamLocatie, 0, 4, 2,1);
@@ -341,9 +384,10 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         form.add(txtBus, 3,9);
         form.add(txtPostcode, 0,10);
         form.add(txtStad, 1,10,2,1);
-        
         form.add(lblDeelnemers, 0, 11);
         form.add(tvDeelnemers, 0,12,2,2);
+        form.add(crudDeelnemers, 2,12);
+        //form.add(btnVerwijderDeelnemer, 2,13);
         
         form.getChildren().stream().forEach(c-> {
             c.getStyleClass().add("allButtons");
@@ -452,7 +496,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     //
     //CRUD - inschrijvingen
     //
-    private void voegDeelnemerToe(ActionEvent event) {
+    private void voegDeelnemerToe() {
         //UC4 --> inschrijvingen
         Activiteit activiteit = tvActiviteiten.getSelectionModel().getSelectedItem();
         if (activiteit == null) {
@@ -475,7 +519,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
 
     }
 
-    private void verwijderDeelnemer(ActionEvent event) {
+    private void verwijderDeelnemer() {
         //UC4 --> inschrijvingen
         Lid lid = tvDeelnemers.getSelectionModel().getSelectedItem() == null
                 ? null
@@ -570,6 +614,5 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         super.resetLabel();
         super.disableFilters(false);
     }
-    
     
 }
