@@ -298,15 +298,15 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         //rij6
         lblAdresLocatie.setPadding(insetsLabel);
         txtStraat = new TextField();
-        txtStraat.setPromptText("Straat");
+        txtStraat.setPromptText("Straat *");
         txtHuisnr = new TextField();
-        txtHuisnr.setPromptText("Nummer");
+        txtHuisnr.setPromptText("Nummer *");
         txtBus = new TextField();
         txtBus.setPromptText("Bus");
         txtStad = new TextField();
-        txtStad.setPromptText("Gemeente");
+        txtStad.setPromptText("Gemeente *");
         txtPostcode = new TextField();
-        txtPostcode.setPromptText("Postcode");
+        txtPostcode.setPromptText("Postcode *");
         
         //rij7
         lblDeelnemers.setPadding(insetsLabel);
@@ -410,7 +410,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         btnWijzigActiviteit.getStyleClass().add("allButtons");
         btnWijzigActiviteit.getStyleClass().add("orangeBtn");
         
-        btnCancel = new Button("Cancel");
+        btnCancel = new Button("Ongedaan maken");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
         
@@ -547,6 +547,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
             btnWijzigActiviteit.setDisable(false);
             btnActiviteitVerwijderen.setDisable(false);
             btnSlaGegevensNieuweActiviteitOp.setVisible(false);
+            cancelToevoegenNieuweActiviteit();
 
         } catch (NumberFormatException ex) {
             super.setErrorLabelText("U moet een nummer geven bij max. aantal deelnemers!");
