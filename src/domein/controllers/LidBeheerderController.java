@@ -138,28 +138,55 @@ public class LidBeheerderController {
             String straat, String stad, String huisNr, String bus, String postcode, String email,
             String emailVader, String emailMoeder, String geboorteplaats, String wachtwoord, String nationaliteit,
             String beroep, Graad graad, Functie functie, String geslacht) {
-
-        lid.setVoornaam(voornaam);
-        lid.setAchternaam(achternaam);
-        lid.setGeboortedatum(geboorteDatum);
-        lid.setGeboorteplaats(geboorteplaats);
-        lid.setRijksregisterNr(rijksregisterNr);
-        lid.setGeslacht(geslacht);
-        lid.setNationaliteit(nationaliteit);
-        lid.setGsmNr(gsmNr);
-        lid.setVasteTelefoonNr(vasteTelefoonNr);
-        lid.setStraat(straat);
-        lid.setHuisNr(huisNr);
-        lid.setBus(bus);
-        lid.setStad(stad);
-        lid.setPostcode(postcode);
-        lid.setBeroep(beroep);
-        lid.setEmail(email);
-        lid.setEmailVader(emailVader);
-        lid.setEmailMoeder(emailMoeder);
-        lid.setGraad(graad);
-        lid.setFunctie(functie);
-        lid.setWachtwoord(wachtwoord);
+        if (!lid.getRijksregisterNr().equals(rijksregisterNr)) {
+            if (isRijksregisterNummerUniek(rijksregisterNr)) {
+                lid.setVoornaam(voornaam);
+                lid.setAchternaam(achternaam);
+                lid.setGeboortedatum(geboorteDatum);
+                lid.setGeboorteplaats(geboorteplaats);
+                lid.setRijksregisterNr(rijksregisterNr);
+                lid.setGeslacht(geslacht);
+                lid.setNationaliteit(nationaliteit);
+                lid.setGsmNr(gsmNr);
+                lid.setVasteTelefoonNr(vasteTelefoonNr);
+                lid.setStraat(straat);
+                lid.setHuisNr(huisNr);
+                lid.setBus(bus);
+                lid.setStad(stad);
+                lid.setPostcode(postcode);
+                lid.setBeroep(beroep);
+                lid.setEmail(email);
+                lid.setEmailVader(emailVader);
+                lid.setEmailMoeder(emailMoeder);
+                lid.setGraad(graad);
+                lid.setFunctie(functie);
+                lid.setWachtwoord(wachtwoord);
+            } else {
+                throw new IllegalArgumentException("Rijksregisternummer is niet uniek.");
+            }
+        } else {
+            lid.setVoornaam(voornaam);
+            lid.setAchternaam(achternaam);
+            lid.setGeboortedatum(geboorteDatum);
+            lid.setGeboorteplaats(geboorteplaats);
+            lid.setRijksregisterNr(rijksregisterNr);
+            lid.setGeslacht(geslacht);
+            lid.setNationaliteit(nationaliteit);
+            lid.setGsmNr(gsmNr);
+            lid.setVasteTelefoonNr(vasteTelefoonNr);
+            lid.setStraat(straat);
+            lid.setHuisNr(huisNr);
+            lid.setBus(bus);
+            lid.setStad(stad);
+            lid.setPostcode(postcode);
+            lid.setBeroep(beroep);
+            lid.setEmail(email);
+            lid.setEmailVader(emailVader);
+            lid.setEmailMoeder(emailMoeder);
+            lid.setGraad(graad);
+            lid.setFunctie(functie);
+            lid.setWachtwoord(wachtwoord);
+        }
     }
 
     public void voegLidToe(String voornaam, String achternaam, LocalDate geboorteDatum, String rijksregisterNr,
@@ -168,43 +195,56 @@ public class LidBeheerderController {
             String emailVader, String emailMoeder, String geboorteplaats, String wachtwoord, String nationaliteit,
             String beroep, Graad graad, Functie functie, String geslacht, Formule les) {
         Lid lid;
-        if (functie.equals(Functie.PROEFLID)) {
-            lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr, geslacht, functie);
+        if (isRijksregisterNummerUniek(rijksregisterNr)) {
+            if (functie.equals(Functie.PROEFLID)) {
+                lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr, geslacht, functie);
+            } else {
+                lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr,
+                        gsmNr, vasteTelefoonNr, stad, straat, huisNr, postcode, email, wachtwoord,
+                        geboorteplaats, geslacht, nationaliteit, graad, functie);
+            }
+            lid.setEmailMoeder(emailMoeder);
+            lid.setEmailVader(emailVader);
+            lid.setBus(bus);
+            lid.setBeroep(beroep);
+
+            //lid toevoegen aan lessenactiviteit
+            if (les == null) {
+                throw new IllegalArgumentException("Inschrijving les mag niet leeg zijn!");
+            } else {
+                Inschrijving inschrijving = new Inschrijving(les, lid, LocalDate.now());
+                dataController.geefInschrijvingen().add(inschrijving);
+                List<Activiteit> activiteiten = dataController
+                        .geefActiviteiten()
+                        .stream()
+                        .filter(activiteit -> activiteit.getFormule().equals(les))
+                        .collect(Collectors.toList());
+
+                activiteiten.stream().forEach(activiteit -> {
+                    activiteit.voegInschrijvingToe(inschrijving);
+                    activiteit.setAantalDeelnemers();
+                });
+            }
+
+            this.ledenList.add(lid);
+            dataController.geefLeden().add(lid);
         } else {
-            lid = new Lid(voornaam, achternaam, geboorteDatum, rijksregisterNr,
-                    gsmNr, vasteTelefoonNr, stad, straat, huisNr, postcode, email, wachtwoord,
-                    geboorteplaats, geslacht, nationaliteit, graad, functie);
+            throw new IllegalArgumentException("Rijksregisternummer is niet uniek.");
         }
-        lid.setEmailMoeder(emailMoeder);
-        lid.setEmailVader(emailVader);
-        lid.setBus(bus);
-        lid.setBeroep(beroep);
-
-        //lid toevoegen aan lessenactiviteit
-        if (les == null) {
-            throw new IllegalArgumentException("Inschrijving les mag niet leeg zijn!");
-        } else {
-            Inschrijving inschrijving = new Inschrijving(les, lid, LocalDate.now());
-            dataController.geefInschrijvingen().add(inschrijving);
-            List<Activiteit> activiteiten = dataController
-                    .geefActiviteiten()
-                    .stream()
-                    .filter(activiteit -> activiteit.getFormule().equals(les))
-                    .collect(Collectors.toList());
-
-            activiteiten.stream().forEach(activiteit -> {
-                activiteit.voegInschrijvingToe(inschrijving);
-                activiteit.setAantalDeelnemers();
-            });
-        }
-
-        this.ledenList.add(lid);
-        dataController.geefLeden().add(lid);
     }
 
     public void verwijderLid(Lid lid) {
         this.ledenList.remove(lid);
         dataController.geefLeden().remove(lid);
+    }
+
+    //Hulpmethode checken of rijksregisternr uniek is
+    private boolean isRijksregisterNummerUniek(String rijksregisterNr) {
+        return dataController.geefLeden()
+                .stream()
+                .filter(lid -> lid.getRijksregisterNr().replaceAll("-", "").replaceAll(".", "")
+                .equals(rijksregisterNr.replaceAll("-", "").replaceAll(".", "")))
+                .count() == 0;
     }
 
     //
