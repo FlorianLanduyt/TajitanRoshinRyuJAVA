@@ -5,6 +5,7 @@
  */
 package gui.overzichten;
 
+import domein.Activiteit;
 import domein.Inschrijving;
 import domein.controllers.AdminController;
 import domein.controllers.DataController;
@@ -15,7 +16,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -50,7 +50,10 @@ public class InschrijvingenOverzicht extends Overzicht {
     private DataController dc;
 
     private VBox detailScherm;
-    private TableView<Formule> tvFormules;
+    private TableView<Activiteit> tvActiviteiten;
+    private TableColumn<Activiteit, String> colNaamActiviteit;
+    private TableColumn<Activiteit, String> colStartdatumActiviteit;
+    private TableColumn<Activiteit, String> colEinddatumActiviteit;
     private Text txLid;
     private Text txDatum;
 
@@ -142,16 +145,20 @@ public class InschrijvingenOverzicht extends Overzicht {
         detailScherm = new VBox();
         geefInformatieInschrijving();
 
-        tvFormules = new TableView();
-        TableColumn<Formule, String> formules = new TableColumn("Formules");
-        formules.setCellValueFactory(cellData -> cellData.getValue().naamFormuleProperty());
-        tvFormules.getColumns().add(formules);
+        tvActiviteiten = new TableView();
+        colNaamActiviteit = new TableColumn("Naam");
+        colStartdatumActiviteit = new TableColumn("Startdatum");
+        colEinddatumActiviteit = new TableColumn("Einddatum");
+        colNaamActiviteit.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
+        colStartdatumActiviteit.setCellValueFactory(cellData -> cellData.getValue().beginDatumProperty());
+        colEinddatumActiviteit.setCellValueFactory(cellData -> cellData.getValue().eindDatumProperty());
+        tvActiviteiten.getColumns().addAll(colNaamActiviteit,colStartdatumActiviteit, colEinddatumActiviteit);
         
-        formules.getStyleClass().add("titelLinks");
-        formules.getStyleClass().add("name-column");
+        tvActiviteiten.getStyleClass().add("titelLinks");
+        tvActiviteiten.getStyleClass().add("name-column");
         
 
-        VBox formulesBox = opmaakFormulesTabel(tvFormules);
+        VBox formulesBox = opmaakActiviteitenTabel(tvActiviteiten);
 
         detailScherm.getChildren().add(formulesBox);
         super.setDetailScherm(detailScherm);
@@ -160,7 +167,7 @@ public class InschrijvingenOverzicht extends Overzicht {
     private void clearAlleVelden(){
         txLid.setText("");
         txDatum.setText("");
-        tvFormules.setItems(null);
+        tvActiviteiten.setItems(null);
     }
 
     private void vulDetailScherm(Inschrijving inschrijving) {
@@ -169,7 +176,7 @@ public class InschrijvingenOverzicht extends Overzicht {
             txLid.setText(inschrijving.getAchternaam() + ", " + inschrijving.getVoornaam());
             txDatum.setText(inschrijving.getTijdstip().toString());
 
-            tvFormules.setItems((oc.geefFormulesPerLid(inschrijving.getLid())));
+            tvActiviteiten.setItems(oc.geefActiviteitenVoorInschrijving(inschrijving));
         }catch(NullPointerException e){
             //wanneer er geen inschrijving is geselecteerd
         }
@@ -193,11 +200,11 @@ public class InschrijvingenOverzicht extends Overzicht {
 
     }
 
-    private VBox opmaakFormulesTabel(TableView<Formule> formules) {
+    private VBox opmaakActiviteitenTabel(TableView<Activiteit> activiteitTabel) {
         VBox tabelBox = new VBox();
-        tabelBox.setMaxSize(200, 200);
-        formules.getColumns().stream().forEach(k -> k.setMinWidth(199));
-        tabelBox.getChildren().add(formules);
+        tabelBox.setMaxSize(300, 300);
+        activiteitTabel.getColumns().stream().forEach(k -> k.setMinWidth(99));
+        tabelBox.getChildren().add(activiteitTabel);
 
         return tabelBox;
     }
