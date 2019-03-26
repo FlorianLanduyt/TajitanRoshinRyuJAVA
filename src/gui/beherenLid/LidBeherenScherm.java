@@ -158,7 +158,9 @@ public class LidBeherenScherm extends Overzicht {
                     btnNieuwLid.setDisable(false);
                     vulDetailScherm(newSelection);
                 });
-
+        
+        tvOverzichtLeden.setPlaceholder(new Label("Geen leden"));
+        
         maakKolommenInTabel();
 
         tvOverzichtLeden.setItems((lc.geefObservableListLeden()));
@@ -394,18 +396,18 @@ public class LidBeherenScherm extends Overzicht {
 
         btnNieuwLid = new Button("Lid toevoegen");
         btnNieuwLid.getStyleClass().add("allButtons");
-        btnNieuwLid.getStyleClass().add("mk");
+        btnNieuwLid.getStyleClass().add("crud");
 
         btnWijzigingenOpslaan = new Button("Wijzigingen opslaan");
         btnWijzigingenOpslaan.getStyleClass().add("allButtons");
-        btnWijzigingenOpslaan.getStyleClass().add("mk");
+        btnWijzigingenOpslaan.getStyleClass().add("crud");
 
         btnCancel = new Button("Cancel");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
 
         btnSlaGegevensNieuwLidOp = new Button("Lid toevoegen");
-        btnSlaGegevensNieuwLidOp.getStyleClass().add("mk");
+        btnSlaGegevensNieuwLidOp.getStyleClass().add("crud");
         btnSlaGegevensNieuwLidOp.getStyleClass().add("allButtons");
 
         super.addCrudKnop(btnLidVerwijderen);

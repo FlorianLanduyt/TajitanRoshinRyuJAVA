@@ -406,11 +406,12 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         
         btnNieuwActiviteit = new Button("Activiteit toevoegen");
         btnNieuwActiviteit.getStyleClass().add("allButtons");
-        btnNieuwActiviteit.getStyleClass().add("mk");
+        btnNieuwActiviteit.getStyleClass().add("crud");
+        
         
         btnWijzigActiviteit = new Button("Wijzigingen opslaan");
         btnWijzigActiviteit.getStyleClass().add("allButtons");
-        btnWijzigActiviteit.getStyleClass().add("mk");
+        btnWijzigActiviteit.getStyleClass().add("crud");
         
         btnCancel = new Button("Ongedaan maken");
         btnCancel.getStyleClass().add("greyBtn");

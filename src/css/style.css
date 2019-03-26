@@ -72,11 +72,7 @@
     
 }
 
-.orangeBtn:hover{
-    
-    
-    
-}
+
 
 .terugBtn {
     -fx-background-color: #996888;
@@ -129,7 +125,7 @@
 }
 
 .greyDropdown {
-    -fx-background-color: #C5C6C2;
+    -fx-background-color: #D8D9D5;
 }
 
 .greyDropdown:hover {
@@ -195,6 +191,17 @@ TextField {
     -fx-background-color: #996888;
     -fx-text-fill: white;
     
+}
+
+.crud {
+    -fx-background-color: #dee8e2;
+    
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.crud:hover{
+    -fx-background-color: #B5C9C3;
 }
  
 

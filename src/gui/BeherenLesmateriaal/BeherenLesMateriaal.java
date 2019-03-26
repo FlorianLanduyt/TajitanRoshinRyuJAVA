@@ -63,6 +63,7 @@ public class BeherenLesMateriaal extends Overzicht {
     private TextField txtUrlAfbeelding;
     private TextField txtUrlVideo;
     private TextArea txaTekst;
+   
 
     //CRUD
     private Button btnLesmateriaalToevoegen;
@@ -70,6 +71,8 @@ public class BeherenLesMateriaal extends Overzicht {
     private Button btnLesmateriaalWijzigen;
     private Button btnCancel;
     private Button btnSlaNieuweGegevensLesmateriaalOp;
+    
+    private VBox overzicht;
 
     public BeherenLesMateriaal(BeginSchermFlo parent, AdminController ac, String naamVenster) {
         super(parent, ac, naamVenster);
@@ -157,7 +160,9 @@ public class BeherenLesMateriaal extends Overzicht {
         tblOefeningen.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             vulDetailScherm(newSelection);
         });
-
+        
+        tblOefeningen.setPlaceholder(new Label("Geen oefeningen"));
+        
         maakKolommenInTabel();
 
         tblOefeningen.setItems((lesmateriaalBeheerController.geefObservableListOefeningen()));
@@ -251,18 +256,18 @@ public class BeherenLesMateriaal extends Overzicht {
 
         btnLesmateriaalToevoegen = new Button("Lesmateriaal toevoegen");
         btnLesmateriaalToevoegen.getStyleClass().add("allButtons");
-        btnLesmateriaalToevoegen.getStyleClass().add("mk");
+        btnLesmateriaalToevoegen.getStyleClass().add("crud");
 
         btnLesmateriaalWijzigen = new Button("Wijzigingen opslaan");
         btnLesmateriaalWijzigen.getStyleClass().add("allButtons");
-        btnLesmateriaalWijzigen.getStyleClass().add("mk");
+        btnLesmateriaalWijzigen.getStyleClass().add("crud");
 
         btnCancel = new Button("Cancel");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
 
         btnSlaNieuweGegevensLesmateriaalOp = new Button("Lesmateriaal toevoegen");
-        btnSlaNieuweGegevensLesmateriaalOp.getStyleClass().add("mk");
+        btnSlaNieuweGegevensLesmateriaalOp.getStyleClass().add("crud");
         btnSlaNieuweGegevensLesmateriaalOp.getStyleClass().add("allButtons");
 
         super.addCrudKnop(btnLesmateriaalVerwijderen);
@@ -415,6 +420,7 @@ public class BeherenLesMateriaal extends Overzicht {
 
     private void slaGegevensNieuwLesMateriaalOp() {
         try {
+            
             lesmateriaalBeheerController.voegOefeningToe(txtTitelDetail.getText(), txtUrlVideo.getText(),
                     txtUrlAfbeelding.getText(), txaTekst.getText(), cboGraadDetail.getSelectionModel().getSelectedItem(),
                     lesmateriaalBeheerController.geefThemas()
@@ -430,5 +436,9 @@ public class BeherenLesMateriaal extends Overzicht {
             super.setErrorLabelText(e.getMessage());
         }
     }
+    
+    
+        
+    
 
 }

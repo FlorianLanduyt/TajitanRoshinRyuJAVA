@@ -175,6 +175,7 @@ public class Overzicht<T> extends BorderPane {
             box.getChildren().add(r);
             knoppenOnderTabel.stream().forEach(k -> {
                 k.setMinWidth(150);
+                k.setStyle("-fx-font-size: 18;");
                 //k.setStyle("-fx-background-color: #F3CAAA; ");
                 box.getChildren().add(k);
 
@@ -224,6 +225,7 @@ public class Overzicht<T> extends BorderPane {
         if (!this.crudKnoppen.isEmpty()) {
             this.crudKnoppen.stream().forEach(b -> {
                 b.setMinWidth(150);
+                b.setStyle("-fx-font-size: 16");
             });
 
             Region r1 = new Region();
@@ -298,5 +300,6 @@ public class Overzicht<T> extends BorderPane {
         lblError = new Label();
         maakErrorLabel();
     }
+
 
 }

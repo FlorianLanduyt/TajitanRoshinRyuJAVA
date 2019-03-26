@@ -133,6 +133,8 @@ public class Clubkampioenschap extends Overzicht{
         
         aanwezighedenTabel.getStyleClass().add("kleineTabel");
         
+        aanwezighedenTabel.setPlaceholder(new Label("Geen aanwezigheden"));
+        
 
         VBox raadplegingBox = opmaakAanwezigheidsTabel(aanwezighedenTabel);
 

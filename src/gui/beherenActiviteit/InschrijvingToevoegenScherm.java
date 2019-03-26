@@ -108,19 +108,19 @@ public class InschrijvingToevoegenScherm extends VBox {
         colFamilienaam.setResizable(false);
         colFamilienaam.setSortable(true);
         colFamilienaam.prefWidthProperty().bind(breedteKolom);
-        colFamilienaam.getStyleClass().add("titelLinks");
+        colFamilienaam.getStyleClass().add("name-column");
 
         colVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         colVoornaam.setResizable(false);
         colVoornaam.setSortable(true);
         colVoornaam.prefWidthProperty().bind(breedteKolom);
-        colVoornaam.getStyleClass().add("titelLinks");
+        colVoornaam.getStyleClass().add("name-column");
         
         colGeboorteDatum.setCellValueFactory(cellData -> cellData.getValue().geboortedatumProperty());
         colGeboorteDatum.setResizable(false);
         colGeboorteDatum.setSortable(true);
         colGeboorteDatum.prefWidthProperty().bind(breedteKolom);
-        colGeboorteDatum.getStyleClass().add("titelLinks");
+        colGeboorteDatum.getStyleClass().add("name-column");
 
         tblLeden.setItems(activiteitBeheerController.geefLedenNogNietIngeschreven(activiteit));
         tblLeden.getColumns().addAll(colFamilienaam, colVoornaam, colGeboorteDatum);
@@ -128,6 +128,11 @@ public class InschrijvingToevoegenScherm extends VBox {
         tblLeden.setScaleShape(false);
         tblLeden.setId("table");
         tblLeden.getSelectionModel().clearSelection();
+        
+        tblLeden.getStyleClass().add("titelLinks");
+        tblLeden.getStyleClass().add("name-column");
+        
+        
 
         tabel.getChildren().add(tblLeden);
         this.getChildren().add(tabel);
@@ -139,7 +144,7 @@ public class InschrijvingToevoegenScherm extends VBox {
         btnVoegInschrijvingToe = new Button("Voeg lid toe");
         btnVoegInschrijvingToe.setPrefWidth(tblLeden.getPrefWidth());
         VBox button = new VBox(btnVoegInschrijvingToe);
-        button.setPadding(new Insets(5,5,5,5));
+        button.setPadding(new Insets(5));
         this.getChildren().add(button);
     }
     
