@@ -100,7 +100,7 @@ public class Lid implements Serializable {
             String huisNr, String postcode, String email,
             String wachtwoord, String geboorteplaats, String geslacht,
             String nationaliteit, Graad graad, Functie functie) {
-        this(voornaam, achternaam, geboortedatum, rijksregisterNr, geslacht,functie);
+        this(voornaam, achternaam, geboortedatum, rijksregisterNr, geslacht, functie);
         setGsmNr(gsmNr);
         setVasteTelefoonNr(vasteTelefoonNr);
         setStad(stad);
