@@ -195,13 +195,14 @@ public class Overzicht<T> extends BorderPane {
 
     private void maakDetailScherm(int hoogteDetailScherm) {
 
-        String cssLayout = "-fx-background-color: #F3CAAA; -fx-background-radius:15px;";
+        //String cssLayout = "-fx-background-color: #F3CAAA; -fx-background-radius:15px;";
         Pane bovenPadding = new Pane();
         bovenPadding.setMinHeight(hoogteDetailScherm);
 
         detailScherm.setSpacing(10);
         detailScherm.setPadding(new Insets(8, 20, 20, 20));
-        detailScherm.setStyle(cssLayout);
+        //detailScherm.setStyle(cssLayout);
+        detailScherm.getStyleClass().add("detailScherm");
 
         Pane zijPadding = new Pane();
         //zijPadding.setMinWidth(50);

@@ -19,6 +19,14 @@
     -fx-focus-color: transparent;
 }
 
+.hoofdMenuLabel{
+    -fx-font-size: 25px;
+    -fx-background-color: #dee8e2;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-padding: 0 0 0 0;
+    -fx-border-color:#996888;
+}
+
 
 .btn {
 }
@@ -37,6 +45,11 @@
 
 .bgr {
     -fx-background-color: #dee8e2;
+}
+
+.detailScherm{
+    -fx-background-color: #dee8e2; 
+    -fx-background-radius:15px;
 }
 
 .titel{
@@ -69,14 +82,14 @@
 }
 
 .terugBtn {
-    -fx-background-color: #F3CAAA;
-    -fx-border-color: #F3CAAA;
+    -fx-background-color: #996888;
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
 }
 
 .terugBtn:hover {
-    -fx-background-color: #dee8e2;
-    -fx-border-width: 2px;
-    -fx-border-color: #F3CAAA;
+    -fx-background-color: #B6C8C0;
+    -fx-text-fill: black;
 }
 
 .placeholder {
@@ -168,13 +181,23 @@ TextField {
 }
 
 .mk{
-    -fx-background-color: #F3CAAA;
+    -fx-background-color: #B6C8C0;
     
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.mk:selected{
+    -fx-background-color: #996888;
+    
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
 }
 
 
 .mk:hover{
-    -fx-background-color: #C7A68C;
+    -fx-background-color: #996888;
+    -fx-text-fill: white;
     
 }
  

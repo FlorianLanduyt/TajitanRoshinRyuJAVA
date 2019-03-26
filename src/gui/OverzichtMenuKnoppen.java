@@ -41,6 +41,7 @@ public class OverzichtMenuKnoppen extends MenuKnoppen {
             @Override
             public void handle(ActionEvent event) {
                 parent.ToonOverzichtenScherm(new ActiviteitenOverzicht(parent, ac, "Activiteiten overzicht"));
+                //btnActiviteiten.setStyle("-fx-background-color: black");
             }
         });
         btnActiviteiten.setOnKeyPressed(new EventHandler<KeyEvent>() {

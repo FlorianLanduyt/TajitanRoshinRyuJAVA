@@ -53,6 +53,7 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         lblMenu.setMaxWidth(220);
         lblMenu.setPrefHeight(45);
         lblMenu.setStyle("-fx-font-size: 25px");
+        //lblMenu.getStyleClass().add("hoofdMenuLabel");
         lblMenu.getStyleClass().add("bgr");
         
         
@@ -72,6 +73,7 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     }
 
     private void maakAanmeldBox() {
+        
         aanmeldenBox = new GridPane();
         BorderPane.setMargin(aanmeldenBox, new Insets(5));
         aanmeldenBox.getStyleClass().add("greenBtn");
@@ -80,13 +82,13 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         setAfbeelding();
         
         this.setRight(aanmeldenBox);
-        
+        aanmeldenBox.requestFocus();
         
         aanmeldenBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 aanmeldenBox.setCursor(Cursor.HAND);
-                aanmeldenBox.getStyleClass().add("hover");
+                //aanmeldenBox.getStyleClass().add("hover");
             }
         });
         aanmeldenBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
