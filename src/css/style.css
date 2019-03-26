@@ -31,9 +31,6 @@
 .btn {
 }
 
-.btn:active {
-    -fx-background-color: white;
-}
 
 .btn:hover {
     -fx-background-color: #dee8e2;
@@ -48,7 +45,7 @@
 }
 
 .detailScherm{
-    -fx-background-color: #dee8e2; 
+    -fx-background-color: #ECE3E9; 
     -fx-background-radius:15px;
 }
 
@@ -71,13 +68,13 @@
 }
 
 .orangeBtn {
-    -fx-background-color: #F3CAAA;
-    -fx-border-width: 2px;
+    -fx-background-color: #996888;
+    
 }
 
 .orangeBtn:hover{
-    -fx-background-color: white;
-    -fx-border-color: #F3CAAA;
+    
+    
     
 }
 
@@ -98,12 +95,11 @@
 
 .greyBtn {
     -fx-background-color: #D8D9D5;
-    -fx-border-width: 2px;
+    -fx-background-radius: 20;
 }
 
 .greyBtn:hover {
-    -fx-background-color: white;
-    -fx-border-color: #D8D9D5;
+    -fx-background-color: #E2BBBA;
 }
 
 .greenBtn {

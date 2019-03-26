@@ -76,8 +76,9 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         
         aanmeldenBox = new GridPane();
         BorderPane.setMargin(aanmeldenBox, new Insets(5));
-        aanmeldenBox.getStyleClass().add("greenBtn");
+        aanmeldenBox.getStyleClass().add("mk");
         aanmeldenBox.getStyleClass().add("allButtons");
+        aanmeldenBox.setPadding(new Insets(5));
         setLabel();
         setAfbeelding();
         
@@ -120,7 +121,6 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         
         lblAanmelden.setStyle("-fx-font-size: 18px");
         lblAanmelden.setPadding(new Insets(5));
-        
         aanmeldenBox.add(lblAanmelden, 0, 0);
     }
     

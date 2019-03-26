@@ -251,18 +251,18 @@ public class BeherenLesMateriaal extends Overzicht {
 
         btnLesmateriaalToevoegen = new Button("Lesmateriaal toevoegen");
         btnLesmateriaalToevoegen.getStyleClass().add("allButtons");
-        btnLesmateriaalToevoegen.getStyleClass().add("orangeBtn");
+        btnLesmateriaalToevoegen.getStyleClass().add("mk");
 
         btnLesmateriaalWijzigen = new Button("Wijzigingen opslaan");
         btnLesmateriaalWijzigen.getStyleClass().add("allButtons");
-        btnLesmateriaalWijzigen.getStyleClass().add("orangeBtn");
+        btnLesmateriaalWijzigen.getStyleClass().add("mk");
 
         btnCancel = new Button("Cancel");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
 
         btnSlaNieuweGegevensLesmateriaalOp = new Button("Lesmateriaal toevoegen");
-        btnSlaNieuweGegevensLesmateriaalOp.getStyleClass().add("orangeBtn");
+        btnSlaNieuweGegevensLesmateriaalOp.getStyleClass().add("mk");
         btnSlaNieuweGegevensLesmateriaalOp.getStyleClass().add("allButtons");
 
         super.addCrudKnop(btnLesmateriaalVerwijderen);

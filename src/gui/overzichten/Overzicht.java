@@ -285,7 +285,7 @@ public class Overzicht<T> extends BorderPane {
 
     private void maakErrorLabel() {
         lblError.setTextFill(Color.web("#B14643"));
-        lblError.setStyle("-fx-font-size: 20px");
+        lblError.setStyle("-fx-font-size: 18px");
         this.paddingBox.getChildren().add(lblError);
     }
     

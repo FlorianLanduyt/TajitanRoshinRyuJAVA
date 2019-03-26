@@ -394,18 +394,18 @@ public class LidBeherenScherm extends Overzicht {
 
         btnNieuwLid = new Button("Lid toevoegen");
         btnNieuwLid.getStyleClass().add("allButtons");
-        btnNieuwLid.getStyleClass().add("orangeBtn");
+        btnNieuwLid.getStyleClass().add("mk");
 
         btnWijzigingenOpslaan = new Button("Wijzigingen opslaan");
         btnWijzigingenOpslaan.getStyleClass().add("allButtons");
-        btnWijzigingenOpslaan.getStyleClass().add("orangeBtn");
+        btnWijzigingenOpslaan.getStyleClass().add("mk");
 
         btnCancel = new Button("Cancel");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
 
         btnSlaGegevensNieuwLidOp = new Button("Lid toevoegen");
-        btnSlaGegevensNieuwLidOp.getStyleClass().add("orangeBtn");
+        btnSlaGegevensNieuwLidOp.getStyleClass().add("mk");
         btnSlaGegevensNieuwLidOp.getStyleClass().add("allButtons");
 
         super.addCrudKnop(btnLidVerwijderen);
