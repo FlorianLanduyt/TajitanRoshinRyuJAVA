@@ -77,6 +77,7 @@ public class Clubkampioenschap extends Overzicht{
         cboLeeftijdsCategorie = new ComboBox();
         cboLeeftijdsCategorie.setPromptText("Alle leeftijdscategoriën");
         cboLeeftijdsCategorie.setItems(oc.geefLeeftijdsCategoriën());
+        //cboLeeftijdsCategorie.setMinWidth(300);
         super.addCombobox(cboLeeftijdsCategorie);
     }
     
