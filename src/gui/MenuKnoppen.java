@@ -30,14 +30,20 @@ public class MenuKnoppen extends VBox {
     }
     
     public void buildGui(){
+        this.setSpacing(50);
+        
         for(Button b: knoppen){
             b.setPrefHeight(20);
             b.setPrefWidth(200);
             b.setAlignment(Pos.BASELINE_LEFT);
-            b.setPadding(new Insets(50,5,50,10));
+            b.setPadding(new Insets(0,5,0,10));
             this.getChildren().add(b);
-            b.getStyleClass().add("btn");
+            //b.getStyleClass().add("btn");
+            //b.getStyleClass().add("orangeBtn");
+            b.getStyleClass().add("mk");
+            b.setPadding(new Insets(5,0,5,0));
             b.setStyle("-fx-font-size: 16px");
+            b.setAlignment(Pos.CENTER);
             
             b.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override

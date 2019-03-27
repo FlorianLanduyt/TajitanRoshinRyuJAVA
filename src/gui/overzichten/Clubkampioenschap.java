@@ -70,13 +70,14 @@ public class Clubkampioenschap extends Overzicht{
         maakDetailScherm();
         maakFilter();
         
-        super.buildGui(47);
+        super.buildGui(49);
     }
 
     public void maakFilter(){
         cboLeeftijdsCategorie = new ComboBox();
         cboLeeftijdsCategorie.setPromptText("Alle leeftijdscategoriën");
         cboLeeftijdsCategorie.setItems(oc.geefLeeftijdsCategoriën());
+        //cboLeeftijdsCategorie.setMinWidth(300);
         super.addCombobox(cboLeeftijdsCategorie);
     }
     
@@ -132,6 +133,8 @@ public class Clubkampioenschap extends Overzicht{
         aanwezighedenTabel.getColumns().add(colPuntenActiviteit);
         
         aanwezighedenTabel.getStyleClass().add("kleineTabel");
+        
+        aanwezighedenTabel.setPlaceholder(new Label("Geen aanwezigheden"));
         
 
         VBox raadplegingBox = opmaakAanwezigheidsTabel(aanwezighedenTabel);

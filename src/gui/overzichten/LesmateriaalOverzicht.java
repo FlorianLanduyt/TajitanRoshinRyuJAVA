@@ -42,6 +42,8 @@ public class LesmateriaalOverzicht extends Overzicht {
     private TableColumn<Raadpleging, String> colNaamLesmateriaal;
     private TableColumn<Raadpleging, String> colGraadLesmateriaal;
     private TableColumn<Raadpleging, String> colAantalRaadplegingen;
+    
+    private Text lblLid, lblTitel,lblAantalRaadplegingen, lblThema,lblDatumLaatsteRaadpleging;
 
     //filters
     private TextField txtLedenVoornaam;
@@ -99,7 +101,7 @@ public class LesmateriaalOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(47);
+        super.buildGui(49);
     }
 
     private void maakFilters() {
@@ -178,11 +180,11 @@ public class LesmateriaalOverzicht extends Overzicht {
     }
 
     private void geefInformatieRaadpleging() {
-        Text lblLid = new Text("Lid:");
-        Text lblTitel = new Text("Titel oefening:");
-        Text lblAantalRaadplegingen = new Text("Totaal aantal raadplegingen:");
-        Text lblThema = new Text("Thema:");
-        Text lblDatumLaatsteRaadpleging = new Text("Datum laatste raadpleging:");
+        lblLid = new Text("Lid:");
+        lblTitel = new Text("Titel oefening:");
+        lblAantalRaadplegingen = new Text("Totaal aantal raadplegingen:");
+        lblThema = new Text("Thema:");
+        lblDatumLaatsteRaadpleging = new Text("Datum laatste raadpleging:");
 
         opmaakLabels(Arrays.asList(lblTitel, lblAantalRaadplegingen, lblThema, lblLid, lblDatumLaatsteRaadpleging));
 
@@ -243,4 +245,5 @@ public class LesmateriaalOverzicht extends Overzicht {
         oc.veranderRaadplegingFilter(lidVoornaam, lidFamilienaam, oefening, van, tot);
         raadplegingTabel.getSelectionModel().selectFirst();
     }
+    
 }

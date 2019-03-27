@@ -78,6 +78,8 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     private Button btnCancel;
     private Button btnSlaGegevensNieuweActiviteitOp;
     
+    
+    
     private InschrijvingToevoegenScherm inschrijvingToevoegenScherm;
     
 
@@ -105,7 +107,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         });
         
         btnCancel.setOnAction((ActionEvent action) -> {
-            cancelToevoegenNieuweActiviteit();
+            terugNaarOverzicht();
         });
         
         btnActiviteitVerwijderen.setOnAction((ActionEvent event) -> {
@@ -141,7 +143,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         maakDetailScherm();
         maakCrudknoppen();
 
-        super.buildGui(44);
+        super.buildGui(49);
     }
 
     private void maakFilters() {
@@ -404,18 +406,19 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         
         btnNieuwActiviteit = new Button("Activiteit toevoegen");
         btnNieuwActiviteit.getStyleClass().add("allButtons");
-        btnNieuwActiviteit.getStyleClass().add("orangeBtn");
+        btnNieuwActiviteit.getStyleClass().add("crud");
+        
         
         btnWijzigActiviteit = new Button("Wijzigingen opslaan");
         btnWijzigActiviteit.getStyleClass().add("allButtons");
-        btnWijzigActiviteit.getStyleClass().add("orangeBtn");
+        btnWijzigActiviteit.getStyleClass().add("crud");
         
         btnCancel = new Button("Ongedaan maken");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
         
         btnSlaGegevensNieuweActiviteitOp = new Button("Activiteit toevoegen");
-        btnSlaGegevensNieuweActiviteitOp.getStyleClass().add("orangeBtn");
+        btnSlaGegevensNieuweActiviteitOp.getStyleClass().add("mk");
         btnSlaGegevensNieuweActiviteitOp.getStyleClass().add("allButtons");
         
         
@@ -484,14 +487,6 @@ public class ActiviteitenBeherenScherm extends Overzicht {
     }
     
     
-    private void voegActiviteitToe() {
-        btnWijzigActiviteit.setDisable(true);
-        btnActiviteitVerwijderen.setDisable(true);
-        btnSlaGegevensNieuweActiviteitOp.setVisible(true);
-    }
-
-    
-    
 
     //
     //CRUD - inschrijvingen
@@ -510,6 +505,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                     abc, activiteit);
 
             Scene scene = new Scene(inschrijvingToevoegenScherm, 400, 400);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Toevoegen lid");
@@ -544,19 +540,20 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                     txtStraat.getText(), txtStad.getText(), txtPostcode.getText(), txtHuisnr.getText(), txtBus.getText(),
                     txtNaamLocatie.getText(), txtGsmnummerLocatie.getText(), txtEmailLocatie.getText());
             super.setErrorLabelText("");
+            terugNaarOverzicht();
             btnWijzigActiviteit.setDisable(false);
             btnActiviteitVerwijderen.setDisable(false);
             btnSlaGegevensNieuweActiviteitOp.setVisible(false);
-            cancelToevoegenNieuweActiviteit();
-
         } catch (NumberFormatException ex) {
             super.setErrorLabelText("U moet een nummer geven bij max. aantal deelnemers!");
             txtMaxAantalDeelnemers.clear();
         } catch (IllegalArgumentException e) {
             super.setErrorLabelText(e.getMessage());
         }
-
+        
     }
+    
+    
 
     private void wijzigActiviteit() {
         Activiteit activiteit = tvActiviteiten.getSelectionModel().getSelectedItem();
@@ -605,7 +602,18 @@ public class ActiviteitenBeherenScherm extends Overzicht {
 
     }
 
-    private void cancelToevoegenNieuweActiviteit() {
+//    private void cancelToevoegenNieuweActiviteit() {
+//        tvActiviteiten.getSelectionModel().selectFirst();
+//        
+//        super.emptyCrudKnoppenList();
+//        super.addCrudKnop(btnActiviteitVerwijderen);
+//        super.addCrudKnop(btnWijzigActiviteit);
+//        super.maakCrudKnoppen();
+//        super.resetLabel();
+//        super.disableFilters(false);
+//    }
+    
+    private void terugNaarOverzicht() {
         tvActiviteiten.getSelectionModel().selectFirst();
         
         super.emptyCrudKnoppenList();

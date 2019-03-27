@@ -175,6 +175,7 @@ public class Overzicht<T> extends BorderPane {
             box.getChildren().add(r);
             knoppenOnderTabel.stream().forEach(k -> {
                 k.setMinWidth(150);
+                k.setStyle("-fx-font-size: 18;");
                 //k.setStyle("-fx-background-color: #F3CAAA; ");
                 box.getChildren().add(k);
 
@@ -189,19 +190,21 @@ public class Overzicht<T> extends BorderPane {
         tvTabel.setScaleShape(false);
         tvTabel.setId("table");
         tvTabel.getSelectionModel().clearSelection();
+        tvTabel.getStyleClass().add("selectionbar");
 
         tvTabel.getStyleClass().add("table-row-cell");
     }
 
     private void maakDetailScherm(int hoogteDetailScherm) {
 
-        String cssLayout = "-fx-background-color: #F3CAAA; -fx-background-radius:15px;";
+        //String cssLayout = "-fx-background-color: #F3CAAA; -fx-background-radius:15px;";
         Pane bovenPadding = new Pane();
         bovenPadding.setMinHeight(hoogteDetailScherm);
 
         detailScherm.setSpacing(10);
         detailScherm.setPadding(new Insets(8, 20, 20, 20));
-        detailScherm.setStyle(cssLayout);
+        //detailScherm.setStyle(cssLayout);
+        detailScherm.getStyleClass().add("detailScherm");
 
         Pane zijPadding = new Pane();
         //zijPadding.setMinWidth(50);
@@ -223,6 +226,7 @@ public class Overzicht<T> extends BorderPane {
         if (!this.crudKnoppen.isEmpty()) {
             this.crudKnoppen.stream().forEach(b -> {
                 b.setMinWidth(150);
+                b.setStyle("-fx-font-size: 16");
             });
 
             Region r1 = new Region();
@@ -284,7 +288,7 @@ public class Overzicht<T> extends BorderPane {
 
     private void maakErrorLabel() {
         lblError.setTextFill(Color.web("#B14643"));
-        lblError.setStyle("-fx-font-size: 20px");
+        lblError.setStyle("-fx-font-size: 18px");
         this.paddingBox.getChildren().add(lblError);
     }
     
@@ -297,5 +301,6 @@ public class Overzicht<T> extends BorderPane {
         lblError = new Label();
         maakErrorLabel();
     }
+
 
 }

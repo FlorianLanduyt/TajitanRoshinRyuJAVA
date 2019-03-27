@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -50,10 +51,13 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     private void maakMenuTitle() {
         Label lblMenu = new Label(menuTitle);
         lblMenu.setMinWidth(220);
-        lblMenu.setMaxWidth(200);
+        lblMenu.setMaxWidth(220);
         lblMenu.setPrefHeight(45);
         lblMenu.setStyle("-fx-font-size: 25px");
+        //lblMenu.getStyleClass().add("hoofdMenuLabel");
         lblMenu.getStyleClass().add("bgr");
+        
+        
         lblMenu.setAlignment(Pos.BASELINE_CENTER);
         this.setLeft(lblMenu);
     }
@@ -70,21 +74,23 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
     }
 
     private void maakAanmeldBox() {
+        
         aanmeldenBox = new GridPane();
         BorderPane.setMargin(aanmeldenBox, new Insets(5));
-        aanmeldenBox.getStyleClass().add("greenBtn");
+        aanmeldenBox.getStyleClass().add("terugBtn");
         aanmeldenBox.getStyleClass().add("allButtons");
+        aanmeldenBox.setPadding(new Insets(5));
         setLabel();
         setAfbeelding();
         
         this.setRight(aanmeldenBox);
-        
+        aanmeldenBox.requestFocus();
         
         aanmeldenBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 aanmeldenBox.setCursor(Cursor.HAND);
-                aanmeldenBox.getStyleClass().add("hover");
+                //aanmeldenBox.getStyleClass().add("hover");
             }
         });
         aanmeldenBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -114,9 +120,9 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
             lblAanmelden = new Label("Welkom, " + ac
                 .getAangemeldeAdmin().getGebruikersnaam());
         
-        lblAanmelden.setStyle("-fx-font-size: 18px");
+        lblAanmelden.setStyle("-fx-font-size: 18px; -fx-text-color: white");
+        lblAanmelden.setTextFill(Color.web("white"));
         lblAanmelden.setPadding(new Insets(5));
-        
         aanmeldenBox.add(lblAanmelden, 0, 0);
     }
     
@@ -125,6 +131,7 @@ public class AppHeader extends BorderPane implements PropertyChangeListener{
         //signInVisibility(false);
         loginForm = new LoginForm(ac);
         Scene scene = new Scene(loginForm);
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Aanmelden");

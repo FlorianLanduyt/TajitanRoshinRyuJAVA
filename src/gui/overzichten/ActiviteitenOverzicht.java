@@ -76,7 +76,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(47);
+        super.buildGui(49);
     }
 
     private void maakFilters() {
@@ -88,6 +88,7 @@ public class ActiviteitenOverzicht extends Overzicht {
 
     private void maakTabel() {
         tvActiviteiten = new TableView<>();
+        
 
         tvActiviteiten.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldSelection, newSelection) -> {
@@ -131,6 +132,8 @@ public class ActiviteitenOverzicht extends Overzicht {
         TableColumn<Lid, String> familienaam = new TableColumn("Familienaam");
         naam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         familienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
+        
+        deelnemers.setPlaceholder(new Label("Geen deelnemers"));
         
         naam.getStyleClass().add("titelLinks");
         naam.getStyleClass().add("name-column");

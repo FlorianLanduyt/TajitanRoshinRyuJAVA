@@ -86,7 +86,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         maakTabel();
         maakDetailScherm();
 
-        super.buildGui(47);
+        super.buildGui(49);
     }
 
     private void maakFilters() {
@@ -111,6 +111,7 @@ public class InschrijvingenOverzicht extends Overzicht {
 
     private void maakTabel() {
         tvInschrijvingenTabel = new TableView<>();
+        
 
         tvInschrijvingenTabel.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             vulDetailScherm(newSelection);
@@ -155,8 +156,12 @@ public class InschrijvingenOverzicht extends Overzicht {
         tvActiviteiten.getColumns().addAll(colNaamActiviteit,colStartdatumActiviteit, colEinddatumActiviteit);
         
         tvActiviteiten.getStyleClass().add("titelLinks");
-        tvActiviteiten.getStyleClass().add("name-column");
+        colNaamActiviteit.getStyleClass().add("name-column");
+        colStartdatumActiviteit.getStyleClass().add("name-column");
+        colEinddatumActiviteit.getStyleClass().add("name-column");
         
+        tvActiviteiten.setMaxHeight(200);
+        tvActiviteiten.setPlaceholder(new Label("Geen deelnemers"));
 
         VBox formulesBox = opmaakActiviteitenTabel(tvActiviteiten);
 
@@ -187,6 +192,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         Text lblLid = new Text("Lid:");
         Text lblDatum = new Text("Datum:");
         Text lblDeelnemers = new Text("Formules:");
+        
 
         opmaakLabels(Arrays.asList(lblLid, lblDatum, lblDeelnemers));
 

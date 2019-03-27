@@ -16,16 +16,21 @@
 .root {
     -fx-font-family: "Avenir";
     -fx-font-color: black;
+    -fx-focus-color: transparent;
+}
+
+.hoofdMenuLabel{
+    -fx-font-size: 25px;
+    -fx-background-color: #dee8e2;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-padding: 0 0 0 0;
+    -fx-border-color:#996888;
 }
 
 
 .btn {
-    -fx-background-color: transparent;
 }
 
-.btn:active {
-    -fx-background-color: white;
-}
 
 .btn:hover {
     -fx-background-color: #dee8e2;
@@ -37,6 +42,11 @@
 
 .bgr {
     -fx-background-color: #dee8e2;
+}
+
+.detailScherm{
+    -fx-background-color: #E1DDE7; 
+    -fx-background-radius:15px;
 }
 
 .titel{
@@ -58,25 +68,19 @@
 }
 
 .orangeBtn {
-    -fx-background-color: #F3CAAA;
-    -fx-border-width: 2px;
-}
-
-.orangeBtn:hover{
-    -fx-background-color: white;
-    -fx-border-color: #F3CAAA;
+    -fx-background-color: #996888;
     
 }
 
 .terugBtn {
-    -fx-background-color: #F3CAAA;
-    -fx-border-color: #F3CAAA;
+    -fx-background-color: #996888;
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
 }
 
 .terugBtn:hover {
-    -fx-background-color: #dee8e2;
-    -fx-border-width: 2px;
-    -fx-border-color: #F3CAAA;
+    -fx-background-color: #B6C8C0;
+    -fx-text-fill: black;
 }
 
 .placeholder {
@@ -85,12 +89,11 @@
 
 .greyBtn {
     -fx-background-color: #D8D9D5;
-    -fx-border-width: 2px;
+    -fx-background-radius: 20;
 }
 
 .greyBtn:hover {
-    -fx-background-color: white;
-    -fx-border-color: #D8D9D5;
+    -fx-background-color: #E2BBBA;
 }
 
 .greenBtn {
@@ -120,7 +123,7 @@
 }
 
 .greyDropdown {
-    -fx-background-color: #C5C6C2;
+    -fx-background-color: #D8D9D5;
 }
 
 .greyDropdown:hover {
@@ -128,11 +131,11 @@
 }
 
 TextField {
-    -fx-background-color: #F3F2ED;
+    -fx-background-color: white;
 }
 
 .date-picker .text-field {
-    -fx-control-inner-background: #F3F2ED ;
+    -fx-control-inner-background: white ;
 }
 
 .addBtn {
@@ -150,22 +153,63 @@ TextField {
 }
 
 .removeBtn:hover {
-    -fx-background-color: #B14643;
+    -fx-background-color: #E2BBBA;
 }
 
 .txa {
-    -fx-background-color: #F3F2ED;
+    -fx-background-color: white;
     -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-control-inner-background: #F3F2ED ;
+    -fx-control-inner-background: white ;
     -fx-focus-color: transparent;
-    -fx-border-color: #F3CAAA;
+    -fx-border-color: white;
 }
 
 .txa .content {
     -fx-background-radius: 10 ;
     -fx-border-radius: 10;
 }
+
+.mk{
+    -fx-background-color: #B6C8C0;
+    
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.mk:selected{
+    -fx-background-color: #996888;
+    
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+
+.mk:hover{
+    -fx-background-color: #996888;
+    -fx-text-fill: white;
+    
+}
+
+.crud {
+    -fx-background-color: #dee8e2;
+    
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.crud:hover{
+    -fx-background-color: #B5C9C3;
+}
+
+.selectionbar {
+    -fx-selection-bar: #E1DDE7; 
+    -fx-selection-bar-non-focused: #E1DDE7;
+}
+
+.table-row-cell:selected .text {
+    
+}
+
  
 
 

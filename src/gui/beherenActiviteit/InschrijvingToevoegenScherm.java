@@ -19,6 +19,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -83,6 +85,8 @@ public class InschrijvingToevoegenScherm extends VBox {
 
         txtVoornaam = new TextField();
         txtVoornaam.setPromptText("Filter op voornaam");
+        txtFamilienaam.setStyle("-fx-background-color: white");
+        txtVoornaam.setStyle("-fx-background-color: white");
 
 
         HBox filters = new HBox(10);
@@ -108,19 +112,19 @@ public class InschrijvingToevoegenScherm extends VBox {
         colFamilienaam.setResizable(false);
         colFamilienaam.setSortable(true);
         colFamilienaam.prefWidthProperty().bind(breedteKolom);
-        colFamilienaam.getStyleClass().add("titelLinks");
+        colFamilienaam.getStyleClass().add("name-column");
 
         colVoornaam.setCellValueFactory(cellData -> cellData.getValue().voornaamProperty());
         colVoornaam.setResizable(false);
         colVoornaam.setSortable(true);
         colVoornaam.prefWidthProperty().bind(breedteKolom);
-        colVoornaam.getStyleClass().add("titelLinks");
+        colVoornaam.getStyleClass().add("name-column");
         
         colGeboorteDatum.setCellValueFactory(cellData -> cellData.getValue().geboortedatumProperty());
         colGeboorteDatum.setResizable(false);
         colGeboorteDatum.setSortable(true);
         colGeboorteDatum.prefWidthProperty().bind(breedteKolom);
-        colGeboorteDatum.getStyleClass().add("titelLinks");
+        colGeboorteDatum.getStyleClass().add("name-column");
 
         tblLeden.setItems(activiteitBeheerController.geefLedenNogNietIngeschreven(activiteit));
         tblLeden.getColumns().addAll(colFamilienaam, colVoornaam, colGeboorteDatum);
@@ -128,6 +132,11 @@ public class InschrijvingToevoegenScherm extends VBox {
         tblLeden.setScaleShape(false);
         tblLeden.setId("table");
         tblLeden.getSelectionModel().clearSelection();
+        
+        tblLeden.getStyleClass().add("titelLinks");
+        tblLeden.getStyleClass().add("name-column");
+        
+        
 
         tabel.getChildren().add(tblLeden);
         this.getChildren().add(tabel);
@@ -135,11 +144,19 @@ public class InschrijvingToevoegenScherm extends VBox {
     }
 
     public void maakButton() {
+        HBox box = new HBox();
+        Region region = new Region();
+        HBox.setHgrow(region, Priority.ALWAYS);
+        
         
         btnVoegInschrijvingToe = new Button("Voeg lid toe");
+        btnVoegInschrijvingToe.getStyleClass().add("crud");
         btnVoegInschrijvingToe.setPrefWidth(tblLeden.getPrefWidth());
-        VBox button = new VBox(btnVoegInschrijvingToe);
-        button.setPadding(new Insets(5,5,5,5));
+        
+        box.getChildren().addAll(region,btnVoegInschrijvingToe);
+        
+        VBox button = new VBox(box);
+        button.setPadding(new Insets(5));
         this.getChildren().add(button);
     }
     
