@@ -265,14 +265,12 @@ public class LidBeherenScherm extends Overzicht {
         txfAchternaam.setPromptText("Familienaam");
         txfVoornaam = new TextField();
         txfVoornaam.setPromptText("Voornaam");
-        txfVoornaam.setStyle("-fx-background-color: #F3F2ED");
 
         //rij3
         lblGeboorteDatum.setPadding(insetsLabel);
         lblGeboortePlaats.setPadding(insetsLabel);
         dpGeboorteDatum = new DatePicker();
         dpGeboorteDatum.setMaxWidth(300);
-        dpGeboorteDatum.setStyle("-fx-background-color: #F3F2ED");
         txfGeboorteplaats = new TextField();
         txfGeboorteplaats.setPromptText("Stad");
 

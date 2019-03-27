@@ -45,7 +45,7 @@
 }
 
 .detailScherm{
-    -fx-background-color: #ECE3E9; 
+    -fx-background-color: #E1DDE7; 
     -fx-background-radius:15px;
 }
 
@@ -131,11 +131,11 @@
 }
 
 TextField {
-    -fx-background-color: #F3F2ED;
+    -fx-background-color: white;
 }
 
 .date-picker .text-field {
-    -fx-control-inner-background: #F3F2ED ;
+    -fx-control-inner-background: white ;
 }
 
 .addBtn {
@@ -157,12 +157,11 @@ TextField {
 }
 
 .txa {
-    -fx-background-color: #F3F2ED;
+    -fx-background-color: white;
     -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-control-inner-background: #F3F2ED ;
+    -fx-control-inner-background: white ;
     -fx-focus-color: transparent;
-    -fx-border-color: #F3CAAA;
+    -fx-border-color: white;
 }
 
 .txa .content {
@@ -203,12 +202,12 @@ TextField {
 }
 
 .selectionbar {
-    -fx-selection-bar: #996888; 
-    -fx-selection-bar-non-focused: #ECE3E9;
+    -fx-selection-bar: #E1DDE7; 
+    -fx-selection-bar-non-focused: #E1DDE7;
 }
 
 .table-row-cell:selected .text {
-    -fx-fill: white ;
+    
 }
 
  
