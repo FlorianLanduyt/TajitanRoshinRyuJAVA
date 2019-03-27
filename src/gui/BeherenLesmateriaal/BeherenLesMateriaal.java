@@ -407,7 +407,9 @@ public class BeherenLesMateriaal extends Overzicht {
                 }
             } catch (IllegalArgumentException e) {
                 super.setErrorLabelText(e.getMessage());
-            }
+            } catch(Exception e) { 
+                super.setErrorLabelText(e.getMessage());
+        }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fout");
@@ -432,6 +434,8 @@ public class BeherenLesMateriaal extends Overzicht {
             btnSlaNieuweGegevensLesmateriaalOp.setText("Lesmateriaal toevoegen");
             cancelToevoegenNieuwLesmateriaal();
         } catch (IllegalArgumentException e) {
+            super.setErrorLabelText(e.getMessage());
+        } catch(Exception e) { 
             super.setErrorLabelText(e.getMessage());
         }
     }

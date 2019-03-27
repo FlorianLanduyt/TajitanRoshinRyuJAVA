@@ -550,6 +550,8 @@ public class ActiviteitenBeherenScherm extends Overzicht {
             txtMaxAantalDeelnemers.clear();
         } catch (IllegalArgumentException e) {
             super.setErrorLabelText(e.getMessage());
+        } catch(Exception e) { 
+            super.setErrorLabelText(e.getMessage());
         }
         
     }
@@ -577,12 +579,15 @@ public class ActiviteitenBeherenScherm extends Overzicht {
             txtMaxAantalDeelnemers.clear();
         } catch (IllegalArgumentException e) {
             super.setErrorLabelText(e.getMessage());
+        } catch(Exception e) { 
+            super.setErrorLabelText(e.getMessage());
         }
 
     }
 
     private void verwijderActiviteit() {
         Activiteit activiteit = tvActiviteiten.getSelectionModel().getSelectedItem();
+        int index = tvActiviteiten.getSelectionModel().getFocusedIndex();
         if (abc.geefInschrijvingenVanActiviteit(activiteit).isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Bevestiging verwijderen");
@@ -594,11 +599,15 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                 abc.verwijderActiviteit(activiteit);
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("FOUT!");
-            alert.setHeaderText("Verwijderen gaat niet!");
-            alert.setContentText(String.format("%s bevat nog deelnemers!", activiteit.getNaam()));
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("FOUT!");
+//            alert.setHeaderText("Verwijderen gaat niet!");
+//            alert.setContentText(String.format("%s bevat nog deelnemers!", activiteit.getNaam()));
+//            alert.showAndWait();
+            
+            tvActiviteiten.getSelectionModel().select(index);
+            super.setErrorLabelText(String.format("Verwijderen gaat niet! %s bevat nog deelnemers.", activiteit.getNaam()));
+            
         }
 
     }
