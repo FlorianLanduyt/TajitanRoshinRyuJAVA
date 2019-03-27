@@ -628,7 +628,7 @@ public class LidTest {
     public void lid_SetRijksregisterNr_VoegLidToeMetNietUniekRijksregisterNr_ZonderTekens_ThrowsIllegalArgumentException() {
         LidBeheerderController lc = new LidBeheerderController();
         lc.voegLidToe("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
-                "97071735755", "0479330959", "051303050", "Winkelhoekstraat",
+                "97071700123", "0479330959", "051303050", "Winkelhoekstraat",
                 "Izegem", "52", "5a", "8870", "tim.geldof@outlook.com",
                 "tim.geldof@hotmail.com", "tim.geldof@skynet.be", "Gent",
                 "azae844", "Belg", "Student", Graad.DAN1, Functie.LID, "Man", Formule.WO);
@@ -638,7 +638,7 @@ public class LidTest {
     public void lid_SetRijksregisterNr_VoegLidToeMetNietUniekRijksregisterNr_MetTekens_ThrowsIllegalArgumentException() {
         LidBeheerderController lc = new LidBeheerderController();
         lc.voegLidToe("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
-                "97.07.17-357.55", "0479330959", "051303050", "Winkelhoekstraat",
+                "97.07.17-001.23", "0479330959", "051303050", "Winkelhoekstraat",
                 "Izegem", "52", "5a", "8870", "tim.geldof@outlook.com",
                 "tim.geldof@hotmail.com", "tim.geldof@skynet.be", "Gent",
                 "azae844", "Belg", "Student", Graad.DAN1, Functie.LID, "Man", Formule.WO);
