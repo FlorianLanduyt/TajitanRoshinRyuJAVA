@@ -243,8 +243,8 @@ public class LidBeheerderController {
     private boolean isRijksregisterNummerUniek(String rijksregisterNr) {
         return dataController.geefLeden()
                 .stream()
-                .filter(lid -> lid.getRijksregisterNr().replaceAll("-", "").replaceAll(".", "")
-                .equals(rijksregisterNr.replaceAll("-", "").replaceAll(".", "")))
+                .filter(lid -> lid.getRijksregisterNr().replaceAll("\\.", "").replaceAll("-", "")
+                .equals(rijksregisterNr.replaceAll("\\.", "").replaceAll("-", "")))
                 .count() == 0;
     }
 

@@ -421,6 +421,7 @@ public class Lid implements Serializable {
 
     public void setBus(String bus) {
         if (bus != null) {
+            bus = bus.trim();
             if (bus.length() > 5) {
                 throw new IllegalArgumentException("Bus mag max. 5 karakters bevatten.");
             }
@@ -596,10 +597,11 @@ public class Lid implements Serializable {
 
     public void setBeroep(String beroep) {
         if (beroep != null) {
-            if (beroep.length() <= 50) {
-                this.beroep = beroep;
-            } else {
+            beroep = beroep.trim();
+            if (beroep.length() > 50) {
                 throw new IllegalArgumentException("Beroep mag max. 50 karakters bevatten.");
+            } else {
+                this.beroep = beroep;
             }
         } else {
             this.beroep = null;

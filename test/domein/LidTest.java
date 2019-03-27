@@ -1,5 +1,7 @@
 package domein;
 
+import domein.controllers.LidBeheerderController;
+import domein.enums.Formule;
 import domein.enums.Functie;
 import domein.enums.Graad;
 import java.time.LocalDate;
@@ -593,11 +595,95 @@ public class LidTest {
     }
 
     //RijksregisterNummer
-    
-    //-------------------------
-    //-------------------------
-    //-------------------------
-    //-------------------------
-    //Geslacht
-    //Beroep (zoals bus, bus moet nog aangepast worden! alsook in activiteit!)
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetRijksregisterNr_Null_ThrowsIllegalArgumentException() {
+        lid.setRijksregisterNr(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetRijksregisterNr_Empty_ThrowsIllegalArgumentException() {
+        lid.setRijksregisterNr("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetRijksregisterNr_GeslachtFout_ThrowsIllegalArgumentException() {
+        lid.setGeslacht("vrouw");
+        lid.setRijksregisterNr("97.07.17-357.55");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetRijksregisterNr_GeboortedatumFout_ThrowsIllegalArgumentException() {
+        lid.setGeboortedatum(LocalDate.of(1997, Month.DECEMBER, 8));
+        lid.setRijksregisterNr("97.07.17-357.55");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetRijksregisterNr_GeboortedatumFout_GeslachtFout_ThrowsIllegalArgumentException() {
+        lid.setGeboortedatum(LocalDate.of(1997, Month.DECEMBER, 8));
+        lid.setGeslacht("vrouw");
+        lid.setRijksregisterNr("97.07.17-357.55");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetRijksregisterNr_VoegLidToeMetNietUniekRijksregisterNr_ZonderTekens_ThrowsIllegalArgumentException() {
+        LidBeheerderController lc = new LidBeheerderController();
+        lc.voegLidToe("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
+                "97071735755", "0479330959", "051303050", "Winkelhoekstraat",
+                "Izegem", "52", "5a", "8870", "tim.geldof@outlook.com",
+                "tim.geldof@hotmail.com", "tim.geldof@skynet.be", "Gent",
+                "azae844", "Belg", "Student", Graad.DAN1, Functie.LID, "Man", Formule.WO);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lid_SetRijksregisterNr_VoegLidToeMetNietUniekRijksregisterNr_MetTekens_ThrowsIllegalArgumentException() {
+        LidBeheerderController lc = new LidBeheerderController();
+        lc.voegLidToe("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
+                "97.07.17-357.55", "0479330959", "051303050", "Winkelhoekstraat",
+                "Izegem", "52", "5a", "8870", "tim.geldof@outlook.com",
+                "tim.geldof@hotmail.com", "tim.geldof@skynet.be", "Gent",
+                "azae844", "Belg", "Student", Graad.DAN1, Functie.LID, "Man", Formule.WO);
+    }
+
+    @Test
+    public void lid_SetRijksregisterNr_VerwijderLid_VoegLidToeMetRijksregisterNrVerwijderdLid_ZonderTekens_Correct() {
+        LidBeheerderController lc = new LidBeheerderController();
+        Lid lidTeVerwijderen = lc.geefAlleLeden().get(0);
+        lc.verwijderLid(lidTeVerwijderen);
+        lc.voegLidToe("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
+                "97071735755", "0479330959", "051303050", "Winkelhoekstraat",
+                "Izegem", "52", "5a", "8870", "tim.geldof@outlook.com",
+                "tim.geldof@hotmail.com", "tim.geldof@skynet.be", "Gent",
+                "azae844", "Belg", "Student", Graad.DAN1, Functie.LID, "Man", Formule.WO);
+        Assert.assertEquals("97071735755", lc.geefAlleLeden().get(lc.geefAlleLeden().size() - 1).getRijksregisterNr());
+    }
+
+    @Test
+    public void lid_SetRijksregisterNr_VerwijderLid_VoegLidToeMetRijksregisterNrVerwijderdLid_MetTekens_Correct() {
+        LidBeheerderController lc = new LidBeheerderController();
+        Lid lidTeVerwijderen = lc.geefAlleLeden().get(0);
+        lc.verwijderLid(lidTeVerwijderen);
+        lc.voegLidToe("Tim", "Geldof", LocalDate.of(1997, Month.JULY, 17),
+                "97.07.17-357.55", "0479330959", "051303050", "Winkelhoekstraat",
+                "Izegem", "52", "5a", "8870", "tim.geldof@outlook.com",
+                "tim.geldof@hotmail.com", "tim.geldof@skynet.be", "Gent",
+                "azae844", "Belg", "Student", Graad.DAN1, Functie.LID, "Man", Formule.WO);
+        Assert.assertEquals("97.07.17-357.55", lc.geefAlleLeden().get(lc.geefAlleLeden().size() - 1).getRijksregisterNr());
+    }
+
+    @Test
+    public void lid_SetRijksregisterNr_ZonderTekens_Correct() {
+        lid.setGeboortedatum(LocalDate.of(1999, Month.DECEMBER, 8));
+        lid.setRijksregisterNr("99120817304");
+        Assert.assertEquals("99120817304", lid.getRijksregisterNr());
+    }
+
+    @Test
+    public void lid_SetRijksregisterNr_MetTekens_Correct() {
+        lid.setGeboortedatum(LocalDate.of(1999, Month.DECEMBER, 8));
+        lid.setRijksregisterNr("99.12.08-173.04");
+        Assert.assertEquals("99.12.08-173.04", lid.getRijksregisterNr());
+    }
+
+    //Bus
+    //Beroep
 }
