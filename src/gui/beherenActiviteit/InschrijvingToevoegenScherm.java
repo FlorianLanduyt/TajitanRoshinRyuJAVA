@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -42,6 +43,8 @@ public class InschrijvingToevoegenScherm extends VBox {
     private TableColumn<Lid, String> colGeboorteDatum;
 
     private Button btnVoegInschrijvingToe;
+    private Button btnAnnuleer;
+    private final Label lblError = new Label("");
 
     public InschrijvingToevoegenScherm(ActiviteitenBeherenScherm beherenActiviteitSchermController, ActiviteitBeheerController activiteitBeheerController, Activiteit activiteit) {
         this.beherenActiviteitSchermController = beherenActiviteitSchermController;
@@ -65,17 +68,23 @@ public class InschrijvingToevoegenScherm extends VBox {
         btnVoegInschrijvingToe.setOnAction((ActionEvent event) -> {
             Lid lid = tblLeden.getSelectionModel().getSelectedItem();
             if (lid == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("FOUT!");
-                alert.setHeaderText("Ongekend lid");
-                alert.setContentText("U moet nog een lid selecteren!");
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("FOUT!");
+//                alert.setHeaderText("Ongekend lid");
+//                alert.setContentText("U moet nog een lid selecteren!");
+//                alert.showAndWait();
+                  lblError.setText("U moet nog een lid selecteren!");
             }
             else{
                 activiteitBeheerController.voegInschrijvingToe(activiteit, lid);
                 Stage stage = (Stage) (getScene().getWindow());
                 stage.close();
             }
+        });
+        
+        btnAnnuleer.setOnAction((ActionEvent event) -> {
+            Stage stage = (Stage) (getScene().getWindow());
+            stage.close();
         });
     }
 
@@ -136,10 +145,16 @@ public class InschrijvingToevoegenScherm extends VBox {
         tblLeden.getStyleClass().add("titelLinks");
         tblLeden.getStyleClass().add("name-column");
         
+        tblLeden.getStyleClass().add("selectionbar");
         
+        lblError.setStyle("-fx-font-size: 15");
+        lblError.setTextFill(Color.web("#B14643"));
 
         tabel.getChildren().add(tblLeden);
+        tabel.getChildren().add(lblError);
+        
         this.getChildren().add(tabel);
+        //this.getChildren().add(lblError);
 
     }
 
@@ -150,10 +165,16 @@ public class InschrijvingToevoegenScherm extends VBox {
         
         
         btnVoegInschrijvingToe = new Button("Voeg lid toe");
+        btnVoegInschrijvingToe.setStyle("-fx-font-size:15");
+        btnAnnuleer = new Button("Annuleer");
         btnVoegInschrijvingToe.getStyleClass().add("crud");
+        btnAnnuleer.getStyleClass().add("greyBtn");
         btnVoegInschrijvingToe.setPrefWidth(tblLeden.getPrefWidth());
+        btnVoegInschrijvingToe.setMinWidth(100);
+        btnAnnuleer.setPrefWidth(tblLeden.getPrefWidth());
+        btnAnnuleer.setMinWidth(100);
         
-        box.getChildren().addAll(region,btnVoegInschrijvingToe);
+        box.getChildren().addAll(btnAnnuleer,region,btnVoegInschrijvingToe);
         
         VBox button = new VBox(box);
         button.setPadding(new Insets(5));

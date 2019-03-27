@@ -320,7 +320,7 @@ public class LidBeherenScherm extends Overzicht {
         cboGraad.setItems(lc.geefGraden());
         cboGraad.getStyleClass().add("greyDropdown");
         cboGraad.setMaxWidth(300);
-        cboGraad.setPromptText("Geslacht");
+        cboGraad.setPromptText("Graad");
 
         //rij9
         lblEmailmoeder.setPadding(insetsLabel);
@@ -400,7 +400,7 @@ public class LidBeherenScherm extends Overzicht {
         btnWijzigingenOpslaan.getStyleClass().add("allButtons");
         btnWijzigingenOpslaan.getStyleClass().add("crud");
 
-        btnCancel = new Button("Cancel");
+        btnCancel = new Button("Annuleer");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
 

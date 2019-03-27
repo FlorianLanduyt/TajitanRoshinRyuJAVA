@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -162,6 +163,7 @@ public class InschrijvingenOverzicht extends Overzicht {
         
         tvActiviteiten.setMaxHeight(200);
         tvActiviteiten.setPlaceholder(new Label("Geen deelnemers"));
+        tvActiviteiten.setPadding(new Insets(-10,0,0,0));
 
         VBox formulesBox = opmaakActiviteitenTabel(tvActiviteiten);
 

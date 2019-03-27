@@ -15,6 +15,7 @@ import gui.BeginSchermFlo;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -135,6 +136,7 @@ public class Clubkampioenschap extends Overzicht{
         aanwezighedenTabel.getStyleClass().add("kleineTabel");
         
         aanwezighedenTabel.setPlaceholder(new Label("Geen aanwezigheden"));
+        aanwezighedenTabel.setPadding(new Insets(-10,0,0,0));
         
 
         VBox raadplegingBox = opmaakAanwezigheidsTabel(aanwezighedenTabel);

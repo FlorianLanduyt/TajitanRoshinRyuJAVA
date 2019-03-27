@@ -72,7 +72,6 @@ public class BeherenLesMateriaal extends Overzicht {
     private Button btnCancel;
     private Button btnSlaNieuweGegevensLesmateriaalOp;
     
-    private VBox overzicht;
 
     public BeherenLesMateriaal(BeginSchermFlo parent, AdminController ac, String naamVenster) {
         super(parent, ac, naamVenster);
@@ -262,7 +261,7 @@ public class BeherenLesMateriaal extends Overzicht {
         btnLesmateriaalWijzigen.getStyleClass().add("allButtons");
         btnLesmateriaalWijzigen.getStyleClass().add("crud");
 
-        btnCancel = new Button("Cancel");
+        btnCancel = new Button("Annuleer");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
 

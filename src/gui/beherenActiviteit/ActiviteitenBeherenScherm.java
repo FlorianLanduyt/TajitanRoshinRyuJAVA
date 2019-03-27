@@ -267,6 +267,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         txtNaamActiviteit = new TextField();
         cboType = new ComboBox<>();
         cboType.setMaxWidth(300);
+        cboType.setPromptText("Type");
         cboType.setItems(abc.geefFormules());
         cboType.getStyleClass().add("greyDropdown");
         
@@ -413,12 +414,12 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         btnWijzigActiviteit.getStyleClass().add("allButtons");
         btnWijzigActiviteit.getStyleClass().add("crud");
         
-        btnCancel = new Button("Ongedaan maken");
+        btnCancel = new Button("Annuleer");
         btnCancel.getStyleClass().add("greyBtn");
         btnCancel.getStyleClass().add("allButtons");
         
         btnSlaGegevensNieuweActiviteitOp = new Button("Activiteit toevoegen");
-        btnSlaGegevensNieuweActiviteitOp.getStyleClass().add("mk");
+        btnSlaGegevensNieuweActiviteitOp.getStyleClass().add("crud");
         btnSlaGegevensNieuweActiviteitOp.getStyleClass().add("allButtons");
         
         

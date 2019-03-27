@@ -134,6 +134,7 @@ public class ActiviteitenOverzicht extends Overzicht {
         familienaam.setCellValueFactory(cellData -> cellData.getValue().achternaamProperty());
         
         deelnemers.setPlaceholder(new Label("Geen deelnemers"));
+        deelnemers.getStyleClass().add("selectionbarKlein");
         
         naam.getStyleClass().add("titelLinks");
         naam.getStyleClass().add("name-column");

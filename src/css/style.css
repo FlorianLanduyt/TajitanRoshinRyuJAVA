@@ -130,12 +130,26 @@
     -fx-background-color: #9E9E9B;
 }
 
+
+
 TextField {
     -fx-background-color: white;
 }
 
+.check-box.box {
+
+    -fx-box-color: #D8D9D5;
+    
+
+}
+
+DatePicker {
+    -fx-background-color: #D8D9D5 ;
+}
+
 .date-picker .text-field {
     -fx-control-inner-background: white ;
+    
 }
 
 .addBtn {
@@ -159,6 +173,7 @@ TextField {
 .txa {
     -fx-background-color: white;
     -fx-background-radius: 10;
+    -fx-border-radius: 10;
     -fx-control-inner-background: white ;
     -fx-focus-color: transparent;
     -fx-border-color: white;
@@ -205,6 +220,7 @@ TextField {
     -fx-selection-bar: #E1DDE7; 
     -fx-selection-bar-non-focused: #E1DDE7;
 }
+
 
 .table-row-cell:selected .text {
     
