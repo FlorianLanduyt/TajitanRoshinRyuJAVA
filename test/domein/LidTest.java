@@ -683,7 +683,4 @@ public class LidTest {
         lid.setRijksregisterNr("99.12.08-173.04");
         Assert.assertEquals("99.12.08-173.04", lid.getRijksregisterNr());
     }
-
-    //Bus
-    //Beroep
 }
