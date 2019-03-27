@@ -72,8 +72,6 @@
     
 }
 
-
-
 .terugBtn {
     -fx-background-color: #996888;
     -fx-background-radius: 20;
@@ -203,6 +201,16 @@ TextField {
 .crud:hover{
     -fx-background-color: #B5C9C3;
 }
+
+.selectionbar {
+    -fx-selection-bar: #996888; 
+    -fx-selection-bar-non-focused: #ECE3E9;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: white ;
+}
+
  
 
 

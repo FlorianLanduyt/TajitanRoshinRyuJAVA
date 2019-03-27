@@ -19,6 +19,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -83,6 +85,8 @@ public class InschrijvingToevoegenScherm extends VBox {
 
         txtVoornaam = new TextField();
         txtVoornaam.setPromptText("Filter op voornaam");
+        txtFamilienaam.setStyle("-fx-background-color: white");
+        txtVoornaam.setStyle("-fx-background-color: white");
 
 
         HBox filters = new HBox(10);
@@ -140,10 +144,18 @@ public class InschrijvingToevoegenScherm extends VBox {
     }
 
     public void maakButton() {
+        HBox box = new HBox();
+        Region region = new Region();
+        HBox.setHgrow(region, Priority.ALWAYS);
+        
         
         btnVoegInschrijvingToe = new Button("Voeg lid toe");
+        btnVoegInschrijvingToe.getStyleClass().add("crud");
         btnVoegInschrijvingToe.setPrefWidth(tblLeden.getPrefWidth());
-        VBox button = new VBox(btnVoegInschrijvingToe);
+        
+        box.getChildren().addAll(region,btnVoegInschrijvingToe);
+        
+        VBox button = new VBox(box);
         button.setPadding(new Insets(5));
         this.getChildren().add(button);
     }

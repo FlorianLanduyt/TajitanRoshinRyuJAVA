@@ -190,6 +190,7 @@ public class Overzicht<T> extends BorderPane {
         tvTabel.setScaleShape(false);
         tvTabel.setId("table");
         tvTabel.getSelectionModel().clearSelection();
+        tvTabel.getStyleClass().add("selectionbar");
 
         tvTabel.getStyleClass().add("table-row-cell");
     }

@@ -505,6 +505,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
                     abc, activiteit);
 
             Scene scene = new Scene(inschrijvingToevoegenScherm, 400, 400);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Toevoegen lid");

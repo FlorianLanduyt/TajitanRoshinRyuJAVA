@@ -49,6 +49,10 @@ public class LoginForm extends AnchorPane {
             throw new RuntimeException(ex);
         }
         
+        btnCancel.getStyleClass().add("greyBtn");
+        btnLogin.getStyleClass().add("crud");
+        txfPassword.setStyle("-fx-background-color: white;");
+        txfUsername.setStyle("-fx-background-color: white;");
         
     }
 
