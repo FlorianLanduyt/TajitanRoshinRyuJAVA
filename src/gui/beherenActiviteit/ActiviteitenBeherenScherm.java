@@ -90,6 +90,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
 
         maakOverzicht();
         
+        
         cbFilterVolzet.setOnAction((ActionEvent event) -> {
             filter();
         });
@@ -111,6 +112,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         });
         
         btnActiviteitVerwijderen.setOnAction((ActionEvent event) -> {
+            super.setErrorLabelText("");
             verwijderActiviteit();
         });
 
@@ -119,6 +121,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         });
         
         btnWijzigActiviteit.setOnAction((ActionEvent event) -> {
+            super.setErrorLabelText("");
             wijzigActiviteit();
         });
         
@@ -127,10 +130,12 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         });
         
         btnVoegDeelnemerToe.setOnAction((ActionEvent event) -> {
+            super.setErrorLabelText("");
             voegDeelnemerToe();
         });
         
         btnVerwijderDeelnemer.setOnAction((ActionEvent event) -> {
+            super.setErrorLabelText("");
             verwijderDeelnemer();
         });
         
@@ -169,6 +174,7 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         
         tvActiviteiten.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldSelection, newSelection) -> {
+                    super.setErrorLabelText("");
                     vulDetailScherm(newSelection);
                 });
         
@@ -177,6 +183,8 @@ public class ActiviteitenBeherenScherm extends Overzicht {
         tvActiviteiten.setPlaceholder(tabelPlaceholder);
         
         maakKolommenInTabel();
+        
+        
         tvActiviteiten.setItems((abc.geefObservableListActiviteiten()));
         super.setTvTabel(tvActiviteiten);
 
