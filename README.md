@@ -8,7 +8,3 @@ The desktop application for Taijitan Yoshin Ryu vzw Jiu Jitsu club, written in J
 
 ## Date of start
 20th of February 2019
-
-## Features
-
-## How to use
